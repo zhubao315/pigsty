@@ -1,0 +1,97 @@
+---
+#==============================================================#
+# File      :   gdmp.yml
+# Desc      :   Pigsty Local 4-node Config
+# Ctime     :   2020-05-22
+# Mtime     :   2023-09-26
+# Docs      :   https://doc.pigsty.cc/#/CONFIG
+# Author    :   Ruohang Feng (rh@vonng.com)
+# License   :   AGPLv3
+#==============================================================#
+
+
+all:
+  children:
+
+    # infra cluster for proxy, monitor, alert, etc..
+    infra: { hosts: { 192.168.1.71: { infra_seq: 1 } }}
+
+    # minio cluster, s3 compatible object storage
+    minio: { hosts: { 192.168.1.71: { minio_seq: 1 } }, vars: { minio_cluster: minio } }
+
+    # etcd cluster for ha postgres
+    etcd: 
+       hosts:
+        192.168.1.68: { etcd_seq: 1 }
+        192.168.1.69: { etcd_seq: 2 }
+        192.168.1.70: { etcd_seq: 3 } 
+       vars: 
+        etcd_cluster: etcd
+        node_cluster: etcd
+
+    # postgres example cluster: pg-meta
+    pg-meta:
+      hosts: { 192.168.1.71: { pg_seq: 1, pg_role: primary } }
+      vars:
+        pg_cluster: pg-meta
+        pg_users:
+          - {name: dbuser_meta     ,password: DBUser.Meta     ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: pigsty admin user }
+          - {name: dbuser_view     ,password: DBUser.Viewer   ,pgbouncer: true ,roles: [dbrole_readonly] ,comment: read-only viewer for meta database }
+          - {name: dbuser_grafana  ,password: DBUser.Grafana  ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: admin user for grafana database    }
+        pg_databases:
+          - { name: meta ,baseline: cmdb.sql ,comment: pigsty meta database ,schemas: [pigsty] ,extensions: [{name: postgis, schema: public}, {name: timescaledb}]}
+          - { name: grafana  ,owner: dbuser_grafana  ,revokeconn: true ,comment: grafana primary database }
+        pg_hba_rules:
+          - {user: dbuser_view , db: all ,addr: infra ,auth: pwd ,title: 'allow grafana dashboard access cmdb from infra nodes'}
+        pg_vip_enabled: false
+        pg_vip_address: 192.168.1.71/23
+        pg_vip_interface: eth0
+        node_crontab:  # make a full backup 1 am everyday
+          - '00 01 * * * postgres /pg/bin/pg-backup full'
+
+    # pgsql 3 node ha cluster: pg-gdmp
+    pg-gdmp:
+      hosts:
+        192.168.1.68: { pg_seq: 1, pg_role: primary }   # primary instance, leader of cluster
+        192.168.1.69: { pg_seq: 2, pg_role: replica }   # replica instance, follower of leader
+        192.168.1.70: { pg_seq: 3, pg_role: replica, pg_offline_query: true } # replica with offline access
+      vars:
+        pg_cluster: pg-gdmp           # define pgsql cluster name
+        pg_users:  [{ name: gdmp , password: Rofine321 , pgbouncer: true , roles: [ dbrole_admin ] }]
+        pg_databases: [{ name: gdmp }]
+        pg_vip_enabled: true
+        pg_vip_address: 192.168.1.99/23
+        pg_vip_interface: eth0
+        node_tune: oltp
+        pg_conf: oltp.yml
+        node_crontab:  # make a full backup on monday 1am, and an incremental backup during weekdays
+          - '00 01 * * 1 postgres /pg/bin/pg-backup full'
+          - '00 01 * * 2,3,4,5,6,7 postgres /pg/bin/pg-backup'
+
+  vars:                               # global variables
+    version: v2.4.1                   # pigsty version string
+    admin_ip: 192.168.1.71             # admin node ip address
+    region: default                   # upstream mirror region: default|china|europe
+    node_tune: oltp
+    pg_conf: oltp.yml
+    infra_portal:                     # domain names and upstream servers
+      home         : { domain: h.pigsty }
+      grafana      : { domain: g.pigsty ,endpoint: "${admin_ip}:3000" , websocket: true }
+      prometheus   : { domain: p.pigsty ,endpoint: "${admin_ip}:9090" }
+      alertmanager : { domain: a.pigsty ,endpoint: "${admin_ip}:9093" }
+      blackbox     : { endpoint: "${admin_ip}:9115" }
+      loki         : { endpoint: "${admin_ip}:3100" }
+      minio        : { domain: sss.pigsty  ,endpoint: "${admin_ip}:9001" ,scheme: https ,websocket: true }
+    nginx_navbar:                    # application nav links on home page
+      - { name: Minio      , url : 'http://sss.pigsty'  , comment: 'Minio Object Storage'     }
+      - { name: Explain    , url : '/pigsty/pev.html'   , comment: 'pgsql explain visualizer' }
+      - { name: Package    , url : '/pigsty'            , comment: 'local yum repo packages'  }
+      - { name: PG Logs    , url : '/logs'              , comment: 'postgres raw csv logs'    }
+      - { name: Schemas    , url : '/schema'            , comment: 'schemaspy summary report' }
+      - { name: Reports    , url : '/report'            , comment: 'pgbadger summary report'  }
+    node_timezone: Asia/Hong_Kong     # use Asia/Hong_Kong Timezone
+    node_ntp_servers:                 # NTP servers in /etc/chrony.conf
+      - pool cn.pool.ntp.org iburst
+      - pool ${admin_ip} iburst       # assume non-admin nodes does not have internet access
+    pgbackrest_method: minio          # pgbackrest repo method: local,minio,[user-defined...]
+...
