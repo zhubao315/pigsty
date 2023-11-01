@@ -49,6 +49,7 @@ all:
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.2/24
         pg_vip_interface: eth1
+        pg_libs: 'timescaledb, pg_stat_statements, auto_explain' # add timescaledb to shared_preload_libraries
         node_crontab:  # make a full backup 1 am everyday
           - '00 01 * * * postgres /pg/bin/pg-backup full'
 
@@ -93,7 +94,7 @@ all:
 
 
   vars:                               # global variables
-    version: v2.4.1                   # pigsty version string
+    version: v2.5.0                   # pigsty version string
     admin_ip: 10.10.10.10             # admin node ip address
     region: default                   # upstream mirror region: default|china|europe
     node_tune: tiny                   # use tiny template for NODE  in demo environment
@@ -113,6 +114,7 @@ all:
       gitea        : { domain: git.pigsty  ,endpoint: "127.0.0.1:8889" }
       wiki         : { domain: wiki.pigsty ,endpoint: "127.0.0.1:9002" }
       noco         : { domain: noco.pigsty ,endpoint: "127.0.0.1:9003" }
+      supa         : { domain: supa.pigsty ,endpoint: "10.10.10.10:8000", websocket: true }
     nginx_navbar:                    # application nav links on home page
       - { name: PgAdmin4   , url : 'http://adm.pigsty'  , comment: 'PgAdmin4 for PostgreSQL'  }
       - { name: PGWeb      , url : 'http://cli.pigsty'  , comment: 'PGWEB Browser Client'     }
@@ -131,4 +133,9 @@ all:
       - pool cn.pool.ntp.org iburst
       - pool ${admin_ip} iburst       # assume non-admin nodes does not have internet access
     pgbackrest_method: minio          # pgbackrest repo method: local,minio,[user-defined...]
+    pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
+      - pg_repack_15* wal2json_15* passwordcheck_cracklib_15* pg_cron_15*
+      - postgis34_15* timescaledb-2-postgresql-15* pgvector_15* hydra_15* pgml_15* apache-age_15 # citus_15*
+      - pointcloud_15* pg_tle_15* pgsql-http_15* zhparser_15* pg_roaringbitmap_15* pg_net_15* vault_15 pg_graphql_15*
+    pg_libs: 'pg_stat_statements, auto_explain'  # extensions to be loaded
 ...

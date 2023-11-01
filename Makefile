@@ -2,23 +2,26 @@
 # File      :   Makefile
 # Desc      :   pigsty shortcuts
 # Ctime     :   2019-04-13
-# Mtime     :   2023-08-19
+# Mtime     :   2023-10-15
 # Path      :   Makefile
 # Author    :   Ruohang Feng (rh@vonng.com)
 # License   :   AGPLv3
 #==============================================================#
-# pigsty version & default develop & testing el version
-VERSION?=v2.4.1
-EL_VER=9
+# pigsty version string
+VERSION?=v2.5.0
 
-# local name
+# variables
 SRC_PKG=pigsty-$(VERSION).tgz
 APP_PKG=pigsty-app-$(VERSION).tgz
-REPO_PKG=pigsty-pkg-$(VERSION).el${EL_VER}.x86_64.tgz
 DOCKER_PKG=pigsty-docker-$(VERSION).tgz
 EL7_PKG=pigsty-pkg-$(VERSION).el7.x86_64.tgz
 EL8_PKG=pigsty-pkg-$(VERSION).el8.x86_64.tgz
 EL9_PKG=pigsty-pkg-$(VERSION).el9.x86_64.tgz
+D11_PKG=pigsty-pkg-$(VERSION).debian11.x86_64.tgz
+D12_PKG=pigsty-pkg-$(VERSION).debian12.x86_64.tgz
+U20_PKG=pigsty-pkg-$(VERSION).ubuntu20.x86_64.tgz
+U22_PKG=pigsty-pkg-$(VERSION).ubuntu22.x86_64.tgz
+
 
 ###############################################################
 #                      1. Quick Start                         #
@@ -37,10 +40,9 @@ link:
 	@echo 'bash -c "$$(curl -fsSL https://get.pigsty.cc/latest)"'
 	@echo "[Github Download]"
 	@echo "curl -SL https://github.com/Vonng/pigsty/releases/download/${VERSION}/${SRC_PKG} | gzip -d | tar -xC ~ ; cd ~/pigsty"
-	@echo "curl -SL https://github.com/Vonng/pigsty/releases/download/${VERSION}/${REPO_PKG} -o /tmp/pkg.tgz  # [optional]"
 	@echo "[CDN Download]"
 	@echo "curl -SL https://get.pigsty.cc/${VERSION}/${SRC_PKG} | gzip -d | tar -xC ~ ; cd ~/pigsty"
-	@echo "curl -SL https://get.pigsty.cc/${VERSION}/${REPO_PKG} -o /tmp/pkg.tgz # [optional]"
+
 
 # serve a local docs with docsify or python http
 doc:
@@ -91,10 +93,6 @@ install:
 # get latest stable version to ~/pigsty
 src:
 	curl -SL https://github.com/Vonng/pigsty/releases/download/${VERSION}/${SRC_PKG} -o ~/pigsty.tgz
-
-# download pkg.tgz to /tmp/pkg.tgz
-pkg:
-	curl -SL https://github.com/Vonng/pigsty/releases/download/${VERSION}/${REPO_PKG} -o /tmp/pkg.tgz
 ###############################################################
 
 
@@ -129,9 +127,12 @@ repo:
 repo-upstream:
 	./infra.yml --tags=repo_upstream
 
+repo-check:
+	./install.yml -t node_repo,node_pkg,infra_pkg,pg_install
+
 # download repo packages
 repo-build:
-	sudo rm -rf /www/pigsty/repo_complete
+	ansible infra -b -a 'rm -rf /www/pigsty/repo_complete'
 	./infra.yml --tags=repo_upstream,repo_build
 
 # init prometheus
@@ -243,36 +244,41 @@ resume:
 #------------------------------#
 # vagrant templates:
 v1:
-	vagrant/switch meta
+	cd vagrant && make v1
 v4:
-	vagrant/switch full
+	cd vagrant && make v4
 v7:
-	vagrant/switch el7
+	cd vagrant && make v7
 v8:
-	vagrant/switch el8
+	cd vagrant && make v8
 v9:
-	vagrant/switch el9
+	cd vagrant && make v9
 vb:
-	vagrant/switch build
-vp:
-	vagrant/switch prod
-vm:
-	vagrant/switch minio
+	cd vagrant && make vb
 vc:
-	vagrant/switch check
-# switch to production env with rocky8
-vp8:
-	vagrant/switch prod
-	sed -ie 's/rocky9/rocky8/g' vagrant/Vagrantfile
-	rm -rf vagrant/Vagrantfilee
-
-# switch to prod env with centos7
+	cd vagrant && make vc
+vm:
+	cd vagrant && make vm
+vo:
+	cd vagrant && make vo
+vu:
+	cd vagrant && make vu
+vp: vp8  # use rocky 8 as default
 vp7:
-	vagrant/switch prod
-	sed -ie 's/rocky9/centos7/g' vagrant/Vagrantfile
-	rm -rf vagrant/Vagrantfilee
-
-vnew: new ssh copy-pkg use-pkg copy-src use-src
+	cd vagrant && make vp7
+vp8:
+	cd vagrant && make vp8
+vp9:
+	cd vagrant && make vp9
+vp11:
+	cd vagrant && make vp11
+vp12:
+	cd vagrant && make vp12
+vp20:
+	cd vagrant && make vp20
+vp22:
+	cd vagrant && make vp22
+vnew: new ssh
 
 ###############################################################
 
@@ -366,14 +372,20 @@ cc: release copy-src copy-pkg use-src use-pkg
 # copy pigsty source code
 copy-src:
 	scp "dist/${VERSION}/${SRC_PKG}" meta:~/pigsty.tgz
-copy-pkg:
-	scp dist/${VERSION}/${REPO_PKG} meta:/tmp/pkg.tgz
 copy-el7:
 	scp dist/${VERSION}/${EL7_PKG} meta:/tmp/pkg.tgz
 copy-el8:
 	scp dist/${VERSION}/${EL8_PKG} meta:/tmp/pkg.tgz
 copy-el9:
 	scp dist/${VERSION}/${EL9_PKG} meta:/tmp/pkg.tgz
+copy-d11:
+	scp dist/${VERSION}/${D11_PKG} meta:/tmp/pkg.tgz
+copy-d12:
+	scp dist/${VERSION}/${D12_PKG} meta:/tmp/pkg.tgz
+copy-u20:
+	scp dist/${VERSION}/${U20_PKG} meta:/tmp/pkg.tgz
+copy-u22:
+	scp dist/${VERSION}/${U22_PKG} meta:/tmp/pkg.tgz
 copy-app:
 	scp dist/${VERSION}/${APP_PKG} meta:~/app.tgz
 	ssh -t meta 'rm -rf ~/app; tar -xf app.tgz; rm -rf app.tgz'
@@ -422,76 +434,90 @@ remote-release: release copy-src use-src
 
 # release offline packages with build environment
 rp: release-package
-release-package: release-el7 release-el8 release-el9
-release-el7:
-	scp bin/cache build-el7:/tmp/cache; ssh build-el7 "sudo bash /tmp/cache"; scp build-el7:/tmp/pkg.tgz dist/${VERSION}/pigsty-pkg-${VERSION}.el7.x86_64.tgz
-release-el8:
-	scp bin/cache build-el8:/tmp/cache; ssh build-el8 "sudo bash /tmp/cache"; scp build-el8:/tmp/pkg.tgz dist/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz
-release-el9:
-	scp bin/cache build-el9:/tmp/cache; ssh build-el9 "sudo bash /tmp/cache"; scp build-el9:/tmp/pkg.tgz dist/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz
+release-package:
+	bin/release-pkg ${VERSION}
 
+# publish pigsty packages to https://get.pigsty.cc
+pb: publish
+publish:
+	bin/publish ${VERSION}
+
+
+###############################################################
+#                     9. Environment                          #
+###############################################################
 # validate offline packages with build environment
 check-all: check-src check-repo check-boot
 check-src:
 	scp dist/${VERSION}/${SRC_PKG} build-el7:~/pigsty.tgz ; ssh build-el7 "tar -xf pigsty.tgz";
 	scp dist/${VERSION}/${SRC_PKG} build-el8:~/pigsty.tgz ; ssh build-el8 "tar -xf pigsty.tgz";
 	scp dist/${VERSION}/${SRC_PKG} build-el9:~/pigsty.tgz ; ssh build-el9 "tar -xf pigsty.tgz";
+	#scp dist/${VERSION}/${SRC_PKG} debian11:~/pigsty.tgz ; ssh debian11  "tar -xf pigsty.tgz";
+	#scp dist/${VERSION}/${SRC_PKG} debian12:~/pigsty.tgz ; ssh debian12  "tar -xf pigsty.tgz";
+	#scp dist/${VERSION}/${SRC_PKG} ubuntu20:~/pigsty.tgz ; ssh ubuntu20  "tar -xf pigsty.tgz";
+	#scp dist/${VERSION}/${SRC_PKG} ubuntu22:~/pigsty.tgz ; ssh ubuntu22  "tar -xf pigsty.tgz";
 check-repo:
 	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el7.x86_64.tgz build-el7:/tmp/pkg.tgz ; ssh build-el7 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
 	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz build-el8:/tmp/pkg.tgz ; ssh build-el8 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
 	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz build-el9:/tmp/pkg.tgz ; ssh build-el9 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	#scp dist/${VERSION}/pigsty-pkg-${VERSION}.debian11.x86_64.tgz debian11:/tmp/pkg.tgz ; ssh debian11 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	#scp dist/${VERSION}/pigsty-pkg-${VERSION}.debian12.x86_64.tgz debian12:/tmp/pkg.tgz ; ssh debian12 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	#scp dist/${VERSION}/pigsty-pkg-${VERSION}.ubuntu20.x86_64.tgz ubuntu22:/tmp/pkg.tgz ; ssh ubuntu20 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	#scp dist/${VERSION}/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz ubuntu22:/tmp/pkg.tgz ; ssh ubuntu22 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
 check-boot:
 	ssh build-el7 "cd pigsty; ./bootstrap -n ; ./configure -m el7  -i 10.10.10.7 -n";
-	ssh build-el8 "cd pigsty; ./bootstrap -n ; ./configure -m el8  -i 10.10.10.8 -n";
-	ssh build-el9 "cd pigsty; ./bootstrap -n ; ./configure -m el9  -i 10.10.10.9 -n";
+	ssh build-el8 "cd pigsty; ./bootstrap -n ; ./configure -m el   -i 10.10.10.8 -n";
+	ssh build-el9 "cd pigsty; ./bootstrap -n ; ./configure -m el   -i 10.10.10.9 -n";
+	#ssh debian11 "cd pigsty; ./bootstrap -n ; ./configure -m el   -i 10.10.10.11 -n";
+	#ssh debian12 "cd pigsty; ./bootstrap -n ; ./configure -m el   -i 10.10.10.12 -n";
+	#ssh ubuntu20 "cd pigsty; ./bootstrap -n ; ./configure -m el   -i 10.10.10.20 -n";
+	#ssh ubuntu22 "cd pigsty; ./bootstrap -n ; ./configure -m el   -i 10.10.10.22 -n";
 
-# final packaging
-pp: package
-package:
-	bin/package ${VERSION}
-
-# publish pigsty packages to https://get.pigsty.cc
-pb: publish
-publish:
-	bin/publish ${VERSION}
-###############################################################
-
-
-
-###############################################################
-#                     9. Environment                          #
-###############################################################
 meta:  del v1 new ssh copy-el9 use-pkg
 	cp files/pigsty/demo.yml pigsty.yml
 full: del v4 new ssh copy-el9 use-pkg
 	cp files/pigsty/demo.yml pigsty.yml
-minio: del vm new ssh copy-el9 use-pkg
-	cp files/pigsty/citus.yml pigsty.yml
 el7: del v7 new ssh copy-el7 use-pkg
 	cp files/pigsty/test.yml pigsty.yml
 el8: del v8 new ssh copy-el8 use-pkg
 	cp files/pigsty/test.yml pigsty.yml
 el9: del v9 new ssh copy-el9 use-pkg
 	cp files/pigsty/test.yml pigsty.yml
-check: del vc new ssh check-all
-	cp files/pigsty/check.yml pigsty.yml
-prod: del vp new ssh
-	cp files/pigsty/prod.yml pigsty.yml
-	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
-	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+minio: del vm new ssh copy-el9 use-pkg
+	cp files/pigsty/citus.yml pigsty.yml
+os: del vo new ssh
+	cp files/pigsty/os.yml pigsty.yml
+ubuntu: del vu new ssh copy-u22 use-pkg
+	cp files/pigsty/ubuntu.yml pigsty.yml
 build: del vb new ssh
 	cp files/pigsty/build.yml pigsty.yml
-build-check: build check
-	cp files/pigsty/build.yml pigsty.yml
+build-boot:
+	bin/build-boot
+check: del vc new ssh
+	cp files/pigsty/check.yml pigsty.yml
+checkb: del vc new ssh check-all
+	cp files/pigsty/check.yml pigsty.yml
 
-prod8: del vp8 new ssh
-	cp files/pigsty/prod.yml pigsty.yml
-	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
-	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
 prod7: del vp7 new ssh
 	cp files/pigsty/prod.yml pigsty.yml
 	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el7.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
 	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el7.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+prod8: del vp8 new ssh
+	cp files/pigsty/prod.yml pigsty.yml
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+prod9: del vp9 new ssh
+	cp files/pigsty/prod.yml pigsty.yml
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+prod12: del vp12 new ssh
+	cp files/pigsty/prod-d12.yml pigsty.yml
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.debian12.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.debian12.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+prod22: del vp22 new ssh
+	cp files/pigsty/prod-u22.yml pigsty.yml
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz meta-1:/tmp/pkg.tgz ; ssh meta-1 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
+	scp dist/${VERSION}/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz meta-2:/tmp/pkg.tgz ; ssh meta-2 'sudo mkdir -p /www; sudo tar -xf /tmp/pkg.tgz -C /www'
 
 ###############################################################
 
@@ -506,10 +532,10 @@ prod7: del vp7 new ssh
         infra pgsql repo repo-upstream repo-build prometheus grafana loki docker \
         deps dns start ssh sshb demo \
         up dw del new clean up-test dw-test del-test new-test clean \
-        st status suspend resume v1 v4 v7 v8 v9 vb vp vm vc vp8 vp7 vnew \
+        st status suspend resume v1 v4 v7 v8 v9 vb vm vo vc vu vp vp7 vp9 vnew \
         ri rc rw ro rh rhc test-ri test-rw test-ro test-rw2 test-ro2 test-rc test-st test-rb1 test-rb2 test-rb3 \
         di dd dc du dashboard-init dashboard-dump dashboard-clean \
-        copy copy-src copy-pkg copy-app copy-docker load-docker copy-all use-src use-pkg use-all cmdb \
+        copy copy-src copy-pkg copy-el7 copy-el8 copy-el9 copy-u22 copy-app copy-docker load-docker copy-all use-src use-pkg use-all cmdb \
         r release rr remote-release rp release-pkg release-el7 release-el8 release-el9 check-all check-src check-repo check-boot pp package pb publish \
-        meta full check minio build build-check el7 el8 el9 prod prod7 prod8
+        meta full el7 el8 el9 build check minio os ubuntu prod7 prod8 prod9 prod12 prod22
 ###############################################################

@@ -11,19 +11,19 @@
 
 Each Pigsty deployment requires a set of infrastructure components to work properly. which including:
 
-|    Component     | Port |   Domain   | Description                                |
-|:----------------:|:----:|:----------:|--------------------------------------------|
-|      Nginx       |  80  | `h.pigsty` | Web Service Portal (Also used as Yum Repo) |
-|   AlertManager   | 9093 | `a.pigsty` | Alert Aggregation and delivery             |
-|    Prometheus    | 9090 | `p.pigsty` | Monitoring Time Series Database            |
-|     Grafana      | 3000 | `g.pigsty` | Visualization Platform                     |
-|       Loki       | 3100 |     -      | Logging Collection Server                  |
-|   PushGateway    | 9091 |     -      | Collect One-Time Job Metrics               |
-| BlackboxExporter | 9115 |     -      | Blackbox Probing                           |
-|     Dnsmasq      |  53  |     -      | DNS Server                                 |
-|     Chronyd      | 123  |     -      | NTP Time Server                            |
-|    PostgreSQL    | 5432 |     -      | Pigsty CMDB & default database             |
-|     Ansible      |  -   |     -      | Run playbooks                              |
+|    Component     | Port |   Domain   | Description                       |
+|:----------------:|:----:|:----------:|-----------------------------------|
+|      Nginx       |  80  | `h.pigsty` | Web Service Portal (YUM/APT Repo) |
+|   AlertManager   | 9093 | `a.pigsty` | Alert Aggregation and delivery    |
+|    Prometheus    | 9090 | `p.pigsty` | Monitoring Time Series Database   |
+|     Grafana      | 3000 | `g.pigsty` | Visualization Platform            |
+|       Loki       | 3100 |     -      | Logging Collection Server         |
+|   PushGateway    | 9091 |     -      | Collect One-Time Job Metrics      |
+| BlackboxExporter | 9115 |     -      | Blackbox Probing                  |
+|     Dnsmasq      |  53  |     -      | DNS Server                        |
+|     Chronyd      | 123  |     -      | NTP Time Server                   |
+|    PostgreSQL    | 5432 |     -      | Pigsty CMDB & default database    |
+|     Ansible      |  -   |     -      | Run playbooks                     |
 
 Pigsty will set up these components for you on infra nodes. You can expose them to the outside world by configuring the [`infra_portal`](PARAM#infra_portal) parameter.
 
@@ -38,7 +38,7 @@ infra_portal:  # domain names and upstream servers
   #minio        : { domain: sss.pigsty  ,endpoint: "${admin_ip}:9001" ,scheme: https ,websocket: true }
 ```
 
-[![pigsty-arch](https://github.com/Vonng/pigsty/assets/8587410/7b226641-e61b-4e79-bc31-759204778bd5)](INFRA)
+[![pigsty-arch.jpg](https://repo.pigsty.cc/img/pigsty-arch.jpg)](INFRA)
 
 
 
@@ -82,22 +82,22 @@ Here are some administration tasks related to INFRA module:
 
 ----------------
 
-### Manage Local Yum Repo
+### Manage Local Software Repo
 
 ```bash
-./infra.yml -t repo             # setup local yum repo
+./infra.yml -t repo             # setup local yum/apt repo
 
 ./infra.yml -t repo_dir         # create repo directory
 ./infra.yml -t repo_check       # check repo exists
 ./infra.yml -t repo_prepare     # use existing repo if exists
 ./infra.yml -t repo_build       # build repo from upstream if not exists
-./infra.yml   -t repo_upstream  # handle upstream repo files in /etc/yum.repos.d
+./infra.yml   -t repo_upstream  # handle upstream repo files in /etc/yum.repos.d or /etc/apt/sources.list.d
 ./infra.yml   -t repo_url_pkg   # download packages from internet defined by repo_url_packages
-./infra.yml   -t repo_cache     # make upstream yum cache with yum makecache
-./infra.yml   -t repo_boot_pkg  # install bootstrap pkg such as createrepo_c,yum-utils,...
+./infra.yml   -t repo_cache     # make upstream yum/apt cache
+./infra.yml   -t repo_boot_pkg  # install bootstrap pkg such as createrepo_c,yum-utils,... (or dpkg-dev in debian/ubuntu)
 ./infra.yml   -t repo_pkg       # download packages & dependencies from upstream repo
 ./infra.yml   -t repo_create    # create a local yum repo with createrepo_c & modifyrepo_c
-./infra.yml   -t repo_use       # add newly built repo into /etc/yum.repos.d
+./infra.yml   -t repo_use       # add newly built repo
 ./infra.yml -t repo_nginx       # launch a nginx for repo if no nginx is serving
 ```
 
@@ -109,7 +109,7 @@ Here are some administration tasks related to INFRA module:
 
 ```bash
 ./infra.yml -t infra_env      : env_dir, env_pg, env_var
-./infra.yml -t infra_pkg      : infra_pkg_yum, infra_pkg_pip
+./infra.yml -t infra_pkg      : infra_pkg, infra_pkg_pip
 ./infra.yml -t infra_user     : setup infra os user group
 ./infra.yml -t infra_cert     : issue cert for infra components
 ./infra.yml -t dns            : dns_config, dns_record, dns_launch
@@ -188,7 +188,7 @@ Here are available subtasks:
 #
 # infra         : setup infra components
 #   - infra_env      : env_dir, env_pg, env_var
-#   - infra_pkg      : infra_pkg_yum, infra_pkg_pip
+#   - infra_pkg      : infra_pkg, infra_pkg_pip
 #   - infra_user     : setup infra os user group
 #   - infra_cert     : issue cert for infra components
 #   - dns            : dns_config, dns_record, dns_launch
@@ -239,7 +239,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Pigsty Home Dashboard</summary>
 
-[![pigsty-home](https://github.com/Vonng/pigsty/assets/8587410/b9679741-5baf-4a89-b6d0-e9eb4a13814d)](https://demo.pigsty.cc/d/pigsty/)
+[![pigsty.jpg](https://repo.pigsty.cc/img/pigsty.jpg)](https://demo.pigsty.cc/d/pigsty/)
 
 </details>
 
@@ -248,7 +248,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>INFRA Overview Dashboard</summary>
 
-[![infra-overview](https://github.com/Vonng/pigsty/assets/8587410/d262ceaa-2d73-4817-88e7-1790c77a5498)](https://demo.pigsty.cc/d/infra-overview/)
+[![infra-overview.jpg](https://repo.pigsty.cc/img/infra-overview.jpg)](https://demo.pigsty.cc/d/infra-overview/)
 
 </details>
 
@@ -257,7 +257,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Nginx Overview Dashboard</summary>
 
-[![nginx-overview](https://github.com/Vonng/pigsty/assets/8587410/08bff428-5f2a-4adb-9c96-479da59ccd2a)](https://demo.pigsty.cc/d/nginx-overview)
+[![nginx-overview.jpg](https://repo.pigsty.cc/img/nginx-overview.jpg)](https://demo.pigsty.cc/d/nginx-overview)
 
 </details>
 
@@ -266,7 +266,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Grafana Overview Dashboard</summary>
 
-[![grafana-overview](https://github.com/Vonng/pigsty/assets/8587410/6801fe16-1b47-4c1b-99aa-6af8b07aee4a)](https://demo.pigsty.cc/d/grafana-overview)
+[![grafana-overview.jpg](https://repo.pigsty.cc/img/grafana-overview.jpg)](https://demo.pigsty.cc/d/grafana-overview)
 
 </details>
 
@@ -275,7 +275,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Prometheus Overview Dashboard</summary>
 
-[![prometheus-overview](https://github.com/Vonng/pigsty/assets/8587410/553f2f60-67a8-401d-abef-a58dd52a5bee)](https://demo.pigsty.cc/d/prometheus-overview)
+[![prometheus-overview.jpg](https://repo.pigsty.cc/img/prometheus-overview.jpg)](https://demo.pigsty.cc/d/prometheus-overview)
 
 </details>
 
@@ -284,7 +284,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Loki Overview Dashboard</summary>
 
-[![loki-overview](https://github.com/Vonng/pigsty/assets/8587410/a70a5d3a-bc8d-4fef-9708-4eabdd0436ff)](https://demo.pigsty.cc/d/loki-overview)
+[![loki-overview.jpg](https://repo.pigsty.cc/img/loki-overview.jpg)](https://demo.pigsty.cc/d/loki-overview)
 
 </details>
 
@@ -293,7 +293,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Logs Instance Dashboard</summary>
 
-[![logs-instance](https://github.com/Vonng/pigsty/assets/8587410/246eff0e-d47d-4740-99db-20aca4b8ec55)](https://demo.pigsty.cc/d/logs-instance)
+[![logs-instance.jpg](https://repo.pigsty.cc/img/logs-instance.jpg)](https://demo.pigsty.cc/d/logs-instance)
 
 </details>
 
@@ -302,7 +302,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>Logs Overview Dashboard</summary>
 
-[![logs-overview](https://github.com/Vonng/pigsty/assets/8587410/e0a6c0f5-8cb1-4d70-a327-d9fa815e3f27)](https://demo.pigsty.cc/d/logs-overview)
+[![logs-overview.jpg](https://repo.pigsty.cc/img/logs-overview.jpg)](https://demo.pigsty.cc/d/logs-overview)
 
 </details>
 
@@ -311,7 +311,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>CMDB Overview Dashboard</summary>
 
-[![cmdb-overview](https://github.com/Vonng/pigsty/assets/8587410/9e187204-9d8d-4c31-8885-313f00bbc73f)](https://demo.pigsty.cc/d/cmdb-overview)
+[![cmdb-overview.jpg](https://repo.pigsty.cc/img/cmdb-overview.jpg)](https://demo.pigsty.cc/d/cmdb-overview)
 
 </details>
 
@@ -320,7 +320,7 @@ Check [Playbook: One-Pass Install](PLAYBOOK#one-pass-install) for details.
 
 <details><summary>ETCD Overview Dashboard</summary>
 
-[![etcd-overview](https://github.com/Vonng/pigsty/assets/8587410/3f268146-9242-42e7-b78f-b5b676155f3f)](https://demo.pigsty.cc/d/etcd-overview)
+[![etcd-overview.jpg](https://repo.pigsty.cc/img/etcd-overview.jpg)](https://demo.pigsty.cc/d/etcd-overview)
 
 </details>
 
@@ -336,7 +336,7 @@ API Reference for [`INFRA`](PARAM#INFRA) module:
 - [`META`](PARAM#meta): infra meta data
 - [`CA`](PARAM#ca): self-signed CA
 - [`INFRA_ID`](PARAM#infra_id) : Portals and identity
-- [`REPO`](PARAM#repo): local yum repo
+- [`REPO`](PARAM#repo): local yum/atp repo
 - [`INFRA_PACKAGE`](PARAM#infra_package) : packages to be installed
 - [`NGINX`](PARAM#nginx) : nginx web server
 - [`DNS`](PARAM#dns): dnsmasq nameserver
@@ -358,7 +358,7 @@ API Reference for [`INFRA`](PARAM#INFRA) module:
 | [`cert_validity`](PARAM#cert_validity)                           | [`CA`](PARAM#ca)                       |  interval  |   G   | cert validity, 20 years by default                 |
 | [`infra_seq`](PARAM#infra_seq)                                   | [`INFRA_ID`](PARAM#infra_id)           |    int     |   I   | infra node identity, REQUIRED                      |
 | [`infra_portal`](PARAM#infra_portal)                             | [`INFRA_ID`](PARAM#infra_id)           |    dict    |   G   | infra services exposed via portal                  |
-| [`repo_enabled`](PARAM#repo_enabled)                             | [`REPO`](PARAM#repo)                   |    bool    |  G/I  | create a yum repo on this infra node?              |
+| [`repo_enabled`](PARAM#repo_enabled)                             | [`REPO`](PARAM#repo)                   |    bool    |  G/I  | create a yum/apt repo on this infra node?          |
 | [`repo_home`](PARAM#repo_home)                                   | [`REPO`](PARAM#repo)                   |    path    |   G   | repo home dir, `/www` by default                   |
 | [`repo_name`](PARAM#repo_name)                                   | [`REPO`](PARAM#repo)                   |   string   |   G   | repo name, pigsty by default                       |
 | [`repo_endpoint`](PARAM#repo_endpoint)                           | [`REPO`](PARAM#repo)                   |    url     |   G   | access point to this repo by domain or ip:port     |

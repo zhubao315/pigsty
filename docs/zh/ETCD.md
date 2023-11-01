@@ -6,7 +6,7 @@ Pigsty 使用 [**etcd**](https://etcd.io/) 作为 [**DCS**](https://patroni.read
 
 在安装任何 [`PGSQL`](PGSQL) 模块之前，你必须先安装 [`ETCD`](ETCD) 模块，因为 `patroni` 和 `vip-manager` 会依赖 etcd 模块，除非你决定使用外部的现有 etcd 集群。
 
-在安装 [`ETCD`](ETCD) 模块前，你需要先安装 [`NODE`](NODE) 模块将节点纳管：因为 etcd 需要可信任的 CA 来工作。
+在安装 [`ETCD`](ETCD) 模块前，你无需安装 [`NODE`](NODE) 模块，但应当确保本地 `CA` 是可用的（`INFRA`.`CA`）：因为 etcd 需要可信任的 CA 才能签发证书。
 
 
 
@@ -340,7 +340,7 @@ ETCD 模块提供了一个监控面板：Etcd Overview。
 
 红色的条带标识着实例不可用的时间段，而底下蓝灰色的条带标识着整个集群处于不可用的时间段。
 
-[![etcd-overview](https://github.com/Vonng/pigsty/assets/8587410/3f268146-9242-42e7-b78f-b5b676155f3f)](https://demo.pigsty.cc/d/etcd-overview)
+[![etcd-overview.jpg](https://repo.pigsty.cc/img/etcd-overview.jpg)](https://demo.pigsty.cc/d/etcd-overview)
 
 
 

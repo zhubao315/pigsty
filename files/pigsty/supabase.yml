@@ -67,7 +67,7 @@ all:
           - { user: all ,db: supa ,addr: 172.0.0.0/8 ,auth: pwd ,title: 'allow supa database access from docker network'}
 
   vars:                               # global variables
-    version: v2.4.1                   # pigsty version string
+    version: v2.5.0                   # pigsty version string
     admin_ip: 10.10.10.10             # admin node ip address
     region: default                   # upstream mirror region: default|china|europe
     node_tune: tiny                   # use tiny template for NODE  in demo environment
@@ -84,8 +84,7 @@ all:
       pgadmin      : { domain: adm.pigsty  ,endpoint: "127.0.0.1:8885" }
       pgweb        : { domain: cli.pigsty  ,endpoint: "127.0.0.1:8886" }
       bytebase     : { domain: ddl.pigsty  ,endpoint: "127.0.0.1:8887" }
-      supa         : { domain: supa.pigsty ,endpoint: "127.0.0.1:8000" }
-
+      supa         : { domain: supa.pigsty ,endpoint: "10.10.10.10:8000", websocket: true }
     nginx_navbar:                    # application nav links on home page
       - { name: PgAdmin4   , url : 'http://adm.pigsty'  , comment: 'PgAdmin4 for PostgreSQL'  }
       - { name: PGWeb      , url : 'http://cli.pigsty'  , comment: 'PGWEB Browser Client'     }

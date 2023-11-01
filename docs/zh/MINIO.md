@@ -273,13 +273,11 @@ MinIO 模块提供了一个默认的剧本 [`minio.yml`](#minioyml) ，用于安
 
 Pigsty 提供了两个与 [`MINIO`](MINIO) 模块有关的监控面板：
 
-### MinIO Overview
-
 [MinIO Overview](https://demo.pigsty.cc/d/minio-overview) 展示了 MinIO 集群的整体监控指标。
 
 [MinIO Instance](https://demo.pigsty.cc/d/minio-instance) 展示了单个 MinIO 实例的监控指标详情
 
-[![minio-overview](https://github.com/Vonng/pigsty/assets/8587410/6885c4dc-d9b6-4f22-ab77-9ea42ee2d590)](https://demo.pigsty.cc/d/minio-overview)
+[![minio-overview.jpg](https://repo.pigsty.cc/img/minio-overview.jpg)](https://demo.pigsty.cc/d/minio-overview)
 
 
 

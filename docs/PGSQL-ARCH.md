@@ -2,9 +2,8 @@
 
 > Overview of the PGSQL module and key concepts 
 
-
 PGSQL for production environments is organized in **clusters**, which **clusters** are **logical entities** consisting of a set of database **instances** associated by **primary-replica**. 
-Each **database cluster** is a **self-organizing** business service unit consisting of at least one **database instance**.
+Each **database cluster** is an autonomous serving unit consisting of at least one  **database instance** (primary).
 
 
 ----------------
@@ -18,7 +17,7 @@ Let's get started with ER diagram. There are four types of core entities in Pigs
 * **PGSQL Instance**: A single postgres server which is a group of running processes & database files on a single node.
 * **PGSQL Node**: An abstraction of hardware resources, which can be bare metal, virtual machine, or even k8s pods.
 
-![pgsql-er](https://github.com/Vonng/pigsty/assets/8587410/37f224bc-1b1d-47aa-bab3-3885cffcd05a)
+![pgsql-er.jpg](https://repo.pigsty.cc/img/pgsql-er.jpg)
 
 **Naming Convention**
 
@@ -119,7 +118,7 @@ Here is how PostgreSQL module components and their interactions. From top to bot
 * Postgres-related logs (postgres,pgbouncer,patroni,pgbackrest) are exposed by promtail @ port 9080
   * Promtail will send logs to Loki on infra nodes
 
-[![pigsty-arch](https://github.com/Vonng/pigsty/assets/8587410/7b226641-e61b-4e79-bc31-759204778bd5)](INFRA)
+[![pigsty-arch.jpg](https://repo.pigsty.cc/img/pigsty-arch.jpg)](INFRA)
 
 
 
@@ -131,7 +130,7 @@ Here is how PostgreSQL module components and their interactions. From top to bot
 
 Pigsty's PostgreSQL cluster has battery-included high-availability powered by [patroni](https://patroni.readthedocs.io/en/latest/), [etcd](https://etcd.io/), and [haproxy](http://www.haproxy.org/) 
 
-[![pgsql-ha](https://github.com/Vonng/pigsty/assets/8587410/645501d1-384e-4009-b41b-8488654f17d3)](PGSQL-ARCH.md)
+[![pgsql-ha.jpg](https://repo.pigsty.cc/img/pgsql-ha.jpg)](PGSQL-ARCH.md)
 
 When the primary fails, one of the replicas will be promoted to primary automatically, and read-write traffic will be routed to the new primary immediately. The impact is: write queries will be blocked for 15 ~ 40s until the new leader is elected.
 
@@ -142,3 +141,44 @@ Failure detection is done by `patroni` and `etcd`, the leader will hold a lease,
 The ttl can be tuned with [`pg_rto`](PARAM#pg_rto), which is 30s by default, increasing it will cause longer failover wait time, while decreasing it will increase the false-positive failover rate (e.g. network jitter).
 
 Pigsty will use **availability first** mode by default, which means when primary fails, it will try to failover ASAP, data not replicated to the replica may be lost (usually 100KB), and the max potential data loss is controlled by [`pg_rpo`](PARAM#pg_rpo), which is 1MB by default. 
+
+
+----------------
+
+## Point-In-Time Recovery
+
+> Rollback clusters to a past state to mitigate data loss from software bugs or human errors.
+
+Pigsty's PostgreSQL cluster features auto-configured PITR, leveraging [pgBackRest](https://pgbackrest.org/) and, optionally, [MinIO](MINIO).
+
+While high availability counters hardware failures, it's not effective against unintentional data deletions or overwrites: changes sync and apply to replicas instantly. PITR fill this gap. If operating a single instance, PITR can serve as a high availability substitute, providing a safety net.
+
+For cluster rollback to a specific backup, users should maintain regular base backups. For rollbacks to arbitrary points, WAL archives since the last backup are required. Pigsty automates these with pgBackRest for backup management, WAL archiving, and PITR execution. 
+Backup repositories are configurable ([`pgbackrest_repo`](PARAM#pgbackrest_repo)): defaulting to the primary's local file system (`local`), but alternatives include other disk paths, bundled [MinIO](MINIO) (`minio`), or cloud S3 services.
+
+```yaml
+pgbackrest_repo:                  # pgbackrest repo: https://pgbackrest.org/configuration.html#section-repository
+  local:                          # default pgbackrest repo with local posix fs
+    path: /pg/backup              # local backup directory, `/pg/backup` by default
+    retention_full_type: count    # retention full backups by count
+    retention_full: 2             # keep 2, at most 3 full backup when using local fs repo
+  minio:                          # optional minio repo for pgbackrest
+    type: s3                      # minio is s3-compatible, so s3 is used
+    s3_endpoint: sss.pigsty       # minio endpoint domain name, `sss.pigsty` by default
+    s3_region: us-east-1          # minio region, us-east-1 by default, useless for minio
+    s3_bucket: pgsql              # minio bucket name, `pgsql` by default
+    s3_key: pgbackrest            # minio user access key for pgbackrest
+    s3_key_secret: S3User.Backup  # minio user secret key for pgbackrest
+    s3_uri_style: path            # use path style uri for minio rather than host style
+    path: /pgbackrest             # minio backup path, default is `/pgbackrest`
+    storage_port: 9000            # minio port, 9000 by default
+    storage_ca_file: /etc/pki/ca.crt  # minio ca file path, `/etc/pki/ca.crt` by default
+    bundle: y                     # bundle small files into a single file
+    cipher_type: aes-256-cbc      # enable AES encryption for remote backup repo
+    cipher_pass: pgBackRest       # AES encryption password, default is 'pgBackRest'
+    retention_full_type: time     # retention full backup by time on minio repo
+    retention_full: 14            # keep full backup for last 14 days
+```
+
+
+Out-of-the-box, Pigsty has two [backup strategies](PGSQL-PITR#policy): local file system repository with daily full backups or dedicated MinIO/S3 storage with weekly full and daily incremental backups, retaining two weeks' worth by default.

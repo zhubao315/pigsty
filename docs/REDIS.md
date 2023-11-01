@@ -25,7 +25,7 @@ In Redis managed by Pigsty, nodes are entirely subordinate to the cluster, which
 Redis [**identity parameters**](PARAM#redis_id) are required parameters when defining a Redis cluster.
 
 |                    Name                    |          Attribute          |     Description      |          Example          |
-| :----------------------------------------: | :-------------------------: | :------------------: | :-----------------------: |
+|:------------------------------------------:|:---------------------------:|:--------------------:|:-------------------------:|
 |   [`redis_cluster`](PARAM#redis_cluster)   | **REQUIRED**, cluster level |     cluster name     |       `redis-test`        |
 |      [`redis_node`](PARAM#redis_node)      |  **REQUIRED**, node level   | Node Sequence Number |          `1`,`2`          |
 | [`redis_instances`](PARAM#redis_instances) |  **REQUIRED**, node level   | Instance Definition  | `{ 6001 : {} ,6002 : {}}` |
@@ -74,8 +74,6 @@ redis-test: # redis native cluster: 3m x 3s
 ```
 
 **Limitation**
-
-
 
 - A Redis node can only belong to one Redis cluster, which means you cannot assign a node to two different Redis clusters simultaneously.
 - On each Redis node, you need to assign a unique port number to the Redis instance to avoid port conflicts.
@@ -181,6 +179,23 @@ redis-benchmark -h 10.10.10.13 -p 6379
 
 -------------
 
+### Configure Redis Replica
+
+https://redis.io/commands/replicaof/
+
+```bash
+# promote a redis instance to primary
+> REPLICAOF NO ONE
+"OK"
+
+# make a redis instance replica of another instance
+> REPLICAOF 127.0.0.1 6799
+"OK"
+```
+
+
+-------------
+
 ### Configure HA with Sentinel
 
 You have to enable HA for redis standalone m-s cluster manually with your redis sentinel.
@@ -275,7 +290,7 @@ There are three dashboards for [`REDIS`](REDIS) module.
 
 <details><summary>Redis Overview Dashboard</summary>
 
-[![redis-overview](https://github.com/Vonng/pigsty/assets/8587410/cceabc05-7d9a-467e-9cb6-cf3f7da60ad3)](https://demo.pigsty.cc/d/redis-overview)
+[![redis-overview.jpg](https://repo.pigsty.cc/img/redis-overview.jpg)](https://demo.pigsty.cc/d/redis-overview)
 
 </details><br>
 
@@ -285,7 +300,7 @@ There are three dashboards for [`REDIS`](REDIS) module.
 
 <details><summary>Redis Cluster Dashboard</summary>
 
-[![redis-cluster](https://github.com/Vonng/pigsty/assets/8587410/840df751-07b7-4abc-83e1-108472e5b928)](https://demo.pigsty.cc/d/redis-cluster)
+[![redis-cluster.jpg](https://repo.pigsty.cc/img/redis-cluster.jpg)](https://demo.pigsty.cc/d/redis-cluster)
 
 </details><br>
 
@@ -295,7 +310,7 @@ There are three dashboards for [`REDIS`](REDIS) module.
 
 <details><summary>Redis Instance Dashboard</summary>
 
-[![redis-instance](https://github.com/Vonng/pigsty/assets/8587410/caccbec5-8cf2-44a2-adc1-78b4cae5e9fb)](https://demo.pigsty.cc/d/redis-instance)
+[![redis-instance](https://repo.pigsty.cc/img/redis-instance.jpg)](https://demo.pigsty.cc/d/redis-instance)
 
 </details><br>
 

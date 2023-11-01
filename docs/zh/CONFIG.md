@@ -29,6 +29,9 @@ all:                  # 顶层对象：all
     # ...
 ```
 
+在 Pigsty 的 [`files/pigsty`](https://github.com/Vonng/pigsty/blob/master/files/pigsty/README.md) 目录中，有许多不同场景的预置配置模板可供参考选用。
+
+
 
 ----------------
 
@@ -86,7 +89,7 @@ Pigsty 带有 280+ 配置参数，分为以下32个参数组，详情请参考 [
 |  [`INFRA`](param#infra)  | [`META`](param#meta)                   | Pigsty 元数据              | 4  |
 |  [`INFRA`](param#infra)  | [`CA`](param#ca)                       | 自签名公私钥基础设施 CA           | 3  |
 |  [`INFRA`](param#infra)  | [`INFRA_ID`](param#infra_id)           | 基础设施门户，Nginx域名          | 2  |
-|  [`INFRA`](param#infra)  | [`REPO`](param#repo)                   | 本地 Yum 仓库               | 9  |
+|  [`INFRA`](param#infra)  | [`REPO`](param#repo)                   | 本地软件仓库                  | 9  |
 |  [`INFRA`](param#infra)  | [`INFRA_PACKAGE`](param#infra_package) | 基础设施软件包                 | 2  |
 |  [`INFRA`](param#infra)  | [`NGINX`](param#nginx)                 | Nginx 网络服务器             | 7  |
 |  [`INFRA`](param#infra)  | [`DNS`](param#dns)                     | DNSMASQ 域名服务器           | 3  |

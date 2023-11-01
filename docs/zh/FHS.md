@@ -263,6 +263,12 @@ export PGHOME=/usr/pgsql
 export PGDATA=/pg/data
 ```
 
+在 Ubuntu/Debian 上，PostgreSQL Deb 包的默认安装位置是：
+
+```bash
+/usr/lib/postgresql/${pg_version}/bin
+```
+
 
 
 ----------------
@@ -301,7 +307,7 @@ redis-benchmark
 对于一个名为 `redis-test-1-6379` 的 Redis 实例，与其相关的资源如下所示：
 
 ```bash
-/usr/lib/systemd/system/redis-test-1-6379.service               # 服务
+/usr/lib/systemd/system/redis-test-1-6379.service               # 服务 (在Debian系中为/lib/systemd)
 /etc/redis/redis-test-1-6379.conf                               # 配置 
 /data/redis/redis-test-1-6379                                   # 数据库目录
 /data/redis/redis-test-1-6379/redis-test-1-6379.rdb             # RDB文件
@@ -310,4 +316,5 @@ redis-benchmark
 /var/run/redis/redis-test-1-6379.pid                            # PID
 ```
 
+对于 Ubuntu / Debian 而言，systemd 服务的默认目录不是 `/usr/lib/systemd/system/` 而是 `/lib/systemd/system/`
 

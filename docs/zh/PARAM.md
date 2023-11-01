@@ -13,9 +13,9 @@
 | 107 | [`cert_validity`](#cert_validity)                               | [`INFRA`](#infra) |            [`CA`](#ca)            | interval    | G     | 证书有效期，默认为 20 年                                                                  |
 | 108 | [`infra_seq`](#infra_seq)                                       | [`INFRA`](#infra) |      [`INFRA_ID`](#infra_id)      | int         | I     | 基础设施节号，必选身份参数                                                                   |
 | 109 | [`infra_portal`](#infra_portal)                                 | [`INFRA`](#infra) |      [`INFRA_ID`](#infra_id)      | dict        | G     | 通过Nginx门户暴露的基础设施服务列表                                                            |
-| 110 | [`repo_enabled`](#repo_enabled)                                 | [`INFRA`](#infra) |          [`REPO`](#repo)          | bool        | G/I   | 在此基础设施节点上创建Yum仓库？                                                               |
-| 111 | [`repo_home`](#repo_home)                                       | [`INFRA`](#infra) |          [`REPO`](#repo)          | path        | G     | Yum仓库主目录，默认为`/www`                                                              |
-| 112 | [`repo_name`](#repo_name)                                       | [`INFRA`](#infra) |          [`REPO`](#repo)          | string      | G     | Yum仓库名称，默认为 pigsty                                                              |
+| 110 | [`repo_enabled`](#repo_enabled)                                 | [`INFRA`](#infra) |          [`REPO`](#repo)          | bool        | G/I   | 在此基础设施节点上创建软件仓库？                                                                |
+| 111 | [`repo_home`](#repo_home)                                       | [`INFRA`](#infra) |          [`REPO`](#repo)          | path        | G     | 软件仓库主目录，默认为`/www`                                                               |
+| 112 | [`repo_name`](#repo_name)                                       | [`INFRA`](#infra) |          [`REPO`](#repo)          | string      | G     | 软件仓库名称，默认为 pigsty                                                               |
 | 113 | [`repo_endpoint`](#repo_endpoint)                               | [`INFRA`](#infra) |          [`REPO`](#repo)          | url         | G     | 仓库的访问点：域名或 `ip:port` 格式                                                         |
 | 114 | [`repo_remove`](#repo_remove)                                   | [`INFRA`](#infra) |          [`REPO`](#repo)          | bool        | G/A   | 构建本地仓库时是否移除现有上游仓库源定义文件？                                                         |
 | 115 | [`repo_modules`](#repo_modules)                                 | [`INFRA`](#infra) |          [`REPO`](#repo)          | string      | G/A   | 启用的上游仓库模块列表，用逗号分隔                                                               |
@@ -105,7 +105,7 @@
 | 273 | [`vip_role`](#vip_role)                                         |  [`NODE`](#node)  |      [`NODE_VIP`](#node_vip)      | enum        | I     | 可选，master/backup，默认为 backup，用作初始角色                                              |
 | 274 | [`vip_preempt`](#vip_preempt)                                   |  [`NODE`](#node)  |      [`NODE_VIP`](#node_vip)      | bool        | C/I   | 可选，true/false，默认为 false，启用 vip 抢占                                               |
 | 275 | [`vip_interface`](#vip_interface)                               |  [`NODE`](#node)  |      [`NODE_VIP`](#node_vip)      | string      | C/I   | 节点 vip 网络接口监听，默认为 eth0                                                          |
-| 276 | [`vip_dns_suffix`](#vip_dns_suffix)                             |  [`NODE`](#node)  |      [`NODE_VIP`](#node_vip)      | string      | C     | 节点 vip DNS 名称后缀，默认为空字符串                                                      |
+| 276 | [`vip_dns_suffix`](#vip_dns_suffix)                             |  [`NODE`](#node)  |      [`NODE_VIP`](#node_vip)      | string      | C     | 节点 vip DNS 名称后缀，默认为空字符串                                                         |
 | 277 | [`vip_exporter_port`](#vip_exporter_port)                       |  [`NODE`](#node)  |      [`NODE_VIP`](#node_vip)      | port        | C     | keepalived exporter 监听端口，默认为 9650                                               |
 | 280 | [`haproxy_enabled`](#haproxy_enabled)                           |  [`NODE`](#node)  |       [`HAPROXY`](#haproxy)       | bool        | C     | 在此节点上启用 haproxy 吗？                                                              |
 | 281 | [`haproxy_clean`](#haproxy_clean)                               |  [`NODE`](#node)  |       [`HAPROXY`](#haproxy)       | bool        | G/C/A | 清除所有现有的 haproxy 配置吗？                                                            |
@@ -173,7 +173,7 @@
 | 730 | [`redis_aof_enabled`](#redis_aof_enabled)                       | [`REDIS`](#redis) |         [`REDIS`](#redis)         | bool        | C     | Redis AOF 是否启用？                                                                 |
 | 731 | [`redis_rename_commands`](#redis_rename_commands)               | [`REDIS`](#redis) |         [`REDIS`](#redis)         | dict        | C     | Redis危险命令重命名列表                                                                  |
 | 732 | [`redis_cluster_replicas`](#redis_cluster_replicas)             | [`REDIS`](#redis) |         [`REDIS`](#redis)         | int         | C     | Redis原生集群中每个主库配几个从库？                                                            |
-| 733 | [`redis_sentinel_monitor`](#redis_sentinel_monitor)             | [`REDIS`](#redis) |         [`REDIS`](#redis)         | master[]    | C     | Redis哨兵监控的主库列表，只在哨兵集群上使用       |
+| 733 | [`redis_sentinel_monitor`](#redis_sentinel_monitor)             | [`REDIS`](#redis) |         [`REDIS`](#redis)         | master[]    | C     | Redis哨兵监控的主库列表，只在哨兵集群上使用                                                        |
 | 801 | [`pg_mode`](#pg_mode)                                           | [`PGSQL`](#pgsql) |         [`PG_ID`](#pg_id)         | enum        | C     | pgsql 集群模式: pgsql,citus,gpsql                                                   |
 | 802 | [`pg_cluster`](#pg_cluster)                                     | [`PGSQL`](#pgsql) |         [`PG_ID`](#pg_id)         | string      | C     | pgsql 集群名称, 必选身份参数                                                              |
 | 803 | [`pg_seq`](#pg_seq)                                             | [`PGSQL`](#pgsql) |         [`PG_ID`](#pg_id)         | int         | I     | pgsql 实例号, 必选身份参数                                                               |
@@ -291,35 +291,40 @@
 
 # `INFRA`
 
-Parameters about pigsty infrastructure components: local yum repo, nginx, dnsmasq, prometheus, grafana, loki, alertmanager, pushgateway, blackbox_exporter, etc...
+
+关于基础设施组件的配置参数：本地软件源，Nginx，DNSMasq，Prometheus，Grafana，Loki，Alertmanager，Pushgateway，Blackbox_exporter 等...
+
 
 
 ------------------------------
 
 ## `META`
 
-This section contains some metadata of current pigsty deployments, such as version string, admin node IP address, repo mirror [`region`](#region) and http(s) proxy when downloading pacakges.
+这一小节指定了一套 Pigsty 部署的元数据：包括版本号，管理员节点 IP 地址，软件源镜像上游[`区域`](#region) 和下载软件包时使用的 http(s) 代理。
 
 ```yaml
-version: v2.4.1                   # pigsty version string
-admin_ip: 10.10.10.10             # admin node ip address
-region: default                   # upstream mirror region: default,china,europe
-proxy_env:                        # global proxy env when downloading packages
+version: v2.5.0                   # pigsty 版本号
+admin_ip: 10.10.10.10             # 管理节点IP地址
+region: default                   # 上游镜像区域：default,china,europe
+proxy_env:                        # 全局HTTPS代理，用于下载、安装软件包。
   no_proxy: "localhost,127.0.0.1,10.0.0.0/8,192.168.0.0/16,*.pigsty,*.aliyun.com,mirrors.*,*.myqcloud.com,*.tsinghua.edu.cn"
   # http_proxy:  # set your proxy here: e.g http://user:pass@proxy.xxx.com
   # https_proxy: # set your proxy here: e.g http://user:pass@proxy.xxx.com
   # all_proxy:   # set your proxy here: e.g http://user:pass@proxy.xxx.com
 ```
 
+
 ### `version`
 
 参数名称： `version`， 类型： `string`， 层次：`G`
 
-pigsty version string
+Pigsty 版本号字符串，默认值为当前版本：`v2.5.0`。
 
-default value:`v2.4.1`
+Pigsty 内部会使用版本号进行功能控制与内容渲染。
 
-It will be used for pigsty introspection & content rendering.
+Pigsty使用语义化版本号，版本号字符串通常以字符 `v` 开头。
+
+
 
 
 
@@ -329,15 +334,13 @@ It will be used for pigsty introspection & content rendering.
 
 参数名称： `admin_ip`， 类型： `ip`， 层次：`G`
 
-admin node ip address
+管理节点的 IP 地址，默认为占位符 IP 地址：`10.10.10.10`
 
-default value:`10.10.10.10`
+由该参数指定的节点将被视为管理节点，通常指向安装 Pigsty 时的第一个节点，即中控节点。
 
-Node with this ip address will be treated as admin node, usually point to the first node that install Pigsty.
+默认值 `10.10.10.10` 是一个占位符，会在 [configure](INSTALL#配置) 过程中被替换为实际的管理节点 IP 地址。
 
-The default value `10.10.10.10` is a placeholder which will be replaced during [configure](INSTALL#Configure)
-
-This parameter is referenced by many other parameters, such as:
+许多参数都会引用此参数，例如：
 
 * [`infra_portal`](#infra_portal)
 * [`repo_endpoint`](#repo_endpoint)
@@ -346,7 +349,7 @@ This parameter is referenced by many other parameters, such as:
 * [`node_etc_hosts`](#node_etc_hosts)
 * [`node_repo_local_urls`](#node_repo_local_urls)
 
-The exact string `${admin_ip}` will be replaced with the actual `admin_ip` for above parameters.
+在这些参数中，字符串 `${admin_ip}` 会被替换为 `admin_ip` 的真实取值。使用这种机制，您可以为不同的节点指定不同的中控管理节点。
 
 
 
@@ -359,13 +362,13 @@ The exact string `${admin_ip}` will be replaced with the actual `admin_ip` for a
 
 参数名称： `region`， 类型： `enum`， 层次：`G`
 
-upstream mirror region: default,china,europe
+上游镜像的区域，默认可选值为：upstream mirror region: default,china,europe，默认为： `default`
 
-default value: `default`
+如果一个不同于 `default` 的区域被设置，且在 [`repo_upstream`](#repo_upstream) 中有对应的条目，将会使用该条目对应 `baseurl` 代替 `default` 中的 `baseurl`。
 
-If a region other than `default` is set, and there's a corresponding entry in `repo_upstream.[repo].baseurl`, it will be used instead of `default`.
+例如，如果您的区域被设置为 `china`，那么 Pigsty 会尝试使用中国地区的上游软件镜像站点以加速下载，如果某个上游软件仓库没有对应的中国地区镜像，那么会使用默认的上游镜像站点替代。
 
-For example, if `china` is used,  pigsty will use China mirrors designated in [`repo_upstream`](#repo_upstream) if applicable.
+
 
 
 
@@ -374,19 +377,17 @@ For example, if `china` is used,  pigsty will use China mirrors designated in [`
 
 参数名称： `proxy_env`， 类型： `dict`， 层次：`G`
 
-global proxy env when downloading packages
-
-default value: 
+下载包时使用的全局代理环境变量，默认值指定了 `no_proxy`，即不使用代理的地址列表：
 
 ```yaml
-proxy_env: # global proxy env when downloading packages
-  http_proxy: 'http://username:password@proxy.address.com'
-  https_proxy: 'http://username:password@proxy.address.com'
-  all_proxy: 'http://username:password@proxy.address.com'
+proxy_env:
   no_proxy: "localhost,127.0.0.1,10.0.0.0/8,192.168.0.0/16,*.pigsty,*.aliyun.com,mirrors.aliyuncs.com,mirrors.tuna.tsinghua.edu.cn,mirrors.zju.edu.cn"
+  #http_proxy: 'http://username:password@proxy.address.com'
+  #https_proxy: 'http://username:password@proxy.address.com'
+  #all_proxy: 'http://username:password@proxy.address.com'
 ```
 
-It's quite important to use http proxy in restricted production environment, or your Internet access is blocked (e.g. Mainland China)
+当您在中国大陆地区从互联网上游安装时，特定的软件包可能会被墙，您可以使用代理来解决这个问题。
 
 
 
@@ -397,12 +398,12 @@ It's quite important to use http proxy in restricted production environment, or 
 
 ## `CA`
 
-Self-Signed CA used by pigsty. It is required to support advanced security features.
+Pigsty 使用的自签名 CA 证书，用于支持高级安全特性。
 
 ```yaml
-ca_method: create                 # create,recreate,copy, create by default
-ca_cn: pigsty-ca                  # ca common name, fixed as pigsty-ca
-cert_validity: 7300d              # cert validity, 20 years by default
+ca_method: create                 # CA处理方式：create,recreate,copy，默认为没有则创建
+ca_cn: pigsty-ca                  # CA CN名称，固定为 pigsty-ca
+cert_validity: 7300d              # 证书有效期，默认为 20 年
 ```
 
 
@@ -410,15 +411,16 @@ cert_validity: 7300d              # cert validity, 20 years by default
 
 参数名称： `ca_method`， 类型： `enum`， 层次：`G`
 
-available options: create,recreate,copy
+CA处理方式：`create` , `recreate` ,`copy`，默认为没有则创建
 
-default value: `create`
+默认值为： `create`，即如果不存在则创建一个新的 CA 证书。
 
-* `create`: Create a new CA public-private key pair if not exists, use if exists
-* `recreate`: Always re-create a new CA public-private key pair
-* `copy`: Copy the existing CA public and private keys from local `files/pki/ca`, abort if missing
+* `create`：如果 `files/pki/ca` 中不存在现有的CA，则创建一个全新的 CA 公私钥对，否则就直接使用现有的 CA 公私钥对。
+* `recreate`：总是创建一个新的 CA 公私钥对，覆盖现有的 CA 公私钥对。注意，这是一个危险的操作。
+* `copy`：假设`files/pki/ca` 目录下已经有了一对CA公私钥对，并将 `ca_method` 设置为 `copy`，Pigsty 将会使用现有的 CA 公私钥对。如果不存在则会报错
 
-If you already have a pair of `ca.crt` and `ca.key`, put them under `files/pki/ca` and set `ca_method` to `copy`.
+如果您已经有了一对 CA 公私钥对，可以将其复制到 `files/pki/ca` 目录下，并将 `ca_method` 设置为 `copy`，Pigsty 将会使用现有的 CA 公私钥对，而不是新建一个。
+
 
 
 
@@ -428,11 +430,9 @@ If you already have a pair of `ca.crt` and `ca.key`, put them under `files/pki/c
 
 参数名称： `ca_cn`， 类型： `string`， 层次：`G`
 
-ca common name, not recommending to change it.
+CA CN名称，固定为 `pigsty-ca`，不建议修改。
 
-default value: `pigsty-ca`
-
-you can check that with  `openssl x509 -text -in /etc/pki/ca.crt`
+你可以使用以下命令来查看节点上的 Pigsty CA 证书： `openssl x509 -text -in /etc/pki/ca.crt`
 
 
 
@@ -442,9 +442,7 @@ you can check that with  `openssl x509 -text -in /etc/pki/ca.crt`
 
 参数名称： `cert_validity`， 类型： `interval`， 层次：`G`
 
-cert validity, 20 years by default, which is enough for most scenarios
-
-default value: `7300d`
+签发证书的有效期，默认为 20 年，对绝大多数场景都足够了。默认值为： `7300d`
 
 
 
@@ -476,7 +474,8 @@ infra_portal:                     # infra services exposed via portal
 
 参数名称： `infra_seq`， 类型： `int`， 层次：`I`
 
-infra node identity, REQUIRED, no default value, you have to assign it explicitly.
+基础设施节号，必选身份参数，所以不提供默认值，必须在基础设施节点上显式指定。
+
 
 
 
@@ -485,12 +484,10 @@ infra node identity, REQUIRED, no default value, you have to assign it explicitl
 
 参数名称： `infra_portal`， 类型： `dict`， 层次：`G`
 
-infra services exposed via portal
-
-default value will expose home, grafana, prometheus, alertmanager via nginx with corresponding domain names.
+通过Nginx门户暴露的基础设施服务列表，默认情况下，Pigsty 会通过 Nginx 对外暴露以下服务：
 
 ```yaml
-infra_portal:                     # infra services exposed via portal
+infra_portal:
   home         : { domain: h.pigsty }
   grafana      : { domain: g.pigsty ,endpoint: "${admin_ip}:3000" ,websocket: true }
   prometheus   : { domain: p.pigsty ,endpoint: "${admin_ip}:9090" }
@@ -499,16 +496,14 @@ infra_portal:                     # infra services exposed via portal
   loki         : { endpoint: "${admin_ip}:3100" }
 ```
 
+每个记录包含三个子部分：`name` 作为键，代表组件名称，外部访问域名和内部TCP端口。 值包含 `domain` 和 `endpoint`，以及其他可选字段：
 
+- 默认记录的 `name` 定义是固定的，其他模块会引用它，所以不要修改默认条目名称。
+- `domain` 是用于外部访问此上游服务器的域名。域名将被添加到Nginx SSL证书的 `SAN` 字段中。
+- `endpoint` 是一个可以内部访问的TCP端口。如果包含 `${admin_ip}` ，则将在运行时被实际的 [`admin_ip`](#admin_ip) 替换。
+- 如果 `websocket` 设置为 `true`，http协议将自动为 Websocket 连接升级。
+- 如果给定了 `scheme`（`http` 或 `https`），它将被用作 proxy_pass URL的一部分。
 
-Each record contains three subsections: key as `name`, representing the component name, the external access domain, and the internal TCP port, respectively.
-and the value contains `domain`, and `endpoint`,
-
-* The `name` definition of the default record is fixed and referenced by other modules, so do not modify the default entry names.
-* The `domain` is the domain name that should be used for external access to this upstream server. domain names will be added to Nginx SSL cert SAN.
-* The `endpoint` is an internally reachable TCP port. and `${admin_ip}` will be replaced with actual [`admin_ip`](#admin_ip) in runtime.
-* If `websocket` is set to `true`, http protocol will be auto upgraded for ws connections.
-* If `scheme` is given (`http` or `https`), it will be used as part of proxy_pass URL.
 
 
 
@@ -517,20 +512,14 @@ and the value contains `domain`, and `endpoint`,
 
 ## `REPO`
 
-This section is about local yum repo, which is used by all other modules.
 
-Pigsty is installed on a meta node. Pigsty pulls up a localYum repo for the current environment to install RPM packages.
+本节配置是关于本地软件仓库的。 Pigsty 默认会在基础设施节点上启用一个本地软件仓库（APT / YUM）。
 
-During initialization, Pigsty downloads all packages and their dependencies (specified by [`repo_packages`](#repo_packages)) from the Internet upstream repo (specified by [`repo_upstream`](#repo_upstream)) to [`{{ nginx_home }}`](#nginx_home) / [`{{ repo_name }}`](#repo_name)  (default is `/www/pigsty`). The total size of all dependent software is about 1GB or so.
+在初始化过程中，Pigsty 会从互联网上游仓库（由 [`repo_upstream`](#repo_upstream) 指定）下载所有软件包及其依赖项（由 [`repo_packages`](#repo_packages) 指定）到 [`{{ nginx_home }}`](#nginx_home) / [`{{ repo_name }}`](#repo_name) （默认为 `/www/pigsty`），所有软件及其依赖的总大小约为1GB左右。
 
-When creating a localYum repo, Pigsty will skip the software download phase if the directory already exists and if there is a marker file named `repo_complete` in the dir.
+创建本地软件仓库时，如果仓库已存在（判断方式：仓库目录目录中有一个名为 `repo_complete` 的标记文件）Pigsty 将认为仓库已经创建完成，跳过软件下载阶段，直接使用构建好的仓库。
 
-If the download speed of some packages is too slow, you can set the download proxy to complete the first download by using the [`proxy_env`](#proxy_env) config entry or directly download the pre-packaged [offline package](INSTALL#offline-packages).
-
-The offline package is a zip archive of the `{{ nginx_home }}/{{ repo_name }}` dir `pkg.tgz`. During `configure`, if Pigsty finds the offline package `/tmp/pkg.tgz`, it will extract it to `{{ nginx_home }}/{{ repo_name }}`, skipping the software download step during installation.
-
-The default offline package is based on CentOS 7.9.2011 x86_64; if you use a different OS, there may be RPM package conflict and dependency error problems; please refer to the FAQ to solve.
-
+如果某些软件包的下载速度太慢，您可以通过使用 [`proxy_env`](#proxy_env) 配置项来设置下载代理来完成首次下载，或直接下载预打包的[离线包](INSTALL#离线软件包)，离线软件包本质上就是在同样操作系统上构建好的本地软件源。
 
 
 ```yaml
@@ -539,8 +528,13 @@ repo_home: /www                   # repo home dir, `/www` by default
 repo_name: pigsty                 # repo name, pigsty by default
 repo_endpoint: http://${admin_ip}:80 # access point to this repo by domain or ip:port
 repo_remove: true                 # remove existing upstream repo
-repo_modules: node,pgsql,infra    # which repo modules are installed in repo_upstream
+repo_modules: infra,node,pgsql,redis,minio  # which repo modules are installed in repo_upstream
 repo_upstream:                    # where to download #
+- { name: pigsty-infra   ,description: 'Pigsty Infra'      ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/infra/$basearch' }}
+- { name: nginx          ,description: 'Nginx Repo'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://nginx.org/packages/centos/$releasever/$basearch/' }}
+- { name: docker-ce      ,description: 'Docker CE'         ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://download.docker.com/linux/centos/$releasever/$basearch/stable'   ,china: 'https://mirrors.aliyun.com/docker-ce/linux/centos/$releasever/$basearch/stable'   ,europe: 'https://mirrors.xtom.de/docker-ce/linux/centos/$releasever/$basearch/stable' }}
+- { name: prometheus     ,description: 'Prometheus'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://packagecloud.io/prometheus-rpm/release/el/$releasever/$basearch' ,china: 'https://repo.pigsty.cc/rpm/prometheus/el$releasever.$basearch' }}
+- { name: grafana        ,description: 'Grafana'           ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://rpm.grafana.com' ,china: 'https://repo.pigsty.cc/rpm/grafana/$basearch' }}
 - { name: base           ,description: 'EL 7 Base'         ,module: node  ,releases: [7    ] ,baseurl: { default: 'http://mirror.centos.org/centos/$releasever/os/$basearch/'                    ,china: 'https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/os/$basearch/'       ,europe: 'https://mirrors.xtom.de/centos/$releasever/os/$basearch/'           }}
 - { name: updates        ,description: 'EL 7 Updates'      ,module: node  ,releases: [7    ] ,baseurl: { default: 'http://mirror.centos.org/centos/$releasever/updates/$basearch/'               ,china: 'https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/updates/$basearch/'  ,europe: 'https://mirrors.xtom.de/centos/$releasever/updates/$basearch/'      }}
 - { name: extras         ,description: 'EL 7 Extras'       ,module: node  ,releases: [7    ] ,baseurl: { default: 'http://mirror.centos.org/centos/$releasever/extras/$basearch/'                ,china: 'https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/extras/$basearch/'   ,europe: 'https://mirrors.xtom.de/centos/$releasever/extras/$basearch/'       }}
@@ -553,7 +547,8 @@ repo_upstream:                    # where to download #
 - { name: epel           ,description: 'EL 8+ EPEL'        ,module: node  ,releases: [  8,9] ,baseurl: { default: 'http://download.fedoraproject.org/pub/epel/$releasever/Everything/$basearch/' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/epel/$releasever/Everything/$basearch/' ,europe: 'https://mirrors.xtom.de/epel/$releasever/Everything/$basearch/'     }}
 - { name: powertools     ,description: 'EL 8 PowerTools'   ,module: node  ,releases: [  8  ] ,baseurl: { default: 'https://dl.rockylinux.org/pub/rocky/$releasever/PowerTools/$basearch/os/'     ,china: 'https://mirrors.aliyun.com/rockylinux/$releasever/PowerTools/$basearch/os/'  ,europe: 'https://mirrors.xtom.de/rocky/$releasever/PowerTools/$basearch/os/' }}
 - { name: crb            ,description: 'EL 9 CRB'          ,module: node  ,releases: [    9] ,baseurl: { default: 'https://dl.rockylinux.org/pub/rocky/$releasever/CRB/$basearch/os/'            ,china: 'https://mirrors.aliyun.com/rockylinux/$releasever/CRB/$basearch/os/'         ,europe: 'https://mirrors.xtom.de/rocky/$releasever/CRB/$basearch/os/'        }}
-- { name: pgdg-common    ,description: 'PostgreSQL Common' ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-$releasever-$basearch' , china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' }}
+- { name: pigsty-pgsql   ,description: 'Pigsty PgSQL'      ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/pgsql/el$releasever.$basearch'  }}
+- { name: pgdg-common    ,description: 'PostgreSQL Common' ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' }}
 - { name: pgdg-extras    ,description: 'PostgreSQL Extra'  ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/pgdg-rhel$releasever-extras/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/pgdg-rhel$releasever-extras/redhat/rhel-$releasever-$basearch' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/pgdg-rhel$releasever-extras/redhat/rhel-$releasever-$basearch' }}
 - { name: pgdg-el8fix    ,description: 'PostgreSQL EL8FIX' ,module: pgsql ,releases: [  8  ] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/pgdg-centos8-sysupdates/redhat/rhel-8-x86_64/' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/pgdg-centos8-sysupdates/redhat/rhel-8-x86_64/' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/pgdg-centos8-sysupdates/redhat/rhel-8-x86_64/' }}
 - { name: pgdg-el9fix    ,description: 'PostgreSQL EL9FIX' ,module: pgsql ,releases: [    9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/pgdg-rocky9-sysupdates/redhat/rhel-9-x86_64/'  ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/pgdg-rocky9-sysupdates/redhat/rhel-9-x86_64/' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/pgdg-rocky9-sysupdates/redhat/rhel-9-x86_64/' }}
@@ -563,39 +558,40 @@ repo_upstream:                    # where to download #
 - { name: pgdg15         ,description: 'PostgreSQL 15'     ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/15/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/15/redhat/rhel-$releasever-$basearch' ,europe: 'https://mirrors.xtom.de/postgresql/repos/yum/15/redhat/rhel-$releasever-$basearch' }}
 - { name: pgdg16         ,description: 'PostgreSQL 16'     ,module: pgsql ,releases: [  8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/16/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/16/redhat/rhel-$releasever-$basearch' ,europe: 'https://mirrors.xtom.de/postgresql/repos/yum/16/redhat/rhel-$releasever-$basearch' }}
 - { name: timescaledb    ,description: 'TimescaleDB'       ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://packagecloud.io/timescale/timescaledb/el/$releasever/$basearch'  }}
-- { name: nginx          ,description: 'Nginx Repo'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://nginx.org/packages/centos/$releasever/$basearch/'                }}
-- { name: docker-ce      ,description: 'Docker CE'         ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://download.docker.com/linux/centos/$releasever/$basearch/stable' ,china-broken: 'https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/$releasever/$basearch/stable' ,europe: 'https://mirrors.xtom.de/docker-ce/linux/centos/$releasever/$basearch/stable' }}
-- { name: pigsty-misc    ,description: 'Pigsty EL Misc'    ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://get.pigsty.cc/yum/el$releasever.$basearch' }}
-- { name: prometheus     ,description: 'Prometheus'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://packagecloud.io/prometheus-rpm/release/el/$releasever/$basearch' ,china: 'https://get.pigsty.cc/yum/prometheus/el$releasever.$basearch' }}
-- { name: grafana        ,description: 'Grafana'           ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://rpm.grafana.com' ,china: 'https://get.pigsty.cc/yum/grafana/$basearch' }}
+- { name: pigsty-redis   ,description: 'Pigsty Redis'      ,module: redis ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/redis/el$releasever.$basearch'  }}
+- { name: pigsty-minio   ,description: 'Pigsty MinIO'      ,module: minio ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/minio/$basearch'  }}
 repo_packages:                    # which packages to be included
-  - ansible python3 python3-pip python3-requests python3.11-jmespath python3.11-pip dnf-utils modulemd-tools # el7: python36-requests python36-idna yum-utils
-  - grafana loki logcli promtail prometheus2 alertmanager karma pushgateway node_exporter blackbox_exporter nginx_exporter redis_exporter mysqld_exporter karma
-  - redis etcd minio mcli haproxy vip-manager pg_exporter nginx createrepo_c sshpass chrony dnsmasq docker-ce docker-compose-plugin flamegraph
-  - lz4 unzip bzip2 zlib yum pv jq git ncdu make patch bash lsof wget uuid tuned perf nvme-cli numactl grubby sysstat iotop htop rsync tcpdump
-  - netcat socat ftp lrzsz net-tools ipvsadm bind-utils telnet audit ca-certificates openssl openssh-clients readline vim-minimal keepalived ferretdb
-  - postgresql13* wal2json_13* pg_repack_13* passwordcheck_cracklib_13* postgresql12* wal2json_12* pg_repack_12* passwordcheck_cracklib_12* postgresql16* timescaledb-tools
-  - postgresql15* citus_15* pglogical_15* wal2json_15* pg_repack_15* pgvector_15* timescaledb-2-postgresql-15* postgis33_15* passwordcheck_cracklib_15* pg_cron_15* pg_filedump_15
-  - postgresql14* citus_14* pglogical_14* wal2json_14* pg_repack_14* pgvector_14* timescaledb-2-postgresql-14* postgis33_14* passwordcheck_cracklib_14* pg_cron_14* pg_filedump_14
-  - patroni patroni-etcd pgbouncer pgbadger pgbackrest pgloader pg_activity pg_partman_15 pg_permissions_15 pgaudit17_15 pgexportdoc_15 pgimportdoc_15 pg_statement_rollback_15* pg_hint_plan_15*
+  - ansible python3 python3-pip python3-virtualenv python3-requests python3.11-jmespath python3.11-pip dnf-utils modulemd-tools
+  - grafana loki logcli promtail prometheus2 alertmanager pushgateway victoria-logs vector
+  - node_exporter blackbox_exporter nginx_exporter redis_exporter mysqld_exporter mongodb_exporter kafka_exporter keepalived_exporter
+  - redis etcd minio mcli haproxy vip-manager pg_exporter ferretdb sealos nginx createrepo_c sshpass chrony dnsmasq docker-ce docker-compose-plugin
+  - lz4 unzip bzip2 zlib yum pv jq git ncdu make patch bash lsof wget uuid tuned nvme-cli numactl grubby sysstat iotop htop rsync tcpdump perf flamegraph
+  - netcat socat ftp lrzsz net-tools ipvsadm bind-utils telnet audit ca-certificates openssl openssh-clients readline vim-minimal keepalived
+  - patroni patroni-etcd pgbouncer pgbadger pgbackrest pgloader pg_activity pg_filedump timescaledb-tools scws pgFormatter # pgxnclient
+  - postgresql14* wal2json_14* pg_repack_14* passwordcheck_cracklib_14* postgresql13* wal2json_13* pg_repack_13* passwordcheck_cracklib_13* postgresql12* wal2json_12* pg_repack_12* passwordcheck_cracklib_12* imgsmlr_15* pg_bigm_15* pg_similarity_15*
+  - postgresql15* citus_15* pglogical_15* wal2json_15* pgvector_15* postgis34_15* passwordcheck_cracklib_15* pg_cron_15* pointcloud_15* pg_tle_15* pgsql-http_15* zhparser_15* pg_roaringbitmap_15* pg_net_15* vault_15 pgjwt_15 pg_graphql_15 timescaledb-2-postgresql-15* pg_repack_15*
+  - postgresql16* citus_16* pglogical_16* wal2json_16* pgvector_16* postgis34_16* passwordcheck_cracklib_16* pg_cron_16* pointcloud_16* pg_tle_16* pgsql-http_16* zhparser_16* pg_roaringbitmap_16* pg_net_16* vault_16 pgjwt_16 pg_graphql_16 apache-age_15* hydra_15* pgml_15*
   - orafce_15* mysqlcompat_15 mongo_fdw_15* tds_fdw_15* mysql_fdw_15 hdfs_fdw_15 sqlite_fdw_15 pgbouncer_fdw_15 multicorn2_15* powa_15* pg_stat_kcache_15* pg_stat_monitor_15* pg_qualstats_15 pg_track_settings_15 pg_wait_sampling_15 system_stats_15
-  - plprofiler_15* plproxy_15 plsh_15* pldebugger_15 plpgsql_check_15*  pgtt_15 pgq_15* pgsql_tweaks_15 count_distinct_15 hypopg_15 timestamp9_15* semver_15* prefix_15* rum_15 geoip_15 periods_15 ip4r_15 tdigest_15 hll_15 pgmp_15 extra_window_functions_15 topn_15
-  - pg_background_15 e-maj_15 pg_catcheck_15 pg_prioritize_15 pgcopydb_15 pg_filedump_15 pgcryptokey_15 logerrors_15 pg_top_15 pg_comparator_15 pg_ivm_15* pgsodium_15* pgfincore_15* ddlx_15 credcheck_15 safeupdate_15 pg_squeeze_15* pg_fkpart_15 pg_jobmon_15
-  - pg_auth_mon_15 pg_checksums_15 pg_failover_slots_15 pg_readonly_15* postgresql-unit_15* pg_store_plans_15* pg_uuidv7_15* set_user_15* scws zhparser_15* pg_embedding_15* pg_roaringbitmap_15* pg_tle_15* pgsql-http_15* apache-age_15* pg_graphql_15* pgjwt_15 pg_net_15* vault_15* postgresml_15*
+  - plprofiler_15* plproxy_15 plsh_15* pldebugger_15 plpgsql_check_15* pgtt_15 pgq_15* hypopg_15* timestamp9_15* semver_15* prefix_15* periods_15* ip4r_15* tdigest_15* hll_15* pgmp_15 topn_15* geoip_15 extra_window_functions_15 pgsql_tweaks_15 count_distinct_15
+  - pg_background_15 e-maj_15 pg_catcheck_15 pg_prioritize_15 pgcopydb_15 pgcryptokey_15 logerrors_15 pg_top_15 pg_comparator_15 pg_ivm_15* pgsodium_15* pgfincore_15* ddlx_15 credcheck_15 safeupdate_15 pg_squeeze_15* pg_fkpart_15 pg_jobmon_15
+  - pg_partman_15 pg_permissions_15 pgexportdoc_15 pgimportdoc_15 pg_statement_rollback_15* pg_hint_plan_15* pg_auth_mon_15 pg_checksums_15 pg_failover_slots_15 pg_readonly_15* postgresql-unit_15* pg_store_plans_15* pg_uuidv7_15* set_user_15* pgaudit17_15 rum_15
 repo_url_packages:
-  - https://get.pigsty.cc/rpm/pev.html
-  - https://get.pigsty.cc/rpm/chart.tgz
-  - https://get.pigsty.cc/rpm/plugins.tgz
+  - https://repo.pigsty.cc/etc/pev.html
+  - https://repo.pigsty.cc/etc/chart.tgz
+  - https://repo.pigsty.cc/etc/plugins.tgz
 ```
+
+
 
 
 ### `repo_enabled`
 
 参数名称： `repo_enabled`， 类型： `bool`， 层次：`G/I`
 
-create a yum repo on this infra node? default value: `true`
+是否在当前的基础设施节点上启用本地软件源？默认为： `true`，即所有 Infra 节点都会设置一个本地软件仓库。
 
-If you have multiple infra nodes, you can disable yum repo on other standby nodes to reduce Internet traffic.
+如果您有多个基础设施节点，可以只保留 1 ～ 2 个节点作为软件仓库，其他节点可以通过设置此参数为 `false` 来避免重复软件下载构建。
+
 
 
 
@@ -604,7 +600,7 @@ If you have multiple infra nodes, you can disable yum repo on other standby node
 
 参数名称： `repo_home`， 类型： `path`， 层次：`G`
 
-repo home dir, `/www` by default
+本地软件仓库的家目录，默认为 Nginx 的根目录，也就是： `/www`，我们不建议您修改此目录。如果修改，需要和 [`nginx_home`](#nginx_home)
 
 
 
@@ -615,7 +611,7 @@ repo home dir, `/www` by default
 
 参数名称： `repo_name`， 类型： `string`， 层次：`G`
 
-repo name, `pigsty` by default, it is not wise to change this value
+本地仓库名称，默认为 `pigsty`，更改此仓库的名称是不明智的行为。
 
 
 
@@ -626,9 +622,14 @@ repo name, `pigsty` by default, it is not wise to change this value
 
 参数名称： `repo_endpoint`， 类型： `url`， 层次：`G`
 
-access point to this repo by domain or ip:port
+其他节点访问此仓库时使用的端点，默认值为：`http://${admin_ip}:80`。
 
-default value: `http://${admin_ip}:80`
+Pigsty 默认会在基础设施节点 80/443 端口启动 Nginx，对外提供本地软件源（静态文件）服务。
+
+如果您修改了 [`nginx_port`](#nginx_port) 与 [`nginx_ssl_port`](#nginx_ssl_port)，或者使用了不同于中控节点的基础设施节点，请相应调整此参数。
+
+如果您使用了域名，可以在 [`node_default_etc_hosts`](#node_default_etc_hosts)、[`node_etc_hosts`](#node_etc_hosts)、或者 [`dns_records`](#dns_records) 中添加解析。
+
 
 
 
@@ -637,9 +638,16 @@ default value: `http://${admin_ip}:80`
 
 参数名称： `repo_remove`， 类型： `bool`， 层次：`G/A`
 
-remove existing upstream repo, default value: `true`
+在构建本地软件源时，是否移除现有的上游仓库定义？默认值： `true`。
 
-If you want to keep existing upstream repo, set this value to `false`.
+当启用此参数时，`/etc/yum.repos.d` 中所有已有仓库文件会被移动备份至`/etc/yum.repos.d/backup`，在 Debian 系上是移除 `/etc/apt/sources.list` 和 `/etc/apt/sources.list.d`，将文件备份至 `/etc/apt/backup` 中。
+
+因为操作系统已有的源内容不可控，使用 Pigsty 验证过的上游软件源可以提高从互联网下载软件包的成功率与速度。
+
+但在一些特定情况下（例如您的操作系统是某种 EL/Deb 兼容版，许多软件包使用了自己的私有源），您可能需要保留现有的上游仓库定义，此时可以将此参数设置为 `false`。
+
+
+
 
 
 
@@ -648,9 +656,10 @@ If you want to keep existing upstream repo, set this value to `false`.
 
 参数名称： `repo_modules`， 类型： `string`， 层次：`G/A`
 
-which repo modules are installed in repo_upstream, default value: `node,pgsql,pgsql`
+哪些上游仓库模块会被添加到本地软件源中，默认值： `infra,node,pgsql,redis,minio`
 
-This is a comma separated value string, it is used to filter entries in [`repo_upstream`](#repo_upstream) with corresponding `module` field. 
+当 Pigsty 尝试添加上游仓库时，会根据此参数的值来过滤 [`repo_upstream`](#repo_upstream) 中的条目，只有 `module` 字段与此参数值匹配的条目才会被添加到本地软件源中。
+
 
 
 
@@ -661,12 +670,15 @@ This is a comma separated value string, it is used to filter entries in [`repo_u
 
 参数名称： `repo_upstream`， 类型： `upstream[]`， 层次：`G`
 
-where to download upstream packages
-
-default values: 
+从哪里下载上游软件包？默认值是针对 EL 7/8/9 及其兼容操作系统发行版所准备的：
 
 ```yaml
 repo_upstream:                    # where to download #
+- { name: pigsty-infra   ,description: 'Pigsty Infra'      ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/infra/$basearch' }}
+- { name: nginx          ,description: 'Nginx Repo'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://nginx.org/packages/centos/$releasever/$basearch/' }}
+- { name: docker-ce      ,description: 'Docker CE'         ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://download.docker.com/linux/centos/$releasever/$basearch/stable'   ,china: 'https://mirrors.aliyun.com/docker-ce/linux/centos/$releasever/$basearch/stable'   ,europe: 'https://mirrors.xtom.de/docker-ce/linux/centos/$releasever/$basearch/stable' }}
+- { name: prometheus     ,description: 'Prometheus'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://packagecloud.io/prometheus-rpm/release/el/$releasever/$basearch' ,china: 'https://repo.pigsty.cc/rpm/prometheus/el$releasever.$basearch' }}
+- { name: grafana        ,description: 'Grafana'           ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://rpm.grafana.com' ,china: 'https://repo.pigsty.cc/rpm/grafana/$basearch' }}
 - { name: base           ,description: 'EL 7 Base'         ,module: node  ,releases: [7    ] ,baseurl: { default: 'http://mirror.centos.org/centos/$releasever/os/$basearch/'                    ,china: 'https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/os/$basearch/'       ,europe: 'https://mirrors.xtom.de/centos/$releasever/os/$basearch/'           }}
 - { name: updates        ,description: 'EL 7 Updates'      ,module: node  ,releases: [7    ] ,baseurl: { default: 'http://mirror.centos.org/centos/$releasever/updates/$basearch/'               ,china: 'https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/updates/$basearch/'  ,europe: 'https://mirrors.xtom.de/centos/$releasever/updates/$basearch/'      }}
 - { name: extras         ,description: 'EL 7 Extras'       ,module: node  ,releases: [7    ] ,baseurl: { default: 'http://mirror.centos.org/centos/$releasever/extras/$basearch/'                ,china: 'https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/extras/$basearch/'   ,europe: 'https://mirrors.xtom.de/centos/$releasever/extras/$basearch/'       }}
@@ -679,7 +691,8 @@ repo_upstream:                    # where to download #
 - { name: epel           ,description: 'EL 8+ EPEL'        ,module: node  ,releases: [  8,9] ,baseurl: { default: 'http://download.fedoraproject.org/pub/epel/$releasever/Everything/$basearch/' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/epel/$releasever/Everything/$basearch/' ,europe: 'https://mirrors.xtom.de/epel/$releasever/Everything/$basearch/'     }}
 - { name: powertools     ,description: 'EL 8 PowerTools'   ,module: node  ,releases: [  8  ] ,baseurl: { default: 'https://dl.rockylinux.org/pub/rocky/$releasever/PowerTools/$basearch/os/'     ,china: 'https://mirrors.aliyun.com/rockylinux/$releasever/PowerTools/$basearch/os/'  ,europe: 'https://mirrors.xtom.de/rocky/$releasever/PowerTools/$basearch/os/' }}
 - { name: crb            ,description: 'EL 9 CRB'          ,module: node  ,releases: [    9] ,baseurl: { default: 'https://dl.rockylinux.org/pub/rocky/$releasever/CRB/$basearch/os/'            ,china: 'https://mirrors.aliyun.com/rockylinux/$releasever/CRB/$basearch/os/'         ,europe: 'https://mirrors.xtom.de/rocky/$releasever/CRB/$basearch/os/'        }}
-- { name: pgdg-common    ,description: 'PostgreSQL Common' ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-$releasever-$basearch' , china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' }}
+- { name: pigsty-pgsql   ,description: 'Pigsty PgSQL'      ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/pgsql/el$releasever.$basearch'  }}
+- { name: pgdg-common    ,description: 'PostgreSQL Common' ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/redhat/rhel-$releasever-$basearch' }}
 - { name: pgdg-extras    ,description: 'PostgreSQL Extra'  ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/pgdg-rhel$releasever-extras/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/pgdg-rhel$releasever-extras/redhat/rhel-$releasever-$basearch' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/pgdg-rhel$releasever-extras/redhat/rhel-$releasever-$basearch' }}
 - { name: pgdg-el8fix    ,description: 'PostgreSQL EL8FIX' ,module: pgsql ,releases: [  8  ] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/pgdg-centos8-sysupdates/redhat/rhel-8-x86_64/' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/pgdg-centos8-sysupdates/redhat/rhel-8-x86_64/' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/pgdg-centos8-sysupdates/redhat/rhel-8-x86_64/' }}
 - { name: pgdg-el9fix    ,description: 'PostgreSQL EL9FIX' ,module: pgsql ,releases: [    9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/common/pgdg-rocky9-sysupdates/redhat/rhel-9-x86_64/'  ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/common/pgdg-rocky9-sysupdates/redhat/rhel-9-x86_64/' , europe: 'https://mirrors.xtom.de/postgresql/repos/yum/common/pgdg-rocky9-sysupdates/redhat/rhel-9-x86_64/' }}
@@ -689,12 +702,54 @@ repo_upstream:                    # where to download #
 - { name: pgdg15         ,description: 'PostgreSQL 15'     ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/15/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/15/redhat/rhel-$releasever-$basearch' ,europe: 'https://mirrors.xtom.de/postgresql/repos/yum/15/redhat/rhel-$releasever-$basearch' }}
 - { name: pgdg16         ,description: 'PostgreSQL 16'     ,module: pgsql ,releases: [  8,9] ,baseurl: { default: 'https://download.postgresql.org/pub/repos/yum/16/redhat/rhel-$releasever-$basearch' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/yum/16/redhat/rhel-$releasever-$basearch' ,europe: 'https://mirrors.xtom.de/postgresql/repos/yum/16/redhat/rhel-$releasever-$basearch' }}
 - { name: timescaledb    ,description: 'TimescaleDB'       ,module: pgsql ,releases: [7,8,9] ,baseurl: { default: 'https://packagecloud.io/timescale/timescaledb/el/$releasever/$basearch'  }}
-- { name: nginx          ,description: 'Nginx Repo'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://nginx.org/packages/centos/$releasever/$basearch/'                }}
-- { name: docker-ce      ,description: 'Docker CE'         ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://download.docker.com/linux/centos/$releasever/$basearch/stable' ,china-broken: 'https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/$releasever/$basearch/stable' ,europe: 'https://mirrors.xtom.de/docker-ce/linux/centos/$releasever/$basearch/stable' }}
-- { name: pigsty-misc    ,description: 'Pigsty EL Misc'    ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://get.pigsty.cc/yum/el$releasever.$basearch' }}
-- { name: prometheus     ,description: 'Prometheus'        ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://packagecloud.io/prometheus-rpm/release/el/$releasever/$basearch' ,china: 'https://get.pigsty.cc/yum/prometheus/el$releasever.$basearch' }}
-- { name: grafana        ,description: 'Grafana'           ,module: infra ,releases: [7,8,9] ,baseurl: { default: 'https://rpm.grafana.com' ,china: 'https://get.pigsty.cc/yum/grafana/$basearch' }}
+- { name: pigsty-redis   ,description: 'Pigsty Redis'      ,module: redis ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/redis/el$releasever.$basearch'  }}
+- { name: pigsty-minio   ,description: 'Pigsty MinIO'      ,module: minio ,releases: [7,8,9] ,baseurl: { default: 'https://repo.pigsty.cc/rpm/minio/$basearch'  }}
 ```
+
+对于 Ubuntu 20.04 & 22.04，您需要在配置文件的合适位置（全局/集群/实例）中 **显式** 指定此参数：
+
+```yaml
+repo_upstream:
+  - { name: base        ,description: 'Ubuntu Basic'     ,module: node  ,releases: [20,22] ,baseurl: { default: 'https://mirrors.edge.kernel.org/${distro_name}/ ${distro_codename}           main universe multiverse restricted' ,china: 'https://mirrors.aliyun.com/${distro_name}/ ${distro_codename}           main restricted universe multiverse' }}
+  - { name: updates     ,description: 'Ubuntu Updates'   ,module: node  ,releases: [20,22] ,baseurl: { default: 'https://mirrors.edge.kernel.org/${distro_name}/ ${distro_codename}-backports main restricted universe multiverse' ,china: 'https://mirrors.aliyun.com/${distro_name}/ ${distro_codename}-updates   main restricted universe multiverse' }}
+  - { name: backports   ,description: 'Ubuntu Backports' ,module: node  ,releases: [20,22] ,baseurl: { default: 'https://mirrors.edge.kernel.org/${distro_name}/ ${distro_codename}-security  main restricted universe multiverse' ,china: 'https://mirrors.aliyun.com/${distro_name}/ ${distro_codename}-backports main restricted universe multiverse' }}
+  - { name: security    ,description: 'Ubuntu Security'  ,module: node  ,releases: [20,22] ,baseurl: { default: 'https://mirrors.edge.kernel.org/${distro_name}/ ${distro_codename}-updates   main restricted universe multiverse' ,china: 'https://mirrors.aliyun.com/${distro_name}/ ${distro_codename}-security  main restricted universe multiverse' }}
+  - { name: haproxy     ,description: 'HAProxy'          ,module: node  ,releases: [20,22] ,baseurl: { default: 'https://ppa.launchpadcontent.net/vbernat/haproxy-2.8/${distro_name}/ ${distro_codename} main'  }}
+  - { name: nginx       ,description: 'Nginx'            ,module: infra ,releases: [20,22] ,baseurl: { default: 'http://nginx.org/packages/${distro_name}/  ${distro_codename} nginx' }}
+  - { name: docker-ce   ,description: 'Docker'           ,module: infra ,releases: [20,22] ,baseurl: { default: 'https://download.docker.com/linux/${distro_name}/ ${distro_codename} stable' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/${distro_name}/ ${distro_codename} stable' }}
+  - { name: grafana     ,description: 'Grafana'          ,module: infra ,releases: [20,22] ,baseurl: { default: 'https://apt.grafana.com stable main' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/grafana/apt/ stable main' }}
+  - { name: infra       ,description: 'Pigsty Infra'     ,module: infra ,releases: [20,22] ,baseurl: { default: 'https://repo.pigsty.cc/deb/infra/amd64/ ./' }} # prometheus-deb packages
+  - { name: pgdg        ,description: 'PGDG'             ,module: pgsql ,releases: [20,22] ,baseurl: { default: 'http://apt.postgresql.org/pub/repos/apt/ ${distro_codename}-pgdg main' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/apt/ ${distro_codename}-pgdg main' }}
+  - { name: citus       ,description: 'Citus'            ,module: pgsql ,releases: [20,22] ,baseurl: { default: 'https://packagecloud.io/citusdata/community/${distro_name}/ ${distro_codename} main'   }}
+  - { name: timescaledb ,description: 'Timescaledb'      ,module: pgsql ,releases: [20,22] ,baseurl: { default: 'https://packagecloud.io/timescale/timescaledb/${distro_name}/ ${distro_codename} main' }}
+  - { name: pgsql       ,description: 'Pigsty PgSQL'     ,module: pgsql ,releases: [20,22] ,baseurl: { default: 'https://repo.pigsty.cc/deb/pgsql/${distro_codename}.amd64/ ./' }}
+  - { name: redis       ,description: 'Pigsty Redis'     ,module: redis ,releases: [20,22] ,baseurl: { default: 'https://packages.redis.io/deb ${distro_codename} main' }}
+  - { name: minio       ,description: 'Pigsty MinIO'     ,module: minio ,releases: [20,22] ,baseurl: { default: 'https://repo.pigsty.cc/deb/minio/amd64/ ./' ,europe: 'https://packagecloud.io/pigsty/minio/ubuntu/ jammy main' }}
+```
+
+对于 Debian 11 & 12，您需要在配置文件的合适位置（全局/集群/实例）中 **显式** 指定此参数：
+
+```yaml
+repo_upstream:
+  - { name: base        ,description: 'Debian Basic'    ,module: node  ,releases: [11,12] ,baseurl: { default: 'http://deb.debian.org/debian/ ${distro_codename} main non-free-firmware'                       ,china: 'https://mirrors.aliyun.com/debian/ ${distro_codename} main restricted universe multiverse' }}
+  - { name: updates     ,description: 'Debian Updates'  ,module: node  ,releases: [11,12] ,baseurl: { default: 'http://deb.debian.org/debian/ ${distro_codename}-updates main non-free-firmware'               ,china: 'https://mirrors.aliyun.com/debian/ ${distro_codename}-updates main restricted universe multiverse' }}
+  - { name: security    ,description: 'Debian Security' ,module: node  ,releases: [11,12] ,baseurl: { default: 'http://security.debian.org/debian-security ${distro_codename}-security main non-free-firmware' }}
+  - { name: haproxy     ,description: 'HAProxy'         ,module: node  ,releases: [11,12] ,baseurl: { default: 'http://haproxy.debian.net ${distro_codename}-backports-2.8 main'    }}
+  - { name: nginx       ,description: 'Nginx'           ,module: infra ,releases: [11,12] ,baseurl: { default: 'http://nginx.org/packages/mainline/debian ${distro_codename} nginx' }}
+  - { name: docker-ce   ,description: 'Docker'          ,module: infra ,releases: [11,12] ,baseurl: { default: 'https://download.docker.com/linux/debian ${distro_codename} stable' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ ${distro_codename} stable' }}
+  - { name: grafana     ,description: 'Grafana'         ,module: infra ,releases: [11,12] ,baseurl: { default: 'https://apt.grafana.com stable main' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/grafana/apt/ stable main' }}
+  - { name: infra       ,description: 'Pigsty Infra'    ,module: infra ,releases: [11,12] ,baseurl: { default: 'https://repo.pigsty.cc/deb/infra/amd64/ ./' }} # prometheus-deb packages
+  - { name: pgdg        ,description: 'PGDG'            ,module: pgsql ,releases: [11,12] ,baseurl: { default: 'http://apt.postgresql.org/pub/repos/apt/ ${distro_codename}-pgdg main' ,china: 'https://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/apt/ ${distro_codename}-pgdg main' }}
+  - { name: citus       ,description: 'Citus'           ,module: pgsql ,releases: [11,12] ,baseurl: { default: 'https://packagecloud.io/citusdata/community/debian/ ${distro_codename} main'   }}
+  - { name: timescaledb ,description: 'Timescaledb'     ,module: pgsql ,releases: [11,12] ,baseurl: { default: 'https://packagecloud.io/timescale/timescaledb/debian/ ${distro_codename} main' }}
+  - { name: pgsql       ,description: 'Pigsty PGSQL'    ,module: pgsql ,releases: [11,12] ,baseurl: { default: 'https://repo.pigsty.cc/deb/pgsql/${distro_codename}.amd64/ ./' }}
+  - { name: redis       ,description: 'Pigsty Redis'    ,module: redis ,releases: [11,12] ,baseurl: { default: 'https://packages.redis.io/deb ${distro_codename} main' }}
+  - { name: minio       ,description: 'Pigsty MinIO'    ,module: minio ,releases: [11,12] ,baseurl: { default: 'https://repo.pigsty.cc/deb/minio/amd64/ ./' ,europe: 'https://packagecloud.io/pigsty/minio/ubuntu/ jammy main' }}
+```
+
+Pigsty 构建配置模板 [`build.yml`](https://github.com/Vonng/pigsty/blob/master/files/pigsty/build.yml) 提供了不同操作系统下的权威默认值。
+
+
 
 
 
@@ -703,32 +758,74 @@ repo_upstream:                    # where to download #
 
 参数名称： `repo_packages`， 类型： `string[]`， 层次：`G`
 
-which packages to be included, default values: 
+构建本地软件源时，从上游下载哪些离线软件包？默认值是针对 EL 7/8/9 及其兼容操作系统发行版所准备的：
 
 ```yaml
 repo_packages:                    # which packages to be included
-  - ansible python3 python3-pip python3-requests python3.11-jmespath python3.11-pip dnf-utils modulemd-tools # el7: python36-requests python36-idna yum-utils
-  - grafana loki logcli promtail prometheus2 alertmanager karma pushgateway node_exporter blackbox_exporter nginx_exporter redis_exporter mysqld_exporter karma
-  - redis etcd minio mcli haproxy vip-manager pg_exporter nginx createrepo_c sshpass chrony dnsmasq docker-ce docker-compose-plugin flamegraph
-  - lz4 unzip bzip2 zlib yum pv jq git ncdu make patch bash lsof wget uuid tuned perf nvme-cli numactl grubby sysstat iotop htop rsync tcpdump
-  - netcat socat ftp lrzsz net-tools ipvsadm bind-utils telnet audit ca-certificates openssl openssh-clients readline vim-minimal keepalived ferretdb
-  - postgresql13* wal2json_13* pg_repack_13* passwordcheck_cracklib_13* postgresql12* wal2json_12* pg_repack_12* passwordcheck_cracklib_12* timescaledb-tools
-  - postgresql15* citus_15* pglogical_15* wal2json_15* pg_repack_15* pgvector_15* timescaledb-2-postgresql-15* postgis33_15* passwordcheck_cracklib_15* pg_cron_15* pg_filedump_15
-  - postgresql14* citus_14* pglogical_14* wal2json_14* pg_repack_14* pgvector_14* timescaledb-2-postgresql-14* postgis33_14* passwordcheck_cracklib_14* pg_cron_14* pg_filedump_14
-  - postgresql16* wal2json_16* pgvector_16* pg_squeeze_16* postgis34_16* passwordcheck_cracklib_16* pg_cron_16* zhparser_16* pg_embedding_16* pg_roaringbitmap_16* pg_tle_16* pgsql-http_16*
-  - patroni patroni-etcd pgbouncer pgbadger pgbackrest pgloader pg_activity pg_partman_15 pg_permissions_15 pgaudit17_15 pgexportdoc_15 pgimportdoc_15 pg_statement_rollback_15* pg_hint_plan_15*
+  - ansible python3 python3-pip python3-virtualenv python3-requests python3.11-jmespath python3.11-pip dnf-utils modulemd-tools
+  - grafana loki logcli promtail prometheus2 alertmanager pushgateway victoria-logs vector
+  - node_exporter blackbox_exporter nginx_exporter redis_exporter mysqld_exporter mongodb_exporter kafka_exporter keepalived_exporter
+  - redis etcd minio mcli haproxy vip-manager pg_exporter ferretdb sealos nginx createrepo_c sshpass chrony dnsmasq docker-ce docker-compose-plugin
+  - lz4 unzip bzip2 zlib yum pv jq git ncdu make patch bash lsof wget uuid tuned nvme-cli numactl grubby sysstat iotop htop rsync tcpdump perf flamegraph
+  - netcat socat ftp lrzsz net-tools ipvsadm bind-utils telnet audit ca-certificates openssl openssh-clients readline vim-minimal keepalived
+  - patroni patroni-etcd pgbouncer pgbadger pgbackrest pgloader pg_activity pg_filedump timescaledb-tools scws pgFormatter # pgxnclient
+  - postgresql14* wal2json_14* pg_repack_14* passwordcheck_cracklib_14* postgresql13* wal2json_13* pg_repack_13* passwordcheck_cracklib_13* postgresql12* wal2json_12* pg_repack_12* passwordcheck_cracklib_12* imgsmlr_15* pg_bigm_15* pg_similarity_15*
+  - postgresql15* citus_15* pglogical_15* wal2json_15* pgvector_15* postgis34_15* passwordcheck_cracklib_15* pg_cron_15* pointcloud_15* pg_tle_15* pgsql-http_15* zhparser_15* pg_roaringbitmap_15* pg_net_15* vault_15 pgjwt_15 pg_graphql_15 timescaledb-2-postgresql-15* pg_repack_15*
+  - postgresql16* citus_16* pglogical_16* wal2json_16* pgvector_16* postgis34_16* passwordcheck_cracklib_16* pg_cron_16* pointcloud_16* pg_tle_16* pgsql-http_16* zhparser_16* pg_roaringbitmap_16* pg_net_16* vault_16 pgjwt_16 pg_graphql_16 apache-age_15* hydra_15* pgml_15*
   - orafce_15* mysqlcompat_15 mongo_fdw_15* tds_fdw_15* mysql_fdw_15 hdfs_fdw_15 sqlite_fdw_15 pgbouncer_fdw_15 multicorn2_15* powa_15* pg_stat_kcache_15* pg_stat_monitor_15* pg_qualstats_15 pg_track_settings_15 pg_wait_sampling_15 system_stats_15
-  - plprofiler_15* plproxy_15 plsh_15* pldebugger_15 plpgsql_check_15*  pgtt_15 pgq_15* pgsql_tweaks_15 count_distinct_15 hypopg_15 timestamp9_15* semver_15* prefix_15* rum_15 geoip_15 periods_15 ip4r_15 tdigest_15 hll_15 pgmp_15 extra_window_functions_15 topn_15
-  - pg_background_15 e-maj_15 pg_catcheck_15 pg_prioritize_15 pgcopydb_15 pg_filedump_15 pgcryptokey_15 logerrors_15 pg_top_15 pg_comparator_15 pg_ivm_15* pgsodium_15* pgfincore_15* ddlx_15 credcheck_15 safeupdate_15 pg_squeeze_15* pg_fkpart_15 pg_jobmon_15
-  - pg_auth_mon_15 pg_checksums_15 pg_failover_slots_15 pg_readonly_15* postgresql-unit_15* pg_store_plans_15* pg_uuidv7_15* set_user_15* scws zhparser_15* pg_embedding_15* pg_roaringbitmap_15* pg_tle_15* pgsql-http_15* apache-age_15* pg_graphql_15* pgjwt_15 pg_net_15* vault_15* postgresml_15*
+  - plprofiler_15* plproxy_15 plsh_15* pldebugger_15 plpgsql_check_15* pgtt_15 pgq_15* hypopg_15* timestamp9_15* semver_15* prefix_15* periods_15* ip4r_15* tdigest_15* hll_15* pgmp_15 topn_15* geoip_15 extra_window_functions_15 pgsql_tweaks_15 count_distinct_15
+  - pg_background_15 e-maj_15 pg_catcheck_15 pg_prioritize_15 pgcopydb_15 pgcryptokey_15 logerrors_15 pg_top_15 pg_comparator_15 pg_ivm_15* pgsodium_15* pgfincore_15* ddlx_15 credcheck_15 safeupdate_15 pg_squeeze_15* pg_fkpart_15 pg_jobmon_15
+  - pg_partman_15 pg_permissions_15 pgexportdoc_15 pgimportdoc_15 pg_statement_rollback_15* pg_hint_plan_15* pg_auth_mon_15 pg_checksums_15 pg_failover_slots_15 pg_readonly_15* postgresql-unit_15* pg_store_plans_15* pg_uuidv7_15* set_user_15* pgaudit17_15 rum_15
 ```
 
-Each line is a set of package names separated by spaces, where the specified software will be downloaded via `repotrack`.
+不同的 EL 大版本所包含的软件包会有微量差别，在当前版本中：
 
-EL7 packages is slightly different, here are some ad hoc packages:
+* EL7:  `python36-requests python36-idna yum-utils yum-utils`，以及 `postgis33*`
+* EL8:  `python3.11-jmespath dnf-utils modulemd-tools`，以及 `postgis34*`
+* EL9:  与 EL8 相同，唯独缺少 `pgxnclient` 软件包
 
-* EL7:  `python36-requests python36-idna yum-utils yum-utils`
-* EL8 / EL9:  `python3.11-jmespath dnf-utils modulemd-tools`
+对于 Debian 系操作系统，合理默认值有所不同：
+
+```yaml
+repo_packages:                    # which packages to be included
+  - ansible python3 python3-pip python3-venv python3-jmespath dpkg-dev
+  - grafana loki logcli promtail prometheus2 alertmanager pushgateway blackbox-exporter
+  - node-exporter pg-exporter nginx-exporter redis-exporter mysqld-exporter mongodb-exporter kafka-exporter keepalived-exporter
+  - lz4 unzip bzip2 zlib1g pv jq git ncdu make patch bash lsof wget uuid tuned nvme-cli numactl sysstat iotop htop rsync tcpdump linux-tools-generic
+  - netcat socat ftp lrzsz net-tools ipvsadm dnsutils telnet ca-certificates openssl openssh-client libreadline-dev vim-tiny keepalived acl
+  - redis minio mcli etcd haproxy vip-manager nginx sshpass chrony dnsmasq docker-ce docker-compose-plugin ferretdb sealos
+  - patroni pgbouncer pgbackrest pgbadger pgloader pg-activity pgloader pg-activity postgresql-filedump pgxnclient pgformatter
+  - postgresql-client-16 postgresql-16 postgresql-server-dev-16 postgresql-plpython3-16 postgresql-plperl-16 postgresql-pltcl-16 postgresql-16-wal2json postgresql-16-repack
+  - postgresql-client-15 postgresql-15 postgresql-server-dev-15 postgresql-plpython3-15 postgresql-plperl-15 postgresql-pltcl-15 postgresql-15-wal2json postgresql-15-repack
+  - postgresql-client-14 postgresql-14 postgresql-server-dev-14 postgresql-plpython3-14 postgresql-plperl-14 postgresql-pltcl-14 postgresql-14-wal2json postgresql-14-repack
+  - postgresql-client-13 postgresql-13 postgresql-server-dev-13 postgresql-plpython3-13 postgresql-plperl-13 postgresql-pltcl-13 postgresql-13-wal2json postgresql-13-repack
+  - postgresql-client-12 postgresql-12 postgresql-server-dev-12 postgresql-plpython3-12 postgresql-plperl-12 postgresql-pltcl-12 postgresql-12-wal2json postgresql-12-repack
+  - postgresql-15-postgis-3 postgresql-15-postgis-3-scripts postgresql-15-citus-12.1 postgresql-15-pgvector timescaledb-2-postgresql-15 postgresql-pgml-15  # pgml-15 not available in ubuntu20
+  - postgresql-16-postgis-3 postgresql-16-postgis-3-scripts postgresql-16-citus-12.1 postgresql-16-pgvector postgresql-pgml-15 pg-graphql pg-net
+  - postgresql-15-credcheck postgresql-15-cron postgresql-15-debversion postgresql-15-decoderbufs postgresql-15-dirtyread postgresql-15-extra-window-functions postgresql-15-first-last-agg
+  - postgresql-15-hll postgresql-15-hypopg postgresql-15-icu-ext postgresql-15-ip4r postgresql-15-jsquery postgresql-15-londiste-sql postgresql-15-mimeo postgresql-15-mysql-fdw postgresql-15-numeral
+  - postgresql-15-ogr-fdw postgresql-15-omnidb postgresql-15-oracle-fdw postgresql-15-orafce postgresql-15-partman postgresql-15-periods postgresql-15-pg-catcheck postgresql-15-pg-checksums
+  - postgresql-15-pg-fact-loader postgresql-15-pg-qualstats postgresql-15-pg-stat-kcache postgresql-15-pg-track-settings postgresql-15-pg-wait-sampling postgresql-15-pgaudit postgresql-15-pgauditlogtofile
+  - postgresql-15-pgextwlist postgresql-15-pgfincore postgresql-15-pgl-ddl-deploy postgresql-15-pglogical postgresql-15-pglogical-ticker postgresql-15-pgmemcache postgresql-15-pgmp
+  - postgresql-15-pgpcre postgresql-15-pgq-node postgresql-15-pgq3 postgresql-15-pgsphere postgresql-15-pgtap postgresql-15-pldebugger postgresql-15-pllua postgresql-15-plpgsql-check
+  - postgresql-15-plprofiler postgresql-15-plproxy postgresql-15-plsh postgresql-15-pointcloud postgresql-15-powa postgresql-15-prefix postgresql-15-preprepare postgresql-15-prioritize
+  - postgresql-15-q3c postgresql-15-rational postgresql-15-rum postgresql-15-semver postgresql-15-set-user postgresql-15-show-plans postgresql-15-similarity postgresql-15-squeeze
+  - postgresql-15-tablelog postgresql-15-tdigest postgresql-15-tds-fdw postgresql-15-toastinfo postgresql-15-topn postgresql-15-unit postgresql-15-rdkit # 15-rdkit not available in ubuntu20
+```
+
+其中也有少量区别：
+
+- Ubuntu 22.04：`postgresql-pgml-15`, `postgresql-15-rdkit`, `linux-tools-generic`(perf), `netcat`, `ftp`
+- Ubuntu 20.04：`postgresql-15-rdkit` 不可用， `postgresql-15-postgis-3` 必须在线安装（不能使用本地源）
+- Debian 12：`netcat` -> `netcat-openbsd`，`ftp` -> `tnftp`，`linux-tools-generic`（perf） 的包名是 `linux-perf`，其余与 Ubuntu 一致
+- Debian 11：与 Debian 12 一样，除了 `postgresql-15-rdkit` 不可用。
+
+
+每一行都是 **由空格分隔** 的软件包列表字符串，这些软件包会使用 `repotrack` 或 `apt download` 下载本地以及所有依赖。
+
+Pigsty 构建配置模板 [`build.yml`](https://github.com/Vonng/pigsty/blob/master/files/pigsty/build.yml) 提供了不同操作系统下的权威默认值。
+
+
 
 
 
@@ -737,13 +834,16 @@ EL7 packages is slightly different, here are some ad hoc packages:
 
 参数名称： `repo_url_packages`， 类型： `string[]`， 层次：`G`
 
-extra packages from url, default values:
+直接使用 URL 从互联网上下载的软件包，默认为：
 
 ```yaml
 repo_url_packages:
-  - https://get.pigsty.cc/rpm/pev.html
-  - https://get.pigsty.cc/rpm/chart.tgz
+  - https://repo.pigsty.cc/etc/pev.html     # postgres 执行计划可视化
+  - https://repo.pigsty.cc/etc/chart.tgz    # grafana 额外地图数据 GeoJson
+  - https://repo.pigsty.cc/etc/plugins.tgz  # grafana 插件，可选
 ```
+
+这几个都是可选的加装项：例如，如果不下载 `plugins.tgz`，Grafana 初始化的时候就会直接从互联网上下载插件，这样会导致初始化时间变长（而且有可能被墙），但是不会影响最终结果。
 
 
 
@@ -753,29 +853,28 @@ repo_url_packages:
 
 ## `INFRA_PACKAGE`
 
-These packages are installed on infra nodes only, including common rpm pacakges, and pip packages.
-
-
-```yaml
-infra_packages:                   # packages to be installed on infra nodes
-  - grafana,loki,logcli,promtail,prometheus2,alertmanager,karma,pushgateway
-  - node_exporter,blackbox_exporter,nginx_exporter,redis_exporter,pg_exporter
-  - nginx,dnsmasq,ansible,postgresql15,redis,mcli,python3-requests
-infra_packages_pip: ''            # pip installed packages for infra nodes
-```
+这些软件包只会在 INFRA 节点上安装，包括普通的 RPM/DEB 软件包，以及 PIP 软件包。
 
 
 ### `infra_packages`
 
 参数名称： `infra_packages`， 类型： `string[]`， 层次：`G`
 
-packages to be installed on infra nodes, default value:
+将要在 Infra 节点上安装的软件包列表，默认值（EL系操作系统）为：
 
 ```yaml
 infra_packages:                   # packages to be installed on infra nodes
   - grafana,loki,logcli,promtail,prometheus2,alertmanager,karma,pushgateway
   - node_exporter,blackbox_exporter,nginx_exporter,redis_exporter,pg_exporter
-  - nginx,dnsmasq,ansible,postgresql15,redis,mcli,python3-requests
+  - nginx,dnsmasq,ansible,postgresql15,redis,mcli,etcd,python3-requests
+```
+
+对于 Debian/Ubuntu 来说，默认的 Infra 软件包列表为：
+
+```yaml
+- grafana,loki,logcli,promtail,prometheus2,alertmanager,pushgateway,blackbox-exporter
+- node-exporter,blackbox-exporter,nginx-exporter,redis-exporter,pg-exporter
+- nginx,dnsmasq,ansible,postgresql-client-16,redis,mcli,etcd,python3-requests
 ```
 
 
@@ -785,7 +884,7 @@ infra_packages:                   # packages to be installed on infra nodes
 
 参数名称： `infra_packages_pip`， 类型： `string`， 层次：`G`
 
-pip installed packages for infra nodes, default value is empty string
+Infra 节点上要使用 `pip` 额外安装的软件包，包名使用逗号分隔，默认值是空字符串，即不安装任何额外的 python 包。
 
 
 
@@ -798,11 +897,10 @@ pip installed packages for infra nodes, default value is empty string
 
 ## `NGINX`
 
-Pigsty exposes all Web services through Nginx: Home Page, Grafana, Prometheus, AlertManager, etc...,
-and other optional tools such as PGWe, Jupyter Lab, Pgadmin, Bytebase ,and other static resource & report such as `pev`, `schemaspy` & `pgbadger`
+Pigsty 会通过 Nginx 代理所有的 Web 服务访问：Home Page、Grafana、Prometheus、AlertManager 等等。
+以及其他可选的工具，如 PGWe、Jupyter Lab、Pgadmin、Bytebase 等等，还有一些静态资源和报告，如 `pev`、`schemaspy` 和 `pgbadger`。
 
-This nginx also serves as a local yum repo.
-
+最重要的是，Nginx 还作为本地软件仓库（Yum/Apt）的 Web 服务器，用于存储和分发 Pigsty 的软件包。
 
 ```yaml
 nginx_enabled: true               # enable nginx on this infra node?
@@ -817,14 +915,15 @@ nginx_navbar:                     # nginx index page navigation links
   - { name: PG Logs ,url: '/logs'     ,desc: 'postgres raw csv logs'       }
   - { name: Reports ,url: '/report'   ,desc: 'pgbadger summary report'     }
   - { name: Explain ,url: '/pigsty/pev.html' ,desc: 'postgres explain visualizer' }
-  ```
+```
+
 
 
 ### `nginx_enabled`
 
 参数名称： `nginx_enabled`， 类型： `bool`， 层次：`G/I`
 
-enable nginx on this infra node? default value: `true`
+是否在当前的 Infra 节点上启用 Nginx？默认值为： `true`。
 
 
 
@@ -834,9 +933,10 @@ enable nginx on this infra node? default value: `true`
 
 参数名称： `nginx_exporter_enabled`， 类型： `bool`， 层次：`G/I`
 
-enable nginx_exporter on this infra node? default value: `true`.
+在此基础设施节点上启用 nginx_exporter ？默认值为： `true`。
 
-set to false will disable `/nginx` health check stub too 
+如果禁用此选项，还会一并禁用 `/nginx` 健康检查 stub，当您安装使用的 Nginx 版本不支持此功能是可以考虑关闭此开关
+
 
 
 
@@ -846,13 +946,11 @@ set to false will disable `/nginx` health check stub too
 
 参数名称： `nginx_sslmode`， 类型： `enum`， 层次：`G`
 
-nginx ssl mode? disable,enable,enforce
+Nginx 的 SSL工作模式？有三种选择：`disable` , `enable` , `enforce`， 默认值为 `enable`，即启用 SSL，但不强制使用。
 
-default value: `enable`
-
-* `disable`: listen on default port only
-* `enable`: serve both http / https requests
-* `enforce`: all links are rendered as `https://`
+* `disable`：只监听 [`nginx_port`](#nginx_port) 指定的端口服务 HTTP 请求。
+* `enable`：同时会监听 [`nginx_ssl_port`](#nginx_ssl_port) 指定的端口服务 HTTPS 请求。
+* `enforce`：所有链接都会被渲染为默认使用 `https://`
 
 
 
@@ -862,9 +960,10 @@ default value: `enable`
 
 参数名称： `nginx_home`， 类型： `path`， 层次：`G`
 
-nginx content dir, `/www` by default
+Nginx服务器静态文件目录，默认为： `/www`
 
-Nginx root directory which contains static resource and repo resource. It's wise to set this value same as [`repo_home`](#repo_home) so that local repo content is automatically served.
+Nginx服务器的根目录，包含静态资源和软件仓库文件。最好不要随意修改此参数，修改时需要与 [`repo_home`](#repo_home) 参数保持一致。
+
 
 
 
@@ -873,7 +972,9 @@ Nginx root directory which contains static resource and repo resource. It's wise
 
 参数名称： `nginx_port`， 类型： `port`， 层次：`G`
 
-nginx listen port, `80` by default
+Nginx 默认监听的端口（提供HTTP服务），默认为 `80` 端口，最好不要修改这个参数。
+
+当您的服务器 80 端口被占用时，可以考虑修改此参数，但是需要同时修改 [`repo_endpoint`](#repo_endpoint) ，以及 [`node_repo_local_urls`](#node_repo_local_urls) 所使用的端口并与这里保持一致。
 
 
 
@@ -884,7 +985,7 @@ nginx listen port, `80` by default
 
 参数名称： `nginx_ssl_port`， 类型： `port`， 层次：`G`
 
-nginx ssl listen port, `443` by default
+Nginx SSL 默认监听的端口，默认为 `443`，最好不要修改这个参数。
 
 
 
@@ -894,9 +995,7 @@ nginx ssl listen port, `443` by default
 
 参数名称： `nginx_navbar`， 类型： `index[]`， 层次：`G`
 
-nginx index page navigation links
-
-default value:
+Nginx 首页上的导航栏内容，默认值：
 
 ```yaml
 nginx_navbar:                     # nginx index page navigation links
@@ -907,9 +1006,13 @@ nginx_navbar:                     # nginx index page navigation links
   - { name: Explain ,url: '/pigsty/pev.html' ,desc: 'postgres explain visualizer' }
 ```
 
-Each record is rendered as a navigation link to the Pigsty home page App drop-down menu, and the apps are all optional, mounted by default on the Pigsty default server under `http://pigsty/`.
+每一条记录都会被渲染为一个导航链接，链接到 Pigsty 首页的 App 下拉菜单，所有的 App 都是可选的，默认挂载在 Pigsty 默认服务器下的 `http://pigsty/` 。
 
-The `url` parameter specifies the URL PATH for the app, with the exception that if the `${grafana}` string is present in the URL, it will be automatically replaced with the Grafana domain name defined in [`infra_portal`](#infra_portal).
+`url` 参数指定了 App 的 URL PATH，但是如果 URL 中包含 `${grafana}` 字符串，它会被自动替换为 [`infra_portal`](#infra_portal) 中定义的 Grafana 域名。
+
+所以您可以将一些使用 Grafana 的数据应用挂载到 Pigsty 的首页导航栏中。
+
+
 
 
 
@@ -919,16 +1022,9 @@ The `url` parameter specifies the URL PATH for the app, with the exception that 
 
 ## `DNS`
 
+Pigsty 默认会在 Infra 节点上启用 DNSMASQ 服务，用于解析一些辅助域名，例如 `h.pigsty` `a.pigsty` `p.pigsty` `g.pigsty` 等等，以及可选 MinIO 的 `sss.pigsty`。
 
-You can set a default DNSMASQ server on infra nodes to serve DNS inquiry.
-
-All records on infra node's  `/etc/hosts.d/*` will be resolved.
-
-You have to add `nameserver {{ admin_ip }}` to your `/etc/resolv` to use this dns server
-
-For pigsty managed node, the default `"${admin_ip}"` in [`node_dns_servers`](#node_dns_servers) will do the trick.
-
-
+解析记录会记录在 Infra 节点的 `/etc/hosts.d/default` 文件中。 要使用这个 DNS 服务器，您必须将 `nameserver <ip>` 添加到 `/etc/resolv` 中，[`node_dns_servers`](#node_dns_servers) 参数可以解决这个问题。
 
 
 ```yaml
@@ -940,11 +1036,15 @@ dns_records:                      # dynamic dns records resolved by dnsmasq
 ```
 
 
+
 ### `dns_enabled`
 
 参数名称： `dns_enabled`， 类型： `bool`， 层次：`G/I`
 
-setup dnsmasq on this infra node? default value: `true`
+是否在这个 Infra 节点上启用 DNSMASQ 服务？默认值为： `true`。
+
+如果你不想使用默认的 DNS 服务器，（比如你已经有了外部的DNS服务器，或者您的供应商不允许您使用 DNS 服务器）可以将此值设置为 `false` 来禁用它。
+并使用 [`node_default_etc_hosts`](#node_default_etc_hosts) 和 [`node_etc_hosts`](#node_etc_hosts) 静态解析记录代替。
 
 
 
@@ -953,7 +1053,7 @@ setup dnsmasq on this infra node? default value: `true`
 
 参数名称： `dns_port`， 类型： `port`， 层次：`G`
 
-dns server listen port, `53` by default
+DNSMASQ 的默认监听端口，默认是 `53`，不建议修改 DNS 服务默认端口。
 
 
 
@@ -963,7 +1063,8 @@ dns server listen port, `53` by default
 
 参数名称： `dns_records`， 类型： `string[]`， 层次：`G`
 
-dynamic dns records resolved by dnsmasq, Some auxiliary domain names will be written to `/etc/hosts.d/default` by default
+由 dnsmasq 负责解析的动态 DNS 记录，一般用于将一些辅助域名解析到本地，例如 `h.pigsty` `a.pigsty` `p.pigsty` `g.pigsty` 等等。这些记录会被写入到基础设置节点的 `/etc/hosts.d/default` 文件中。
+
 
 ```yaml
 dns_records:                      # dynamic dns records resolved by dnsmasq
@@ -976,13 +1077,11 @@ dns_records:                      # dynamic dns records resolved by dnsmasq
 
 
 
-
 ------------------------------
 
 ## `PROMETHEUS`
 
-Prometheus is used as time-series database for metrics scrape, storage & analysis.
-
+Prometheus 被用作时序数据库，用于存储和分析监控指标数据，进行指标预计算，评估告警规则。
 
 ```yaml
 prometheus_enabled: true          # enable prometheus on this infra node?
@@ -1004,13 +1103,14 @@ exporter_repo_url: ''             # exporter repo file url if install exporter v
 ```
 
 
+
 ### `prometheus_enabled`
 
 参数名称： `prometheus_enabled`， 类型： `bool`， 层次：`G/I`
 
-enable prometheus on this infra node?
+是否在当前 Infra 节点上启用 Prometheus？ 默认值为 `true`，即所有基础设施节点默认都会安装启用 Prometheus。
 
-default value: `true`
+例如，如果您有多个元节点，默认情况下，Pigsty会在所有元节点上部署Prometheus。如果您想一台用于Prometheus监控指标收集，一台用于Loki日志收集，则可以在其他元节点的实例层次上将此参数设置为`false`。
 
 
 
@@ -1020,7 +1120,8 @@ default value: `true`
 
 参数名称： `prometheus_clean`， 类型： `bool`， 层次：`G/A`
 
-clean prometheus data during init? default value: `true`
+是否在执行 Prometheus 初始化的时候清除现有 Prometheus 数据？默认值为 `true`。
+
 
 
 
@@ -1031,7 +1132,7 @@ clean prometheus data during init? default value: `true`
 
 参数名称： `prometheus_data`， 类型： `path`， 层次：`G`
 
-prometheus data dir, `/data/prometheus` by default
+Prometheus数据库目录, 默认位置为 `/data/prometheus`。
 
 
 
@@ -1041,9 +1142,9 @@ prometheus data dir, `/data/prometheus` by default
 
 参数名称： `prometheus_sd_interval`， 类型： `interval`， 层次：`G`
 
-prometheus target refresh interval, `5s` by default
+Prometheus 静态文件服务发现的刷新周期，默认值为 `5s`。
 
-
+这意味着 Prometheus 每隔这样长的时间就会重新扫描一次 `/etc/prometheus/targets` 目录，以发现新的目标。
 
 
 
@@ -1053,7 +1154,7 @@ prometheus target refresh interval, `5s` by default
 
 参数名称： `prometheus_scrape_interval`， 类型： `interval`， 层次：`G`
 
-prometheus scrape & eval interval, `10s` by default
+Prometheus 全局指标抓取周期, 默认值为 `10s`。在生产环境，10秒 - 30秒是一个较为合适的抓取周期。如果您需要更精细的的监控数据粒度，则可以调整此参数。
 
 
 
@@ -1065,9 +1166,9 @@ prometheus scrape & eval interval, `10s` by default
 
 参数名称： `prometheus_scrape_timeout`， 类型： `interval`， 层次：`G`
 
-prometheus global scrape timeout, `8s` by default
+Prometheus 全局抓取超时，默认为 `8s`。
 
-DO NOT set this larger than [`prometheus_scrape_interval`](#prometheus_scrape_interval)
+设置抓取超时可以有效避免监控系统查询导致的雪崩，设置原则是，本参数必须小于并接近 [`prometheus_scrape_interval`](#prometheus_scrape_interval) ，确保每次抓取时长不超过抓取周期。
 
 
 
@@ -1077,11 +1178,11 @@ DO NOT set this larger than [`prometheus_scrape_interval`](#prometheus_scrape_in
 
 参数名称： `prometheus_options`， 类型： `arg`， 层次：`G`
 
-prometheus extra server options
+Prometheus 的额外的命令行参数，默认值：`--storage.tsdb.retention.time=15d`
 
-default value: `--storage.tsdb.retention.time=15d`
+默认的参数会为 Prometheus 配置一个 15 天的保留期限来限制磁盘使用量。
 
-Extra cli args for prometheus server, the default value will set up a 15-day data retention to limit disk usage.
+
 
 
 
@@ -1091,7 +1192,9 @@ Extra cli args for prometheus server, the default value will set up a 15-day dat
 
 参数名称： `pushgateway_enabled`， 类型： `bool`， 层次：`G/I`
 
-setup pushgateway on this infra node? default value: `true`
+是否在当前 Infra 节点上启用 PushGateway？ 默认值为 `true`，即所有基础设施节点默认都会安装启用 PushGateway。
+
+
 
 
 
@@ -1101,7 +1204,7 @@ setup pushgateway on this infra node? default value: `true`
 
 参数名称： `pushgateway_options`， 类型： `arg`， 层次：`G`
 
-pushgateway extra server options, default value: `--persistence.interval=1m`
+PushGateway 的额外的命令行参数，默认值：`--persistence.interval=1m`，即每分钟进行一次持久化操作。
 
 
 
@@ -1111,7 +1214,9 @@ pushgateway extra server options, default value: `--persistence.interval=1m`
 
 参数名称： `blackbox_enabled`， 类型： `bool`， 层次：`G/I`
 
-setup blackbox_exporter on this infra node? default value: `true`
+是否在当前 Infra 节点上启用 BlackboxExporter ？ 默认值为 `true`，即所有基础设施节点默认都会安装启用 BlackboxExporter 。
+
+BlackboxExporter 会向节点 IP 地址， VIP 地址，PostgreSQL VIP 地址发送 ICMP 报文测试网络连通性。
 
 
 
@@ -1121,7 +1226,7 @@ setup blackbox_exporter on this infra node? default value: `true`
 
 参数名称： `blackbox_options`， 类型： `arg`， 层次：`G`
 
-blackbox_exporter extra server options, default value is empty string
+BlackboxExporter 的额外的命令行参数，默认值：空字符串。
 
 
 
@@ -1132,7 +1237,7 @@ blackbox_exporter extra server options, default value is empty string
 
 参数名称： `alertmanager_enabled`， 类型： `bool`， 层次：`G/I`
 
-setup alertmanager on this infra node? default value: `true`
+是否在当前 Infra 节点上启用 AlertManager ？ 默认值为 `true`，即所有基础设施节点默认都会安装启用 AlertManager 。
 
 
 
@@ -1142,7 +1247,7 @@ setup alertmanager on this infra node? default value: `true`
 
 参数名称： `alertmanager_options`， 类型： `arg`， 层次：`G`
 
-alertmanager extra server options, default value is empty string
+AlertManager 的额外的命令行参数，默认值：空字符串。
 
 
 
@@ -1152,7 +1257,7 @@ alertmanager extra server options, default value is empty string
 
 参数名称： `exporter_metrics_path`， 类型： `path`， 层次：`G`
 
-exporter metric path, `/metrics` by default
+监控 exporter 暴露指标的 HTTP 端点路径，默认为： `/metrics` ，不建议修改此参数。
 
 
 
@@ -1163,23 +1268,17 @@ exporter metric path, `/metrics` by default
 
 参数名称： `exporter_install`， 类型： `enum`， 层次：`G`
 
-how to install exporter? none,yum,binary
+（弃用参数）安装监控组件的方式，有三种可行选项：`none`, `yum`, `binary`
 
-default value: `none`
+指明安装Exporter的方式：
 
-Specify how to install Exporter:
+* `none`：不安装，（默认行为，Exporter已经在先前由 [`node.pkgs`](/zh/docs/nodes/config#node_packages_default) 任务完成安装）
+* `yum`：使用yum（apt）安装（如果启用yum安装，在部署Exporter前执行yum安装 [`node_exporter`](#node_exporter) 与 [`pg_exporter`](/zh/docs/pgsql/config#pg_exporter) ）
+* `binary`：使用拷贝二进制的方式安装（从元节点中直接拷贝[`node_exporter`](#node_exporter) 与 [`pg_exporter`](/zh/docs/pgsql/config#pg_exporter) 二进制，不推荐）
 
-* `none`: No installation, (by default, the Exporter has been previously installed by the [`node.pkgs`](#node_default_packages) task)
-* `yum`: Install using yum (if yum installation is enabled, run yum to install [`node_exporter`](#node_exporter) and [`pg_exporter`](#pg_exporter) before deploying Exporter)
-* `binary`: Install using a copy binary (copy [`node_exporter`](#node_exporter) and [`pg_exporter`](#pg_exporter) binary directly from the meta node, not recommended)
+使用`yum`安装时，如果指定了`exporter_repo_url`（不为空），在执行安装时会首先将该URL下的REPO文件安装至`/etc/yum.repos.d`中。这一功能可以在不执行节点基础设施初始化的环境下直接进行Exporter的安装。
+不推荐普通用户使用`binary`安装，这种模式通常用于紧急故障抢修与临时问题修复。
 
-When installing with `yum`, if `exporter_repo_url` is specified (not empty), the installation will first install the REPO file under that URL into `/etc/yum.repos.d`. This feature allows you to install Exporter directly without initializing the node infrastructure.
-It is not recommended for regular users to use `binary` installation. This mode is usually used for emergency troubleshooting and temporary problem fixes.
-
-```bash
-<meta>:<pigsty>/files/node_exporter ->  <target>:/usr/bin/node_exporter
-<meta>:<pigsty>/files/pg_exporter   ->  <target>:/usr/bin/pg_exporter
-```
 
 
 
@@ -1189,12 +1288,9 @@ It is not recommended for regular users to use `binary` installation. This mode 
 
 参数名称： `exporter_repo_url`， 类型： `url`， 层次：`G`
 
-exporter repo file url if install exporter via yum
+（弃用参数）监控组件的 Yum Repo URL
 
-default value is empty string
-
-Default is empty; when [`exporter_install`](#exporter_install) is `yum`, the repo specified by this parameter will be added to the node source list.
-
+默认为空，当 [`exporter_install`](#exporter_install) 为 `yum` 时，该参数指定的Repo会被添加至节点源列表中。
 
 
 
@@ -1205,9 +1301,7 @@ Default is empty; when [`exporter_install`](#exporter_install) is `yum`, the rep
 
 ## `GRAFANA`
 
-Grafana is the visualization platform for Pigsty's monitoring system. 
-
-It can also be used as a low code data visualization environment
+Pigsty 使用 Grafana 作为监控系统前端。它也可以做为数据分析与可视化平台，或者用于低代码数据应用开发，制作数据应用原型等目的。
 
 
 ```yaml
@@ -1220,11 +1314,16 @@ grafana_plugin_list:              # grafana plugins to be downloaded with grafan
   - volkovlabs-echarts-panel
   - volkovlabs-image-panel
   - volkovlabs-form-panel
+  - volkovlabs-variable-panel
   - volkovlabs-grapi-datasource
+  - marcusolsson-static-datasource
+  - marcusolsson-json-datasource
+  - marcusolsson-csv-datasource
   - marcusolsson-dynamictext-panel
   - marcusolsson-treemap-panel
   - marcusolsson-calendar-panel
-  - marcusolsson-static-datasource
+  - marcusolsson-hourly-heatmap-panel
+  - knightss27-weathermap-panel
 loki_enabled: true                # enable loki on this infra node?
 loki_clean: false                 # whether remove existing loki data?
 loki_data: /data/loki             # loki data dir, `/data/loki` by default
@@ -1237,7 +1336,7 @@ loki_retention: 15d               # loki log retention period, 15d by default
 
 参数名称： `grafana_enabled`， 类型： `bool`， 层次：`G/I`
 
-enable grafana on this infra node? default value: `true`
+是否在Infra节点上启用Grafana？默认值为： `true`，即所有基础设施节点默认都会安装启用 Grafana。
 
 
 
@@ -1247,7 +1346,9 @@ enable grafana on this infra node? default value: `true`
 
 参数名称： `grafana_clean`， 类型： `bool`， 层次：`G/A`
 
-clean grafana data during init? default value: `true`
+是否在初始化 Grafana 时一并清理其数据文件？默认为：`true`。
+
+该操作会移除 `/var/lib/grafana/grafana.db`，确保 Grafana 全新安装。
 
 
 
@@ -1257,7 +1358,7 @@ clean grafana data during init? default value: `true`
 
 参数名称： `grafana_admin_username`， 类型： `username`， 层次：`G`
 
-grafana admin username, `admin` by default
+Grafana管理员用户名，`admin` by default
 
 
 
@@ -1269,11 +1370,9 @@ grafana admin username, `admin` by default
 
 参数名称： `grafana_admin_password`， 类型： `password`， 层次：`G`
 
-grafana admin password, `pigsty` by default
+Grafana管理员密码，`pigsty` by default
 
-default value: `pigsty`
-
-!> WARNING: Change this to a strong password before deploying to production environment 
+> 提示：请务必在生产部署中修改此密码参数！ 
 
 
 
@@ -1283,11 +1382,10 @@ default value: `pigsty`
 
 参数名称： `grafana_plugin_cache`， 类型： `path`， 层次：`G`
 
-path to grafana plugins cache tarball
+Grafana 插件缓存地址，一个指向 Tarball 的路径，默认值为：`/www/pigsty/plugins.tgz`
 
-default value: `/www/pigsty/plugins.tgz`
+如果该文件存在，Pigsty会直接将其解压至：`/var/lib/grafana/plugins` 中并跳过从互联网下载 Grafana 插件的步骤。
 
-If that cache exists, pigsty use that instead of downloading plugins from the Internet
 
 
 
@@ -1297,22 +1395,26 @@ If that cache exists, pigsty use that instead of downloading plugins from the In
 
 参数名称： `grafana_plugin_list`， 类型： `string[]`， 层次：`G`
 
-grafana plugins to be downloaded with grafana-cli
-
-default value:
+列表中的 Grafana 插件将会被下载，默认包含了来自 volkovlabs 与 marusolsson 的几个实用扩展。 
 
 ```yaml
 grafana_plugin_list:              # grafana plugins to be downloaded with grafana-cli
   - volkovlabs-echarts-panel
   - volkovlabs-image-panel
   - volkovlabs-form-panel
+  - volkovlabs-variable-panel
   - volkovlabs-grapi-datasource
+  - marcusolsson-static-datasource
+  - marcusolsson-json-datasource
+  - marcusolsson-csv-datasource
   - marcusolsson-dynamictext-panel
   - marcusolsson-treemap-panel
   - marcusolsson-calendar-panel
-  - marcusolsson-static-datasource
+  - marcusolsson-hourly-heatmap-panel
+  - knightss27-weathermap-panel
 ```
 
+每个数组元素是一个字符串，表示插件的名称。插件会通过`grafana-cli plugins install`的方式进行安装。
 
 
 
@@ -1322,12 +1424,15 @@ grafana_plugin_list:              # grafana plugins to be downloaded with grafan
 
 ## `LOKI`
 
+Loki 是Grafana提供的轻量级日志收集/检索平台，它可以提供一个集中查询服务器/数据库日志的地方。
+
 
 ### `loki_enabled`
 
 参数名称： `loki_enabled`， 类型： `bool`， 层次：`G/I`
 
-enable loki on this infra node? default value: `true`
+是否在当前 Infra 节点上启用 Loki ？ 默认值为 `true`，即所有基础设施节点默认都会安装启用 Loki 。
+
 
 
 
@@ -1337,7 +1442,7 @@ enable loki on this infra node? default value: `true`
 
 参数名称： `loki_clean`， 类型： `bool`， 层次：`G/A`
 
-whether remove existing loki data? default value: `false`
+是否在安装Loki时清理数据库目录？默认值： `false`，现有日志数据在初始化时会保留。
 
 
 
@@ -1347,7 +1452,7 @@ whether remove existing loki data? default value: `false`
 
 参数名称： `loki_data`， 类型： `path`， 层次：`G`
 
-loki data dir, default value: `/data/loki`
+Loki的数据目录，默认值为： `/data/loki`
 
 
 
@@ -1358,7 +1463,7 @@ loki data dir, default value: `/data/loki`
 
 参数名称： `loki_retention`， 类型： `interval`， 层次：`G`
 
-loki log retention period, `15d` by default
+Loki日志默认保留天数，默认保留 `15d` 。
 
 
 
@@ -1431,14 +1536,10 @@ node_id_from_pg: true             # 如果可行，是否借用 postgres 身份�
 
 参数名称： `nodename`， 类型： `string`， 层次：`I`
 
-node instance identity, use hostname if missing, optional
+主机节点的身份参数，如果没有显式设置，则会使用现有的主机 Hostname 作为节点名。本参数虽然是身份参数，但因为有合理默认值，所以是可选项。
 
-no default value, Null or empty string means `nodename` will be set to node's current hostname.
-
-If [`node_id_from_pg`](#node_id_from_pg) is `true`, [`nodename`](#nodename) will try to use `${pg_cluster}-${pg_seq}` first, if PGSQL is not defined on this node, it will fall back to default `HOSTNAME`.
-
-If [`nodename_overwrite`](#nodename_overwrite) is `true`, the node name will also be used as the HOSTNAME.
-
+如果启用了 [`node_id_from_pg`](#node_id_from_pg) 选项（默认启用），且 `nodename` 没有被显式指定，
+那么 [`nodename`](#nodename) 会尝试使用 `${pg_cluster}-${pg_seq}` 作为实例身份参数，如果集群没有定义 PGSQL 模块，那么会回归到默认值，也就是主机节点的 HOSTNAME。
 
 
 
@@ -1447,13 +1548,11 @@ If [`nodename_overwrite`](#nodename_overwrite) is `true`, the node name will als
 
 参数名称： `node_cluster`， 类型： `string`， 层次：`C`
 
-node cluster identity, use 'nodes' if missing, optional
+该选项可为节点显式指定一个集群名称，通常在节点集群层次定义才有意义。使用默认空值将直接使用固定值`nodes`作为节点集群标识。
 
-default values: `nodes`
+如果启用了 [`node_id_from_pg`](#node_id_from_pg) 选项（默认启用），且 `node_cluster` 没有被显式指定，那么 [`node_cluster`](#node_cluster) 会尝试使用 `${pg_cluster}-${pg_seq}` 作为集群身份参数，如果集群没有定义 PGSQL 模块，那么会回归到默认值 `nodes`。
 
-If [`node_id_from_pg`](#node_id_from_pg) is `true`, [`node_cluster`](#nodename) will try to use `${pg_cluster}-${pg_seq}` first, if PGSQL is not defined on this node, it will fall back to default `HOSTNAME`.
 
-If [`nodename_overwrite`](#nodename_overwrite) is `true`, the node name will also be used as the HOSTNAME.
 
 
 
@@ -1463,7 +1562,7 @@ If [`nodename_overwrite`](#nodename_overwrite) is `true`, the node name will als
 
 参数名称： `nodename_overwrite`， 类型： `bool`， 层次：`C`
 
-是否使用 nodename 覆盖主机名？默认值为 `true`，在这种情况下，如果你设置了一个非空的 [`nodename`](#nodename) ，那么它会被用作当前主机的 HOSTNAME 。
+是否使用 [`nodename`](#nodename) 覆盖主机名？默认值为 `true`，在这种情况下，如果你设置了一个非空的 [`nodename`](#nodename) ，那么它会被用作当前主机的 HOSTNAME 。
 
 当 `nodename` 配置为空时，如果  [`node_id_from_pg`](#node_id_from_pg) 参数被配置为 `true` （默认为真），那么 Pigsty 会尝试借用1:1定义在节点上的 PostgreSQL 实例的身份参数作为主机的节点名。
 也就是 `{{ pg_cluster }}-{{ pg_seq }}`，如果该节点没有安装 PGSQL 模块，则会回归到默认什么都不做的状态。
@@ -1473,15 +1572,16 @@ If [`nodename_overwrite`](#nodename_overwrite) is `true`, the node name will als
 
 
 
+
+
 ### `nodename_exchange`
 
 参数名称： `nodename_exchange`， 类型： `bool`， 层次：`C`
 
-exchange nodename among play hosts?
+是否在剧本节点间交换主机名？默认值为：`false`
 
-default value is `false`
+启用此参数时，同一批组执行 [`node.yml`](NODE#nodeyml) 剧本的节点之间会相互交换节点名称，写入`/etc/hosts`中。
 
-When this parameter is enabled, node names are exchanged between the same group of nodes executing the `node.yml` playbook, written to `/etc/hosts`.
 
 
 
@@ -1490,13 +1590,10 @@ When this parameter is enabled, node names are exchanged between the same group 
 
 参数名称： `node_id_from_pg`， 类型： `bool`， 层次：`C`
 
-use postgres identity as node identity if applicable?
+从节点上 1:1 部署的 PostgreSQL 实例/集群上借用身份参数？ 默认值为 `true`。
 
-default value is `true`
-
-Boworrow PostgreSQL cluster & instance identity if application.
-
-It's useful to use same identity for postgres & node if there's a 1:1 relationship
+Pigsty 中的 PostgreSQL 实例与节点默认使用 1:1 部署，因此，您可以从数据库实例上“借用” 身份参数。
+此参数默认启用，这意味着一套 PostgreSQL 集群如果没有特殊配置，主机节点集群和实例的身份参数默认值是与数据库身份参数保持一致的。对于问题分析，监控数据处理都提供了额外便利。
 
 
 
@@ -1506,9 +1603,9 @@ It's useful to use same identity for postgres & node if there's a 1:1 relationsh
 
 ## `NODE_DNS`
 
-Pigsty configs static DNS records and dynamic DNS resolver for nodes.
+Pigsty会为节点配置静态DNS解析记录与动态DNS服务器。
 
-If you already have a DNS server, set [`node_dns_method`](#node_dns_method) to `none` to disable dynamic DNS setup.
+如果您的节点供应商已经为您配置了DNS服务器，您可以将 [`node_dns_method`](#node_dns_method) 设置为 `none` 跳过DNS设置。
 
 ```yaml
 node_default_etc_hosts:           # static dns records in `/etc/hosts`
@@ -1521,23 +1618,22 @@ node_dns_options:                 # dns resolv options in `/etc/resolv.conf`
 ```
 
 
+
 ### `node_default_etc_hosts`
 
 参数名称： `node_default_etc_hosts`， 类型： `string[]`， 层次：`G`
 
-static dns records in `/etc/hosts`
-
-default value: 
+默认写入所有节点 `/etc/hosts` 的静态DNS记录，默认值为：
 
 ```yaml
 ["${admin_ip} h.pigsty a.pigsty p.pigsty g.pigsty"]
 ```
 
-[`node_default_etc_hosts`](#node_default_etc_hosts) is an array. Each element is a DNS record with format `<ip> <name>`.
+[`node_default_etc_hosts`](#node_default_etc_hosts) 是一个数组，每个元素都是一条 DNS 记录，格式为 `<ip> <name>`，您可以指定多个用空格分隔的域名。
 
-It is used for global static DNS records. You can use [`node_etc_hosts`](#node_etc_hosts) for ad hoc records for each cluster.
+这个参数是用于配置全局静态DNS解析记录的，如果您希望为单个集群与实例配置特定的静态DNS解析，则可以使用 [`node_etc_hosts`](#node_etc_hosts) 参数。
 
-Make sure to write a DNS record like `10.10.10.10 h.pigsty a.pigsty p.pigsty g.pigsty` to `/etc/hosts` to ensure that the local yum repo can be accessed using the domain name before the DNS Nameserver starts.
+
 
 
 
@@ -1546,11 +1642,9 @@ Make sure to write a DNS record like `10.10.10.10 h.pigsty a.pigsty p.pigsty g.p
 
 参数名称： `node_etc_hosts`， 类型： `string[]`， 层次：`C`
 
-extra static dns records in `/etc/hosts`
+写入节点 `/etc/hosts` 的额外的静态DNS记录，默认值为：`[]` 空数组。
 
-default values: `[]`
-
-Same as [`node_default_etc_hosts`](#node_default_etc_hosts), but in addition to it.
+本参数与 [`node_default_etc_hosts`](#node_default_etc_hosts)，形式一样，但用途不同：适合在集群/实例层面进行配置。
 
 
 
@@ -1559,13 +1653,11 @@ Same as [`node_default_etc_hosts`](#node_default_etc_hosts), but in addition to 
 
 参数名称： `node_dns_method`， 类型： `enum`， 层次：`C`
 
-how to handle dns servers: add,none,overwrite
+如何配置DNS服务器？有三种选项：`add`、`none`、`overwrite`，默认值为 `add`。
 
-default values: `add`
-
-* `add`: Append the records in [`node_dns_servers`](#node_dns_servers) to `/etc/resolv.conf` and keep the existing DNS servers. (default)
-* `overwrite`: Overwrite `/etc/resolv.conf` with the record in [`node_dns_servers`](#node_dns_servers)
-* `none`: If a DNS server is provided in the production env, the DNS server config can be skipped.
+* `add`：将 [`node_dns_servers`](#node_dns_servers) 中的记录**追加**至`/etc/resolv.conf`，并保留已有DNS服务器。（默认）
+* `overwrite`：使用将 [`node_dns_servers`](#node_dns_servers) 中的记录覆盖`/etc/resolv.conf`
+* `none`：跳过DNS服务器配置，如果您的环境中已经配置有DNS服务器，则可以直接跳过DNS配置。
 
 
 
@@ -1574,9 +1666,7 @@ default values: `add`
 
 参数名称： `node_dns_servers`， 类型： `string[]`， 层次：`C`
 
-dynamic nameserver in `/etc/resolv.conf`
-
-default values: `["${admin_ip}"]` , the default nameserver on admin node will be added to `/etc/resolv.conf` as the first nameserver.
+配置 `/etc/resolv.conf` 中的动态DNS服务器列表：默认值为： `["${admin_ip}"]`，即将管理节点作为首要DNS服务器。
 
 
 
@@ -1586,13 +1676,17 @@ default values: `["${admin_ip}"]` , the default nameserver on admin node will be
 
 参数名称： `node_dns_options`， 类型： `string[]`， 层次：`C`
 
-dns resolv options in `/etc/resolv.conf`
-
-default value: 
+`/etc/resolv.conf` 中的DNS解析选项，默认值为：
 
 ```yaml
-["options single-request-reopen timeout:1"]
+- "options single-request-reopen timeout:1"
 ```
+
+如果 [`node_dns_method`](#node_dns_method) 配置为`add`或`overwrite`，则本配置项中的记录会被首先写入`/etc/resolv.conf` 中。具体格式请参考Linux文档关于`/etc/resolv.conf`的说明
+
+
+
+
 
 
 
@@ -1604,7 +1698,7 @@ default value:
 
 ## `NODE_PACKAGE`
 
-This section is about upstream yum repos & packages to be installed.
+Pigsty会为纳入管理的节点配置Yum源，并安装软件包。
 
 ```yaml
 node_repo_method: local           # how to setup node repo: none,local,public,both
@@ -1613,9 +1707,8 @@ node_repo_local_urls:             # local repo url, if node_repo_method = local,
   - http://${admin_ip}/pigsty.repo
 node_packages: [ ]                # packages to be installed current nodes
 node_default_packages:            # default packages to be installed on all nodes
-  - lz4,unzip,bzip2,zlib,yum,pv,jq,git,ncdu,make,patch,bash,lsof,wget,uuid,tuned,chrony,nvme-cli,numactl,grubby,sysstat,iotop,htop,yum,yum-utils
-  - wget,netcat,socat,rsync,ftp,lrzsz,s3cmd,net-tools,tcpdump,ipvsadm,bind-utils,telnet,dnsmasq,audit,ca-certificates,openssl,openssh-clients,readline,vim-minimal
-  - node_exporter,etcd,mtail,python3,python3-pip,python3-idna,python3-requests,haproxy
+  - lz4,unzip,bzip2,zlib,yum,pv,jq,git,ncdu,make,patch,bash,lsof,wget,uuid,tuned,nvme-cli,numactl,grubby,sysstat,iotop,htop,rsync,tcpdump,python3,python3-pip
+  - netcat,socat,ftp,lrzsz,net-tools,ipvsadm,bind-utils,telnet,audit,ca-certificates,openssl,readline,vim-minimal,node_exporter,etcd,haproxy
 ```  
 
 
@@ -1625,14 +1718,18 @@ node_default_packages:            # default packages to be installed on all node
 
 参数名称： `node_repo_method`， 类型： `enum`， 层次：`C/A`
 
-how to setup node repo: `none`, `local`, `public`, `both`, default values: `local`
+节点配置软件源的方式，可选项包括：`none`、 `local`、 `public`、 `both`，默认为：`local`。
 
-Which repos are added to `/etc/yum.repos.d` on target nodes ?
+该参数指明了哪些上游源会被添加到节点的仓库列表中：
 
-* `local`: Use the local yum repo on the admin node, default behavior.
-* `public`: Add public upstream repo directly to the target nodes, use this if you have Internet access. 
-* `both`: Add both local repo and public repo. Useful when some rpm are missing 
-* `none`: do not add any repo to target nodes.
+* `local`： 使用由 [`node_repo_local_urls`](#node_repo_local_urls) 指定的本地软件源，（默认行为），推荐使用此方式。
+* `public`： 使用由 [`repo_upstream`](#repo_upstream) 与 [`repo_modules`](#repo_modules) 指定的原始上游源。
+* `both`：同时添加 `local` 与 `public` 源。
+* `none`：什么源也不添加，由用户自己管理维护。
+
+当您想要从原始上游下载安装软件时，可以考虑使用 `public` 与 `both` 模式。
+
+
 
 
 
@@ -1640,9 +1737,11 @@ Which repos are added to `/etc/yum.repos.d` on target nodes ?
 
 参数名称： `node_repo_remove`， 类型： `bool`， 层次：`C/A`
 
-remove existing repo on node?
+是否移除节点已有的软件仓库定义？默认值为：`true`。
 
-default value is `true`, and thus Pigsty will move existing repo file in `/etc/yum.repos.d` to a backup dir: `/etc/yum.repos.d/backup` before adding upstream repos
+如果启用，则Pigsty会 **移除** 节点上`/etc/yum.repos.d`中原有的配置文件，并备份至`/etc/yum.repos.d/backup`。
+在 Debian/Ubuntu 系统上，则是 `/etc/apt/sources.list(.d)` 备份至 `/etc/apt/backup`。
+
 
 
 
@@ -1651,11 +1750,11 @@ default value is `true`, and thus Pigsty will move existing repo file in `/etc/y
 
 参数名称： `node_repo_local_urls`， 类型： `string[]`， 层次：`C`
 
-local repo url, if node_repo_method = local
+本地源的URL地址列表，默认值为：`["http://${admin_ip}/pigsty.repo"]`
 
-default values: `["http://${admin_ip}/pigsty.repo"]`
+在 Debian/Ubuntu 系统上，合适的默认值为： `['deb [trusted=yes] http://${admin_ip}/pigsty ./']`
 
-When [`node_repo_method`](#node_repo_method) = `local`, the Repo file URLs listed here will be downloaded to `/etc/yum.repos.d`.
+这个参数只有当 [`node_repo_method`](#node_repo_method) = `local` 或者 `both` 的时候才会生效。
 
 
 
@@ -1666,11 +1765,10 @@ When [`node_repo_method`](#node_repo_method) = `local`, the Repo file URLs liste
 
 参数名称： `node_packages`， 类型： `string[]`， 层次：`C`
 
-packages to be installed current nodes
+在当前节点上要安装的软件包列表，默认值为：`[]` 空数组。
 
-default values: `[]`
+每一个数组元素都是字符串：由逗号分隔的软件包名称。形式上与 [`node_packages_default`](#node_default_packages) 相同。本参数通常用于在节点/集群层面指定需要额外安装的软件包。
 
-Like [`node_packages_default`](#node_default_packages), but in addition to it. designed for overwriting in cluster/instance level.
 
 
 
@@ -1679,18 +1777,29 @@ Like [`node_packages_default`](#node_default_packages), but in addition to it. d
 
 参数名称： `node_default_packages`， 类型： `string[]`， 层次：`G`
 
-default packages to be installed on all nodes
-
-default value: 
+默认在所有节点上安装的软件包，默认值是 EL 7/8/9 通用的 RPM 软件包列表，数组，每个元素为逗号分隔的包名：
 
 ```yaml
 node_default_packages:            # default packages to be installed on all nodes
-  - lz4,unzip,bzip2,zlib,yum,pv,jq,git,ncdu,make,patch,bash,lsof,wget,uuid,tuned,nvme-cli,numactl,grubby,sysstat,iotop,htop,rsync,tcpdump
-  - netcat,socat,ftp,lrzsz,net-tools,ipvsadm,bind-utils,telnet,audit,ca-certificates,openssl,readline,vim-minimal,node_exporter,etcd,haproxy,python3,python3-pip
+  - lz4,unzip,bzip2,zlib,yum,pv,jq,git,ncdu,make,patch,bash,lsof,wget,uuid,tuned,nvme-cli,numactl,grubby,sysstat,iotop,htop,rsync,tcpdump,python3,python3-pip
+  - netcat,socat,ftp,lrzsz,net-tools,ipvsadm,bind-utils,telnet,audit,ca-certificates,openssl,readline,vim-minimal,node_exporter,etcd,haproxy
 ```
 
+对于 Ubuntu 22.04 / 20.04 ，默认值应当被替换为：
 
+```yaml
+- lz4,unzip,bzip2,zlib1g,pv,jq,git,ncdu,make,patch,bash,lsof,wget,uuid,tuned,linux-tools-generic,nvme-cli,numactl,sysstat,iotop,htop,rsync,tcpdump,acl,python3,python3-pip
+- netcat,socat,ftp,lrzsz,net-tools,ipvsadm,dnsutils,telnet,ca-certificates,openssl,openssh-client,libreadline-dev,vim-tiny,keepalived,node-exporter,etcd,haproxy
+```
 
+对于 Debian 12 / 11 ，默认值应当被替换为：
+
+```yaml
+- lz4,unzip,bzip2,zlib1g,pv,jq,git,ncdu,make,patch,bash,lsof,wget,uuid,tuned,linux-perf,nvme-cli,numactl,sysstat,iotop,htop,rsync,tcpdump,acl,python3,python3-pip
+- netcat-openbsd,socat,tnftp,lrzsz,net-tools,ipvsadm,dnsutils,telnet,ca-certificates,openssl,openssh-client,libreadline-dev,vim-tiny,keepalived,node-exporter,etcd,haproxy
+```
+
+形式上与 [`node_packages`](#node_packages) 相同，但本参数通常用于全局层面指定所有节点都必须安装的默认软件包。
 
 
 
@@ -1699,7 +1808,8 @@ node_default_packages:            # default packages to be installed on all node
 
 ## `NODE_TUNE`
 
-Configure tuned templates, features, kernel modules, sysctl params on node.
+主机节点特性、内核模块与参数调优模板。
+
 
 ```yaml
 node_disable_firewall: true       # disable node firewall? true by default
@@ -1723,9 +1833,9 @@ node_sysctl_params: { }           # sysctl parameters in k:v format in addition 
 
 参数名称： `node_disable_firewall`， 类型： `bool`， 层次：`C`
 
-disable node firewall? true by default
+关闭节点防火墙？默认关闭防火墙：`true`。
 
-default value is `true`
+如果您在受信任的内网部署，可以关闭防火墙。在 EL 下是 `firewalld` 服务，在 Ubuntu下是 `ufw` 服务。
 
 
 
@@ -1734,9 +1844,9 @@ default value is `true`
 
 参数名称： `node_disable_selinux`， 类型： `bool`， 层次：`C`
 
-disable node selinux? true by default
+关闭节点SELINUX？默认关闭SELinux：`true`。
 
-default value is `true`
+如果您没有操作系统/安全专家，请关闭 SELinux。
 
 
 
@@ -1745,13 +1855,11 @@ default value is `true`
 
 参数名称： `node_disable_numa`， 类型： `bool`， 层次：`C`
 
-disable node numa, reboot required
+是否关闭NUMA？默认不关闭NUMA：`false`。
 
-default value is `false`
+注意，关闭NUMA需要重启机器后方可生效！如果您不清楚如何绑核，在生产环境使用数据库时建议关闭NUMA。
 
-Boolean flag, default is not off. Note that turning off NUMA requires a reboot of the machine before it can take effect!
 
-If you don't know how to set the CPU affinity, it is recommended to turn off NUMA.
 
 
 
@@ -1761,13 +1869,11 @@ If you don't know how to set the CPU affinity, it is recommended to turn off NUM
 
 参数名称： `node_disable_swap`， 类型： `bool`， 层次：`C`
 
-disable node swap, use with caution
+是否关闭 SWAP ？ 默认不关闭SWAP：`false`。
 
-default value is `false`
+通常情况下不建议关闭SWAP，如果您有足够的内存，且数据库采用独占式部署，则可以关闭SWAP提高性能。
 
-But turning off SWAP is not recommended. But SWAP should be disabled when your node is used for a Kubernetes deployment. 
-
-If there is enough memory and the database is deployed exclusively. it may slightly improve performance 
+例外：当您的节点用于部署Kubernetes时，应当禁用SWAP。
 
 
 
@@ -1778,9 +1884,10 @@ If there is enough memory and the database is deployed exclusively. it may sligh
 
 参数名称： `node_static_network`， 类型： `bool`， 层次：`C`
 
-preserve dns resolver settings after reboot, default value is `true`
+是否使用静态DNS服务器, 类型：`bool`，层级：C，默认值为：`true`，默认启用。
 
-Enabling static networking means that machine reboots will not overwrite your DNS Resolv config with NIC changes. It is recommended to enable it in production environment.
+启用静态网络，意味着您的DNS Resolv配置不会因为机器重启与网卡变动被覆盖（EL 7/8 操作系统）。建议启用。
+
 
 
 
@@ -1789,9 +1896,9 @@ Enabling static networking means that machine reboots will not overwrite your DN
 
 参数名称： `node_disk_prefetch`， 类型： `bool`， 层次：`C`
 
-setup disk prefetch on HDD to increase performance
+是否启用磁盘预读？默认不启用：`false`。
 
-default value is `false`, Consider enable this when using HDD.
+针对HDD部署的实例可以优化性能，使用机械硬盘时建议启用。
 
 
 
@@ -1801,15 +1908,15 @@ default value is `false`, Consider enable this when using HDD.
 
 参数名称： `node_kernel_modules`， 类型： `string[]`， 层次：`C`
 
-kernel modules to be enabled on this node
-
-default value: 
+启用哪些内核模块？默认启用以下内核模块：
 
 ```yaml
 node_kernel_modules: [ softdog, br_netfilter, ip_vs, ip_vs_rr, ip_vs_wrr, ip_vs_sh ]
 ```
 
-An array consisting of kernel module names declaring the kernel modules that need to be installed on the node. 
+形式上是由内核模块名称组成的数组，声明了需要在节点上安装的内核模块。
+
+ 
 
 
 
@@ -1818,15 +1925,14 @@ An array consisting of kernel module names declaring the kernel modules that nee
 
 参数名称： `node_hugepage_count`， 类型： `int`， 层次：`C`
 
-number of 2MB hugepage, take precedence over ratio, 0 by default
+在节点上分配 2MB 大页的数量，默认为 `0`，另一个相关的参数是 [`node_hugepage_ratio`](#node_hugepage_ratio)。
 
-Take precedence over [`node_hugepage_ratio`](#node_hugepage_ratio). If a non-zero value is given, it will be written to `/etc/sysctl.d/hugepage.conf`
+如果这两个参数 `node_hugepage_count` 和 `node_hugepage_ratio` 都为 `0`（默认），则大页将完全被禁用，本参数的优先级相比 [`node_hugepage_ratio`](#node_hugepage_ratio) 更高，因为它更加精确。
 
-If `node_hugepage_count` and `node_hugepage_ratio` are both `0` (default), hugepage will be disabled at all.
+如果设定了一个非零值，它将被写入 `/etc/sysctl.d/hugepage.conf` 中应用生效；负值将不起作用，高于90%节点内存的数字将被限制为节点内存的90%
 
-Negative value will not work, and number higher than 90% node mem will be ceil to 90% of node mem. 
+如果不为零，它应该略大于[`pg_shared_buffer_ratio`](#pg_shared_buffer_ratio) 的对应值，这样才能让 PostgreSQL 用上大页。
 
-It should slightly larger than [`pg_shared_buffer_ratio`](#pg_shared_buffer_ratio), if not zero.
 
 
 
@@ -1835,15 +1941,15 @@ It should slightly larger than [`pg_shared_buffer_ratio`](#pg_shared_buffer_rati
 
 参数名称： `node_hugepage_ratio`， 类型： `float`， 层次：`C`
 
-node mem hugepage ratio, 0 disable it by default, valid range: 0 ~ 0.40
+节点内存大页占内存的比例，默认为 `0`，有效范围：`0` ~ `0.40`
 
-default values: `0`, which will set `vm.nr_hugepages=0` and not use HugePage at all.
+此内存比例将以大页的形式分配，并为PostgreSQL预留。 [`node_hugepage_count`](#node_hugepage_count) 是具有更高优先级和精度的参数版本。
 
-Percent of this memory will be allocated as HugePage, and reserved for PostgreSQL.
+默认值：`0`，这将设置 `vm.nr_hugepages=0` 并完全不使用大页。 
 
-It should be equal or slightly larger than [`pg_shared_buffer_ratio`](#pg_shared_buffer_ratio), if not zero.
+本参数应该等于或略大于[`pg_shared_buffer_ratio`](#pg_shared_buffer_ratio)，如果不为零。
 
-For example, if you have default 25% mem for postgres shard buffers, you can set this value to 27 ~ 30.  Wasted hugepage can be reclaimed later with `/pg/bin/pg-tune-hugepage`
+例如，如果您为Postgres共享缓冲区默认分配了25%的内存，您可以将此值设置为27 ~ 30。稍后可以使用 `/pg/bin/pg-tune-hugepage` 精准回收浪费的大页。
 
 
 
@@ -1853,12 +1959,12 @@ For example, if you have default 25% mem for postgres shard buffers, you can set
 
 参数名称： `node_overcommit_ratio`， 类型： `int`， 层次：`C`
 
-node mem overcommit ratio, 0 disable it by default. this is an integer from 0 to 100+ .
+节点内存超额分配比率，默认为：`0`。这是一个从 `0` 到 `100+` 的整数。
 
-default values: `0`, which will set `vm.overcommit_memory=0`, otherwise `vm.overcommit_memory=2` will be used,
-and this value will be used as `vm.overcommit_ratio`.
+默认值：`0`，这将设置 `vm.overcommit_memory=0`，否则将使用 `vm.overcommit_memory=2`， 并使用此值作为 `vm.overcommit_ratio`。
 
-It is recommended to set use a `vm.overcommit_ratio` on dedicated pgsql nodes. e.g. 50 ~ 100. 
+建议在 pgsql 独占节点上设置 `vm.overcommit_ratio`，避免内存过度提交。
+
 
 
 
@@ -1867,16 +1973,15 @@ It is recommended to set use a `vm.overcommit_ratio` on dedicated pgsql nodes. e
 
 参数名称： `node_tune`， 类型： `enum`， 层次：`C`
 
-node tuned profile: none,oltp,olap,crit,tiny
+针对机器进行调优的预制方案，基于`tuned` 提供服务。有四种预制模式：
 
-default values: `oltp`
+* `tiny`：微型虚拟机
+* `oltp`：常规OLTP模板，优化延迟（默认值）
+* `olap`：常规OLAP模板，优化吞吐量
+* `crit`：核心金融业务模板，优化脏页数量
 
-* `tiny`: Micro Virtual Machine (1 ~ 3 Core, 1 ~ 8 GB Mem)
-* `oltp`: Regular OLTP templates with optimized latency
-* `olap `: Regular OLAP templates to optimize throughput
-* `crit`: Core financial business templates, optimizing the number of dirty pages
+通常，数据库的调优模板 [`pg_conf`](/zh/docs/pgsql/config#pg_conf)应当与机器调优模板配套，详情请参考[定制PGSQL模版](/zh/docs/pgsql/customize)。
 
-Usually, the database tuning template [`pg_conf`](#pg_conf) should be paired with the node tuning template: [`node_tune`](#node_tune)
 
 
 
@@ -1887,13 +1992,10 @@ Usually, the database tuning template [`pg_conf`](#pg_conf) should be paired wit
 
 参数名称： `node_sysctl_params`， 类型： `dict`， 层次：`C`
 
-sysctl parameters in k:v format in addition to tuned
+使用 K:V 形式的 sysctl 内核参数，会添加到 `tuned` profile 中，默认值为： `{}` 空对象。
 
-default values: `{}`
+这是一个 KV 结构的字典参数，Key 是内核 `sysctl` 参数名，Value 是参数值。你也可以考虑直接在 `roles/node/templates` 中的 tuned 模板中直接定义额外的 sysctl 参数。
 
-Dictionary K-V structure, Key is kernel `sysctl` parameter name, Value is the parameter value.
-
-You can also define sysctl parameters with tuned profile
 
 
 
@@ -1904,7 +2006,7 @@ You can also define sysctl parameters with tuned profile
 
 ## `NODE_ADMIN`
 
-This section is about admin users and it's credentials.
+这一节关于主机节点上的管理员，谁能登陆，怎么登陆。
 
 ```yaml
 node_data: /data                  # node main data directory, `/data` by default
@@ -1924,13 +2026,10 @@ node_admin_pk_list: []            # ssh public keys to be added to admin user
 
 参数名称： `node_data`， 类型： `path`， 层次：`C`
 
-node main data directory, `/data` by default
+节点的主数据目录，默认为 `/data`。
 
-default values: `/data`
+如果该目录不存在，则该目录会被创建。该目录应当由 `root` 拥有，并拥有 `777` 权限。
 
-If specified, this path will be used as major data disk mountpoint. And a dir will be created and throwing a warning if path not exists.
-
-The data dir is owned by root with mode `0777`.
 
 
 
@@ -1940,12 +2039,9 @@ The data dir is owned by root with mode `0777`.
 
 参数名称： `node_admin_enabled`， 类型： `bool`， 层次：`C`
 
-create a admin user on target node?
+是否在本节点上创建一个专用管理员用户？默认值为：`true`。
 
-default value is `true`
-
-Create an admin user on each node (password-free sudo and ssh), an admin user named `dba (uid=88)` will be created by default,
- which can access other nodes in the env and perform sudo from the meta node via SSH password-free.
+Pigsty默认会在每个节点上创建一个管理员用户（拥有免密sudo与ssh权限），默认的管理员名为`dba (uid=88)`的管理用户，可以从元节点上通过SSH免密访问环境中的其他节点并执行免密sudo。
 
 
 
@@ -1954,9 +2050,13 @@ Create an admin user on each node (password-free sudo and ssh), an admin user na
 
 参数名称： `node_admin_uid`， 类型： `int`， 层次：`C`
 
-uid and gid for node admin user
+管理员用户UID，默认值为：`88`。
 
-default values: `88`
+请尽可能确保 UID 在所有节点上都相同，可以避免一些无谓的权限问题。
+
+如果默认 UID 88 已经被占用，您可以选择一个其他 UID ，手工分配时请注意UID命名空间冲突。
+
+
 
 
 
@@ -1966,9 +2066,7 @@ default values: `88`
 
 参数名称： `node_admin_username`， 类型： `username`， 层次：`C`
 
-name of node admin user, `dba` by default
-
-default values: `dba`
+管理员用户名，默认为 `dba` 。
 
 
 
@@ -1978,11 +2076,10 @@ default values: `dba`
 
 参数名称： `node_admin_ssh_exchange`， 类型： `bool`， 层次：`C`
 
-exchange admin ssh key among node cluster
+在节点集群间交换节点管理员SSH密钥, 类型：`bool`，层级：C，默认值为：`true`
 
-default value is `true`
+启用时，Pigsty会在执行剧本时，在成员间交换SSH公钥，允许管理员 [`node_admin_username`](#node_admin_username) 从不同节点上相互访问。
 
-When enabled, Pigsty will exchange SSH public keys between members during playbook execution, allowing admins [`node_admin_username`](#node_admin_username) to access each other from different nodes.
 
 
 
@@ -1991,13 +2088,14 @@ When enabled, Pigsty will exchange SSH public keys between members during playbo
 
 参数名称： `node_admin_pk_current`， 类型： `bool`， 层次：`C`
 
-add current user's ssh pk to admin authorized_keys
+是否将当前节点 & 用户的公钥加入管理员账户，默认值是： `true`
 
-default value is `true`
+启用时，将会把当前节点上执行此剧本的管理用户的SSH公钥（`~/.ssh/id_rsa.pub`）拷贝至目标节点管理员用户的 `authorized_keys` 中。
 
-When enabled, on the current node, the SSH public key (`~/.ssh/id_rsa.pub`) of the current user is copied to the `authorized_keys` of the target node admin user.
+生产环境部署时，请务必注意此参数，此参数会将当前执行命令用户的默认公钥安装至所有机器的管理用户上。
 
-When deploying in a production env, be sure to pay attention to this parameter, which installs the default public key of the user currently executing the command to the admin user of all machines.
+
+
 
 
 
@@ -2007,14 +2105,11 @@ When deploying in a production env, be sure to pay attention to this parameter, 
 
 参数名称： `node_admin_pk_list`， 类型： `string[]`， 层次：`C`
 
-ssh public keys to be added to admin user
+可登陆管理员的公钥列表，默认值为：`[]` 空数组。 
 
-default values: `[]`
+数组的每一个元素为字符串，内容为写入到管理员用户`~/.ssh/authorized_keys`中的公钥，持有对应私钥的用户可以以管理员身份登录。
 
-Each element of the array is a string containing the key written to the admin user `~/.ssh/authorized_keys`, and the user with the corresponding private key can log in as an admin user.
-
-When deploying in production envs, be sure to note this parameter and add only trusted keys to this list.
-
+生产环境部署时，请务必注意此参数，仅将信任的密钥加入此列表中。
 
 
 
@@ -2024,13 +2119,17 @@ When deploying in production envs, be sure to note this parameter and add only t
 
 ## `NODE_TIME`
 
+关于主机时间/时区/NTP/定时任务的相关配置。
+
+时间同步对于数据库服务来说非常重要，请确保系统 `chronyd` 授时服务正常运行。
+
 ```yaml
-node_timezone: ''                 # setup node timezone, empty string to skip
-node_ntp_enabled: true            # enable chronyd time sync service?
-node_ntp_servers:                 # ntp servers in `/etc/chrony.conf`
+node_timezone: ''                 # 设置节点时区，空字符串表示跳过
+node_ntp_enabled: true            # 启用chronyd时间同步服务？
+node_ntp_servers:                 # `/etc/chrony.conf`中的ntp服务器
   - pool pool.ntp.org iburst
-node_crontab_overwrite: true      # overwrite or append to `/etc/crontab`?
-node_crontab: [ ]                 # crontab entries in `/etc/crontab`
+node_crontab_overwrite: true      # 覆盖还是追加到`/etc/crontab`？
+node_crontab: [ ]                 # `/etc/crontab`中的crontab条目
 ```
 
 
@@ -2038,10 +2137,9 @@ node_crontab: [ ]                 # crontab entries in `/etc/crontab`
 
 参数名称： `node_timezone`， 类型： `string`， 层次：`C`
 
-setup node timezone, empty string to skip
+设置节点时区，空字符串表示跳过。默认值是空字符串，默认不会修改默认的时区（即使用通常的默认值UTC）
 
-default value is empty string, which will not change the default timezone (usually UTC)
-
+在中国地区使用时，建议设置为 `Asia/Hong_Kong`。
 
 
 
@@ -2050,11 +2148,11 @@ default value is empty string, which will not change the default timezone (usual
 
 参数名称： `node_ntp_enabled`， 类型： `bool`， 层次：`C`
 
-enable chronyd time sync service?
+启用chronyd时间同步服务？默认值为：`true`
 
-default value is `true`, and thus Pigsty will override the node's `/etc/chrony.conf` by with [`node_ntp_servers`](#node_ntp_servers).
+此时 Pigsty 将使用 [`node_ntp_servers`](#node_ntp_servers) 中指定的 NTP服务器列表覆盖节点的 `/etc/chrony.conf`。
 
-If you already a NTP server configured, just set to `false` to leave it be.
+如果您的节点已经配置好了 NTP 服务器，那么可以将此参数设置为 `false` 跳过时间同步配置。
 
 
 
@@ -2063,13 +2161,13 @@ If you already a NTP server configured, just set to `false` to leave it be.
 
 参数名称： `node_ntp_servers`， 类型： `string[]`， 层次：`C`
 
-ntp servers in `/etc/chrony.conf`
+在 `/etc/chrony.conf` 中使用的 NTP 服务器列表。默认值为：`["pool pool.ntp.org iburst"]`
 
-default value:  `["pool pool.ntp.org iburst"]`
+本参数是一个数组，每一个数组元素是一个字符串，代表一行 NTP 服务器配置。仅当 [`node_ntp_enabled`](#node_ntp_enabled) 启用时生效。
 
-It only takes effect if [`node_ntp_enabled`](#node_ntp_enabled) is true.
+Pigsty 默认使用全球 NTP 服务器 `pool.ntp.org`，您可以根据自己的网络环境修改此参数，例如 `cn.pool.ntp.org iburst`，或内网的时钟服务。
 
-You can use `${admin_ip}` to sync time with ntp server on admin node rather than public ntp server.
+您也可以在配置中使用 `${admin_ip}` 占位符，使用管理节点上的时间服务器。
 
 ```yaml
 node_ntp_servers: [ 'pool ${admin_ip} iburst' ]
@@ -2083,9 +2181,10 @@ node_ntp_servers: [ 'pool ${admin_ip} iburst' ]
 
 参数名称： `node_crontab_overwrite`， 类型： `bool`， 层次：`C`
 
-overwrite or append to `/etc/crontab`?
+处理 [`node_crontab`](#node_crontab) 中的定时任务时，是追加还是覆盖？默认值为：`true`，即覆盖。
 
-default value is `true`, and pigsty will render records in [`node_crontab`](#node_crontab) in overwrite mode rather than appending to it.
+如果您希望在节点上追加定时任务，可以将此参数设置为 `false`，Pigsty 将会在节点的 crontab 上 **追加**，而非 **覆盖所有** 定时任务。
+
 
 
 
@@ -2095,10 +2194,16 @@ default value is `true`, and pigsty will render records in [`node_crontab`](#nod
 
 参数名称： `node_crontab`， 类型： `string[]`， 层次：`C`
 
-crontab entries in `/etc/crontab`
+定义在节点 `/etc/crontab` 中的定时任务：默认值为：`[]` 空数组。
 
-default values: `[]`
+每一个数组数组元素都是一个字符串，代表一行定时任务。使用标准的 cron 格式定义。
 
+例如，以下配置会以  postgres 用户在每天凌晨1点执行全量备份任务。
+
+```yaml
+node_crontab: 
+  - '00 01 * * * postgres /pg/bin/pg-backup full' ] # make a full backup every 1am
+```
 
 
 
@@ -2107,11 +2212,11 @@ default values: `[]`
 
 ## `NODE_VIP`
 
-You can bind an optional L2 VIP among one node cluster, which is disabled by default.
+您可以为节点集群绑定一个可选的 L2 VIP，默认不启用此特性。L2 VIP 只对一组节点集群有意义，该 VIP 会根据配置的优先级在集群中的节点之间进行切换，确保节点服务的高可用。
 
-You have to manually assign the `vip_address` and `vip_vrid` for each node cluster.
+请注意，L2 VIP  **只能** 在同一 L2 网段中使用，这可能会对您的网络拓扑产生额外的限制，如果不想受此限制，您可以考虑使用 DNS LB 或者 Haproxy 实现类似的功能。
 
-It is user's responsibility to ensure that the address / vrid is **unique** among your LAN.
+当启用此功能时，您需要为这个 L2 VIP 显式分配可用的 [`vip_address`](#vip_address) 与 [`vip_vrid`](#vip_vrid)，用户应当确保这两者在同一网段内唯一。 
 
 
 ```yaml
@@ -2132,11 +2237,11 @@ vip_exporter_port: 9650           # keepalived exporter listen port, 9650 by def
 
 参数名称： `vip_enabled`， 类型： `bool`， 层次：`C`
 
-enable vip on this node cluster?
+是否在当前这个节点集群中配置一个由 Keepalived 管理的 L2 VIP ？ 默认值为： `false`。
 
-default value is `false`, means no L2 VIP is created for this node cluster.
 
-L2 VIP can only be used in same L2 LAN, which may incurs extra restrictions on your network topology.
+
+
 
 
 
@@ -2144,9 +2249,10 @@ L2 VIP can only be used in same L2 LAN, which may incurs extra restrictions on y
 
 参数名称： `vip_address`， 类型： `ip`， 层次：`C`
 
-node vip address in IPv4 format, **required** if node [`vip_enabled`](#vip_enabled).
+节点 VIP 地址，IPv4 格式（不带 CIDR 网段后缀），当节点启用 [`vip_enabled`](#vip_enabled) 时，这是一个必选参数。
 
-no default value. This parameter must be explicitly assigned and unique in your LAN.
+本参数没有默认值，这意味着您必须显式地为节点集群分配一个唯一的 VIP 地址。
+
 
 
 
@@ -2154,9 +2260,11 @@ no default value. This parameter must be explicitly assigned and unique in your 
 
 参数名称： `vip_address`， 类型： `ip`， 层次：`C`
 
-integer, 1-254, should be unique in same VLAN, **required** if node [`vip_enabled`](#vip_enabled).
+VRID 是一个范围从 `1` 到 `254` 的正整数，用于标识一个网络中的 VIP，当节点启用 [`vip_enabled`](#vip_enabled) 时，这是一个必选参数。
 
-no default value. This parameter must be explicitly assigned and unique in your LAN.
+本参数没有默认值，这意味着您必须显式地为节点集群分配一个网段内唯一的 ID。
+
+
 
 
 
@@ -2166,7 +2274,9 @@ no default value. This parameter must be explicitly assigned and unique in your 
 
 参数名称： `vip_role`， 类型： `enum`， 层次：`I`
 
-node vip role, could be `master` or `backup`, will be used as initial keepalived state.
+节点 VIP 角色，可选值为： `master` 或 `backup`，默认值为 `backup`
+
+该参数的值会被设置为 keepalived 的初始状态。
 
 
 
@@ -2175,9 +2285,11 @@ node vip role, could be `master` or `backup`, will be used as initial keepalived
 
 参数名称： `vip_preempt`， 类型： `bool`， 层次：`C/I`
 
-optional, `true/false`, false by default, enable vip preemption
+是否启用 VIP 抢占？可选参数，默认值为 `false`，即不抢占 VIP。
 
-default value is `false`, means no preempt is happening when a backup have higher priority than living master.
+所谓抢占，是指一个 `backup` 角色的节点，当其优先级高于当前存活且正常工作的 `master` 角色的节点时，是否取抢占其 VIP？
+
+
 
 
 
@@ -2186,11 +2298,11 @@ default value is `false`, means no preempt is happening when a backup have highe
 
 参数名称： `vip_interface`， 类型： `string`， 层次：`C/I`
 
-node vip network interface to listen, `eth0` by default.
+节点 VIP 监听使用的网卡，默认为 `eth0`。
 
-It should be the same primary intranet interface of your node, which is the IP address you used in the inventory file.
+您应当使用与节点主IP地址（即：你填入清单中IP地址）所使用网卡相同的名称。
 
-If your node have different interface, you can override it on instance vars
+如果你的节点有着不同的网卡名称，你可以在实例/节点层次对其进行覆盖。
 
 
 
@@ -2199,7 +2311,7 @@ If your node have different interface, you can override it on instance vars
 
 参数名称： `vip_dns_suffix`， 类型： `string`， 层次：`C/I`
 
-节点集群 L2 VIP 使用的DNS名称，默认是空字符串，即直接使用集群名本身作为DNS名称。
+节点集群 L2 VIP 使用的DNS名称，默认是空字符串，即直接使用集群名本身作为DNS名。
 
 
 
@@ -2209,7 +2321,7 @@ If your node have different interface, you can override it on instance vars
 
 参数名称： `vip_exporter_port`， 类型： `port`， 层次：`C/I`
 
-keepalived exporter listen port, 9650 by default.
+keepalived exporter 监听端口号，默认为：`9650`。
 
 
 
@@ -2220,22 +2332,22 @@ keepalived exporter listen port, 9650 by default.
 
 ## `HAPROXY`
 
-HAProxy is installed on every node by default, exposing services in a NodePort manner.
+HAProxy 默认在所有节点上安装启用，并以类似于 Kubernetes NodePort 的方式对外暴露服务。
 
-It is used by [`PGSQL`](PGSQL) [Service](PGSQL-SERVICE).
+[`PGSQL`](PGSQL) 模块对外[服务](PGSQL-SERVICE)使用到了 Haproxy。
 
 
 ```yaml
-haproxy_enabled: true             # enable haproxy on this node?
-haproxy_clean: false              # cleanup all existing haproxy config?
-haproxy_reload: true              # reload haproxy after config?
-haproxy_auth_enabled: true        # enable authentication for haproxy admin page
-haproxy_admin_username: admin     # haproxy admin username, `admin` by default
-haproxy_admin_password: pigsty    # haproxy admin password, `pigsty` by default
-haproxy_exporter_port: 9101       # haproxy admin/exporter port, 9101 by default
-haproxy_client_timeout: 24h       # client side connection timeout, 24h by default
-haproxy_server_timeout: 24h       # server side connection timeout, 24h by default
-haproxy_services: []              # list of haproxy service to be exposed on node
+haproxy_enabled: true             # 在此节点上启用haproxy？
+haproxy_clean: false              # 清理所有现有的haproxy配置？
+haproxy_reload: true              # 配置后重新加载haproxy？
+haproxy_auth_enabled: true        # 为haproxy管理页面启用身份验证
+haproxy_admin_username: admin     # haproxy管理用户名，默认为`admin`
+haproxy_admin_password: pigsty    # haproxy管理密码，默认为`pigsty`
+haproxy_exporter_port: 9101       # haproxy管理/导出端口，默认为9101
+haproxy_client_timeout: 24h       # 客户端连接超时，默认为24小时
+haproxy_server_timeout: 24h       # 服务器端连接超时，默认为24小时
+haproxy_services: []              # 需要在节点上暴露的haproxy服务列表
 ```
 
 
@@ -2244,9 +2356,8 @@ haproxy_services: []              # list of haproxy service to be exposed on nod
 
 参数名称： `haproxy_enabled`， 类型： `bool`， 层次：`C`
 
-enable haproxy on this node?
+在此节点上启用haproxy？默认值为： `true`。
 
-default value is `true`
 
 
 
@@ -2255,9 +2366,7 @@ default value is `true`
 
 参数名称： `haproxy_clean`， 类型： `bool`， 层次：`G/C/A`
 
-cleanup all existing haproxy config?
-
-default value is `false`
+清理所有现有的haproxy配置？默认值为 `false`。
 
 
 
@@ -2266,11 +2375,9 @@ default value is `false`
 
 参数名称： `haproxy_reload`， 类型： `bool`， 层次：`A`
 
-reload haproxy after config?
+配置后重新加载 haproxy？默认值为 `true`，配置更改后会重新加载haproxy。
 
-default value is `true`, it will reload haproxy after config change.
-
-If you wish to check before apply, you can turn off this with cli args and check it.
+如果您希望在应用配置前进行手工检查，您可以使用命令参数关闭此选项，并进行检查后再应用。
 
 
 
@@ -2279,11 +2386,9 @@ If you wish to check before apply, you can turn off this with cli args and check
 
 参数名称： `haproxy_auth_enabled`， 类型： `bool`， 层次：`G`
 
-enable authentication for haproxy admin page
+为haproxy管理页面启用身份验证，默认值为 `true`，它将要求管理页面进行http基本身份验证。
 
-default value is `true`, which will require a http basic auth for admin page.
-
-disable it is not recommended, since your traffic control will be exposed
+建议不要禁用认证，因为您的流量控制页面将对外暴露，这是比较危险的。
 
 
 
@@ -2292,9 +2397,8 @@ disable it is not recommended, since your traffic control will be exposed
 
 参数名称： `haproxy_admin_username`， 类型： `username`， 层次：`G`
 
-haproxy admin username, `admin` by default
+haproxy 管理员用户名，默认为：`admin`。
 
-default values: `admin`
 
 
 
@@ -2304,10 +2408,9 @@ default values: `admin`
 
 参数名称： `haproxy_admin_password`， 类型： `password`， 层次：`G`
 
-haproxy admin password, `pigsty` by default
+haproxy管理密码，默认为 `pigsty`
 
-default values: `pigsty`
-
+> 在生产环境中请务必修改此密码！
 
 
 
@@ -2316,9 +2419,9 @@ default values: `pigsty`
 
 参数名称： `haproxy_exporter_port`， 类型： `port`， 层次：`C`
 
-haproxy admin/exporter port, 9101 by default
+haproxy 流量管理/指标对外暴露的端口，默认为：`9101`
 
-default values: `9101`
+
 
 
 
@@ -2328,9 +2431,11 @@ default values: `9101`
 
 参数名称： `haproxy_client_timeout`， 类型： `interval`， 层次：`C`
 
-client side connection timeout, 24h by default
+客户端连接超时，默认为 `24h`。 
 
-default values: `24h`
+设置一个超时可以避免难以清理的超长的连接，但如果您真的需要一个长连接，您可以将其设置为更长的时间。
+
+
 
 
 
@@ -2340,9 +2445,9 @@ default values: `24h`
 
 参数名称： `haproxy_server_timeout`， 类型： `interval`， 层次：`C`
 
-server side connection timeout, 24h by default
+服务端连接超时，默认为 `24h`。
 
-default values: `24h`
+设置一个超时可以避免难以清理的超长的连接，但如果您真的需要一个长连接，您可以将其设置为更长的时间。
 
 
 
@@ -2352,10 +2457,9 @@ default values: `24h`
 
 参数名称： `haproxy_services`， 类型： `service[]`， 层次：`C`
 
-list of haproxy service to be exposed on node
+需要在此节点上通过 Haproxy 对外暴露的服务列表，默认值为： `[]` 空数组。
 
-default values: `[]`, each element is a service definition, here is an ad hoc haproxy service example:
-
+每一个数组元素都是一个服务定义，下面是一个服务定义的例子：
 
 ```yaml
 haproxy_services:                   # list of haproxy service
@@ -2380,7 +2484,7 @@ haproxy_services:                   # list of haproxy service
 
 ```
 
-It will be rendered to `/etc/haproxy/<service.name>.cfg` and take effect after reload.
+每个服务定义会被渲染为 `/etc/haproxy/<service.name>.cfg` 配置文件，并在 Haproxy 重载后生效。
 
 
 
@@ -2397,7 +2501,7 @@ It will be rendered to `/etc/haproxy/<service.name>.cfg` and take effect after r
 ```yaml
 node_exporter_enabled: true       # setup node_exporter on this node?
 node_exporter_port: 9100          # node exporter listen port, 9100 by default
-node_exporter_options: '--no-collector.softnet --no-collector.nvme --collector.ntp --collector.tcpstat --collector.processes'
+node_exporter_options: '--no-collector.softnet --no-collector.nvme --collector.tcpstat --collector.processes'
 ```
 
 
@@ -2406,9 +2510,7 @@ node_exporter_options: '--no-collector.softnet --no-collector.nvme --collector.n
 
 参数名称： `node_exporter_enabled`， 类型： `bool`， 层次：`C`
 
-setup node_exporter on this node?
-
-default value is `true`
+在当前节点上启用节点指标收集器？默认启用：`true`
 
 
 
@@ -2417,9 +2519,7 @@ default value is `true`
 
 参数名称： `node_exporter_port`， 类型： `port`， 层次：`C`
 
-node exporter listen port, 9100 by default
-
-default values: `9100`
+对外暴露节点指标使用的端口，默认为 `9100`。
 
 
 
@@ -2429,11 +2529,12 @@ default values: `9100`
 
 参数名称： `node_exporter_options`， 类型： `arg`， 层次：`C`
 
-extra server options for node_exporter
+节点指标采集器的命令行参数，默认值为：
 
-default value: `--no-collector.softnet --no-collector.nvme --collector.ntp --collector.tcpstat --collector.processes`
+`--no-collector.softnet --no-collector.nvme --collector.tcpstat --collector.processes`
 
-Pigsty enables `ntp`, `tcpstat`, `processes` three extra metrics, collectors, by default, and disables `softnet`, `nvme` metrics collectors by default.
+该选项会启用/禁用一些指标收集器，请根据您的需要进行调整。
+
 
 
 
@@ -2443,29 +2544,28 @@ Pigsty enables `ntp`, `tcpstat`, `processes` three extra metrics, collectors, by
 
 ## `PROMTAIL`
 
-Promtail will collect logs from other modules, and send them to [`LOKI`](#loki)
+Promtail 是与 Loki 配套的日志收集组件，会收集各个模块产生的日志并发送至基础设施节点上的 [`LOKI`](#loki) 服务。
 
-* `INFRA`: Infra logs, collected only on meta nodes.
+* `INFRA`： 基础设施组件的日志只会在 Infra 节点上收集。
     * `nginx-access`: `/var/log/nginx/access.log`
     * `nginx-error`: `/var/log/nginx/error.log`
     * `grafana`: `/var/log/grafana/grafana.log`
 
-* `NODES`: Host node logs, collected on all nodes.
-    * `syslog`: `/var/log/messages`
+* `NODES`：主机相关的日志，所有节点上都会启用收集。
+    * `syslog`: `/var/log/messages` （Debian上为 `/var/log/syslog`）
     * `dmesg`: `/var/log/dmesg`
     * `cron`: `/var/log/cron`
 
-* `PGSQL`: PostgreSQL logs, collected when a node is defined with `pg_cluster`.
+* `PGSQL`：PostgreSQL 相关的日志，只有节点配置了 [PGSQL](PGSQL) 模块才会启用收集。
     * `postgres`: `/pg/log/postgres/*.csv`
     * `patroni`: `/pg/log/patroni.log`
     * `pgbouncer`: `/pg/log/pgbouncer/pgbouncer.log`
     * `pgbackrest`: `/pg/log/pgbackrest/*.log`
 
-* `REDIS`: Redis logs, collected when a node is defined with `redis_cluster`.
+* `REDIS`：Redis 相关日志，只有节点配置了 [REDIS](REDIS) 模块才会启用收集。
     * `redis`: `/var/log/redis/*.log`
 
-!> Log directory are customizable according to [`pg_log_dir`](#pg_log_dir), [`patroni_log_dir`](#patroni_log_dir), [`pgbouncer_log_dir`](#pgbouncer_log_dir), [`pgbackrest_log_dir`](#pgbackrest_log_dir)
-
+> 日志目录会根据这些参数的配置自动调整：[`pg_log_dir`](#pg_log_dir), [`patroni_log_dir`](#patroni_log_dir), [`pgbouncer_log_dir`](#pgbouncer_log_dir), [`pgbackrest_log_dir`](#pgbackrest_log_dir)
 
 
 ```yaml
@@ -2481,9 +2581,7 @@ promtail_positions: /var/log/positions.yaml # promtail position status file path
 
 参数名称： `promtail_enabled`， 类型： `bool`， 层次：`C`
 
-enable promtail logging collector?
-
-default value is `true`
+是否启用Promtail日志收集服务？默认值为： `true`
 
 
 
@@ -2492,10 +2590,10 @@ default value is `true`
 
 参数名称： `promtail_clean`， 类型： `bool`， 层次：`G/A`
 
-purge existing promtail status file during init?
+是否在安装 Promtail 时移除已有状态信息？默认值为： `false`。
 
-default value is `false`, if you choose to clean, Pigsty will remove the existing state file defined by [`promtail_positions`](#promtail_positions)
-which means that Promtail will recollect all logs on the current node and send them to Loki again.
+默认不会清理，当您选择清理时，Pigsty会在部署Promtail时移除现有状态文件 [`promtail_positions`](#promtail_positions)，这意味着Promtail会重新收集当前节点上的所有日志并发送至Loki。
+
 
 
 
@@ -2504,9 +2602,8 @@ which means that Promtail will recollect all logs on the current node and send t
 
 参数名称： `promtail_port`， 类型： `port`， 层次：`C`
 
-promtail listen port, 9080 by default
+Promtail 监听使用的默认端口号， 默认为：`9080`
 
-default values: `9080`
 
 
 
@@ -2516,12 +2613,9 @@ default values: `9080`
 
 参数名称： `promtail_positions`， 类型： `path`， 层次：`C`
 
-promtail position status file path
+Promtail 状态文件路径，默认值为：`/var/log/positions.yaml`。
 
-default values: `/var/log/positions.yaml`
-
-Promtail records the consumption offsets of all logs, which are periodically written to the file specified by [`promtail_positions`](#promtail_positions).
-
+Promtail记录了所有日志的消费偏移量，定期写入由本参数指定的文件中。
 
 
 
@@ -2532,7 +2626,7 @@ Promtail records the consumption offsets of all logs, which are periodically wri
 
 # `DOCKER`
 
-You can install docker on nodes with [`docker.yml`](https://github.com/Vonng/pigsty/blob/master/docker.yml)
+您可以使用 [`docker.yml`](https://github.com/Vonng/pigsty/blob/master/docker.yml) 剧本，在节点上安装并启用 Docker。
 
 
 ```yaml
@@ -2548,7 +2642,7 @@ docker_image_cache: /tmp/docker   # docker image cache dir, `/tmp/docker` by def
 
 参数名称： `docker_enabled`， 类型： `bool`， 层次：`C`
 
-enable docker on this node? default value is `false`
+是否在当前节点启用Docker？默认为： `false`，即不启用。
 
 
 
@@ -2557,7 +2651,7 @@ enable docker on this node? default value is `false`
 
 参数名称： `docker_cgroups_driver`， 类型： `enum`， 层次：`C`
 
-docker cgroup fs driver, could be `cgroupfs` or `systemd`, default values: `systemd`
+Docker使用的 CGroup FS 驱动，可以是 `cgroupfs` 或 `systemd`，默认值为： `systemd`
 
 
 
@@ -2567,12 +2661,18 @@ docker cgroup fs driver, could be `cgroupfs` or `systemd`, default values: `syst
 
 参数名称： `docker_registry_mirrors`， 类型： `string[]`， 层次：`C`
 
-docker registry mirror list, default values: `[]`, Example: 
+Docker使用的镜像仓库地址，默认值为：`[]` 空数组。
+
+您可以使用Docker镜像站点加速镜像拉取，下面是一些例子：
 
 ```yaml
-[ "https://mirror.ccs.tencentyun.com" ]         # tencent cloud mirror, intranet only
-["https://registry.cn-hangzhou.aliyuncs.com"]   # aliyun cloud mirror, login required
+[ "https://mirror.ccs.tencentyun.com" ]         # 腾讯云内网的镜像站点
+["https://registry.cn-hangzhou.aliyuncs.com"]   # 阿里云镜像站点，需要登陆
 ```
+
+如果拉取速度太慢，您也可以考虑：`docker login quay.io` 使用其他的 Registry。
+
+
 
 
 
@@ -2580,9 +2680,9 @@ docker registry mirror list, default values: `[]`, Example:
 
 参数名称： `docker_image_cache`， 类型： `path`， 层次：`C`
 
-docker image cache dir, `/tmp/docker` by default.
+本地的Docker镜像离线缓存包路径， 默认为 `/tmp/docker`。
 
-The local docker image cache with `.tgz` suffix under this directory will be loaded into docker one by one:
+在该路径下以 `tgz` 结尾的文件会被逐个 `load` 到 Docker 中：
 
 ```bash
 cat {{ docker_image_cache }}/*.tgz | gzip -d -c - | docker load
@@ -2596,33 +2696,33 @@ cat {{ docker_image_cache }}/*.tgz | gzip -d -c - | docker load
 
 # `ETCD`
 
-[ETCD](ETCD) is a distributed, reliable key-value store for the most critical data of a distributed system,
-and pigsty use **etcd** as **DCS**, Which is critical to PostgreSQL High-Availability.
+[ETCD](ETCD) 是一个分布式、可靠的键值存储，用于分布式系统的最关键数据。Pigsty使用etcd作为DCS，这对PostgreSQL的高可用性至关重要。
 
-Pigsty has a hard coded group name `etcd` for etcd cluster, it can be an existing & external etcd cluster, or a new etcd cluster created by pigsty with `etcd.yml`.
+Pigsty为etcd集群使用一个硬编码的集群组名 `etcd`，它可以是一套现有的外部etcd集群，或者默认由 Pigsty 使用 [etcd.yml](ETCD#etcdyml) 剧本部署创建的新etcd集群。
 
 
 ```yaml
-#etcd_seq: 1                      # etcd instance identifier, explicitly required
-#etcd_cluster: etcd               # etcd cluster & group name, etcd by default
-etcd_safeguard: false             # prevent purging running etcd instance?
-etcd_clean: true                  # purging existing etcd during initialization?
-etcd_data: /data/etcd             # etcd data directory, /data/etcd by default
-etcd_port: 2379                   # etcd client port, 2379 by default
-etcd_peer_port: 2380              # etcd peer port, 2380 by default
-etcd_init: new                    # etcd initial cluster state, new or existing
-etcd_election_timeout: 1000       # etcd election timeout, 1000ms by default
-etcd_heartbeat_interval: 100      # etcd heartbeat interval, 100ms by default
+#etcd_seq: 1                      # etcd实例标识符，需要显式指定
+#etcd_cluster: etcd               # etcd集群和组名称，默认为etcd
+etcd_safeguard: false             # 组织清除正在运行的etcd实例？
+etcd_clean: true                  # 在初始化过程中清除现有的etcd？
+etcd_data: /data/etcd             # etcd数据目录，默认为/data/etcd
+etcd_port: 2379                   # etcd客户端端口，默认为2379
+etcd_peer_port: 2380              # etcd对等端口，默认为2380
+etcd_init: new                    # etcd初始集群状态，新建或现有
+etcd_election_timeout: 1000       # etcd选举超时，默认为1000ms
+etcd_heartbeat_interval: 100      # etcd心跳间隔，默认为100ms
 ```
+
 
 
 ### `etcd_seq`
 
 参数名称： `etcd_seq`， 类型： `int`， 层次：`I`
 
-etcd instance identifier, REQUIRED
+etcd 实例标号， 这是必选参数，必须为每一个 etcd 实例指定一个唯一的标号。
 
-no default value, you have to specify it explicitly. Here is a 3-node etcd cluster example:
+以下是一个3节点etcd集群的示例，分配了 1 ～ 3 三个标号。
 
 ```yaml
 etcd: # dcs service for postgres/patroni ha consensus
@@ -2642,9 +2742,11 @@ etcd: # dcs service for postgres/patroni ha consensus
 
 参数名称： `etcd_cluster`， 类型： `string`， 层次：`C`
 
-etcd cluster & group name, etcd by default
+etcd 集群 & 分组名称，默认值为硬编码值 `etcd`。
 
-default values: `etcd`, which is a fixed group name, can be useful when you want to use deployed some extra etcd clusters
+当您想要部署另外的 etcd 集群备用时，可以修改此参数并使用其他集群名。
+
+
 
 
 
@@ -2654,9 +2756,9 @@ default values: `etcd`, which is a fixed group name, can be useful when you want
 
 参数名称： `etcd_safeguard`， 类型： `bool`， 层次：`G/C/A`
 
-prevent purging running etcd instance? default value is `false`
+安全保险参数，防止清除正在运行的etcd实例？默认值为 `false`。
 
-If enabled, running etcd instance will not be purged by `etcd.yml` playbook.
+如果启用安全保险，[etcd.yml](ETCD#etcdyml) 剧本不会清除正在运行的etcd实例。
 
 
 
@@ -2665,11 +2767,11 @@ If enabled, running etcd instance will not be purged by `etcd.yml` playbook.
 
 参数名称： `etcd_clean`， 类型： `bool`， 层次：`G/C/A`
 
-purging existing etcd during initialization? default value is `true`
+在初始化时清除现有的 etcd ？默认值为`true`。
 
-If enabled, running etcd instance will be purged by `etcd.yml` playbook, which makes `etcd.yml` a truly idempotent playbook.
+如果启用，[etcd.yml](ETCD#etcdyml) 剧本将清除正在运行的 etcd 实例，这将使其成为一个真正幂等的剧本（总是抹除现有集群）。
 
-But if [`etcd_safeguard`](#etcd_safeguard) is enabled, it will still abort on any running etcd instance.
+但是如果启用了[`etcd_safeguard`](#etcd_safeguard)，即使设置了此参数，剧本依然会在遇到运行中的 etcd 实例时中止，避免误删。
 
 
 
@@ -2679,7 +2781,7 @@ But if [`etcd_safeguard`](#etcd_safeguard) is enabled, it will still abort on an
 
 参数名称： `etcd_data`， 类型： `path`， 层次：`C`
 
-etcd data directory, `/data/etcd` by default
+etcd 数据目录，默认为`/data/etcd` 。
 
 
 
@@ -2690,7 +2792,7 @@ etcd data directory, `/data/etcd` by default
 
 参数名称： `etcd_port`， 类型： `port`， 层次：`C`
 
-etcd client port, `2379` by default
+etcd 客户端端口号，默认为`2379`。
 
 
 
@@ -2700,7 +2802,7 @@ etcd client port, `2379` by default
 
 参数名称： `etcd_peer_port`， 类型： `port`， 层次：`C`
 
-etcd peer port, `2380` by default
+etcd peer 端口，默认为 `2380` 。
 
 
 
@@ -2710,11 +2812,9 @@ etcd peer port, `2380` by default
 
 参数名称： `etcd_init`， 类型： `enum`， 层次：`C`
 
-etcd initial cluster state, `new` or `existing`
+etcd初始集群状态，可以是`new`或`existing`，默认值：`new`。
 
-default values: `new`, which will create a standalone new etcd cluster.
-
-The value `existing` is used when trying to [add new member](ETCD#添加成员) to existing etcd cluster.
+默认将创建一个独立的新etcd集群，当尝试向现有etcd集群[添加新成员](ETCD#添加成员)时，应当使用 `existing`。
 
 
 
@@ -2724,7 +2824,7 @@ The value `existing` is used when trying to [add new member](ETCD#添加成员) 
 
 参数名称： `etcd_election_timeout`， 类型： `int`， 层次：`C`
 
-etcd election timeout, `1000` (ms) by default
+etcd 选举超时，默认为 `1000` (毫秒)，也就是 1 秒。
 
 
 
@@ -2734,7 +2834,7 @@ etcd election timeout, `1000` (ms) by default
 
 参数名称： `etcd_heartbeat_interval`， 类型： `int`， 层次：`C`
 
-etcd heartbeat interval, `100` (ms) by default
+etcd心跳间隔，默认为 `100` (毫秒)。
 
 
 
@@ -2742,9 +2842,9 @@ etcd heartbeat interval, `100` (ms) by default
 
 # `MINIO`
 
-Minio is a S3 compatible object storage service. Which is used as an optional central backup storage repo for PostgreSQL.
+MinIO 是一个与S3兼容的对象存储服务，它被用作PostgreSQL的可选的集中式备份存储库。
 
-But you can use it for other purpose, such as storing large files, document, pictures & videos.
+但你也可以将其用于其他目的，如存储大文件、文档、图片和视频。
 
 
 ```yaml
@@ -2772,7 +2872,7 @@ minio_users:
 
 参数名称： `minio_seq`， 类型： `int`， 层次：`I`
 
-minio instance identifier, REQUIRED identity parameters. no default value, you have to assign it manually
+MinIO 实例标识符，必需的身份参数。没有默认值，您必须手动分配。
 
 
 
@@ -2782,7 +2882,7 @@ minio instance identifier, REQUIRED identity parameters. no default value, you h
 
 参数名称： `minio_cluster`， 类型： `string`， 层次：`C`
 
-minio cluster name, `minio` by default. This is useful when deploying multiple MinIO clusters
+MinIO 集群名称，默认为 `minio`。当部署多个MinIO集群时，可以使用此参数进行区分。
 
 
 
@@ -2794,7 +2894,7 @@ minio cluster name, `minio` by default. This is useful when deploying multiple M
 
 参数名称： `minio_clean`， 类型： `bool`， 层次：`G/C/A`
 
-cleanup minio during init?, `false` by default
+是否在初始化时清理 MinIO ？默认为 `false`，即不清理现有数据。
 
 
 
@@ -2805,7 +2905,7 @@ cleanup minio during init?, `false` by default
 
 参数名称： `minio_user`， 类型： `username`， 层次：`C`
 
-minio os user name, `minio` by default
+MinIO 操作系统用户名，默认为 `minio`。
 
 
 
@@ -2816,9 +2916,9 @@ minio os user name, `minio` by default
 
 参数名称： `minio_node`， 类型： `string`， 层次：`C`
 
-minio node name pattern, this is used for [multi-node](MINIO#multi-node-multi-drive) deployment
+MinIO 节点名称模式，用于[多节点](MINIO#多机多盘)部署。
 
-default values: `${minio_cluster}-${minio_seq}.pigsty`
+默认值为：`${minio_cluster}-${minio_seq}.pigsty`，即以实例名 + `.pigsty` 后缀作为默认的节点名。
 
 
 
@@ -2828,11 +2928,9 @@ default values: `${minio_cluster}-${minio_seq}.pigsty`
 
 参数名称： `minio_data`， 类型： `path`， 层次：`C`
 
-minio data dir(s)
+MinIO 数据目录（们），默认值：`/data/minio`，这是[单节点](MINIO#单机单盘)部署的常见目录。
 
-default values: `/data/minio`, which is a common dir for [single-node](MINIO#single-node-single-drive) deployment.
-
-For a [multi-drive](MINIO#single-node-multi-drive) deployment, you can use `{x...y}` notion to specify multi drivers.
+对于[多个磁盘](MINIO#单机多盘)部署，您可以使用 `{x...y}` 的记法来指定多个驱动器。
 
 
 
@@ -2842,9 +2940,9 @@ For a [multi-drive](MINIO#single-node-multi-drive) deployment, you can use `{x..
 
 参数名称： `minio_domain`， 类型： `string`， 层次：`G`
 
-minio service domain name, `sss.pigsty` by default.
+MinIO 服务域名，默认为`sss.pigsty`。
 
-The client can access minio S3 service via this domain name. This name will be registered to local DNSMASQ and included in SSL certs.
+客户端可以通过此域名访问 MinIO S3服务。此名称将注册到本地DNSMASQ，并包含在SSL证书字段中。
 
 
 
@@ -2855,7 +2953,7 @@ The client can access minio S3 service via this domain name. This name will be r
 
 参数名称： `minio_port`， 类型： `port`， 层次：`C`
 
-minio service port, `9000` by default
+MinIO 服务端口，默认为`9000`。
 
 
 
@@ -2865,7 +2963,7 @@ minio service port, `9000` by default
 
 参数名称： `minio_admin_port`， 类型： `port`， 层次：`C`
 
-minio console port, `9001` by default
+MinIO 控制台端口，默认为`9001`。
 
 
 
@@ -2875,9 +2973,7 @@ minio console port, `9001` by default
 
 参数名称： `minio_access_key`， 类型： `username`， 层次：`C`
 
-root access key, `minioadmin` by default
-
-!> PLEASE CHANGE THIS IN YOUR DEPLOYMENT
+根访问用户名（access key），默认为`minioadmin`。
 
 
 
@@ -2888,11 +2984,10 @@ root access key, `minioadmin` by default
 
 参数名称： `minio_secret_key`， 类型： `password`， 层次：`C`
 
-root secret key, `minioadmin` by default
+根访问密钥（secret key），默认为`minioadmin`。
 
-default values: `minioadmin`
+> **请务必在生产部署中更改此参数！**
 
-!> PLEASE CHANGE THIS IN YOUR DEPLOYMENT
 
 
 
@@ -2901,10 +2996,9 @@ default values: `minioadmin`
 
 参数名称： `minio_extra_vars`， 类型： `string`， 层次：`C`
 
-extra environment variables for minio server. Check [Minio Server](https://min.io/docs/minio/linux/reference/minio-server/minio-server.html) for the complete list.
+MinIO 服务器的额外环境变量。查看[Minio Server](https://min.io/docs/minio/linux/reference/minio-server/minio-server.html) 文档以获取完整列表。
 
-default value is empty string, you can use multiline string to passing multiple environment variables.
-
+默认值为空字符串，您可以使用多行字符串来传递多个环境变量。
 
 
 
@@ -2913,9 +3007,8 @@ default value is empty string, you can use multiline string to passing multiple 
 
 参数名称： `minio_alias`， 类型： `string`， 层次：`G`
 
-MinIO alias name for the local MinIO cluster
 
-default values: `sss`, which will be written to infra nodes' / admin users' client alias profile.
+本地MinIO集群的MinIO别名，默认值：`sss`，它将被写入基础设施节点/管理员用户的客户端别名配置文件中。
 
 
 
@@ -2925,13 +3018,13 @@ default values: `sss`, which will be written to infra nodes' / admin users' clie
 
 参数名称： `minio_buckets`， 类型： `bucket[]`， 层次：`C`
 
-list of minio bucket to be created by default:
+默认创建的minio存储桶列表：
 
 ```yaml
 minio_buckets: [ { name: pgsql }, { name: infra },  { name: redis } ]
 ```
 
-Three default buckets are created for module [`PGSQL`](PGSQL), [`INFRA`](INFRA), and [`REDIS`](REDIS)
+为模块[`PGSQL`](PGSQL)、[`INFRA`](INFRA)和[`REDIS`](REDIS)创建了三个默认的存储桶。
 
 
 
@@ -2940,7 +3033,7 @@ Three default buckets are created for module [`PGSQL`](PGSQL), [`INFRA`](INFRA),
 
 参数名称： `minio_users`， 类型： `user[]`， 层次：`C`
 
-list of minio user to be created, default value:
+要创建的minio用户列表，默认值：
 
 ```yaml
 minio_users:
@@ -2948,9 +3041,9 @@ minio_users:
   - { access_key: pgbackrest , secret_key: S3User.Backup, policy: readwrite }
 ```
 
-Two default users are created for PostgreSQL DBA and pgBackREST.
+默认配置会为 PostgreSQL DBA 和 pgBackREST 创建两个默认用户。
 
-!> PLEASE ADJUST THESE USERS & CREDENTIALS IN YOUR DEPLOYMENT!
+> **请务必在您的部署中调整这些凭证！**
 
 
 
@@ -3292,16 +3385,14 @@ redis_sentinel_monitor:  # primary list for redis sentinel, use cls as name, pri
 
 # `PGSQL`
 
-[`PGSQL`](PGSQL) module requires [`NODE`](NODE) module to be installed, and you also need a viable [`ETCD`](ETCD) cluster to store cluster meta data.
+[`PGSQL`](PGSQL) 模块需要在 Pigsty 管理的节点上安装（即节点已经配置了 [`NODE`](NODE) 模块），同时还要求您的部署中有一套可用的 [`ETCD`](ETCD) 集群来存储集群元数据。
 
-Install `PGSQL` module on a single node will create a [primary](PGSQL-CONF#primary) instance which a standalone PGSQL server/instance.
-Install it on additional nodes will create [replicas](PGSQL-CONF#replica), which can be used for serving read-only traffics, or use as standby backup.
-You can also create [offline](PGSQL-CONF#offline) instance of ETL/OLAP/Interactive queries,
-use [Sync Standby](PGSQL-CONF#sync-standby) and [Quorum Commit](PGSQL-CONF#quorum-commit) to increase data consistency,
-or even form a [standby cluster](PGSQL-CONF#standby-cluster) and [delayed standby cluster](PGSQL-CONF#delayed-cluster) for disaster recovery.
+在单个节点上安装 `PGSQL` 模块将创建一个独立的 PGSQL 服务器/实例，即[主实例](PGSQL-CONF#读写主库)。
+在额外节点上安装将创建[只读副本](PGSQL-CONF#只读从库)，可以作为备用实例，并用于承载分担只读请求。
+您还可以创建用于 ETL/OLAP/交互式查询的[离线](PGSQL-CONF#离线从库)实例， 使用[同步备库](PGSQL-CONF#同步备库) 和 [法定人数提交](PGSQL-CONF#法定人数提交) 来提高数据一致性， 
+甚至搭建[备份集群](PGSQL-CONF#备份集群) 和 [延迟集群](PGSQL-CONF#延迟集群) 以快速应对人为失误与软件缺陷导致的数据损失。
 
-You can define multiple PGSQL clusters and form a horizontal sharding cluster, which is a group of PGSQL clusters running on different nodes.
-Pigsty has native [citus cluster group](PGSQL-CONF#citus-cluster) support, which can extend your PGSQL cluster to a distributed database sharding cluster.
+您可以定义多个 PGSQL 集群并进一步组建一个水平分片集群： Pigsty 支持原生的 [citus 集群组](PGSQL-CONF#citus集群)，可以将您的标准 PGSQL 集群原地升级为一个分布式的数据库集群。
 
 
 
@@ -3309,38 +3400,39 @@ Pigsty has native [citus cluster group](PGSQL-CONF#citus-cluster) support, which
 
 ## `PG_ID`
 
-Here are some common parameters used to identify PGSQL [entities](PGSQL-ARCH#er-diagram): instance, service, etc...
+以下是一些常用的参数，用于标识 PGSQL 模块中的[实体](PGSQL-ARCH#实体概念图)：集群、实例、服务等...
+
 
 ```yaml
-# pg_cluster:           #CLUSTER  # pgsql cluster name, required identity parameter
-# pg_seq: 0             #INSTANCE # pgsql instance seq number, required identity parameter
-# pg_role: replica      #INSTANCE # pgsql role, required, could be primary,replica,offline
-# pg_instances: {}      #INSTANCE # define multiple pg instances on node in `{port:ins_vars}` format
-# pg_upstream:          #INSTANCE # repl upstream ip addr for standby cluster or cascade replica
-# pg_shard:             #CLUSTER  # pgsql shard name, optional identity for sharding clusters
-# pg_group: 0           #CLUSTER  # pgsql shard index number, optional identity for sharding clusters
-# gp_role: master       #CLUSTER  # greenplum role of this cluster, could be master or segment
-pg_offline_query: false #INSTANCE # set to true to enable offline query on this instance
+# pg_cluster:           #CLUSTER  # pgsql 集群名称，必需的标识参数
+# pg_seq: 0             #INSTANCE # pgsql 实例序列号，必需的标识参数
+# pg_role: replica      #INSTANCE # pgsql 角色，必需的，可以是 primary,replica,offline
+# pg_instances: {}      #INSTANCE # 在节点上定义多个 pg 实例，使用 `{port:ins_vars}` 格式
+# pg_upstream:          #INSTANCE # 备用集群或级联副本的 repl 上游 ip 地址
+# pg_shard:             #CLUSTER  # pgsql 分片名称，分片集群的可选标识
+# pg_group: 0           #CLUSTER  # pgsql 分片索引号，分片集群的可选标识
+# gp_role: master       #CLUSTER  # 此集群的 greenplum 角色，可以是 master 或 segment
+pg_offline_query: false #INSTANCE # 设置为 true 以在此实例上启用离线查询
 ```
 
-You have to assign these **identity parameters** explicitly, there's no default value for them.
+您必须显式指定这些**身份参数**，它们没有默认值：
 
-|            Name             |   Type   | Level | Description                            |
-|:---------------------------:|:--------:|:-----:|----------------------------------------|
-| [`pg_cluster`](#pg_cluster) | `string` | **C** | **PG database cluster name**           |
-|     [`pg_seq`](#pg_seq)     | `number` | **I** | **PG database instance id**            |
-|    [`pg_role`](#pg_role)    |  `enum`  | **I** | **PG database instance role**          |
-|   [`pg_shard`](#pg_shard)   | `string` | **C** | **PG database shard name of cluster**  |
-|   [`pg_group`](#pg_group)   | `number` | **C** | **PG database shard index of cluster** |
+|             名称              |    类型    |  级别   | 扩展说明            |
+|:---------------------------:|:--------:|:-----:|-----------------|
+| [`pg_cluster`](#pg_cluster) | `string` | **C** | **PG 数据库集群名称**  |
+|     [`pg_seq`](#pg_seq)     | `number` | **I** | **PG 数据库实例 ID** |
+|    [`pg_role`](#pg_role)    |  `enum`  | **I** | **PG 数据库实例角色**  |
+|   [`pg_shard`](#pg_shard)   | `string` | **C** | **数据库分片名称**     |
+|   [`pg_group`](#pg_group)   | `number` | **C** | **数据库分片序号**     |
 
-* [`pg_cluster`](#pg_cluster): It identifies the name of the cluster, which is configured at the cluster level.
-* [`pg_role`](#pg_role): Configured at the instance level, identifies the role of the ins. Only the `primary` role will be handled specially. If not filled in, the default is the `replica` role and the special `delayed` and `offline` roles.
-* [`pg_seq`](#pg_seq): Used to identify the ins within the cluster, usually with an integer number incremented from 0 or 1, which is not changed once it is assigned.
-* `{{ pg_cluster }}-{{ pg_seq }}` is used to uniquely identify the ins, i.e. `pg_instance`.
-* `{{ pg_cluster }}-{{ pg_role }}` is used to identify the services within the cluster, i.e. `pg_service`.
-* [`pg_shard`](#pg_shard) and [`pg_group`](#pg_group) are used for horizontally sharding clusters, for citus, greenplum, and matrixdb only.
+- [`pg_cluster`](#pg_cluster): 它标识集群的名称，该名称在集群级别配置。
+- [`pg_role`](#pg_role): 在实例级别配置，标识 ins 的角色。只有 `primary` 角色会特别处理。如果不填写，默认为 `replica` 角色和特殊的 `delayed` 和 `offline` 角色。
+- [`pg_seq`](#pg_seq): 用于在集群内标识 ins，通常是从 0 或 1 递增的整数，一旦分配就不会更改。
+- `{{ pg_cluster }}-{{ pg_seq }}` 用于唯一标识 ins，即 `pg_instance`。
+- `{{ pg_cluster }}-{{ pg_role }}` 用于标识集群内的服务，即 `pg_service`。
+- [`pg_shard`](#pg_shard) 和 [`pg_group`](#pg_group) 用于水平分片集群，仅用于 citus、greenplum 和 matrixdb。
 
-[`pg_cluster`](#pg_cluster), [`pg_role`](#pg_role), [`pg_seq`](#pg_seq) are core **identity params**, which are **required** for any Postgres cluster, and must be explicitly specified. Here's an example:
+[`pg_cluster`](#pg_cluster)、[`pg_role`](#pg_role)、[`pg_seq`](#pg_seq) 是核心**标识参数**，对于任何 Postgres 集群都是**必选**的，并且必须显式指定。以下是一个示例：
 
 ```yaml
 pg-test:
@@ -3352,8 +3444,7 @@ pg-test:
     pg_cluster: pg-test
 ```
 
-All other params can be inherited from the global config or the default config, but the identity params must be **explicitly specified** and **manually assigned**. The current PGSQL identity params are as follows:
-
+所有其他参数都可以从全局配置或默认配置继承，但标识参数必须**明确指定**和**手动分配**。
 
 
 
@@ -3361,10 +3452,11 @@ All other params can be inherited from the global config or the default config, 
 
 参数名称： `pg_mode`， 类型： `enum`， 层次：`C`
 
-pgsql cluster mode, cloud be `pgsql`, `citus`, or `gpsql`, `pgsql` by default.
+PostgreSQL 集群模式，可选值为：`pgsql`，`citus`，或 `gpsql`，默认值为 `pgsql`，即标准的 PostgreSQL 集群。
 
-If `pg_mode` is set to `citus` or `gpsql`, [`pg_shard`](#pg_shard) and [`pg_group`](#pg_group) will be required for horizontal sharding clusters.
+如果 `pg_mode` 设置为 `citus` 或 `gpsql`，则需要两个额外的必选身份参数 [`pg_shard`](#pg_shard) 和 [`pg_group`](#pg_group) 来定义水平分片集群的身份。
 
+在这两种情况下，每一个 PostgreSQL 集群都是一组更大的业务单元的一部分。
 
 
 
@@ -3373,11 +3465,11 @@ If `pg_mode` is set to `citus` or `gpsql`, [`pg_shard`](#pg_shard) and [`pg_grou
 
 参数名称： `pg_cluster`， 类型： `string`， 层次：`C`
 
-pgsql cluster name, REQUIRED identity parameter
+PostgreSQL 集群名称，必选的身份标识参数,没有默认值
 
-The cluster name will be used as the namespace for PGSQL related resources within that cluster.
+集群名将用作资源的命名空间。
 
-The naming needs to follow the specific naming pattern: `[a-z][a-z0-9-]*` to be compatible with the requirements of different constraints on the identity.
+集群命名需要遵循特定的命名模式：`[a-z][a-z0-9-]*`，即，只使用数字与小写字母，且不以数字开头，以符合标识上的不同约束的要求。
 
 
 
@@ -3386,9 +3478,9 @@ The naming needs to follow the specific naming pattern: `[a-z][a-z0-9-]*` to be 
 
 参数名称： `pg_seq`， 类型： `int`， 层次：`I`
 
-pgsql instance seq number, REQUIRED identity parameter
+PostgreSQL 实例序列号，必选的身份标识参数，无默认值。
 
-A serial number of this instance, unique within its **cluster**, starting from 0 or 1.
+此实例的序号，在其**集群**内是唯一分配的，通常使用自然数，从0或1开始分配，通常不会回收重用。
 
 
 
@@ -3397,16 +3489,13 @@ A serial number of this instance, unique within its **cluster**, starting from 0
 
 参数名称： `pg_role`， 类型： `enum`， 层次：`I`
 
-pgsql role, REQUIRED, could be primary,replica,offline
+PostgreSQL 实例角色，必选的身份标识参数，无默认值。取值可以是：`primary`, `replica`, `offline`
 
-Roles for PGSQL instance, can be: `primary`, `replica`, `standby` or `offline`.
+PGSQL 实例的角色，可以是：`primary`、`replica`、`standby` 或 `offline`。
 
-* `primary`: Primary, there is one and only one primary in a cluster.
-* `replica`: Replica for carrying online read-only traffic, there may be a slight replication delay through (10ms~100ms, 100KB).
-* `standby`: Special replica that is always synced with primary, there's no replication delay & data loss on this replica. (currently same as `replica`)
-* `offline`: Offline replica for taking on offline read-only traffic, such as statistical analysis/ETL/personal queries, etc.
-
-**Identity params, required params, and instance-level params.**
+- `primary`: 主实例，在集群中有且仅有一个。
+- `replica`: 用于承载在线只读流量的副本，高负载下可能会有轻微复制延迟（10ms~100ms, 100KB）。
+- `offline`: 用于处理离线只读流量的离线副本，如统计分析/ETL/个人查询等。
 
 
 
@@ -3416,9 +3505,9 @@ Roles for PGSQL instance, can be: `primary`, `replica`, `standby` or `offline`.
 
 参数名称： `pg_instances`， 类型： `dict`， 层次：`I`
 
-define multiple pg instances on node in `{port:ins_vars}` format.
+使用 `{port:ins_vars}` 的形式在一台主机上定义多个 PostgreSQL 实例。
 
-This parameter is reserved for multi-instance deployment on a single node which is not implemented in Pigsty yet. 
+此参数是为在单个节点上的多实例部署保留的参数，Pigsty 尚未实现此功能，并强烈建议独占节点部署。
 
 
 
@@ -3428,11 +3517,11 @@ This parameter is reserved for multi-instance deployment on a single node which 
 
 参数名称： `pg_upstream`， 类型： `ip`， 层次：`I`
 
-Upstream ip address for standby cluster or cascade replica
+[备份集群](PGSQL-CONF#备份集群)或级联从库的上游实例 IP 地址。
 
-Setting `pg_upstream` is set on `primary` instance indicate that this cluster is a [**Standby Cluster**](PGSQL-CONF#standby-cluster), and will receiving changes from upstream instance, thus the `primary` is actually a `standby leader`.
+在集群的 `primary` 实例上设置 `pg_upstream` ，表示此集群是一个[备份集群](PGSQL-CONF#备份集群)，该实例将作为 `standby leader`，从上游集群接收并应用更改。
 
-Setting `pg_upstream` for a non-primary instance will explicitly set a replication upstream instance, if it is different from the primary ip addr, this instance will become a **cascade replica**. And it's user's responsibility to ensure that the upstream IP addr is another instance in the same cluster.
+对非 `primary` 实例设置 `pg_upstream` 参数将指定一个具体实例作为物理复制的上游，如果与主实例 ip 地址不同，此实例将成为 **级联副本** 。确保上游 IP 地址是同一集群中的另一个实例是用户的责任。
 
 
 
@@ -3442,13 +3531,13 @@ Setting `pg_upstream` for a non-primary instance will explicitly set a replicati
 
 参数名称： `pg_shard`， 类型： `string`， 层次：`C`
 
-pgsql shard name, required identity parameter for sharding clusters (e.g. citus cluster), optional for common pgsql clusters.
+PostgreSQL 水平分片名称，对于分片集群来说（例如 citus 集群），这是的必选标识参数。
 
-When multiple pgsql clusters serve the same business together in a horizontally sharding style, Pigsty will mark this group of clusters as a **Sharding Group**.
+当多个标准的 PostgreSQL 集群一起以水平分片方式为同一业务提供服务时，Pigsty 将此组集群标记为 **水平分片集群**。
 
-[`pg_shard`](#pg_shard) is the name of the shard group name. It's usually the prefix of [`pg_cluster`](#pg_cluster).
+[`pg_shard`](#pg_shard) 是分片组名称。它通常是 [`pg_cluster`](#pg_cluster) 的前缀。
 
-For example, if we have a sharding group `pg-citus`, and 4 clusters in it, there identity params will be: 
+例如，如果我们有一个分片组 `pg-citus`，并且其中有4个集群，它们的标识参数将是：
 
 ```
 cls pg_shard: pg-citus
@@ -3466,9 +3555,11 @@ cls pg_group = 3:   pg-citus3
 
 参数名称： `pg_group`， 类型： `int`， 层次：`C`
 
-pgsql shard index number, required identity for sharding clusters, optional for common pgsql clusters.
+PostgreSQL 水平分片集群的分片索引号，对于分片集群来说（例如 citus 集群），这是的必选标识参数。
 
-Sharding cluster index of sharding group, used in pair with [pg_shard](#pg_shard). You can use any non-negative integer as the index number.
+此参数与 [pg_shard](#pg_shard) 配对使用，通常可以使用非负整数作为索引号。
+
+
 
 
 
@@ -3478,12 +3569,13 @@ Sharding cluster index of sharding group, used in pair with [pg_shard](#pg_shard
 
 参数名称： `gp_role`， 类型： `enum`， 层次：`C`
 
-greenplum/matrixdb role of this cluster, could be `master` or `segment`
+PostgreSQL 集群的 Greenplum/Matrixdb 角色，可以是 `master` 或 `segment`。
 
-- `master`:  mark the postgres cluster as greenplum master, which is the default value
-- `segment`  mark the postgres cluster as greenplum segment
+- `master`: 标记 postgres 集群为 greenplum 主实例（协调节点），这是默认值。
+- `segment` 标记 postgres 集群为 greenplum 段集群（数据节点）。
 
-This parameter is only used for greenplum/matrixdb database, and is ignored for common pgsql cluster.
+此参数仅用于 Greenplum/MatrixDB 数据库 （[`pg_mode`](#pg_mode) 为 `gpsql`），对于普通的 PostgreSQL 集群没有意义。
+
 
 
 
@@ -3493,11 +3585,11 @@ This parameter is only used for greenplum/matrixdb database, and is ignored for 
 
 参数名称： `pg_exporters`， 类型： `dict`， 层次：`C`
 
-additional pg_exporters to monitor remote postgres instances, default values: `{}`
+额外用于[监控](PGSQL-MONITOR)远程 PostgreSQL 实例的 Exporter 定义，默认值：`{}`
 
-If you wish to monitoring remote postgres instances, define them in `pg_exporters` and load them with `pgsql-monitor.yml` playbook.
+如果您希望监控远程 PostgreSQL 实例，请在监控系统所在节点（Infra节点）集群上的 `pg_exporters` 参数中定义它们，并使用 [`pgsql-monitor.yml`](PGSQL-PLAYBOOK#pgsql-monitoryml) 剧本来完成部署。
 
-```
+```yaml
 pg_exporters: # list all remote instances here, alloc a unique unused local port as k
     20001: { pg_cluster: pg-foo, pg_seq: 1, pg_host: 10.10.10.10 }
     20004: { pg_cluster: pg-foo, pg_seq: 2, pg_host: 10.10.10.11 }
@@ -3505,7 +3597,7 @@ pg_exporters: # list all remote instances here, alloc a unique unused local port
     20003: { pg_cluster: pg-bar, pg_seq: 1, pg_host: 10.10.10.13 }
 ```
 
-Check [PGSQL Monitoring](PGSQL-MONITOR) for details.
+
 
 
 
@@ -3514,13 +3606,15 @@ Check [PGSQL Monitoring](PGSQL-MONITOR) for details.
 
 参数名称： `pg_offline_query`， 类型： `bool`， 层次：`I`
 
-set to true to enable offline query on this instance
+设置为 `true` 以在此实例上启用离线查询，默认为 `false`。
 
-default value is `false`
+当某个 PostgreSQL 实例启用此参数时， 属于 `dbrole_offline` 分组的用户可以直接连接到该 PostgreSQL 实例上执行离线查询（慢查询，交互式查询，ETL/分析类查询）。
 
-When set to `true`, the user group `dbrole_offline` can connect to the ins and perform offline queries, regardless of the role of the current instance, just like a `offline` instance.
+带有此标记的实例在效果上类似于为实例设置 `pg_role` = `offline` ，唯一的区别在于 `offline` 实例默认不会承载 `replica` 服务的请求，是作为专用的离线/分析从库实例而存在的。
 
-If you just have one replica or even one primary in your postgres cluster, adding this could mark it for accepting ETL, slow queries with interactive access.
+如果您没有富余的实例可以专门用于此目的，则可以挑选一台普通的从库，在实例层次启用此参数，以便在需要时承载离线查询。
+
+
 
 
 
@@ -3532,10 +3626,21 @@ If you just have one replica or even one primary in your postgres cluster, addin
 
 ## `PG_BUSINESS`
 
-Database credentials, In-Database Objects that need to be taken care of by Users.
+定制集群模板：用户，数据库，服务，权限规则。
 
-!> WARNING: YOU HAVE TO CHANGE THESE DEFAULT **PASSWORD**s in production environment.
+用户需**重点关注**此部分参数，因为这里是业务声明自己所需数据库对象的地方。
 
+* 业务用户定义： [`pg_users`](#pg_users)
+* 业务数据库定义： [`pg_databases`](#pg_databases)
+* 集群专有服务定义： [`pg_services`](#pg_services) （全局定义：[`pg_default_services`](#pg_default_services)）
+* PostgreSQL集群/实例特定的HBA规则： [`pg_default_services`](#pg_default_services)
+* Pgbouncer连接池特定HBA规则： [`pgb_hba_rules`](#pgb_hba_rules)
+
+[默认](PGSQL-ACL#默认用户)的数据库用户及其凭据，强烈建议在生产环境中修改这些用户的密码。
+
+* PG管理员用户：[`pg_admin_username`](#pg_admin_username) / [`pg_admin_password`](#pg_admin_password)
+* PG复制用户： [`pg_replication_username`](#pg_replication_username) / [`pg_replication_password`](#pg_replication_password)
+* PG监控用户：[`pg_monitor_username`](#pg_monitor_username) / [`pg_monitor_password`](#pg_monitor_password)
 
 ```yaml
 # postgres business object definition, overwrite in group vars
@@ -3561,54 +3666,31 @@ pg_monitor_password: DBUser.Monitor
 
 参数名称： `pg_users`， 类型： `user[]`， 层次：`C`
 
-postgres business users, has to be defined at cluster level.
+PostgreSQL 业务用户列表，需要在 PG 集群层面进行定义。默认值为：`[]` 空列表。
 
-default values: `[]`, each object in the array defines a [User/Role](PGSQL-USER). Examples:
+每一个数组元素都是一个 [用户/角色](PGSQL-USER) 定义，例如：
 
 ```yaml
-pg_users:                           # define business users/roles on this cluster, array of user definition
-  - name: dbuser_meta               # REQUIRED, `name` is the only mandatory field of a user definition
-    password: DBUser.Meta           # optional, password, can be a scram-sha-256 hash string or plain text
-    login: true                     # optional, can log in, true by default  (new biz ROLE should be false)
-    superuser: false                # optional, is superuser? false by default
-    createdb: false                 # optional, can create database? false by default
-    createrole: false               # optional, can create role? false by default
-    inherit: true                   # optional, can this role use inherited privileges? true by default
-    replication: false              # optional, can this role do replication? false by default
-    bypassrls: false                # optional, can this role bypass row level security? false by default
-    pgbouncer: true                 # optional, add this user to pgbouncer user-list? false by default (production user should be true explicitly)
-    connlimit: -1                   # optional, user connection limit, default -1 disable limit
-    expire_in: 3650                 # optional, now + n days when this role is expired (OVERWRITE expire_at)
-    expire_at: '2030-12-31'         # optional, YYYY-MM-DD 'timestamp' when this role is expired  (OVERWRITTEN by expire_in)
-    comment: pigsty admin user      # optional, comment string for this user/role
-    roles: [dbrole_admin]           # optional, belonged roles. default roles are: dbrole_{admin,readonly,readwrite,offline}
-    parameters: {}                  # optional, role level parameters with `ALTER ROLE SET`
-    pool_mode: transaction          # optional, pgbouncer pool mode at user level, transaction by default
-    pool_connlimit: -1              # optional, max database connections at user level, default -1 disable limit
-    search_path: public             # key value config parameters according to postgresql documentation (e.g: use pigsty as default search_path)
-  - {name: dbuser_view     ,password: DBUser.Viewer   ,pgbouncer: true ,roles: [dbrole_readonly], comment: read-only viewer for meta database}
-  - {name: dbuser_grafana  ,password: DBUser.Grafana  ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: admin user for grafana database   }
-  - {name: dbuser_bytebase ,password: DBUser.Bytebase ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: admin user for bytebase database  }
-  - {name: dbuser_kong     ,password: DBUser.Kong     ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: admin user for kong api gateway   }
-  - {name: dbuser_gitea    ,password: DBUser.Gitea    ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: admin user for gitea service      }
-  - {name: dbuser_wiki     ,password: DBUser.Wiki     ,pgbouncer: true ,roles: [dbrole_admin]    ,comment: admin user for wiki.js service    }
+- name: dbuser_meta               # 必需，`name` 是用户定义的唯一必选字段
+  password: DBUser.Meta           # 可选，密码，可以是 scram-sha-256 哈希字符串或明文
+  login: true                     # 可选，默认情况下可以登录
+  superuser: false                # 可选，默认为 false，是超级用户吗？
+  createdb: false                 # 可选，默认为 false，可以创建数据库吗？
+  createrole: false               # 可选，默认为 false，可以创建角色吗？
+  inherit: true                   # 可选，默认情况下，此角色可以使用继承的权限吗？
+  replication: false              # 可选，默认为 false，此角色可以进行复制吗？
+  bypassrls: false                # 可选，默认为 false，此角色可以绕过行级安全吗？
+  pgbouncer: true                 # 可选，默认为 false，将此用户添加到 pgbouncer 用户列表吗？（使用连接池的生产用户应该显式定义为 true）
+  connlimit: -1                   # 可选，用户连接限制，默认 -1 禁用限制
+  expire_in: 3650                 # 可选，此角色过期时间：从创建时 + n天计算（优先级比 expire_at 更高）
+  expire_at: '2030-12-31'         # 可选，此角色过期的时间点，使用 YYYY-MM-DD 格式的字符串指定一个特定日期（优先级没 expire_in 高）
+  comment: pigsty admin user      # 可选，此用户/角色的说明与备注字符串
+  roles: [dbrole_admin]           # 可选，默认角色为：dbrole_{admin,readonly,readwrite,offline}
+  parameters: {}                  # 可选，使用 `ALTER ROLE SET` 针对这个角色，配置角色级的数据库参数
+  pool_mode: transaction          # 可选，默认为 transaction 的 pgbouncer 池模式，用户级别
+  pool_connlimit: -1              # 可选，用户级别的最大数据库连接数，默认 -1 禁用限制
+  search_path: public             # 可选，根据 postgresql 文档的键值配置参数（例如：使用 pigsty 作为默认 search_path）
 ```
-
-* Each user or role must specify a `name` and the rest of the fields are **optional**, a `name` must be unique in this list.
-* `password` is optional, if left blank then no password is set, you can use the MD5 ciphertext password.
-* `login`, `superuser`, `createdb`, `createrole`, `inherit`, `replication` and ` bypassrls` are all boolean types used to set user attributes. If not set, the system defaults are used.
-* Users are created by `CREATE USER`, so they have the `login` attribute by default. If the role is created, you need to specify `login: false`.
-* `expire_at` and `expire_in` are used to control the user expiration time. `expire_at` uses a date timestamp in the shape of `YYYY-mm-DD`. `expire_in` uses the number of days to expire from now, and overrides the `expire_at` option if `expire_in` exists.
-* New users are **not** added to the Pgbouncer user list by default, and `pgbouncer: true` must be explicitly defined for the user to be added to the Pgbouncer user list.
-* Users/roles are created sequentially, and users defined later can belong to the roles defined earlier.
-* `pool_mode`, `pool_connlimit` are user-level pgbouncer parameters that will override default settings.
-* Users can use pre-defined [pg_default_roles](#pg_default_roles) with `roles` field:
-    * `dbrole_readonly`: Default production read-only user with global read-only privileges. (Read-only production access)
-    * `dbrole_offline`: Default offline read-only user with read-only access on a specific ins. (offline query, personal account, ETL)
-    * `dbrole_readwrite`: Default production read/write user with global CRUD privileges. (Regular production use)
-    * `dbrole_admin`: Default production management user with the privilege to execute DDL changes. (Admin User)
-
-Configure `pgbouncer: true` for the production account to add the user to pgbouncer; It's important to use a connection pool if you got thousands of clients.
 
 
 
@@ -3618,44 +3700,40 @@ Configure `pgbouncer: true` for the production account to add the user to pgboun
 
 参数名称： `pg_databases`， 类型： `database[]`， 层次：`C`
 
-postgres business databases, has to be defined at cluster level.
+PostgreSQL 业务数据库列表，需要在 PG 集群层面进行定义。默认值为：`[]` 空列表。
 
-default values: `[]`, each object in the array defines a **Database**. Examples:
-
+每一个数组元素都是一个 [业务数据库](PGSQL-DB) 定义，例如：
 
 ```yaml
-pg_databases:                       # define business databases on this cluster, array of database definition
-  - name: meta                      # REQUIRED, `name` is the only mandatory field of a database definition
-    baseline: cmdb.sql              # optional, database sql baseline path, (relative path among ansible search path, e.g files/)
-    pgbouncer: true                 # optional, add this database to pgbouncer database list? true by default
-    schemas: [pigsty]               # optional, additional schemas to be created, array of schema names
-    extensions: [{name: postgis}]   # optional, additional extensions to be installed: array of `{name[,schema]}`
-    comment: pigsty meta database   # optional, comment string for this database
-    owner: postgres                 # optional, database owner, postgres by default
-    template: template1             # optional, which template to use, template1 by default
-    encoding: UTF8                  # optional, database encoding, UTF8 by default. (MUST same as template database)
-    locale: C                       # optional, database locale, C by default.  (MUST same as template database)
-    lc_collate: C                   # optional, database collate, C by default. (MUST same as template database)
-    lc_ctype: C                     # optional, database ctype, C by default.   (MUST same as template database)
-    tablespace: pg_default          # optional, default tablespace, 'pg_default' by default.
-    allowconn: true                 # optional, allow connection, true by default. false will disable connect at all
-    revokeconn: false               # optional, revoke public connection privilege. false by default. (leave connect with grant option to owner)
-    register_datasource: true       # optional, register this database to grafana datasources? true by default
-    connlimit: -1                   # optional, database connection limit, default -1 disable limit
-    pool_auth_user: dbuser_meta     # optional, all connection to this pgbouncer database will be authenticated by this user
-    pool_mode: transaction          # optional, pgbouncer pool mode at database level, default transaction
-    pool_size: 64                   # optional, pgbouncer pool size at database level, default 64
-    pool_size_reserve: 32           # optional, pgbouncer pool size reserve at database level, default 32
-    pool_size_min: 0                # optional, pgbouncer pool size min at database level, default 0
-    pool_max_db_conn: 100           # optional, max database connections at database level, default 100
-  - { name: grafana  ,owner: dbuser_grafana  ,revokeconn: true ,comment: grafana primary database }
-  - { name: bytebase ,owner: dbuser_bytebase ,revokeconn: true ,comment: bytebase primary database }
-  - { name: kong     ,owner: dbuser_kong     ,revokeconn: true ,comment: kong the api gateway database }
-  - { name: gitea    ,owner: dbuser_gitea    ,revokeconn: true ,comment: gitea meta database }
-  - { name: wiki     ,owner: dbuser_wiki     ,revokeconn: true ,comment: wiki meta database }
+- name: meta                      # 必选，`name` 是数据库定义的唯一必选字段
+  baseline: cmdb.sql              # 可选，数据库 sql 的基线定义文件路径（ansible 搜索路径中的相对路径，如 files/）
+  pgbouncer: true                 # 可选，是否将此数据库添加到 pgbouncer 数据库列表？默认为 true
+  schemas: [pigsty]               # 可选，要创建的附加模式，由模式名称字符串组成的数组
+  extensions:                     # 可选，要安装的附加扩展： 扩展对象的数组
+    - { name: postgis , schema: public }  # 可以指定将扩展安装到某个模式中，也可以不指定（不指定则安装到 search_path 首位模式中）
+    - { name: timescaledb }               # 例如有的扩展会创建并使用固定的模式，就不需要指定模式。
+  comment: pigsty meta database   # 可选，数据库的说明与备注信息
+  owner: postgres                 # 可选，数据库所有者，默认为 postgres
+  template: template1             # 可选，要使用的模板，默认为 template1，目标必须是一个模板数据库
+  encoding: UTF8                  # 可选，数据库编码，默认为 UTF8（必须与模板数据库相同）
+  locale: C                       # 可选，数据库地区设置，默认为 C（必须与模板数据库相同）
+  lc_collate: C                   # 可选，数据库 collate 排序规则，默认为 C（必须与模板数据库相同），没有理由不建议更改。
+  lc_ctype: C                     # 可选，数据库 ctype 字符集，默认为 C（必须与模板数据库相同）
+  tablespace: pg_default          # 可选，默认表空间，默认为 'pg_default'
+  allowconn: true                 # 可选，是否允许连接，默认为 true。显式设置 false 将完全禁止连接到此数据库
+  revokeconn: false               # 可选，撤销公共连接权限。默认为 false，设置为 true 时，属主和管理员之外用户的 CONNECT 权限会被回收
+  register_datasource: true       # 可选，是否将此数据库注册到 grafana 数据源？默认为 true，显式设置为 false 会跳过注册
+  connlimit: -1                   # 可选，数据库连接限制，默认为 -1 ，不限制，设置为正整数则会限制连接数。
+  pool_auth_user: dbuser_meta     # 可选，连接到此 pgbouncer 数据库的所有连接都将使用此用户进行验证（启用 pgbouncer_auth_query 才有用）
+  pool_mode: transaction          # 可选，数据库级别的 pgbouncer 池化模式，默认为 transaction
+  pool_size: 64                   # 可选，数据库级别的 pgbouncer 默认池子大小，默认为 64
+  pool_size_reserve: 32           # 可选，数据库级别的 pgbouncer 池子保留空间，默认为 32，当默认池子不够用时，最多再申请这么多条突发连接。
+  pool_size_min: 0                # 可选，数据库级别的 pgbouncer 池的最小大小，默认为 0
+  pool_max_db_conn: 100           # 可选，数据库级别的最大数据库连接数，默认为 100
 ```
 
-In each database definition, the DB  `name` is mandatory and the rest are optional.
+在每个数据库定义对象中，只有 `name` 是必选字段，其他的字段都是可选项。
+
 
 
 
@@ -3666,27 +3744,25 @@ In each database definition, the DB  `name` is mandatory and the rest are option
 
 参数名称： `pg_services`， 类型： `service[]`， 层次：`C`
 
-postgres business services exposed via haproxy, has to be defined at cluster level.
+PostgreSQL 服务列表，需要在 PG 集群层面进行定义。默认值为：`[]` ，空列表。
 
-You can define ad hoc services with [`pg_services`](#pg_services) in additional to default [`pg_default_services`](#pg_default_services)
-
-default values: `[]`, each object in the array defines a **Service**. Examples:
+用于在数据库集群层面定义额外的服务，数组中的每一个对象定义了一个[服务](PGSQL-SVC#定义服务)，一个完整的服务定义样例如下：
 
 
 ```yaml
-pg_services:                        # extra services in addition to pg_default_services, array of service definition
-  - name: standby                   # required, service name, the actual svc name will be prefixed with `pg_cluster`, e.g: pg-meta-standby
-    port: 5435                      # required, service exposed port (work as kubernetes service node port mode)
-    ip: "*"                         # optional, service bind ip address, `*` for all ip by default
-    selector: "[]"                  # required, service member selector, use JMESPath to filter inventory
-    dest: pgbouncer                 # optional, destination port, postgres|pgbouncer|<port_number> , pgbouncer(6432) by default
-    check: /sync                    # optional, health check url path, / by default
-    backup: "[? pg_role == `primary`]"  # backup server selector
-    maxconn: 3000                   # optional, max allowed front-end connection
-    balance: roundrobin             # optional, haproxy load balance algorithm (roundrobin by default, other: leastconn)
-    options: 'inter 3s fastinter 1s downinter 5s rise 3 fall 3 on-marked-down shutdown-sessions slowstart 30s maxconn 3000 maxqueue 128 weight 100'
+- name: standby                   # 必选，服务名称，最终的 svc 名称会使用 `pg_cluster` 作为前缀，例如：pg-meta-standby
+  port: 5435                      # 必选，暴露的服务端口（作为 kubernetes 服务节点端口模式）
+  ip: "*"                         # 可选，服务绑定的 IP 地址，默认情况下为所有 IP 地址
+  selector: "[]"                  # 必选，服务成员选择器，使用 JMESPath 来筛选配置清单
+  backup: "[? pg_role == `primary`]"  # 可选，服务成员选择器（备份），也就是当默认选择器选中的实例都宕机后，服务才会由这里选中的实例成员来承载
+  dest: default                   # 可选，目标端口，default|postgres|pgbouncer|<port_number>，默认为 'default'，Default的意思就是使用 pg_default_service_dest 的取值来最终决定
+  check: /sync                    # 可选，健康检查 URL 路径，默认为 /，这里使用 Patroni API：/sync ，只有同步备库和主库才会返回 200 健康状态码 
+  maxconn: 5000                   # 可选，允许的前端连接最大数，默认为5000
+  balance: roundrobin             # 可选，haproxy 负载均衡算法（默认为 roundrobin，其他选项：leastconn）
+  options: 'inter 3s fastinter 1s downinter 5s rise 3 fall 3 on-marked-down shutdown-sessions slowstart 30s maxconn 3000 maxqueue 128 weight 100'
 ```
 
+请注意，本参数用于在集群层面添加额外的服务。如果您想在全局定义所有 PostgreSQL 数据库都要提供的服务，可以使用 [`pg_default_services`](#pg_default_services) 参数。 
 
 
 
@@ -3696,15 +3772,11 @@ pg_services:                        # extra services in addition to pg_default_s
 
 参数名称： `pg_hba_rules`， 类型： `hba[]`， 层次：`C`
 
-business hba rules for postgres
+数据库集群/实例的客户端IP黑白名单规则。默认为：`[]` 空列表。
 
-default values: `[]`, each object in array is an **HBA Rule** definition:
-
-Which are array of [hba](PGSQL-HBA#define-hba) object, each hba object may look like
-
+对象数组，每一个对象都代表一条规则， [hba](PGSQL-HBA#定义hba) 规则对象的定义形式如下：
 
 ```yaml
-# RAW HBA RULES
 - title: allow intranet password access
   role: common
   rules:
@@ -3713,14 +3785,14 @@ Which are array of [hba](PGSQL-HBA#define-hba) object, each hba object may look 
     - host   all  all  192.168.0.0/16  md5
 ```
 
-* `title`: Rule Title, transform into comment in hba file
-* `rules`: Array of strings, each string is a raw hba rule record
-* `role`:  Applied roles, where to install these hba rules
-  * `common`: apply for all instances
-  * `primary`, `replica`,`standby`, `offline`: apply on corresponding instances with that [`pg_role`](#pg_role).
-  * special case: HBA rule with `role == 'offline'` will be installed on instance with [`pg_offline_query`](#pg_offline_query) flag
+* `title`： 规则的标题名称，会被渲染为 HBA 文件中的注释。
+* `rules`：规则数组，每个元素是一条标准的 HBA 规则字符串。
+* `role`：规则的应用范围，哪些实例角色会启用这条规则？
+  * `common`：对于所有实例生效
+  * `primary`, `replica`,`offline`： 只针对特定的角色 [`pg_role`](#pg_role) 实例生效。
+  * 特例：`role: 'offline'` 的规则除了会应用在 `pg_role : offline` 的实例上，对于带有 [`pg_offline_query`](#pg_offline_query) 标记的实例也生效。
 
-or you can use another alias form
+除了上面这种原生 HBA 规则定义形式，Pigsty 还提供了另外一种更为简便的别名形式：
 
 ```yaml
 - addr: 'intra'    # world|intra|infra|admin|local|localhost|cluster|<cidr>
@@ -3731,7 +3803,7 @@ or you can use another alias form
   title: allow intranet password access
 ```
 
-[`pg_default_hba_rules`](#pg_default_hba_rules) is similar to this, but is used for global HBA rule settings
+[`pg_default_hba_rules`](#pg_default_hba_rules) 与本参数基本类似，但它是用于定义全局的 HBA 规则，而本参数通常用于定制某个集群/实例的 HBA 规则。
 
 
 
@@ -3743,9 +3815,11 @@ or you can use another alias form
 
 参数名称： `pgb_hba_rules`， 类型： `hba[]`， 层次：`C`
 
-business hba rules for pgbouncer, default values: `[]`
+Pgbouncer 业务HBA规则，默认值为： `[]`， 空数组。
 
-Similar to [`pg_hba_rules`](#pg_hba_rules), array of [hba](PGSQL-HBA#define-hba) rule object, except this is for pgbouncer.
+此参数与 [`pg_hba_rules`](#pg_hba_rules) 基本类似，都是 [hba](PGSQL-HBA#define-hba) 规则对象的数组，区别在于本参数是为 Pgbouncer 准备的。
+
+[`pgb_default_hba_rules`](#pgb_default_hba_rules) 与本参数基本类似，但它是用于定义全局连接池 HBA 规则，而本参数通常用于定制某个连接池集群/实例的 HBA 规则。
 
 
 
@@ -3756,9 +3830,8 @@ Similar to [`pg_hba_rules`](#pg_hba_rules), array of [hba](PGSQL-HBA#define-hba)
 
 参数名称： `pg_replication_username`， 类型： `username`， 层次：`G`
 
-postgres replication username, `replicator` by default
+PostgreSQL 物理复制用户名，默认使用 `replicator`，不建议修改此参数。
 
-This parameter is globally used, it not wise to change it.
 
 
 
@@ -3768,9 +3841,9 @@ This parameter is globally used, it not wise to change it.
 
 参数名称： `pg_replication_password`， 类型： `password`， 层次：`G`
 
-postgres replication password, `DBUser.Replicator` by default
+PostgreSQL 物理复制用户密码，默认值为：`DBUser.Replicator`。
 
-!> WARNING: CHANGE THIS IN PRODUCTION ENVIRONMENT!!!!
+> 警告：请在生产环境中修改此密码！
 
 
 
@@ -3780,9 +3853,9 @@ postgres replication password, `DBUser.Replicator` by default
 
 参数名称： `pg_admin_username`， 类型： `username`， 层次：`G`
 
-postgres admin username, `dbuser_dba` by default, which is a global postgres superuser.
+PostgreSQL / Pgbouncer 管理员名称，默认为：`dbuser_dba`。
 
-default values: `dbuser_dba`
+这是全局使用的数据库管理员，具有数据库的 Superuser 权限与连接池的流量管理权限，请务必控制使用范围。
 
 
 
@@ -3792,9 +3865,9 @@ default values: `dbuser_dba`
 
 参数名称： `pg_admin_password`， 类型： `password`， 层次：`G`
 
-postgres admin password in plain text, `DBUser.DBA` by default
+PostgreSQL / Pgbouncer 管理员密码，默认为： `DBUser.DBA`。
 
-!> WARNING: CHANGE THIS IN PRODUCTION ENVIRONMENT!!!!
+> 警告：请在生产环境中修改此密码！
 
 
 
@@ -3804,7 +3877,12 @@ postgres admin password in plain text, `DBUser.DBA` by default
 
 参数名称： `pg_monitor_username`， 类型： `username`， 层次：`G`
 
-postgres monitor username, `dbuser_monitor` by default, which is a global monitoring user.
+PostgreSQL/Pgbouncer 监控用户名，默认为：`dbuser_monitor`。
+
+这是一个用于监控的数据库/连接池用户，不建议修改此用户名。
+
+但如果您的现有数据库使用了不同的监控用户，可以在指定监控目标时使用此参数传入使用的监控用户名。
+
 
 
 
@@ -3814,9 +3892,9 @@ postgres monitor username, `dbuser_monitor` by default, which is a global monito
 
 参数名称： `pg_monitor_password`， 类型： `password`， 层次：`G`
 
-postgres monitor password, `DBUser.Monitor` by default.
+PostgreSQL/Pgbouncer 监控用户使用的密码，默认为：`DBUser.Monitor`。
 
-!> WARNING: CHANGE THIS IN PRODUCTION ENVIRONMENT!!!!
+> 警告：请在生产环境中修改此密码！
 
 
 
@@ -3825,10 +3903,9 @@ postgres monitor password, `DBUser.Monitor` by default.
 
 参数名称： `pg_dbsu_password`， 类型： `password`， 层次：`G/C`
 
-PostgreSQL dbsu password for [`pg_dbsu`](#pg_dbsu), empty string means no dbsu password, which is the default behavior.
+PostgreSQL [`pg_dbsu`](#pg_dbsu) 超级用户密码，默认是空字符串，即不为其设置密码。
 
-!> WARNING: It's not recommend to set a dbsu password for common PGSQL clusters, except for [`pg_mode`](#pg_mode) = `citus`.
-
+我们不建议为 dbsu 配置密码登陆，这会增大攻击面。例外情况是：[`pg_mode`](#pg_mode) = `citus`，这时候需要为每个分片集群的 dbsu 配置密码，以便在分片集群内部进行连接。
 
 
 
@@ -3840,29 +3917,24 @@ PostgreSQL dbsu password for [`pg_dbsu`](#pg_dbsu), empty string means no dbsu p
 
 ## `PG_INSTALL`
 
-This section is responsible for installing PostgreSQL & Extensions.
-
-If you wish to install a different major version, just make sure repo packages exists and overwrite [`pg_version`](#pg_version) on cluster level.
+本节负责安装 PostgreSQL 及其扩展。如果您希望安装不同大版本与扩展插件，修改 [`pg_version`](#pg_version) 与 [`pg_extensions`](#pg_extensions) 即可，不过请注意，并不是所有扩展都在所有大版本可用。
 
 
 ```yaml
-pg_dbsu: postgres                 # os dbsu name, postgres by default, better not change it
-pg_dbsu_uid: 26                   # os dbsu uid and gid, 26 for default postgres users and groups
-pg_dbsu_sudo: limit               # dbsu sudo privilege, none,limit,all,nopass. limit by default
-pg_dbsu_home: /var/lib/pgsql      # postgresql home directory, `/var/lib/pgsql` by default
-pg_dbsu_ssh_exchange: true        # exchange postgres dbsu ssh key among same pgsql cluster
-pg_version: 15                    # postgres major version to be installed, 15 by default
-pg_bin_dir: /usr/pgsql/bin        # postgres binary dir, `/usr/pgsql/bin` by default
-pg_log_dir: /pg/log/postgres      # postgres log dir, `/pg/log/postgres` by default
-pg_packages:                      # pg packages to be installed, `${pg_version}` will be replaced
+pg_dbsu: postgres                 # os 数据库超级用户名称，默认为 postgres，最好不要更改
+pg_dbsu_uid: 26                   # os 数据库超级用户 uid 和 gid，默认为 26，适用于默认的 postgres 用户和组
+pg_dbsu_sudo: limit               # 数据库超级用户 sudo 权限，可选 none,limit,all,nopass。默认为 limit
+pg_dbsu_home: /var/lib/pgsql      # postgresql 主目录，默认为 `/var/lib/pgsql`
+pg_dbsu_ssh_exchange: true        # 是否在相同的 pgsql 集群中交换 postgres 数据库超级用户的 ssh 密钥
+pg_version: 15                    # 要安装的 postgres 主版本，默认为 15
+pg_bin_dir: /usr/pgsql/bin        # postgres 二进制目录，默认为 `/usr/pgsql/bin`
+pg_log_dir: /pg/log/postgres      # postgres 日志目录，默认为 `/pg/log/postgres`
+pg_packages:                      # 要安装的 pg 包，`${pg_version}` 将被替换
   - postgresql${pg_version}*
   - pgbouncer pg_exporter pgbadger vip-manager patroni patroni-etcd pgbackrest
-pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-  - pg_repack_${pg_version} wal2json_${pg_version}
-  - postgis33_${pg_version} postgis33_${pg_version}-devel postgis33_${pg_version}-utils
-  - timescaledb-2-postgresql-${pg_version}
-  - citus*${pg_version}*
-  - pgvector_${pg_version}*
+pg_extensions:                    # 要安装的 pg 扩展，`${pg_version}` 将被替换
+  - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
+  - postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
 ```
 
 
@@ -3871,9 +3943,10 @@ pg_extensions:                    # pg extensions to be installed, `${pg_version
 
 参数名称： `pg_dbsu`， 类型： `username`， 层次：`C`
 
-os dbsu name, `postgres` by default, it's not wise to change it.
+PostgreSQL 使用的操作系统 dbsu 用户名， 默认为 `postgres`，改这个用户名是不太明智的。
 
-When installing Greenplum / MatrixDB, set this parameter to the corresponding default value: `gpadmin|mxadmin`.
+不过在特定情况下，您可能会使用到不同于 `postgres` 的用户名，例如在安装配置 Greenplum / MatrixDB 时，需要使用 `gpadmin` / `mxadmin` 作为相应的操作系统超级用户。
+
 
 
 
@@ -3882,7 +3955,10 @@ When installing Greenplum / MatrixDB, set this parameter to the corresponding de
 
 参数名称： `pg_dbsu_uid`， 类型： `int`， 层次：`C`
 
-os dbsu uid and gid, `26` for default postgres users and groups, which is consistent with the official pgdg RPM.
+操作系统数据库超级用户的 uid 和 gid，`26` 是 PGDG RPM 默认的 postgres 用户 UID/GID。
+
+对于 Debian/Ubuntu 系统来说，没有默认值，所以您最好指定一个合适的值，比如 `543`
+
 
 
 
@@ -3893,15 +3969,14 @@ os dbsu uid and gid, `26` for default postgres users and groups, which is consis
 
 参数名称： `pg_dbsu_sudo`， 类型： `enum`， 层次：`C`
 
-dbsu sudo privilege, coud be `none`, `limit` ,`all` ,`nopass`. `limit` by default
+数据库超级用户的 sudo 权限，可以是 `none`、`limit`、`all` 或 `nopass`。默认为 `limit`
 
-* `none`: No Sudo privilege
-* `limit`: Limited sudo privilege to execute systemctl commands for database-related components, default.
-* `all`: Full `sudo` privilege, password required.
-* `nopass`: Full `sudo` privileges without a password (not recommended).
+- `none`: 无 Sudo 权限
+- `limit`: 有限的 sudo 权限，用于执行与数据库相关的组件的 `systemctl` 命令（默认选项）。
+- `all`: 完全的 `sudo` 权限，需要密码。
+- `nopass`: 不需要密码的完全 `sudo` 权限（不推荐）。
 
-default values: `limit`, which only allow `sudo systemctl <start|stop|reload> <postgres|patroni|pgbouncer|...> `
-
+- 默认值为 `limit`，只允许执行 `sudo systemctl <start|stop|reload> <postgres|patroni|pgbouncer|...> `。
 
 
 
@@ -3910,7 +3985,7 @@ default values: `limit`, which only allow `sudo systemctl <start|stop|reload> <p
 
 参数名称： `pg_dbsu_home`， 类型： `path`， 层次：`C`
 
-postgresql home directory, `/var/lib/pgsql` by default, which is consistent with the official pgdg RPM.
+postgresql 主目录，默认为 `/var/lib/pgsql`，与官方的 pgdg RPM 保持一致。
 
 
 
@@ -3921,9 +3996,10 @@ postgresql home directory, `/var/lib/pgsql` by default, which is consistent with
 
 参数名称： `pg_dbsu_ssh_exchange`， 类型： `bool`， 层次：`C`
 
-exchange postgres dbsu ssh key among same pgsql cluster?
+是否在同一 PostgreSQL 集群中交换操作系统 dbsu 的 ssh 密钥？
 
-default value is `true`, means the dbsu can ssh to each other among the same cluster.
+默认值为 `true`，意味着同一集群中的数据库超级用户可以互相 ssh 访问。
+
 
 
 
@@ -3933,11 +4009,11 @@ default value is `true`, means the dbsu can ssh to each other among the same clu
 
 参数名称： `pg_version`， 类型： `enum`， 层次：`C`
 
-postgres major version to be installed, `15` by default
+要安装的 postgres 主版本，默认为 `15`。
 
-Note that PostgreSQL physical stream replication cannot cross major versions, so do not configure this on instance level.
+请注意，PostgreSQL 的物理流复制不能跨主要版本，因此最好不要在实例级别上配置此项。
 
-You can use the parameters in [`pg_packages`](#pg_packages) and [`pg_extensions`](#pg_extensions) to install rpms for the specific pg major version.
+您可以使用 [`pg_packages`](#pg_packages) 和 [`pg_extensions`](#pg_extensions) 中的参数来为特定的 PG 大版本安装不同的软件包与扩展。
 
 
 
@@ -3947,11 +4023,14 @@ You can use the parameters in [`pg_packages`](#pg_packages) and [`pg_extensions`
 
 参数名称： `pg_bin_dir`， 类型： `path`， 层次：`C`
 
-postgres binary dir, `/usr/pgsql/bin` by default
+PostgreSQL 二进制程序目录，默认为 `/usr/pgsql/bin`。
 
-The default value is a soft link created manually during the installation process, pointing to the specific Postgres version dir installed.
+默认值是在安装过程中手动创建的软链接，指向安装的特定的 Postgres 版本目录。
 
-For example `/usr/pgsql -> /usr/pgsql-15`. For more details, check [PGSQL File Structure](FHS#postgres-fhs) for details.
+例如 `/usr/pgsql -> /usr/pgsql-15`。在 Ubuntu/Debian 上则指向 `/usr/lib/postgresql/15/bin`。
+
+更多详细信息，请查看 [PGSQL 文件结构](FHS#postgres-fhs)。
+
 
 
 
@@ -3960,9 +4039,11 @@ For example `/usr/pgsql -> /usr/pgsql-15`. For more details, check [PGSQL File S
 
 参数名称： `pg_log_dir`， 类型： `path`， 层次：`C`
 
-postgres log dir, `/pg/log/postgres` by default.
+PostgreSQL 日志目录，默认为：`/pg/log/postgres`，[Promtail](#promtail) 会使用此变量收集 PostgreSQL 日志。
 
-!> caveat: if `pg_log_dir` is prefixed with `pg_data` it will not be created explicit (it will be created by postgres itself then).
+请注意，如果日志目录 [`pg_log_dir`](#pg_log_dir) 以数据库目录 [`pg_data`](#pg_data) 作为前缀，则不会显式创建（数据库目录初始化时自动创建）。
+
+
 
 
 
@@ -3971,14 +4052,22 @@ postgres log dir, `/pg/log/postgres` by default.
 
 参数名称： `pg_packages`， 类型： `string[]`， 层次：`C`
 
-pg packages to be installed, `${pg_version}` will be replaced to the actual value of [`pg_version`](#pg_version)
+要安装的 PostgreSQL 软件包（rpm/deb），包名中的 `${pg_version}` 将被替换为具体的大版本号： [`pg_version`](#pg_version) 的取值。
 
-PostgreSQL, pgbouncer, pg_exporter, pgbadger, vip-manager, patroni, pgbackrest are install by default.
+默认情况下安装的软件包为：
 
 ```yaml
 pg_packages:                      # pg packages to be installed, `${pg_version}` will be replaced
   - postgresql${pg_version}*
   - pgbouncer pg_exporter pgbadger vip-manager patroni patroni-etcd pgbackrest
+```
+
+对于 Ubuntu/Debian 来说，合适的取值需要显式地在配置文件中指定：
+
+```yaml
+pg_packages:                      # pg packages to be installed, `${pg_version}` will be replaced (ubuntu version)
+  - postgresql-*-${pg_version}
+  - patroni pgbouncer pgbackrest pg-exporter pgbadger vip-manager2
 ```
 
 
@@ -3990,21 +4079,26 @@ pg_packages:                      # pg packages to be installed, `${pg_version}`
 
 参数名称： `pg_extensions`， 类型： `string[]`， 层次：`C`
 
-pg extensions to be installed, `${pg_version}` will be replaced to [`pg_version`](#pg_version)
+要安装的 PostgreSQL 扩展，`${pg_version}` 将被替换为具体的PG大版本号： [`pg_version`](#pg_version)。
 
-PostGIS, TimescaleDB, Citus, PGVector, `pg_repack`, and `wal2json` will be installed by default.
+Pigsty 默认会为所有数据库实例安装以下扩展：`postgis`、`timescaledb`、`pgvector`、`pg_repack`、`wal2json` 和 `passwordcheck_cracklib`。
 
 ```yaml
 pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-  - pg_repack_${pg_version} wal2json_${pg_version}
-  - postgis33_${pg_version} postgis33_${pg_version}-devel postgis33_${pg_version}-utils
-  - timescaledb-2-postgresql-${pg_version}
-  - citus*${pg_version}*
-  - pgvector_${pg_version}*
+  - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
+  - postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
 ```
 
-Note that citus 12 is only available for pg 14, 15.
+对于 Ubuntu/Debian 来说，合适的取值需要显式地在配置文件中指定：
 
+```yaml
+pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
+  - postgresql-${pg_version}-wal2json postgresql-${pg_version}-repack
+  - timescaledb-2-postgresql-${pg_version} postgresql-${pg_version}-pgvector
+  - postgresql-${pg_version}-postgis-3 # postgis-3 broken in ubuntu20
+```
+
+请注意，并不是所有扩展都在所有大版本可用，但 Pigsty 确保重要的扩展 `wal2json`，`pg_repack` 和 `passwordcheck_cracklib`（仅限EL） 在所有PG大版本上都可用。
 
 
 
@@ -4013,13 +4107,10 @@ Note that citus 12 is only available for pg 14, 15.
 
 ## `PG_BOOTSTRAP`
 
-Bootstrap a postgres cluster with patroni, and setup pgbouncer connection pool along with it.
 
-It also init cluster template databases with default roles, schemas & extensions & default privileges.
+使用 Patroni 引导拉起 PostgreSQL 集群，并设置 1:1 对应的 Pgbouncer 连接池。
 
-Then it will create business databases & users and add them to pgbouncer & monitoring system
-
-On a machine with Postgres, create a set of databases.
+它还会使用 [`PG_PROVISION`](#pg_provision) 中定义的默认角色、用户、权限、模式、扩展来初始化数据库集群
 
 
 ```yaml
@@ -4070,9 +4161,9 @@ pgbouncer_sslmode: disable        # pgbouncer client ssl mode, disable by defaul
 
 参数名称： `pg_safeguard`， 类型： `bool`， 层次：`G/C/A`
 
-prevent purging running postgres instance? false by default
+是否防止清除正在运行的Postgres实例？默认为：`false`。
 
-default value is `false`, If enabled, `pgsql.yml` & `pgsql-rm.yml` will abort immediately if any postgres instance is running.
+如果启用，[`pgsql.yml`](PGSQL-PLAYBOOK#pgsqlyml) 和 [`pgsql-rm.yml`](PGSQL-PLAYBOOk#pgsql-rmyml) 在检测到任何正在运行的postgres实例时将立即中止。
 
 
 
@@ -4081,11 +4172,12 @@ default value is `false`, If enabled, `pgsql.yml` & `pgsql-rm.yml` will abort im
 
 参数名称： `pg_clean`， 类型： `bool`， 层次：`G/C/A`
 
-purging existing postgres during pgsql init? true by default
+在 PostgreSQL 初始化期间清除现有的 PG 实例吗？默认为：`true`。
 
-default value is `true`, it will purge existing postgres instance during `pgsql.yml` init. which makes the playbook idempotent.
+默认值为`true`，在 [`pgsql.yml`](PGSQL-PLAYBOOK#pgsqlyml) 初始化期间它将清除现有的postgres实例，这使得playbook具有幂等性。
 
-if set to `false`, `pgsql.yml` will abort if there's already a running postgres instance. and `pgsql-rm.yml` will NOT remove postgres data (only stop the server).
+如果设置为 `false`，[`pgsql.yml`](PGSQL-PLAYBOOK#pgsqlyml) 会在遇到正在运行的 PostgreSQL 实例时中止。而 [`pgsql-rm.yml`](PGSQL-PLAYBOOk#pgsql-rmyml) 将不会删除 PostgreSQL 的数据目录（只会停止服务器）。
+
 
 
 
@@ -4094,13 +4186,9 @@ if set to `false`, `pgsql.yml` will abort if there's already a running postgres 
 
 参数名称： `pg_data`， 类型： `path`， 层次：`C`
 
-postgres data directory, `/pg/data` by default
+Postgres 数据目录，默认为 `/pg/data`。
 
-default values: `/pg/data`, DO NOT CHANGE IT.
-
-It's a soft link that point to underlying data directory. 
-
-Check [PGSQL File Structure](FHS) for details. 
+这是一个指向底层实际数据目录的符号链接，在多处被使用，请不要修改它。参阅 [PGSQL文件结构](FHS) 获取详细信息。 
 
 
 
@@ -4110,13 +4198,13 @@ Check [PGSQL File Structure](FHS) for details.
 
 参数名称： `pg_fs_main`， 类型： `path`， 层次：`C`
 
-mountpoint/path for postgres main data, `/data` by default
+PostgreSQL 主数据盘的挂载点/文件系统路径，默认为`/data`。
 
-default values: `/data`, which will be used as parent dir of postgres main data directory: `/data/postgres`.
+默认值：`/data`，它将被用作 PostgreSQL 主数据目录（`/data/postgres`）的父目录。
 
-It's recommended to use NVME SSD for postgres main data storage, Pigsty is optimized for SSD storage by default.
-But HDD is also supported, you can change [`pg_storage_type`](#pg_storage_type) to `HDD` to optimize for HDD storage.
+建议使用 NVME SSD 作为 PostgreSQL 主数据存储，Pigsty默认为SSD存储进行了优化，但是也支持HDD。
 
+您可以更改[`pg_storage_type`](#pg_storage_type)为`HDD`以针对HDD存储进行优化。
 
 
 
@@ -4126,14 +4214,13 @@ But HDD is also supported, you can change [`pg_storage_type`](#pg_storage_type) 
 
 参数名称： `pg_fs_bkup`， 类型： `path`， 层次：`C`
 
-mountpoint/path for pg backup data, `/data/backup` by default
+PostgreSQL 备份数据盘的挂载点/文件系统路径，默认为`/data/backup`。
 
-If you are using the default [`pgbackrest_method`](#pgbackrest_method) = `local`, it is recommended to have a separate disk for backup storage.
+如果您使用的是默认的 [`pgbackrest_method`](#pgbackrest_method) = `local`，建议为备份存储使用一个单独的磁盘。
 
-The backup disk should be large enough to hold all your backups, at least enough for 3 basebackups + 2 days WAL archive.
-This is usually not a problem since you can use cheap & large HDD for that.
+备份磁盘应足够大，以容纳所有的备份，至少足以容纳3个基础备份+2天的WAL归档。 通常容量不是什么大问题，因为您可以使用便宜且大的机械硬盘作为备份盘。
 
-It's recommended to use a separate disk for backup storage, otherwise pigsty will fall back to the main data disk.
+建议为备份存储使用一个单独的磁盘，否则 Pigsty 将回退到主数据磁盘，并占用主数据盘的容量与IO。
 
 
 
@@ -4143,10 +4230,9 @@ It's recommended to use a separate disk for backup storage, otherwise pigsty wil
 
 参数名称： `pg_storage_type`， 类型： `enum`， 层次：`C`
 
-storage type for pg main data, `SSD`,`HDD`, `SSD` by default
+PostgreSQL 数据存储介质的类型：`SSD`或`HDD`，默认为`SSD`。
 
-default values: `SSD`, it will affect some tuning parameters, such as `random_page_cost` & `effective_io_concurrency`
-
+默认值：`SSD`，它会影响一些调优参数，如 `random_page_cost` 和 `effective_io_concurrency` 。
 
 
 
@@ -4155,9 +4241,9 @@ default values: `SSD`, it will affect some tuning parameters, such as `random_pa
 
 参数名称： `pg_dummy_filesize`， 类型： `size`， 层次：`C`
 
-size of `/pg/dummy`, default values: `64MiB`, which hold 64MB disk space for emergency use
+`/pg/dummy`的大小，默认值为`64MiB`，用于紧急使用的64MB磁盘空间。
 
-When the disk is full, removing the placeholder file can free up some space for emergency use, it is recommended to use at least `8GiB` for production use.
+当磁盘已满时，删除占位符文件可以为紧急使用释放一些空间，建议生产使用至少`8GiB`。
 
 
 
@@ -4167,16 +4253,15 @@ When the disk is full, removing the placeholder file can free up some space for 
 
 参数名称： `pg_listen`， 类型： `ip`， 层次：`C`
 
-postgres/pgbouncer listen address, `0.0.0.0` (all ipv4 addr) by default
+PostgreSQL / Pgbouncer 的监听地址，默认为`0.0.0.0`（所有ipv4地址）。
 
-You can use placeholder in this variable:
+您可以在此变量中使用占位符，例如：`'${ip},${lo}'`或`'${ip},${vip},${lo}'`：
 
-* `${ip}`: translate to inventory_hostname, which is primary private IP address in the inventory
-* `${vip}`: if [`pg_vip_enabled`](#pg_vip_enabled), this will translate to host part of [`pg_vip_address`](#pg_vip_address)
-* `${lo}`: will translate to `127.0.0.1`
+- `${ip}`：转换为 `inventory_hostname`，它是配置清单中定义的首要内网IP地址。
+- `${vip}`：如果启用了[`pg_vip_enabled`](#pg_vip_enabled)，将使用[`pg_vip_address`](#pg_vip_address)的主机部分。
+- `${lo}`：将替换为`127.0.0.1`
 
-For example: `'${ip},${lo}'` or `'${ip},${vip},${lo}'`.
-
+对于高安全性要求的生产环境，建议限制监听的IP地址。
 
 
 
@@ -4185,7 +4270,7 @@ For example: `'${ip},${lo}'` or `'${ip},${vip},${lo}'`.
 
 参数名称： `pg_port`， 类型： `port`， 层次：`C`
 
-postgres listen port, `5432` by default.
+PostgreSQL 服务器监听的端口，默认为 `5432`。
 
 
 
@@ -4195,10 +4280,9 @@ postgres listen port, `5432` by default.
 
 参数名称： `pg_localhost`， 类型： `path`， 层次：`C`
 
-postgres unix socket dir for localhost connection, default values: `/var/run/postgresql`
+本地主机连接 PostgreSQL 使用的 Unix套接字目录，默认值为`/var/run/postgresql`。
 
-The Unix socket dir for PostgreSQL and Pgbouncer local connection, which is used by [`pg_exporter`](#pg_exporter) and patroni.
-
+PostgreSQL 和 Pgbouncer 本地连接的Unix套接字目录，[`pg_exporter`](#pg_exporter) 和 patroni 都会优先使用 Unix 套接字访问 PostgreSQL。
 
 
 
@@ -4207,7 +4291,7 @@ The Unix socket dir for PostgreSQL and Pgbouncer local connection, which is used
 
 参数名称： `pg_namespace`， 类型： `path`， 层次：`C`
 
-top level key namespace in etcd, used by patroni & vip, default values is: `/pg` , and it's not recommended to change it.
+在 [etcd](#etcd) 中使用的顶级命名空间，由 patroni 和 vip-manager 使用，默认值是：`/pg`，不建议更改。
 
 
 
@@ -4217,11 +4301,9 @@ top level key namespace in etcd, used by patroni & vip, default values is: `/pg`
 
 参数名称： `patroni_enabled`， 类型： `bool`， 层次：`C`
 
-if disabled, no postgres cluster will be created during init
+是否启用 Patroni ？默认值为：`true`。
 
-default value is `true`, If disabled, Pigsty will skip pulling up patroni (thus postgres).
-
-This option is useful when trying to add some components to an existing postgres instance.
+如果禁用，则在初始化期间不会创建Postgres集群。Pigsty将跳过拉起 patroni的任务，当试图向现有的postgres实例添加一些组件时，可以使用此参数。
 
 
 
@@ -4230,13 +4312,11 @@ This option is useful when trying to add some components to an existing postgres
 
 参数名称： `patroni_mode`， 类型： `enum`， 层次：`C`
 
-patroni working mode: `default`, `pause`, `remove`
+Patroni 工作模式：`default`，`pause`，`remove`。默认值：`default`。
 
-default values: `default`
-
-* `default`: Bootstrap PostgreSQL cluster with Patroni
-* `pause`: Just like `default`, but entering maintenance mode after bootstrap
-* `remove`: Init the cluster with Patroni, them remove Patroni and use raw PostgreSQL instead.
+- `default`：正常使用 Patroni 引导 PostgreSQL 集群
+- `pause`：与`default`相似，但在引导后进入维护模式
+- `remove`：使用Patroni初始化集群，然后删除Patroni并使用原始 PostgreSQL。
 
 
 
@@ -4245,9 +4325,9 @@ default values: `default`
 
 参数名称： `patroni_port`， 类型： `port`， 层次：`C`
 
-patroni listen port, `8008` by default, changing it is not recommended.
+patroni监听端口，默认为`8008`，不建议更改。
 
-The Patroni API server listens on this port for health checking & API requests.
+Patroni API服务器在此端口上监听健康检查和API请求。
 
 
 
@@ -4256,7 +4336,7 @@ The Patroni API server listens on this port for health checking & API requests.
 
 参数名称： `patroni_log_dir`， 类型： `path`， 层次：`C`
 
-patroni log dir, `/pg/log/patroni` by default, which will be collected by [`promtail`](#promtail).
+patroni日志目录，默认为`/pg/log/patroni`，由[`promtail`](#promtail)收集。
 
 
 
@@ -4268,13 +4348,9 @@ patroni log dir, `/pg/log/patroni` by default, which will be collected by [`prom
 
 参数名称： `patroni_ssl_enabled`， 类型： `bool`， 层次：`G`
 
-Secure patroni RestAPI communications with SSL? default value is `false`
+使用SSL保护patroni RestAPI通信吗？默认值为`false`。
 
-This parameter is a global flag that can only be set before deployment.
-
-Since if SSL is enabled for patroni, you'll have to perform healthcheck, metrics scrape and API call with HTTPS instead of HTTP. 
-
-
+此参数是一个全局标志，只能在部署之前预先设置。因为如果为 patroni 启用了SSL，您将必须使用 HTTPS 而不是 HTTP 执行健康检查、获取指标，调用API。
 
 
 
@@ -4284,18 +4360,17 @@ Since if SSL is enabled for patroni, you'll have to perform healthcheck, metrics
 
 参数名称： `patroni_watchdog_mode`， 类型： `string`， 层次：`C`
 
-In case of primary failure, patroni can use [watchdog](https://patroni.readthedocs.io/en/latest/watchdog.html) to shutdown the old primary node to avoid split-brain.
+patroni看门狗模式：`automatic`，`required`，`off`，默认值为 `off`。
 
-patroni watchdog mode: `automatic`, `required`, `off`:
+在主库故障的情况下，Patroni 可以使用[看门狗](https://patroni.readthedocs.io/en/latest/watchdog.html) 来强制关机旧主库节点以避免脑裂。
 
-* `off`: not using `watchdog`. avoid fencing at all. This is the default value.
-* `automatic`: Enable `watchdog` if the kernel has `softdog` module enabled and watchdog is owned by dbsu 
-* `required`: Force `watchdog`, refuse to start if `softdog` is not available
+- `off`：不使用`看门狗`。完全不进行 Fencing （默认行为）
+- `automatic`：如果内核启用了`softdog`模块并且看门狗属于dbsu，则启用 `watchdog`。
+- `required`：强制启用 `watchdog`，如果`softdog`不可用则拒绝启动 Patroni/PostgreSQL。
 
-default value is `off`, you should not enable watchdog on infra nodes to avoid fencing.
+默认值为`off`，您不应该在 Infra节点 启用看门狗，数据一致性优先于可用性的关键系统，特别是与钱有关的业务集群可以考虑打开此选项。
 
-For those critical systems where data consistency prevails over availability, it is recommended to enable watchdog.
-
+请注意，如果您的所有访问流量都使用 HAproxy 健康检查[服务接入](PGSQL-SVC#接入服务)，正常是不存在脑裂风险的。
 
 
 
@@ -4305,9 +4380,10 @@ For those critical systems where data consistency prevails over availability, it
 
 参数名称： `patroni_username`， 类型： `username`， 层次：`C`
 
-patroni restapi username, `postgres` by default, used in pair with [`patroni_password`](#patroni_password)
+Patroni REST API 用户名，默认为`postgres`，与[`patroni_password`](#patroni_password) 配对使用。
 
-Patroni unsafe RESTAPI is protected by username/password by default, check [Config Cluster](PGSQL-ADMIN#配置集群) and [Patroni RESTAPI](https://patroni.readthedocs.io/en/latest/rest_api.html) for details. 
+Patroni的危险 REST API （比如重启集群）由额外的用户名/密码保护，查看[配置集群](PGSQL-ADMIN#配置集群)和[Patroni RESTAPI](https://patroni.readthedocs.io/en/latest/rest_api.html)以获取详细信息。
+
 
 
 
@@ -4316,9 +4392,9 @@ Patroni unsafe RESTAPI is protected by username/password by default, check [Conf
 
 参数名称： `patroni_password`， 类型： `password`， 层次：`C`
 
-patroni restapi password, `Patroni.API` by default
+Patroni REST API 密码，默认为`Patroni.API`。
 
-!> WARNING: CHANGE THIS IN PRODUCTION ENVIRONMENT!!!!
+> 警告：务必生产环境中修改此参数！
 
 
 
@@ -4328,10 +4404,9 @@ patroni restapi password, `Patroni.API` by default
 
 参数名称： `patroni_citus_db`， 类型： `string`， 层次：`C`
 
-citus database managed by patroni, `postgres` by default.
+由 Patroni 管理的 citus 业务数据库，默认为 `postgres`。
 
-Patroni 3.0's native citus will specify a managed database for citus. which is created by patroni itself.
-
+Patroni 3.0的原生citus支持，将为citus指定一个由patroni自身创建并管理的数据库。
 
 
 
@@ -4339,17 +4414,16 @@ Patroni 3.0's native citus will specify a managed database for citus. which is c
 
 参数名称： `pg_conf`， 类型： `enum`， 层次：`C`
 
-config template: `{oltp,olap,crit,tiny}.yml`, `oltp.yml` by default
+配置模板：`{oltp,olap,crit,tiny}.yml`，默认为`oltp.yml`。
 
-- `tiny.yml`: optimize for tiny nodes, virtual machines, small demo, (1~8Core, 1~16GB)
-- `oltp.yml`: optimize for OLTP workloads and latency sensitive applications, (4C8GB+), which is the default template
-- `olap.yml`: optimize for OLAP workloads and throughput (4C8G+)
-- `crit.yml`: optimize for data consistency and critical applications (4C8G+) 
+- `tiny.yml`：为小节点、虚拟机、小型演示优化（1-8核，1-16GB）
+- `oltp.yml`：为OLTP工作负载和延迟敏感应用优化（4C8GB+）（默认模板）
+- `olap.yml`：为OLAP工作负载和吞吐量优化（4C8G+）
+- `crit.yml`：为数据一致性和关键应用优化（4C8G+）
 
-default values: `oltp.yml`, but [configure](INSTALL#configure) procedure will set this value to `tiny.yml` if current node is a tiny node.
+默认值：`oltp.yml`，但是[配置](INSTALL#配置)程序将在当前节点为小节点时将此值设置为 `tiny.yml`。
 
-You can have your own template, just put it under `templates/<mode>.yml` and set this value to the template name.
-
+您可以拥有自己的模板，只需将其放在`templates/<mode>.yml`下，并将此值设置为模板名称即可使用。
 
 
 
@@ -4358,22 +4432,24 @@ You can have your own template, just put it under `templates/<mode>.yml` and set
 
 参数名称： `pg_max_conn`， 类型： `int`， 层次：`C`
 
-postgres max connections, You can specify a value between 50 and 5000, or use `auto` to use recommended value.
+PostgreSQL 服务器最大连接数。你可以选择一个介于 50 到 5000 之间的值，或使用 `auto` 选择推荐值。
 
-default value is `auto`, which will set max connections according to the [`pg_conf`](#pg_conf) and [`pg_default_service_dest`](#pg_default_service_dest).
+默认值为 `auto`，会根据 [`pg_conf`](#pg_conf) 和 [`pg_default_service_dest`](#pg_default_service_dest) 来设定最大连接数。
 
 - tiny: 100
 - olap: 200
 - oltp: 200 (pgbouncer) / 1000 (postgres)
-  - pg_default_service_dest = pgbouncer : 200
-  - pg_default_service_dest = postgres : 1000
+    - pg_default_service_dest = pgbouncer : 200
+    - pg_default_service_dest = postgres : 1000
 - crit: 200 (pgbouncer) / 1000 (postgres)
-  - pg_default_service_dest = pgbouncer : 200
-  - pg_default_service_dest = postgres : 1000
+    - pg_default_service_dest = pgbouncer : 200
+    - pg_default_service_dest = postgres : 1000
 
-It's not recommended to set this value greater than 5000, otherwise you have to increase the haproxy service connection limit manually as well.
+不建议将此值设定为超过 5000，否则你还需要手动增加 haproxy 服务的连接限制。
 
-Pgbouncer's transaction pooling can alleviate the problem of too many OLTP connections, but it's not recommended to use it in OLAP scenarios.
+Pgbouncer 的事务池可以缓解过多的 OLTP 连接问题，因此默认情况下不建议设置很大的连接数。
+
+对于 OLAP 场景， [`pg_default_service_dest`](#pg_default_service_dest) 修改为 `postgres` 可以绕过连接池。
 
 
 
@@ -4383,13 +4459,14 @@ Pgbouncer's transaction pooling can alleviate the problem of too many OLTP conne
 
 参数名称： `pg_shared_buffer_ratio`， 类型： `float`， 层次：`C`
 
-postgres shared buffer memory ratio, 0.25 by default, 0.1~0.4
+Postgres 共享缓冲区内存比例，默认为 `0.25`，正常范围在 `0.1`~`0.4` 之间。
 
-default values: `0.25`, means 25% of node memory will be used as PostgreSQL shard buffers.
+默认值：`0.25`，意味着节点内存的 25% 将被用作 PostgreSQL 的分片缓冲区。如果您想为 PostgreSQL 启用大页，那么此参数值应当适当小于 [`node_hugepage_ratio`](#node_hugepage_ratio)。 
 
-Setting this value greater than 0.4 (40%) is usually not a good idea. 
+将此值设定为大于 0.4（40%）通常不是好主意，但在极端情况下可能有用。
 
-Note that shared buffer is only part of shared memory in PostgreSQL, to calculate the total shared memory, use `show shared_memory_size_in_huge_pages;`.
+注意，共享缓冲区只是 PostgreSQL 中共享内存的一部分，要计算总共享内存，使用 `show shared_memory_size_in_huge_pages;`。
+
 
 
 
@@ -4398,27 +4475,25 @@ Note that shared buffer is only part of shared memory in PostgreSQL, to calculat
 
 参数名称： `pg_rto`， 类型： `int`， 层次：`C`
 
-recovery time objective in seconds, This will be used as Patroni TTL value, `30`s by default.
+以秒为单位的恢复时间目标（RTO）。这将用于计算 Patroni 的 TTL 值，默认为 `30` 秒。
 
-If a primary instance is missing for such a long time, a new leader election will be triggered.
+如果主实例在这么长时间内失踪，将触发新的领导者选举，此值并非越低越好，它涉及到利弊权衡：
 
-Decrease the value can reduce the unavailable time (unable to write) of the cluster during failover, 
-but it will make the cluster more sensitive to network jitter, thus increase the chance of false-positive failover.
+减小这个值可以减少集群故障转移期间的不可用时间（无法写入）， 但会使集群对短期网络抖动更加敏感，从而增加误报触发故障转移的几率。
 
-Config this according to your network condition and expectation to **trade-off between chance and impact**,
-the default value is 30s, and it will be populated to the following patroni parameters:
+您需要根据网络状况和业务约束来配置这个值，在故障几率和故障影响之间做出**权衡**， 默认值是 `30s`，它将影响以下的 Patroni 参数：
 
 ```yaml
-# the TTL to acquire the leader lock (in seconds). Think of it as the length of time before initiation of the automatic failover process. Default value: 30
+# 获取领导者租约的 TTL（以秒为单位）。将其视为启动自动故障转移过程之前的时间长度。默认值：30
 ttl: {{ pg_rto }}
 
-# the number of seconds the loop will sleep. Default value: 10 , this is patroni check loop interval
+# 循环将休眠的秒数。默认值：10，这是 patroni 检查循环间隔
 loop_wait: {{ (pg_rto / 3)|round(0, 'ceil')|int }}
 
-# timeout for DCS and PostgreSQL operation retries (in seconds). DCS or network issues shorter than this will not cause Patroni to demote the leader. Default value: 10
+# DCS 和 PostgreSQL 操作重试的超时时间（以秒为单位）。比这短的 DCS 或网络问题不会导致 Patroni 降级领导。默认值：10
 retry_timeout: {{ (pg_rto / 3)|round(0, 'ceil')|int }}
 
-# the amount of time a primary is allowed to recover from failures before failover is triggered (in seconds), Max RTO: 2 loop wait + primary_start_timeout
+# 主实例在触发故障转移之前允许从故障中恢复的时间（以秒为单位），最大 RTO：2 倍循环等待 + primary_start_timeout
 primary_start_timeout: {{ (pg_rto / 3)|round(0, 'ceil')|int }}
 ```
 
@@ -4429,18 +4504,16 @@ primary_start_timeout: {{ (pg_rto / 3)|round(0, 'ceil')|int }}
 
 参数名称： `pg_rpo`， 类型： `int`， 层次：`C`
 
-recovery point objective in bytes, `1MiB` at most by default
+以字节为单位的恢复点目标（RPO），默认值：`1048576`。
 
-default values: `1048576`, which will tolerate at most 1MiB data loss during failover.
+默认为 1MiB，这意味着在故障转移期间最多可以容忍 1MiB 的数据丢失。
 
-when the primary is down and all replicas are lagged, you have to make a tough choice to **trade off between Availability and Consistency**:
+当主节点宕机并且所有副本都滞后时，你必须做出一个艰难的选择，**在可用性和一致性之间进行权衡**：
 
-* Promote a replica to be the new primary and bring system back online ASAP, with the price of an acceptable data loss (e.g. less than 1MB).
-* Wait for the primary to come back (which may never be) or human intervention to avoid any data loss.
+- 提升一个从库成为新的主库，并尽快将系统恢复服务，但要付出可接受的数据丢失代价（例如，少于 1MB）。
+- 等待主库重新上线（可能永远不会），或人工干预以避免任何数据丢失。
 
-You can use `crit.yml` [conf](#pg_conf) template to ensure no data loss during failover, but it will sacrifice some performance.
- 
-
+你可以使用 `crit.yml` [conf](#pg_conf) 模板来确保在故障转移期间没有数据丢失，但这会牺牲一些性能。
 
 
 
@@ -4450,12 +4523,18 @@ You can use `crit.yml` [conf](#pg_conf) template to ensure no data loss during f
 
 参数名称： `pg_libs`， 类型： `string`， 层次：`C`
 
-preloaded libraries, `timescaledb,pg_stat_statements,auto_explain` by default
+预加载的动态共享库，默认为 `pg_stat_statements,auto_explain`，这是两个 PostgreSQL 自带的扩展，强烈建议启用。
 
-default value: `timescaledb, pg_stat_statements, auto_explain`.
+对于现有集群，您可以直接[配置集群](PGSQL-ADMIN#配置集群)的 `shared_preload_libraries` 参数并应用生效。
 
-If you want to manage citus cluster by your own, add `citus` to the head of this list.
-If you are using patroni native citus cluster, patroni will add it automatically for you.
+如果您想使用 TimescaleDB 或 Citus 扩展，您需要将 `timescaledb` 或 `citus` 添加到此列表中。`timescaledb` 和 `citus` 应当放在这个列表的最前面，例如：
+
+```
+citus,timescaledb,pg_stat_statements,auto_explain
+```
+
+其他需要动态加载的扩展也可以添加到这个列表中，例如 `pg_cron`， `pgml` 等，通常 `citus` 和 `timescaledb` 有着最高的优先级，应该添加到列表的最前面。
+
 
 
 
@@ -4465,11 +4544,11 @@ If you are using patroni native citus cluster, patroni will add it automatically
 
 参数名称： `pg_delay`， 类型： `interval`， 层次：`I`
 
-replication apply delay for standby cluster leader , default values: `0`.
+延迟备库复制延迟，默认值：`0`。
 
-if this value is set to a positive value, the standby cluster leader will be delayed for this time before apply WAL changes.
+如果此值被设置为一个正值，备用集群主库在应用 WAL 变更之前将被延迟这个时间。设置为 `1h` 意味着该集群中的数据将始终滞后原集群一个小时。
 
-Check [delayed standby cluster](PGSQL-CONF#delayed-cluster) for details.
+查看 [延迟备用集群](PGSQL-CONF#延迟集群) 以获取详细信息。
 
 
 
@@ -4479,11 +4558,12 @@ Check [delayed standby cluster](PGSQL-CONF#delayed-cluster) for details.
 
 参数名称： `pg_checksum`， 类型： `bool`， 层次：`C`
 
-enable data checksum for postgres cluster?, default value is `false`.
+为 PostgreSQL 集群启用数据校验和吗？默认值是 `false`，不启用。
 
-This parameter can only be set before PGSQL deployment. (but you can enable it manually later)
+这个参数只能在 PGSQL 部署之前设置（但你可以稍后手动启用它）。
 
-If [`pg_conf`](#pg_conf) `crit.yml` template is used, data checksum is always enabled regardless of this parameter to ensure data integrity.
+如果使用 [`pg_conf`](#pg_conf) `crit.yml` 模板，无论此参数如何，都会始终启用数据校验和，以确保数据完整性。
+
 
 
 
@@ -4492,10 +4572,9 @@ If [`pg_conf`](#pg_conf) `crit.yml` template is used, data checksum is always en
 
 参数名称： `pg_pwd_enc`， 类型： `enum`， 层次：`C`
 
-passwords encryption algorithm: md5,scram-sha-256
+密码加密算法：`md5` 或 `scram-sha-256`，默认值：`scram-sha-256`。
 
-default values: `scram-sha-256`, if you have compatibility issues with old clients, you can set it to `md5` instead. 
-
+前者已经不再安全，如果你与旧客户端有兼容性问题，你可以将其设置为 `md5`。
 
 
 
@@ -4504,8 +4583,9 @@ default values: `scram-sha-256`, if you have compatibility issues with old clien
 
 参数名称： `pg_encoding`， 类型： `enum`， 层次：`C`
 
-database cluster encoding, `UTF8` by default
+数据库集群编码，默认为 `UTF8`。
 
+不建议使用其他非 `UTF8` 系编码。
 
 
 
@@ -4514,9 +4594,9 @@ database cluster encoding, `UTF8` by default
 
 参数名称： `pg_locale`， 类型： `enum`， 层次：`C`
 
-database cluster local, `C` by default
+数据库集群编码，默认为 `UTF8`。
 
-
+数据库集群本地化规则集，默认为 `UTF8`。
 
 
 
@@ -4525,7 +4605,9 @@ database cluster local, `C` by default
 
 参数名称： `pg_lc_collate`， 类型： `enum`， 层次：`C`
 
-database cluster collate, `C` by default, It's not recommended to change this value unless you know what you are doing.
+数据库集群本地化排序规则，默认为 `C`。
+
+除非您知道自己在做什么，否则不建议修改集群级别的本地排序规则设置。
 
 
 
@@ -4535,7 +4617,7 @@ database cluster collate, `C` by default, It's not recommended to change this va
 
 参数名称： `pg_lc_ctype`， 类型： `enum`， 层次：`C`
 
-database character type, `en_US.UTF8` by default
+数据库字符集 CTYPE，默认为 `en_US.UTF8`。
 
 
 
@@ -4546,7 +4628,7 @@ database character type, `en_US.UTF8` by default
 
 参数名称： `pgbouncer_enabled`， 类型： `bool`， 层次：`C`
 
-default value is `true`, if disabled, pgbouncer will not be launched on pgsql host
+默认值为 `true`，如果禁用，将不会在 PGSQL节点上配置连接池 Pgbouncer。
 
 
 
@@ -4557,7 +4639,7 @@ default value is `true`, if disabled, pgbouncer will not be launched on pgsql ho
 
 参数名称： `pgbouncer_port`， 类型： `port`， 层次：`C`
 
-pgbouncer listen port, `6432` by default
+Pgbouncer 监听端口，默认为 `6432`。
 
 
 
@@ -4568,7 +4650,7 @@ pgbouncer listen port, `6432` by default
 
 参数名称： `pgbouncer_log_dir`， 类型： `path`， 层次：`C`
 
-pgbouncer log dir, `/pg/log/pgbouncer` by default, referenced by promtail the logging agent.
+Pgbouncer 日志目录，默认为 `/pg/log/pgbouncer`，日志代理 [promtail](#promtail) 会根据此参数收集 Pgbouncer 日志。
 
 
 
@@ -4579,9 +4661,10 @@ pgbouncer log dir, `/pg/log/pgbouncer` by default, referenced by promtail the lo
 
 参数名称： `pgbouncer_auth_query`， 类型： `bool`， 层次：`C`
 
-query postgres to retrieve unlisted business users? default value is `false`
+是否允许 Pgbouncer 查询 PostgreSQL，以允许未显式列出的用户通过连接池访问 PostgreSQL？默认值是 `false`。
 
-If enabled, pgbouncer user will be authenticated against postgres database with `SELECT username, password FROM monitor.pgbouncer_auth($1)`, otherwise, only the users in `pgbouncer_users` will be allowed to connect to pgbouncer.
+如果启用，pgbouncer 用户将使用 `SELECT username, password FROM monitor.pgbouncer_auth($1)` 对 postgres 数据库进行身份验证，否则，只有带有 `pgbouncer: true` 的业务用户才被允许连接到 Pgbouncer 连接池。
+
 
 
 
@@ -4591,12 +4674,13 @@ If enabled, pgbouncer user will be authenticated against postgres database with 
 
 参数名称： `pgbouncer_poolmode`， 类型： `enum`， 层次：`C`
 
-pooling mode: transaction,session,statement, `transaction` by default
+Pgbouncer 连接池池化模式：`transaction`,`session`,`statement`，默认为 `transaction`。
 
-* `session`, Session-level pooling with the best compatibility.
-* `transaction`, Transaction-level pooling with better performance (lots of small conns), could break some session level features such as PreparedStatements, notify, etc... 
-* `statements`, Statement-level pooling which is used for simple read-only queries.
+- `session`：会话级池化，具有最佳的功能兼容性。
+- `transaction`：事务级池化，具有更好的性能（许多小连接），可能会破坏某些会话级特性，如`NOTIFY/LISTEN` 等...
+- `statements`：语句级池化，用于简单的只读查询。
 
+如果您的应用出现功能兼容性问题，可以考虑修改此参数为 `session`。
 
 
 
@@ -4605,17 +4689,16 @@ pooling mode: transaction,session,statement, `transaction` by default
 
 参数名称： `pgbouncer_sslmode`， 类型： `enum`， 层次：`C`
 
-pgbouncer client ssl mode, `disable` by default
+Pgbouncer 客户端 ssl 模式，默认为 `disable`。
 
-default values: `disable`, beware that this may have a huge performance impact on your pgbouncer.
+注意，启用 SSL 可能会对你的 pgbouncer 产生巨大的性能影响。
 
-- `disable`: Plain TCP. If client requests TLS, it’s ignored. Default.
-- `allow`: If client requests TLS, it is used. If not, plain TCP is used. If the client presents a client certificate, it is not validated.
-- `prefer`: Same as allow.
-- `require`: Client must use TLS. If not, the client connection is rejected. If the client presents a client certificate, it is not validated.
-- `verify-ca`: Client must use TLS with valid client certificate.
-- `verify-full`: Same as verify-ca.
-
+- `disable`：如果客户端请求 TLS 则忽略（默认）
+- `allow`：如果客户端请求 TLS 则使用。如果没有则使用纯TCP。不验证客户端证书。
+- `prefer`：与 allow 相同。
+- `require`：客户端必须使用 TLS。如果没有则拒绝客户端连接。不验证客户端证书。
+- `verify-ca`：客户端必须使用有效的客户端证书的TLS。
+- `verify-full`：与 verify-ca 相同。
 
 
 
@@ -4627,12 +4710,22 @@ default values: `disable`, beware that this may have a huge performance impact o
 
 ## `PG_PROVISION`
 
-Init database roles, templates, default privileges, create schemas, extensions, and generate hba rules
+
+如果说 [`PG_BOOTSTRAP`](#pg_bootstrap) 是创建一个新的集群，那么 PG_PROVISION 就是在集群中创建默认的对象，包括：
+
+* [默认角色](PGSQL-ACL#默认角色)
+* [默认用户](PGSQL-ACL#默认用户)
+* [默认权限](PGSQL-ACL#默认权限)
+* [默认HBA规则](PGSQL-HBA#默认hba)
+* 默认模式
+* 默认扩展
+
+
 
 ```yaml
-pg_provision: true                # provision postgres cluster after bootstrap
-pg_init: pg-init                  # provision init script for cluster template, `pg-init` by default
-pg_default_roles:                 # default roles and users in postgres cluster
+pg_provision: true                # 在引导后提供postgres集群
+pg_init: pg-init                  # 集群模板的初始化脚本，默认为`pg-init`
+pg_default_roles:                 # postgres集群中的默认角色和用户
   - { name: dbrole_readonly  ,login: false ,comment: role for global read-only access     }
   - { name: dbrole_offline   ,login: false ,comment: role for restricted read-only access }
   - { name: dbrole_readwrite ,login: false ,roles: [dbrole_readonly] ,comment: role for global read-write access }
@@ -4641,7 +4734,7 @@ pg_default_roles:                 # default roles and users in postgres cluster
   - { name: replicator ,replication: true  ,roles: [pg_monitor, dbrole_readonly] ,comment: system replicator }
   - { name: dbuser_dba   ,superuser: true  ,roles: [dbrole_admin]  ,pgbouncer: true ,pool_mode: session, pool_connlimit: 16 ,comment: pgsql admin user }
   - { name: dbuser_monitor ,roles: [pg_monitor] ,pgbouncer: true ,parameters: {log_min_duration_statement: 1000 } ,pool_mode: session ,pool_connlimit: 8 ,comment: pgsql monitor user }
-pg_default_privileges:            # default privileges when created by admin user
+pg_default_privileges:            # 管理员用户创建时的默认权限
   - GRANT USAGE      ON SCHEMAS   TO dbrole_readonly
   - GRANT SELECT     ON TABLES    TO dbrole_readonly
   - GRANT SELECT     ON SEQUENCES TO dbrole_readonly
@@ -4659,8 +4752,8 @@ pg_default_privileges:            # default privileges when created by admin use
   - GRANT REFERENCES ON TABLES    TO dbrole_admin
   - GRANT TRIGGER    ON TABLES    TO dbrole_admin
   - GRANT CREATE     ON SCHEMAS   TO dbrole_admin
-pg_default_schemas: [ monitor ]   # default schemas to be created
-pg_default_extensions:            # default extensions to be created
+pg_default_schemas: [ monitor ]   # 默认模式
+pg_default_extensions:            # 默认扩展
   - { name: adminpack          ,schema: pg_catalog }
   - { name: pg_stat_statements ,schema: monitor }
   - { name: pgstattuple        ,schema: monitor }
@@ -4677,8 +4770,8 @@ pg_default_extensions:            # default extensions to be created
   - { name: intagg             ,schema: public  }
   - { name: intarray           ,schema: public  }
   - { name: pg_repack }
-pg_reload: true                   # reload postgres after hba changes
-pg_default_hba_rules:             # postgres default host-based authentication rules
+pg_reload: true                   # HBA变化后是否重载配置？
+pg_default_hba_rules:             # postgres 默认 HBA 规则集
   - {user: '${dbsu}'    ,db: all         ,addr: local     ,auth: ident ,title: 'dbsu access via local os user ident'  }
   - {user: '${dbsu}'    ,db: replication ,addr: local     ,auth: ident ,title: 'dbsu replication from local os ident' }
   - {user: '${repl}'    ,db: replication ,addr: localhost ,auth: pwd   ,title: 'replicator replication from localhost'}
@@ -4691,7 +4784,7 @@ pg_default_hba_rules:             # postgres default host-based authentication r
   - {user: '+dbrole_readonly',db: all    ,addr: localhost ,auth: pwd   ,title: 'pgbouncer read/write via local socket'}
   - {user: '+dbrole_readonly',db: all    ,addr: intra     ,auth: pwd   ,title: 'read/write biz user via password'     }
   - {user: '+dbrole_offline' ,db: all    ,addr: intra     ,auth: pwd   ,title: 'allow etl offline tasks from intranet'}
-pgb_default_hba_rules:            # pgbouncer default host-based authentication rules
+pgb_default_hba_rules:            # pgbouncer 默认 HBA 规则集
   - {user: '${dbsu}'    ,db: pgbouncer   ,addr: local     ,auth: peer  ,title: 'dbsu local admin access with os ident'}
   - {user: 'all'        ,db: all         ,addr: localhost ,auth: pwd   ,title: 'allow all user local access with pwd' }
   - {user: '${monitor}' ,db: pgbouncer   ,addr: intra     ,auth: pwd   ,title: 'monitor access via intranet with pwd' }
@@ -4706,10 +4799,9 @@ pgb_default_hba_rules:            # pgbouncer default host-based authentication 
 
 参数名称： `pg_provision`， 类型： `bool`， 层次：`C`
 
-provision postgres cluster after bootstrap, default value is `true`.
+在集群拉起后，完整本节定义的 PostgreSQL 集群置备工作。默认值为`true`。
 
-If disabled, postgres cluster will not be provisioned after bootstrap.
-
+如果禁用，不会置备 PostgreSQL 集群。对于一些特殊的 "PostgreSQL" 集群，比如 Greenplum，可以关闭此选项跳过置备阶段。
 
 
 
@@ -4718,9 +4810,13 @@ If disabled, postgres cluster will not be provisioned after bootstrap.
 
 参数名称： `pg_init`， 类型： `string`， 层次：`G/C`
 
-Provision init script for cluster template, `pg-init` by default, which is located in [`roles/pgsql/templates/pg-init`](https://github.com/Vonng/pigsty/blob/master/roles/pgsql/templates/pg-init)
+用于初始化数据库模板的Shell脚本位置，默认为 `pg-init`，该脚本会被拷贝至`/pg/bin/pg-init`后执行。
 
-You can add your own logic in the init script, or provide a new one in `templates/` and set `pg_init` to the new script name.
+该脚本位于 [`roles/pgsql/templates/pg-init`](https://github.com/Vonng/pigsty/blob/master/roles/pgsql/templates/pg-init)
+
+你可以在该脚本中添加自己的逻辑，或者提供一个新的脚本放置在 `templates/` 目录下，并将 `pg_init` 设置为新的脚本名称。使用自定义脚本时请保留现有的初始化逻辑。
+
+
 
 
 
@@ -4731,12 +4827,12 @@ You can add your own logic in the init script, or provide a new one in `template
 
 参数名称： `pg_default_roles`， 类型： `role[]`， 层次：`G/C`
 
-default roles and users in postgres cluster.  
+Postgres 集群中的默认角色和用户。
 
-Pigsty has a built-in role system, check [PGSQL Access Control](PGSQL-ACL#role-system) for details.
+Pigsty有一个内置的角色系统，请查看[PGSQL访问控制：角色系统](PGSQL-ACL#角色系统)了解详情。
 
 ```yaml
-pg_default_roles:                 # default roles and users in postgres cluster
+pg_default_roles:                 # postgres集群中的默认角色和用户
   - { name: dbrole_readonly  ,login: false ,comment: role for global read-only access     }
   - { name: dbrole_offline   ,login: false ,comment: role for restricted read-only access }
   - { name: dbrole_readwrite ,login: false ,roles: [dbrole_readonly] ,comment: role for global read-write access }
@@ -4754,10 +4850,10 @@ pg_default_roles:                 # default roles and users in postgres cluster
 
 参数名称： `pg_default_privileges`， 类型： `string[]`， 层次：`G/C`
 
-default privileges for each databases:
+每个数据库中的默认权限（`DEFAULT PRIVILEGE`）设置：
 
 ```yaml
-pg_default_privileges:            # default privileges when created by admin user
+pg_default_privileges:            # 管理员用户创建时的默认权限
   - GRANT USAGE      ON SCHEMAS   TO dbrole_readonly
   - GRANT SELECT     ON TABLES    TO dbrole_readonly
   - GRANT SELECT     ON SEQUENCES TO dbrole_readonly
@@ -4777,7 +4873,9 @@ pg_default_privileges:            # default privileges when created by admin use
   - GRANT CREATE     ON SCHEMAS   TO dbrole_admin
 ```
 
-Pigsty has a built-in privileges base on default role system, check [PGSQL Privileges](PGSQL-ACL#privileges) for details.
+Pigsty 基于默认角色系统提供了相应的默认权限设置，请查看[PGSQL访问控制：权限](PGSQL-ACL#默认权限)了解详情。
+
+
 
 
 
@@ -4786,7 +4884,8 @@ Pigsty has a built-in privileges base on default role system, check [PGSQL Privi
 
 参数名称： `pg_default_schemas`， 类型： `string[]`， 层次：`G/C`
 
-default schemas to be created, default values is: `[ monitor ]`, which will create a `monitor` schema on all databases.
+要创建的默认模式，默认值为：`[ monitor ]`，这将在所有数据库上创建一个`monitor`模式，用于放置各种监控扩展、表、视图、函数。
+
 
 
 
@@ -4796,7 +4895,7 @@ default schemas to be created, default values is: `[ monitor ]`, which will crea
 
 参数名称： `pg_default_extensions`， 类型： `extension[]`， 层次：`G/C`
 
-default extensions to be created, default value: 
+要在所有数据库中默认创建启用的扩展列表，默认值：
 
 ```yaml
 pg_default_extensions: # default extensions to be created
@@ -4818,9 +4917,10 @@ pg_default_extensions: # default extensions to be created
   - { name: pg_repack }
 ```
 
-The only 3rd party extension is `pg_repack`, which is important for database maintenance, all other extensions are built-in postgres contrib extensions. 
+唯一的三方扩展是 `pg_repack`，这对于数据库维护很重要，所有其他扩展都是内置的 PostgreSQL Contrib 扩展插件。
 
-Monitor related extensions are installed in `monitor` schema, which is created by [`pg_default_schemas`](#pg_default_schemas).
+监控相关的扩展默认安装在 `monitor` 模式中，该模式由[`pg_default_schemas`](#pg_default_schemas)创建。
+
 
 
 
@@ -4829,9 +4929,9 @@ Monitor related extensions are installed in `monitor` schema, which is created b
 
 参数名称： `pg_reload`， 类型： `bool`， 层次：`A`
 
-reload postgres after hba changes, default value is `true`
+在hba更改后重新加载 PostgreSQL，默认值为`true`
 
-This is useful when you want to check before applying HBA changes, set it to `false` to disable reload.
+当您想在应用HBA更改之前进行检查时，将其设置为`false`以禁用自动重新加载配置。
 
 
 
@@ -4841,9 +4941,8 @@ This is useful when you want to check before applying HBA changes, set it to `fa
 
 参数名称： `pg_default_hba_rules`， 类型： `hba[]`， 层次：`G/C`
 
-postgres default host-based authentication rules, array of [hba](PGSQL-HBA#define-hba) rule object.
+PostgreSQL 基于主机的认证规则，全局默认规则定义。默认值为：
 
-default value provides a fair enough security level for common scenarios, check [PGSQL Authentication](PGSQL-HBA) for details.
 
 ```yaml
 pg_default_hba_rules:             # postgres default host-based authentication rules
@@ -4860,6 +4959,11 @@ pg_default_hba_rules:             # postgres default host-based authentication r
   - {user: '+dbrole_readonly',db: all    ,addr: intra     ,auth: pwd   ,title: 'read/write biz user via password'     }
   - {user: '+dbrole_offline' ,db: all    ,addr: intra     ,auth: pwd   ,title: 'allow etl offline tasks from intranet'}
 ```
+
+默认值为常见场景提供了足够的安全级别，请查看[PGSQL身份验证](PGSQL-HBA)了解详情。
+
+本参数为 [HBA](PGSQL-HBA#define-hba)规则对象组成的数组，在形式上与 [`pg_hba_rules`](#pg_hba_rules) 完全一致。
+建议在全局配置统一的 [`pg_default_hba_rules`](#pg_default_hba_rules)，针对特定集群使用 [`pg_hba_rules`](#pg_hba_rules) 进行额外定制。两个参数中的规则都会依次应用，后者优先级更高。
 
 
 
@@ -4883,7 +4987,14 @@ pgb_default_hba_rules:            # pgbouncer default host-based authentication 
   - {user: 'all'        ,db: all         ,addr: intra     ,auth: pwd   ,title: 'allow all user intra access with pwd' }
 ```
 
+默认的Pgbouncer HBA规则很简单：
 
+1. 允许从**本地**使用密码登陆
+2. 允许从内网网断使用密码登陆
+
+用户可以按照自己的需求进行定制。
+
+本参数在形式上与 [`pgb_hba_rules`](#pgb_hba_rules) 完全一致，建议在全局配置统一的 [`pgb_default_hba_rules`](#pgb_default_hba_rules)，针对特定集群使用 [`pgb_hba_rules`](#pgb_hba_rules) 进行额外定制。两个参数中的规则都会依次应用，后者优先级更高。
 
 
 
@@ -4894,37 +5005,37 @@ pgb_default_hba_rules:            # pgbouncer default host-based authentication 
 
 ## `PG_BACKUP`
 
-This section defines variables for [pgBackRest](https://pgbackrest.org/), which is used for PGSQL PITR (Point-In-Time-Recovery). 
+本节定义了用于 [pgBackRest](https://pgbackrest.org/) 的变量，它被用于 PGSQL 时间点恢复 PITR 。
 
-Check [PGSQL Backup & PITR](PGSQL-PITR) for details.
+查看 [PGSQL 备份 & PITR](PGSQL-PITR) 以获取详细信息。
 
 
 ```yaml
-pgbackrest_enabled: true          # enable pgbackrest on pgsql host?
-pgbackrest_clean: true            # remove pg backup data during init?
-pgbackrest_log_dir: /pg/log/pgbackrest # pgbackrest log dir, `/pg/log/pgbackrest` by default
-pgbackrest_method: local          # pgbackrest repo method: local,minio,[user-defined...]
-pgbackrest_repo:                  # pgbackrest repo: https://pgbackrest.org/configuration.html#section-repository
-  local:                          # default pgbackrest repo with local posix fs
-    path: /pg/backup              # local backup directory, `/pg/backup` by default
-    retention_full_type: count    # retention full backups by count
-    retention_full: 2             # keep 2, at most 3 full backup when using local fs repo
-  minio:                          # optional minio repo for pgbackrest
-    type: s3                      # minio is s3-compatible, so s3 is used
-    s3_endpoint: sss.pigsty       # minio endpoint domain name, `sss.pigsty` by default
-    s3_region: us-east-1          # minio region, us-east-1 by default, useless for minio
-    s3_bucket: pgsql              # minio bucket name, `pgsql` by default
-    s3_key: pgbackrest            # minio user access key for pgbackrest
-    s3_key_secret: S3User.Backup  # minio user secret key for pgbackrest
-    s3_uri_style: path            # use path style uri for minio rather than host style
-    path: /pgbackrest             # minio backup path, default is `/pgbackrest`
-    storage_port: 9000            # minio port, 9000 by default
-    storage_ca_file: /etc/pki/ca.crt  # minio ca file path, `/etc/pki/ca.crt` by default
-    bundle: y                     # bundle small files into a single file
-    cipher_type: aes-256-cbc      # enable AES encryption for remote backup repo
-    cipher_pass: pgBackRest       # AES encryption password, default is 'pgBackRest'
-    retention_full_type: time     # retention full backup by time on minio repo
-    retention_full: 14            # keep full backup for last 14 days
+pgbackrest_enabled: true          # 在 pgsql 主机上启用 pgBackRest 吗？
+pgbackrest_clean: true            # 初始化时删除 pg 备份数据？
+pgbackrest_log_dir: /pg/log/pgbackrest # pgbackrest 日志目录，默认为 `/pg/log/pgbackrest`
+pgbackrest_method: local          # pgbackrest 仓库方法：local, minio, [用户定义...]
+pgbackrest_repo:                  # pgbackrest 仓库：https://pgbackrest.org/configuration.html#section-repository
+  local:                          # 默认使用本地 posix 文件系统的 pgbackrest 仓库
+    path: /pg/backup              # 本地备份目录，默认为 `/pg/backup`
+    retention_full_type: count    # 按计数保留完整备份
+    retention_full: 2             # 使用本地文件系统仓库时，最多保留 3 个完整备份，至少保留 2 个
+  minio:                          # pgbackrest 的可选 minio 仓库
+    type: s3                      # minio 是与 s3 兼容的，所以使用 s3
+    s3_endpoint: sss.pigsty       # minio 端点域名，默认为 `sss.pigsty`
+    s3_region: us-east-1          # minio 区域，默认为 us-east-1，对 minio 无效
+    s3_bucket: pgsql              # minio 桶名称，默认为 `pgsql`
+    s3_key: pgbackrest            # pgbackrest 的 minio 用户访问密钥
+    s3_key_secret: S3User.Backup  # pgbackrest 的 minio 用户秘密密钥
+    s3_uri_style: path            # 对 minio 使用路径风格的 uri，而不是主机风格
+    path: /pgbackrest             # minio 备份路径，默认为 `/pgbackrest`
+    storage_port: 9000            # minio 端口，默认为 9000
+    storage_ca_file: /etc/pki/ca.crt  # minio ca 文件路径，默认为 `/etc/pki/ca.crt`
+    bundle: y                     # 将小文件打包成一个文件
+    cipher_type: aes-256-cbc      # 为远程备份仓库启用 AES 加密
+    cipher_pass: pgBackRest       # AES 加密密码，默认为 'pgBackRest'
+    retention_full_type: time     # 在 minio 仓库上按时间保留完整备份
+    retention_full: 14            # 保留过去 14 天的完整备份
 ```
 
 
@@ -4933,7 +5044,9 @@ pgbackrest_repo:                  # pgbackrest repo: https://pgbackrest.org/conf
 
 参数名称： `pgbackrest_enabled`， 类型： `bool`， 层次：`C`
 
-enable pgBackRest on pgsql host? default value is `true`
+是否在 PGSQL 节点上启用 pgBackRest？默认值为： `true`
+
+在使用本地文件系统备份仓库（`local`）时，只有集群主库才会真正启用 `pgbackrest`。其他实例只会初始化一个空仓库。
 
 
 
@@ -4943,7 +5056,7 @@ enable pgBackRest on pgsql host? default value is `true`
 
 参数名称： `pgbackrest_clean`， 类型： `bool`， 层次：`C`
 
-remove pg backup data during init?  default value is `true`
+初始化时删除 PostgreSQL 备份数据吗？默认值为 `true`。
 
 
 
@@ -4952,7 +5065,7 @@ remove pg backup data during init?  default value is `true`
 
 参数名称： `pgbackrest_log_dir`， 类型： `path`， 层次：`C`
 
-pgBackRest log dir, `/pg/log/pgbackrest` by default, which is referenced by [`promtail`](#promtail) the logging agent.
+pgBackRest 日志目录，默认为 `/pg/log/pgbackrest`，[`promtail`](#promtail) 日志代理会引用此参数收集日志。
 
 
 
@@ -4962,11 +5075,12 @@ pgBackRest log dir, `/pg/log/pgbackrest` by default, which is referenced by [`pr
 
 参数名称： `pgbackrest_method`， 类型： `enum`， 层次：`C`
 
-pgBackRest repo method: `local`, `minio`, or other user-defined methods, `local` by default
+pgBackRest 仓库方法：默认可选项为：`local`、`minio` 或其他用户定义的方法，默认为 `local`。
 
-This parameter is used to determine which repo to use for pgBackRest, all available repo methods are defined in [`pgbackrest_repo`](#pgbackrest_repo).
+此参数用于确定用于 pgBackRest 的仓库，所有可用的仓库方法都在 [`pgbackrest_repo`](#pgbackrest_repo) 中定义。
 
-Pigsty will use `local` backup repo by default, which will create a backup repo on primary instance's `/pg/backup` directory. The underlying storage is specified by [`pg_fs_bkup`](#pg_fs_bkup).
+Pigsty 默认使用 `local` 备份仓库，这将在主实例的 `/pg/backup` 目录上创建一个备份仓库。底层存储路径由 [`pg_fs_bkup`](#pg_fs_bkup) 指定。
+
 
 
 
@@ -4976,35 +5090,35 @@ Pigsty will use `local` backup repo by default, which will create a backup repo 
 
 参数名称： `pgbackrest_repo`， 类型： `dict`， 层次：`G/C`
 
-pgBackRest repo document: https://pgbackrest.org/configuration.html#section-repository
+pgBackRest 仓库文档：https://pgbackrest.org/configuration.html#section-repository
 
-default value includes two repo methods: `local` and `minio`, which are defined as follows: 
+默认值包括两种仓库方法：`local` 和 `minio`，定义如下：
 
 ```yaml
-pgbackrest_repo:                  # pgbackrest repo: https://pgbackrest.org/configuration.html#section-repository
-  local:                          # default pgbackrest repo with local posix fs
-    path: /pg/backup              # local backup directory, `/pg/backup` by default
-    retention_full_type: count    # retention full backups by count
-    retention_full: 2             # keep 2, at most 3 full backup when using local fs repo
-  minio:                          # optional minio repo for pgbackrest
-    type: s3                      # minio is s3-compatible, so s3 is used
-    s3_endpoint: sss.pigsty       # minio endpoint domain name, `sss.pigsty` by default
-    s3_region: us-east-1          # minio region, us-east-1 by default, useless for minio
-    s3_bucket: pgsql              # minio bucket name, `pgsql` by default
-    s3_key: pgbackrest            # minio user access key for pgbackrest
-    s3_key_secret: S3User.Backup  # minio user secret key for pgbackrest
-    s3_uri_style: path            # use path style uri for minio rather than host style
-    path: /pgbackrest             # minio backup path, default is `/pgbackrest`
-    storage_port: 9000            # minio port, 9000 by default
-    storage_ca_file: /etc/pki/ca.crt  # minio ca file path, `/etc/pki/ca.crt` by default
-    bundle: y                     # bundle small files into a single file
-    cipher_type: aes-256-cbc      # enable AES encryption for remote backup repo
-    cipher_pass: pgBackRest       # AES encryption password, default is 'pgBackRest'
-    retention_full_type: time     # retention full backup by time on minio repo
-    retention_full: 14            # keep full backup for last 14 days
+pgbackrest_repo:                  # pgbackrest 仓库：https://pgbackrest.org/configuration.html#section-repository
+  local:                          # 默认使用本地 posix 文件系统的 pgbackrest 仓库
+    path: /pg/backup              # 本地备份目录，默认为 `/pg/backup`
+    retention_full_type: count    # 按计数保留完整备份
+    retention_full: 2             # 使用本地文件系统仓库时，最多保留 3 个完整备份，至少保留 2 个
+  minio:                          # pgbackrest 的可选 minio 仓库
+    type: s3                      # minio 是与 s3 兼容的，所以使用 s3
+    s3_endpoint: sss.pigsty       # minio 端点域名，默认为 `sss.pigsty`
+    s3_region: us-east-1          # minio 区域，默认为 us-east-1，对 minio 无效
+    s3_bucket: pgsql              # minio 桶名称，默认为 `pgsql`
+    s3_key: pgbackrest            # pgbackrest 的 minio 用户访问密钥
+    s3_key_secret: S3User.Backup  # pgbackrest 的 minio 用户秘密密钥
+    s3_uri_style: path            # 对 minio 使用路径风格的 uri，而不是主机风格
+    path: /pgbackrest             # minio 备份路径，默认为 `/pgbackrest`
+    storage_port: 9000            # minio 端口，默认为 9000
+    storage_ca_file: /etc/pki/ca.crt  # minio ca 文件路径，默认为 `/etc/pki/ca.crt`
+    bundle: y                     # 将小文件打包成一个文件
+    cipher_type: aes-256-cbc      # 为远程备份仓库启用 AES 加密
+    cipher_pass: pgBackRest       # AES 加密密码，默认为 'pgBackRest'
+    retention_full_type: time     # 在 minio 仓库上按时间保留完整备份
+    retention_full: 14            # 保留过去 14 天的完整备份
 ```
 
-
+您可以定义新的备份仓库，例如使用 AWS S3，GCP 或其他云供应商的 S3 兼容存储服务。
 
 
 
@@ -5014,25 +5128,25 @@ pgbackrest_repo:                  # pgbackrest repo: https://pgbackrest.org/conf
 
 ## `PG_SERVICE`
 
-This section is about exposing PostgreSQL service to outside world: including:
+本节介绍如何将PostgreSQL服务暴露给外部世界，包括：
 
-* Exposing different PostgreSQL services on different ports with `haproxy`
-* Bind an optional L2 VIP to the primary instance with `vip-manager`
-* Register cluster/instance DNS records with to `dnsmasq` on infra nodes
+- 使用`haproxy`在不同的端口上暴露不同的PostgreSQL服务
+- 使用`vip-manager`将可选的L2 VIP绑定到主实例
+- 在基础设施节点上使用`dnsmasq`注册集群/实例DNS记录
 
 ```yaml
-pg_weight: 100          #INSTANCE # relative load balance weight in service, 100 by default, 0-255
-pg_default_service_dest: pgbouncer # default service destination if svc.dest='default'
-pg_default_services:              # postgres default service definitions
+pg_weight: 100          #实例 # 服务中的相对负载均衡权重，默认为100，范围0-255
+pg_default_service_dest: pgbouncer # 如果svc.dest='default'，则此为默认服务目的地
+pg_default_services:              # postgres默认服务定义
   - { name: primary ,port: 5433 ,dest: default  ,check: /primary   ,selector: "[]" }
   - { name: replica ,port: 5434 ,dest: default  ,check: /read-only ,selector: "[]" , backup: "[? pg_role == `primary` || pg_role == `offline` ]" }
   - { name: default ,port: 5436 ,dest: postgres ,check: /primary   ,selector: "[]" }
   - { name: offline ,port: 5438 ,dest: postgres ,check: /replica   ,selector: "[? pg_role == `offline` || pg_offline_query ]" , backup: "[? pg_role == `replica` && !pg_offline_query]"}
-pg_vip_enabled: false             # enable a l2 vip for pgsql primary? false by default
-pg_vip_address: 127.0.0.1/24      # vip address in `<ipv4>/<mask>` format, require if vip is enabled
-pg_vip_interface: eth0            # vip network interface to listen, eth0 by default
-pg_dns_suffix: ''                 # pgsql dns suffix, '' by default
-pg_dns_target: auto               # auto, primary, vip, none, or ad hoc ip
+pg_vip_enabled: false             # 为pgsql主要实例启用l2 vip吗? 默认为false
+pg_vip_address: 127.0.0.1/24      # `<ipv4>/<mask>`格式的vip地址，如果启用vip则需要
+pg_vip_interface: eth0            # vip网络接口监听，默认为eth0
+pg_dns_suffix: ''                 # pgsql dns后缀，默认为空
+pg_dns_target: auto               # auto、primary、vip、none或特定的ip
 ```
 
 
@@ -5041,9 +5155,10 @@ pg_dns_target: auto               # auto, primary, vip, none, or ad hoc ip
 
 参数名称： `pg_weight`， 类型： `int`， 层次：`G`
 
-relative load balance weight in service, 100 by default, 0-255
+服务中的相对负载均衡权重，默认为100，范围0-255。
 
-default values: `100`. you have to define it at instance vars, and [reload-service](PGSQL-ADMIN#重载服务) to take effect.
+默认值： `100`。您必须在实例变量中定义它，并[重载服务](PGSQL-ADMIN#重载服务)以生效。
+
 
 
 
@@ -5052,13 +5167,13 @@ default values: `100`. you have to define it at instance vars, and [reload-servi
 
 参数名称： `pg_service_provider`， 类型： `string`， 层次：`G/C`
 
-dedicate haproxy node group name, or empty string for local nodes by default.
+专用的haproxy节点组名，或默认为本地节点的空字符串。
 
-If specified, PostgreSQL Services will be registered to the dedicated haproxy node group instead of this pgsql cluster nodes.
+如果指定，PostgreSQL服务将注册到专用的haproxy节点组，而不是当下的 PGSQL 集群节点。
 
-Do remember to allocate **unique** ports on dedicate haproxy nodes for each service!
+请记住为每个服务在专用的 haproxy 节点上分配**唯一**的端口！
 
-For example, if we define following parameters on 3-node `pg-test` cluster:
+例如，如果我们在3节点的 `pg-test` 集群上定义以下参数：
 
 ```yaml
 pg_service_provider: infra       # use load balancer on group `infra`
@@ -5074,11 +5189,11 @@ pg_default_services:             # alloc port 10001 and 10002 for pg-test primar
 
 参数名称： `pg_default_service_dest`， 类型： `enum`， 层次：`G/C`
 
-When defining a [service](PGSQL-SVC#define-service), if svc.dest='default', this parameter will be used as the default value.
+当定义一个[服务](PGSQL-SVC#define-service)时，如果 `svc.dest='default'`，此参数将用作默认值。
 
-default values: `pgbouncer`, means 5433 primary service and 5434 replica service will route traffic to pgbouncer by default.
+默认值： `pgbouncer`，意味着5433主服务和5434副本服务将默认将流量路由到 pgbouncer。
 
-If you don't want to use pgbouncer, set it to `postgres` instead. traffic will be route to postgres directly.
+如果您不想使用pgbouncer，将其设置为`postgres`。流量将直接路由到 postgres。
 
 
 
@@ -5089,9 +5204,9 @@ If you don't want to use pgbouncer, set it to `postgres` instead. traffic will b
 
 参数名称： `pg_default_services`， 类型： `service[]`， 层次：`G/C`
 
-postgres default service definitions
+postgres默认服务定义
 
-default value is four default services definition, which is explained in [PGSQL Service](PGSQL-SVC#服务概述)
+默认值是四个默认服务定义，如[PGSQL Service](PGSQL-SVC#服务概述)所述
 
 ```yaml
 pg_default_services:               # postgres default service definitions
@@ -5110,11 +5225,11 @@ pg_default_services:               # postgres default service definitions
 
 参数名称： `pg_vip_enabled`， 类型： `bool`， 层次：`C`
 
-enable a l2 vip for pgsql primary?
+为 PGSQL 集群启用 L2 VIP吗？默认值是`false`，表示不创建 L2 VIP。
 
-default value is `false`, means no L2 VIP is created for this cluster.
+启用 L2 VIP 后，会有一个 VIP 绑定在集群主实例节点上，由 `vip-manager` 管理，根据 `etcd` 中的数据进行判断。
 
-L2 VIP can only be used in same L2 network, which may incurs extra restrictions on your network topology.
+L2 VIP只能在相同的L2网络中使用，这可能会对您的网络拓扑产生额外的限制。
 
 
 
@@ -5124,9 +5239,9 @@ L2 VIP can only be used in same L2 network, which may incurs extra restrictions 
 
 参数名称： `pg_vip_address`， 类型： `cidr4`， 层次：`C`
 
-vip address in `<ipv4>/<mask>` format, if vip is enabled, this parameter is required.
+如果启用vip，则需要`<ipv4>/<mask>`格式的vip地址。
 
-default values: `127.0.0.1/24`. This value is consist of two parts: `ipv4` and `mask`, separated by `/`.
+默认值： `127.0.0.1/24`。这个值由两部分组成：`ipv4`和`mask`，用`/`分隔。
 
 
 
@@ -5138,9 +5253,11 @@ default values: `127.0.0.1/24`. This value is consist of two parts: `ipv4` and `
 
 vip network interface to listen, `eth0` by default.
 
-It should be the same primary intranet interface of your node, which is the IP address you used in the inventory file.
+L2 VIP 监听的网卡接口，默认为 `eth0`。
 
-If your node have different interface, you can override it on instance vars:
+它应该是您节点的首要网卡名，即您在配置清单中使用的IP地址。
+
+如果您的节点有多块名称不同的网卡，您可以在实例变量上进行覆盖：
 
 ```yaml
 pg-test:
@@ -5149,9 +5266,9 @@ pg-test:
         10.10.10.12: {pg_seq: 2, pg_role: primary ,pg_vip_interface: eth1 }
         10.10.10.13: {pg_seq: 3, pg_role: replica ,pg_vip_interface: eth2 }
     vars:
-        pg_vip_enabled: true          # enable L2 VIP for this cluster, bind to primary instance by default
-        pg_vip_address: 10.10.10.3/24 # the L2 network CIDR: 10.10.10.0/24, the vip address: 10.10.10.3
-        # pg_vip_interface: eth1      # if your node have uniform interface, you can define it here
+      pg_vip_enabled: true          # 为这个集群启用L2 VIP，默认绑定到主实例
+      pg_vip_address: 10.10.10.3/24 # L2网络CIDR: 10.10.10.0/24, vip地址: 10.10.10.3
+      # pg_vip_interface: eth1      # 如果您的节点有统一的接口，您可以在这里定义它
 ```
 
 
@@ -5161,9 +5278,14 @@ pg-test:
 
 参数名称： `pg_dns_suffix`， 类型： `string`， 层次：`C`
 
-pgsql dns suffix, '' by default, cluster DNS name is defined as `{{ pg_cluster }}{{ pg_dns_suffix }}`
+PostgreSQL DNS 名称后缀，默认为空字符串。
 
-For example, if you set `pg_dns_suffix` to `.db.vip.company.tld` for cluster `pg-test`, then the cluster DNS name will be `pg-test.db.vip.company.tld`
+在默认情况下，PostgreQL 集群名会作为 DNS 域名注册到 Infra 节点的 `dnsmasq` 中对外提供解析。
+
+您可以通过本参数指定一个域名后缀，这样会使用 `{{ pg_cluster }}{{ pg_dns_suffix }}` 作为集群 DNS 名称。
+
+例如，如果您将 `pg_dns_suffix` 设置为 `.db.vip.company.tld`，那么 `pg-test` 的集群 DNS 名称将是 `pg-test.db.vip.company.tld`
+
 
 
 
@@ -5183,6 +5305,18 @@ default values: `auto` , which will bind to `pg_vip_address` if `pg_vip_enabled`
 * `<ipv4>`: bind to the given IP address
 
 
+可以是：`auto`、`primary`、`vip`、`none`或一个特定的IP地址，它将是集群DNS记录的解析目标IP地址。
+
+默认值： `auto`，如果`pg_vip_enabled`，将绑定到`pg_vip_address`，否则会回退到集群主实例的 IP 地址。
+
+- `vip`：绑定到`pg_vip_address`
+- `primary`：解析为集群主实例IP地址
+- `auto`：如果 [`pg_vip_enabled`](#pg_vip_enabled)，解析为 [`pg_vip_address`](#pg_vip_address)，或回退到集群主实例ip地址。
+- `none`：不绑定到任何ip地址
+- `<ipv4>`：绑定到指定的IP地址
+
+
+
 
 
 
@@ -5190,22 +5324,24 @@ default values: `auto` , which will bind to `pg_vip_address` if `pg_vip_enabled`
 
 ## `PG_EXPORTER`
 
+PG Exporter 用于监控 PostgreSQL 数据库与 Pgbouncer 连接池的状态。
+
 ```yaml
-pg_exporter_enabled: true              # enable pg_exporter on pgsql hosts?
-pg_exporter_config: pg_exporter.yml    # pg_exporter configuration file name
-pg_exporter_cache_ttls: '1,10,60,300'  # pg_exporter collector ttl stage in seconds, '1,10,60,300' by default
-pg_exporter_port: 9630                 # pg_exporter listen port, 9630 by default
-pg_exporter_params: 'sslmode=disable'  # extra url parameters for pg_exporter dsn
-pg_exporter_url: ''                    # overwrite auto-generate pg dsn if specified
-pg_exporter_auto_discovery: true       # enable auto database discovery? enabled by default
-pg_exporter_exclude_database: 'template0,template1,postgres' # csv of database that WILL NOT be monitored during auto-discovery
-pg_exporter_include_database: ''       # csv of database that WILL BE monitored during auto-discovery
-pg_exporter_connect_timeout: 200       # pg_exporter connect timeout in ms, 200 by default
-pg_exporter_options: ''                # overwrite extra options for pg_exporter
-pgbouncer_exporter_enabled: true       # enable pgbouncer_exporter on pgsql hosts?
-pgbouncer_exporter_port: 9631          # pgbouncer_exporter listen port, 9631 by default
-pgbouncer_exporter_url: ''             # overwrite auto-generate pgbouncer dsn if specified
-pgbouncer_exporter_options: ''         # overwrite extra options for pgbouncer_exporter
+pg_exporter_enabled: true              # 在 pgsql 主机上启用 pg_exporter 吗？
+pg_exporter_config: pg_exporter.yml    # pg_exporter 配置文件名
+pg_exporter_cache_ttls: '1,10,60,300'  # pg_exporter 收集器 ttl 阶段（秒），默认为 '1,10,60,300'
+pg_exporter_port: 9630                 # pg_exporter 监听端口，默认为 9630
+pg_exporter_params: 'sslmode=disable'  # pg_exporter dsn 的额外 url 参数
+pg_exporter_url: ''                    # 如果指定，将覆盖自动生成的 pg dsn
+pg_exporter_auto_discovery: true       # 启用自动数据库发现？默认启用
+pg_exporter_exclude_database: 'template0,template1,postgres' # 在自动发现过程中不会被监控的数据库的 csv 列表
+pg_exporter_include_database: ''       # 在自动发现过程中将被监控的数据库的 csv 列表
+pg_exporter_connect_timeout: 200       # pg_exporter 连接超时（毫秒），默认为 200
+pg_exporter_options: ''                # 覆盖 pg_exporter 的额外选项
+pgbouncer_exporter_enabled: true       # 在 pgsql 主机上启用 pgbouncer_exporter 吗？
+pgbouncer_exporter_port: 9631          # pgbouncer_exporter 监听端口，默认为 9631
+pgbouncer_exporter_url: ''             # 如果指定，将覆盖自动生成的 pgbouncer dsn
+pgbouncer_exporter_options: ''         # 覆盖 pgbouncer_exporter 的额外选项
 ```
 
 
@@ -5214,9 +5350,11 @@ pgbouncer_exporter_options: ''         # overwrite extra options for pgbouncer_e
 
 参数名称： `pg_exporter_enabled`， 类型： `bool`， 层次：`C`
 
-enable pg_exporter on pgsql hosts?
+是否在 PGSQL 节点上启用 pg_exporter？默认值为：`true`。
 
-default value is `true`, if you don't want to install pg_exporter, set it to `false`.
+PG Exporter 用于监控 PostgreSQL 数据库实例，如果不想安装 pg_exporter 可以设置为 `false`。
+
+
 
 
 
@@ -5225,11 +5363,12 @@ default value is `true`, if you don't want to install pg_exporter, set it to `fa
 
 参数名称： `pg_exporter_config`， 类型： `string`， 层次：`C`
 
-pg_exporter configuration file name
+pg_exporter 配置文件名，PG Exporter 和 PGBouncer Exporter 都会使用这个配置文件。默认值：`pg_exporter.yml`。
 
-default values: `pg_exporter.yml`, if you want to use a custom configuration file, you can define it here.
+如果你想使用自定义配置文件，你可以在这里定义它。你的自定义配置文件应当放置于 `files/<name>.yml`。
 
-Your config file should be placed in `roles/files/<filename>`.
+例如，当您希望监控一个远程的 PolarDB 数据库实例时，可以使用样例配置：`files/polar_exporter.yml`。
+
 
 
 
@@ -5238,9 +5377,11 @@ Your config file should be placed in `roles/files/<filename>`.
 
 参数名称： `pg_exporter_cache_ttls`， 类型： `string`， 层次：`C`
 
-pg_exporter collector ttl stage in seconds, '1,10,60,300' by default
+pg_exporter 收集器 TTL 阶梯（秒），默认为 '1,10,60,300'
 
-default values: `1,10,60,300`, which will use 1s, 10s, 60s, 300s for different metric collectors.
+默认值：`1,10,60,300`，它将为不同的度量收集器使用不同的TTL值： 1s, 10s, 60s, 300s。
+
+PG Exporter 内置了缓存机制，避免多个 Prometheus 重复抓取对数据库产生不当影响，所有指标收集器按 TTL 分为四类：
 
 ```yaml
 ttl_fast: "{{ pg_exporter_cache_ttls.split(',')[0]|int }}"         # critical queries
@@ -5249,13 +5390,19 @@ ttl_slow: "{{ pg_exporter_cache_ttls.split(',')[2]|int }}"         # slow querie
 ttl_slowest: "{{ pg_exporter_cache_ttls.split(',')[3]|int }}"      # ver slow queries (e.g bloat)
 ```
 
+例如，在默认配置下，存活类指标默认最多缓存 `1s`，大部分普通指标会缓存 `10s`（应当与 [`prometheus_scrape_interval`](#prometheus_scrape_interval) 相同）。
+少量变化缓慢的查询会有 `60s` 的TTL，极个别大开销监控查询会有 `300s` 的TTL。
+
+
+
+
 
 
 ### `pg_exporter_port`
 
 参数名称： `pg_exporter_port`， 类型： `port`， 层次：`C`
 
-pg_exporter listen port, 9630 by default
+pg_exporter 监听端口号，默认值为：`9631`
 
 
 
@@ -5265,9 +5412,9 @@ pg_exporter listen port, 9630 by default
 
 参数名称： `pg_exporter_params`， 类型： `string`， 层次：`C`
 
-extra url parameters for pg_exporter dsn
+pg_exporter 所使用 DSN 中额外的 URL PATH 参数。
 
-default values: `sslmode=disable`, which will disable SSL for monitoring connection (since it's local unix socket by default)
+默认值：`sslmode=disable`，它将禁用用于监控连接的 SSL（因为默认使用本地 unix 套接字）。
 
 
 
@@ -5277,16 +5424,15 @@ default values: `sslmode=disable`, which will disable SSL for monitoring connect
 
 参数名称： `pg_exporter_url`， 类型： `pgurl`， 层次：`C`
 
-overwrite auto-generate pg dsn if specified
+如果指定了本参数，将会覆盖自动生成的 PostgreSQL DSN，使用指定的 DSN 连接 PostgreSQL 。默认值为空字符串。
 
-default value is empty string, If specified, it will be used as the pg_exporter dsn instead of constructing from other parameters:
-
-This could be useful if you want to monitor a remote pgsql instance, or you want to use a different user/password for monitoring.
+如果没有指定此参数，PG Exporter 默认会使用以下的连接串访问 PostgreSQL ：
 
 ```
-'postgres://{{ pg_monitor_username }}:{{ pg_monitor_password }}@{{ pg_host }}:{{ pg_port }}/postgres{% if pg_exporter_params != '' %}?{{ pg_exporter_params }}{% endif %}'
+postgres://{{ pg_monitor_username }}:{{ pg_monitor_password }}@{{ pg_host }}:{{ pg_port }}/postgres{% if pg_exporter_params != '' %}?{{ pg_exporter_params }}{% endif %}
 ```
 
+当您想监控一个远程的 PostgreSQL 实例时，或者需要使用不同的监控用户/密码，配置选项时，可以使用这个参数。
 
 
 
@@ -5295,9 +5441,10 @@ This could be useful if you want to monitor a remote pgsql instance, or you want
 
 参数名称： `pg_exporter_auto_discovery`， 类型： `bool`， 层次：`C`
 
-enable auto database discovery? enabled by default
+启用自动数据库发现吗？ 默认启用：`true`。
 
-default value is `true`, which will auto-discover all databases on the postgres server and spawn a new pg_exporter connection for each database.
+PG Exporter 默认会连接到 DSN 中指定的数据库 （默认为管理数据库 `postgres`） 收集全局指标，如果您希望收集所有业务数据库的指标，可以开启此选项。
+PG Exporter 会自动发现目标 PostgreSQL 实例中的所有数据库，并在这些数据库中收集 **库级监控指标**。
 
 
 
@@ -5306,9 +5453,10 @@ default value is `true`, which will auto-discover all databases on the postgres 
 
 参数名称： `pg_exporter_exclude_database`， 类型： `string`， 层次：`C`
 
-csv of database that WILL NOT be monitored during auto-discovery
+如果启用了数据库自动发现（默认启用），在这个参数指定的列表中的数据库将不会被监控。
+默认值为： `template0,template1,postgres`，即管理数据库 `postgres` 与模板数据库会被排除在自动监控的数据库之外。
 
-default values: `template0,template1,postgres`, which will be excluded for database auto discovery.
+作为例外，DSN 中指定的数据库不受此参数影响，例如，PG Exporter 如果连接的是 `postgres` 数据库，那么即使 `postgres` 在此列表中，也会被监控。
 
 
 
@@ -5318,9 +5466,12 @@ default values: `template0,template1,postgres`, which will be excluded for datab
 
 参数名称： `pg_exporter_include_database`， 类型： `string`， 层次：`C`
 
-csv of database that WILL BE monitored during auto-discovery
+如果启用了数据库自动发现（默认启用），在这个参数指定的列表中的数据库才会被监控。默认值为空字符串，即不启用此功能。
 
-default value is empty string. If this value is set, only the databases in this list will be monitored during auto discovery.
+参数的形式是由逗号分隔的数据库名称列表，例如：`db1,db2,db3`。
+
+此参数相对于 [`pg_exporter_exclude_database`] 有更高的优先级，相当于白名单模式。如果您只希望监控特定的数据库，可以使用此参数。
+
 
 
 
@@ -5329,11 +5480,12 @@ default value is empty string. If this value is set, only the databases in this 
 
 参数名称： `pg_exporter_connect_timeout`， 类型： `int`， 层次：`C`
 
-pg_exporter connect timeout in ms, 200 by default
+pg_exporter 连接超时（毫秒），默认为 `200` （单位毫秒）
 
-default values: `200`ms , which is enough for most cases.
+当 PG Exporter 尝试连接到 PostgreSQL 数据库时，最多会等待多长时间？超过这个时间，PG Exporter 将会放弃连接并报错。
 
-If your remote pgsql server is in another continent, you may want to increase this value to avoid connection timeout.
+默认值 200毫秒 对于绝大多数场景（例如：同可用区监控）都是足够的，但是如果您监控的远程 PostgreSQL 位于另一个大洲，您可能需要增加此值以避免连接超时。
+
 
 
 
@@ -5343,15 +5495,19 @@ If your remote pgsql server is in another continent, you may want to increase th
 
 参数名称： `pg_exporter_options`， 类型： `arg`， 层次：`C`
 
-overwrite extra options for pg_exporter
+传给 PG Exporter 的命令行参数，默认值为：`""` 空字符串。
 
-default value is empty string, which will fall back the following default options: 
+当使用空字符串时，会使用默认的命令参数：
 
 ```bash
-PG_EXPORTER_OPTS='--log.level=info --log.format="logger:syslog?appname=pg_exporter&local=7"'
+{% if pg_exporter_port != '' %}
+PG_EXPORTER_OPTS='--web.listen-address=:{{ pg_exporter_port }} {{ pg_exporter_options }}'
+{% else %}
+PG_EXPORTER_OPTS='--web.listen-address=:{{ pg_exporter_port }} --log.level=info --log.format=logfmt'
+{% endif %}
 ```
 
-If you want to customize logging options or other pg_exporter options, you can set it here.
+注意，请不要在本参数中覆盖 [`pg_exporter_port`](#pg_exporter_port) 的端口配置。
 
 
 
@@ -5361,9 +5517,8 @@ If you want to customize logging options or other pg_exporter options, you can s
 
 参数名称： `pgbouncer_exporter_enabled`， 类型： `bool`， 层次：`C`
 
-enable pgbouncer_exporter on pgsql hosts?
+在 PGSQL 节点上，是否启用 pgbouncer_exporter ？默认值为：`true`。
 
-default value is `true`, which will enable pg_exporter for pgbouncer connection pooler.
 
 
 
@@ -5372,9 +5527,7 @@ default value is `true`, which will enable pg_exporter for pgbouncer connection 
 
 参数名称： `pgbouncer_exporter_port`， 类型： `port`， 层次：`C`
 
-pgbouncer_exporter listen port, 9631 by default
-
-default values: `9631`
+pgbouncer_exporter 监听端口号，默认值为：`9631`
 
 
 
@@ -5384,15 +5537,17 @@ default values: `9631`
 
 参数名称： `pgbouncer_exporter_url`， 类型： `pgurl`， 层次：`C`
 
-overwrite auto-generate pgbouncer dsn if specified
+如果指定了本参数，将会覆盖自动生成的 pgbouncer DSN，使用指定的 DSN 连接 pgbouncer。默认值为空字符串。
 
-default value is empty string,  If specified, it will be used as the pgbouncer_exporter dsn instead of constructing from other parameters:
+如果没有指定此参数，Pgbouncer Exporter 默认会使用以下的连接串访问 Pgbouncer：
 
 ```
-'postgres://{{ pg_monitor_username }}:{{ pg_monitor_password }}@:{{ pgbouncer_port }}/pgbouncer?host={{ pg_localhost }}&sslmode=disable'
+postgres://{{ pg_monitor_username }}:{{ pg_monitor_password }}@:{{ pgbouncer_port }}/pgbouncer?host={{ pg_localhost }}&sslmode=disable
 ```
 
-This could be useful if you want to monitor a remote pgbouncer instance, or you want to use a different user/password for monitoring.
+当您想监控一个远程的 Pgbouncer 实例时，或者需要使用不同的监控用户/密码，配置选项时，可以使用这个参数。
+
+
 
 
 
@@ -5401,13 +5556,17 @@ This could be useful if you want to monitor a remote pgbouncer instance, or you 
 
 参数名称： `pgbouncer_exporter_options`， 类型： `arg`， 层次：`C`
 
-overwrite extra options for pgbouncer_exporter
+传给 Pgbouncer Exporter 的命令行参数，默认值为：`""` 空字符串。
 
-default value is empty string, which will fall back the following default options:
+当使用空字符串时，会使用默认的命令参数：
 
+```bash
+{% if pgbouncer_exporter_options != '' %}
+PG_EXPORTER_OPTS='--web.listen-address=:{{ pgbouncer_exporter_port }} {{ pgbouncer_exporter_options }}'
+{% else %}
+PG_EXPORTER_OPTS='--web.listen-address=:{{ pgbouncer_exporter_port }} --log.level=info --log.format=logfmt'
+{% endif %}
 ```
-'--log.level=info --log.format="logger:syslog?appname=pgbouncer_exporter&local=7"'
-```
 
-If you want to customize logging options or other pgbouncer_exporter options, you can set it here.
+注意，请不要在本参数中覆盖 [`pgbouncer_exporter_port`](#pgbouncer_exporter_port) 的端口配置。
 

@@ -3,7 +3,7 @@
 Pigsty 使用 **模块化架构** 与 **声明式接口**。
 
 * Pigsty 使用[配置清单](config)描述整套部署环境，并通过 ansible [剧本](playbook)实现。
-* Pigsty 在可以在任意节点上运行，无论是物理裸机还是虚拟机，只要操作系统兼容 EL 7-9 即可。
+* Pigsty 在可以在任意节点上运行，无论是物理裸机还是虚拟机，只要操作系统[兼容](INSTALL#要求)即可。
 * Pigsty 的行为由配置参数控制，具有幂等性的剧本 会将节点调整到配置所描述的状态。
 * Pigsty 采用模块化设计，可自由组合以适应不同场景。使用剧本将模块安装到配置指定的节点上。
 
@@ -25,7 +25,7 @@ Pigsty 采用模块化设计，有六个主要的默认模块：[`PGSQL`](pgsql)
  [`ETCD`](etcd) 和 [`PGSQL`](pgsql) 模块用于搭建高可用 PG 集群，将模块安装在多个节点上，可以自动形成一个高可用的数据库集群。
 您可以复用 Pigsty 基础架构并开发您自己的模块，[`REDIS`](redis) 和 [`MINIO`](minio) 可以作为一个样例。后续还会有更多的模块加入，例如对 Mongo 与 MySQL 的初步支持已经提上了日程。
 
-[![pigsty-sandbox](https://github.com/Vonng/pigsty/assets/8587410/0de01720-2573-400e-be11-6f12019fc971)](PROVISION)
+[![pigsty-sandbox.jpg](https://repo.pigsty.cc/img/pigsty-sandbox.jpg)](PROVISION)
 
 
 
@@ -38,7 +38,7 @@ Pigsty 采用模块化设计，有六个主要的默认模块：[`PGSQL`](pgsql)
 
 这个节点现在会有完整的自我监控系统、可视化工具集，以及一个自动配置有 PITR 的 Postgres 数据库（HA不可用，因为你只有一个节点）。你可以使用此节点作为开发箱、测试、运行演示以及进行数据可视化和分析。或者，还可以把这个节点当作管理节点，部署纳管更多的节点！
 
-[![pigsty-arch](https://github.com/Vonng/pigsty/assets/8587410/7b226641-e61b-4e79-bc31-759204778bd5)](INFRA)
+[![pigsty-arch.jpg](https://repo.pigsty.cc/img/pigsty-arch.jpg)](INFRA)
 
 
 
@@ -52,7 +52,7 @@ Pigsty 的监控系统可以独立使用，如果你想安装 Prometheus / Grafa
 它为 [主机节点](https://demo.pigsty.cc/d/node-overview) 和 [PostgreSQL数据库](https://demo.pigsty.cc/d/pgsql-overview) 提供了丰富的仪表盘。
 无论这些节点或 PostgreSQL 服务器是否由 Pigsty 管理，只需简单的配置，你就可以立即拥有生产级的监控和告警系统，并将现有的主机与PostgreSQL纳入监管。
 
-[![pigsty-dashboard](https://github.com/Vonng/pigsty/assets/8587410/cd4e6620-bc36-44dc-946b-b9ae56f93c90)](PGSQL-DASHBOARD)
+[![pigsty-dashboard.jpg](https://repo.pigsty.cc/img/pigsty-dashboard.jpg)](PGSQL-DASHBOARD)
 
 
 
@@ -79,24 +79,24 @@ $ bin/pgsql-add pg-test  # 初始化集群 'pg-test'
 
 不到10分钟，您将拥有一个服务接入，监控，备份PITR，高可用配置齐全的 PostgreSQL 数据库集群。
 
-[![pgsql-ha](https://github.com/Vonng/pigsty/assets/8587410/645501d1-384e-4009-b41b-8488654f17d3)](PGSQL-ARCH)
+[![pgsql-ha.jpg](https://repo.pigsty.cc/img/pgsql-ha.jpg)](PGSQL-ARCH)
 
 硬件故障由 patroni、etcd 和 haproxy 提供的自愈高可用架构来兜底，在主库故障的情况下，默认会在 30 秒内执行自动故障转移（Failover）。
 客户端无需修改配置重启应用：Haproxy 利用 patroni 健康检查进行流量分发，读写请求会自动分发到新的集群主库中，并避免脑裂的问题。
 这一过程十分丝滑，例如在从库故障，或主动切换（switchover）的情况下，客户端只有一瞬间的当前查询闪断，
 
-软件故障、人为错误和 数据中心级灾难由 pgbackrest 和可选的 MinIO 集群来兜底。这为您提供了本地/云端的 PITR 能力，并在数据中心失效的情况下提供了跨地理区域复制，与异地容灾功能。
+软件故障、人为错误和 数据中心级灾难由 pgbackrest 和可选的 [MinIO](MINIO) 集群来兜底。这为您提供了本地/云端的 PITR 能力，并在数据中心失效的情况下提供了跨地理区域复制，与异地容灾功能。
 
 
 ----------------
 
 ## 数据库即代码
 
-Pigsty 遵循 IaC（基础设施即代码）与 GitOPS 理念：Pigsty 的部署由声明式的[配置清单](config#配置清单)描述，并通过幂等[剧本](playbook)来实现。
+Pigsty 遵循 IaC（基础设施即代码）与 GitOPS 理念：Pigsty 的部署由声明式的[配置清单](config#配置清单)描述，并通过幂等[剧本](PLAYBOOK)来实现。
 
 用户用声明的方式通过[参数](param)来描述自己期望的状态，而剧本则以幂等的方式调整目标节点以达到这个状态。这就像 Kubernetes 的 CRD & Operator，但 Pigsty 在裸机和虚拟机上实现了这一点。
 
-[![pigsty-iac](https://github.com/Vonng/pigsty/assets/8587410/55dece4e-d299-479c-8100-1170ef686f0f)](CONFIG)
+[![pigsty-iac.jpg](https://repo.pigsty.cc/img/pigsty-iac.jpg)](CONFIG)
 
 以下面的默认配置片段为例，这段配置描述了一个节点 `10.10.10.10`，其上安装了 [`INFRA`](infra)、[`NODE`](node)、[`ETCD`](etcd) 和 [`PGSQL`](pgsql) 模块。
 

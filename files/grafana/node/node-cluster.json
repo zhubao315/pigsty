@@ -114,7 +114,7 @@
                 },
                 "textMode": "name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -202,7 +202,7 @@
                 "text": {},
                 "textMode": "name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1003,7 +1003,7 @@
                 "showHeader": true,
                 "sortBy": []
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1395,7 +1395,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1579,7 +1579,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1758,8 +1758,8 @@
                                 "id": "links",
                                 "value": [
                                     {
-                                        "title": "PGSQL Instance : ${__field.labels.ins}",
-                                        "url": "/d/pgsql-instance?var-ins=${__field.labels.ins}&${__url_time_range}"
+                                        "title": "PGSQL Patroni : ${__field.labels.ins}",
+                                        "url": "/d/pgsql-patroni?var-cls=${__field.labels.cls}&${__url_time_range}"
                                     }
                                 ]
                             }
@@ -1791,8 +1791,8 @@
                                 "id": "links",
                                 "value": [
                                     {
-                                        "title": "PGSQL Instance : ${__field.labels.ins}",
-                                        "url": "/d/pgsql-instance?var-ins=${__field.labels.ins}&${__url_time_range}"
+                                        "title": "PGSQL Exporter : ${__field.labels.ins}",
+                                        "url": "/d/pgsql-exporter?var-ins=${__field.labels.ins}&${__url_time_range}"
                                     }
                                 ]
                             }
@@ -1819,6 +1819,15 @@
                                         }
                                     ]
                                 }
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "title": "PGSQL Exporter : ${__field.labels.ins}",
+                                        "url": "/d/pgsql-exporter?var-ins=${__field.labels.ins}&${__url_time_range}"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -2202,7 +2211,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -2457,6 +2466,7 @@
                             "tooltip": false,
                             "viz": false
                         },
+                        "insertNulls": false,
                         "lineInterpolation": "linear",
                         "lineStyle": {
                             "fill": "solid"
@@ -2632,6 +2642,7 @@
                             "tooltip": false,
                             "viz": false
                         },
+                        "insertNulls": false,
                         "lineInterpolation": "stepBefore",
                         "lineWidth": 0,
                         "pointSize": 1,
@@ -2905,7 +2916,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3006,7 +3017,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3106,7 +3117,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3199,7 +3210,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3291,7 +3302,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3382,7 +3393,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3468,7 +3479,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3566,7 +3577,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3664,7 +3675,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3762,7 +3773,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3861,7 +3872,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3891,109 +3902,49 @@
                     },
                     "links": [
                         {
-                            "title": "NTP Offset Detail",
-                            "url": "/d/node-cluster?var-cls=${cls}&viewPanel=70&${__url_time_range}"
+                            "title": "Time Sync Details : ${cls}",
+                            "url": "/d/node-cluster?var-cls=${cls}&viewPanel=212&${__url_time_range}"
                         }
                     ],
-                    "mappings": [],
+                    "mappings": [
+                        {
+                            "options": {
+                                "0": {
+                                    "color": "#cc4637d9",
+                                    "index": 1,
+                                    "text": "Failed"
+                                },
+                                "1": {
+                                    "color": "#346f36cc",
+                                    "index": 0,
+                                    "text": "Synced"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
                     "min": 0,
                     "noValue": "\u2205",
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "#3e668f",
+                                "color": "#cc4637d9",
                                 "value": null
                             },
                             {
                                 "color": "#346f36cc",
-                                "value": 0.05
-                            },
-                            {
-                                "color": "#fcdb72",
-                                "value": 0.1
-                            },
-                            {
-                                "color": "#f5a673",
-                                "value": 0.5
-                            },
-                            {
-                                "color": "#b783af",
                                 "value": 1
                             },
                             {
-                                "color": "red",
-                                "value": 5
-                            },
-                            {
-                                "color": "text",
-                                "value": 10
+                                "color": "#cc4637d9",
+                                "value": 1.1
                             }
                         ]
                     },
                     "unit": "s"
                 },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "NTP Sanity"
-                        },
-                        "properties": [
-                            {
-                                "id": "thresholds",
-                                "value": {
-                                    "mode": "absolute",
-                                    "steps": [
-                                        {
-                                            "color": "red",
-                                            "value": null
-                                        },
-                                        {
-                                            "color": "#346f36cc",
-                                            "value": 1
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "id": "unit",
-                                "value": "none"
-                            },
-                            {
-                                "id": "mappings",
-                                "value": [
-                                    {
-                                        "options": {
-                                            "0": {
-                                                "color": "red",
-                                                "index": 1,
-                                                "text": "insane"
-                                            },
-                                            "1": {
-                                                "color": "#346f36cc",
-                                                "index": 2,
-                                                "text": "sane"
-                                            }
-                                        },
-                                        "type": "value"
-                                    },
-                                    {
-                                        "options": {
-                                            "match": "null+nan",
-                                            "result": {
-                                                "color": "gray",
-                                                "index": 0,
-                                                "text": "N/A"
-                                            }
-                                        },
-                                        "type": "special"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+                "overrides": []
             },
             "gridPos": {
                 "h": 4,
@@ -4001,7 +3952,7 @@
                 "x": 22,
                 "y": 16
             },
-            "id": 160,
+            "id": 276,
             "options": {
                 "colorMode": "background",
                 "graphMode": "area",
@@ -4020,17 +3971,19 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.0.3",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
                         "type": "prometheus",
                         "uid": "ds-prometheus"
                     },
+                    "editorMode": "code",
                     "exemplar": false,
-                    "expr": "max(node:cls:time_drift_max{cls=\"$cls\"})",
+                    "expr": "max(node_timex_sync_status{cls=\"$cls\"})",
                     "interval": "",
-                    "legendFormat": "Time Drift",
+                    "legendFormat": "Time Sync",
+                    "range": true,
                     "refId": "A"
                 }
             ],
@@ -4182,7 +4135,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 107
+                        "y": 115
                     },
                     "id": 172,
                     "options": {
@@ -4490,7 +4443,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 107
+                        "y": 115
                     },
                     "id": 36,
                     "options": {
@@ -4603,7 +4556,7 @@
                         "h": 9,
                         "w": 16,
                         "x": 0,
-                        "y": 113
+                        "y": 121
                     },
                     "id": 35,
                     "options": {
@@ -4703,7 +4656,7 @@
                         "h": 9,
                         "w": 8,
                         "x": 16,
-                        "y": 113
+                        "y": 121
                     },
                     "id": 180,
                     "links": [],
@@ -4874,7 +4827,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 0,
-                        "y": 139
+                        "y": 147
                     },
                     "id": 186,
                     "options": {
@@ -4999,7 +4952,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 12,
-                        "y": 139
+                        "y": 147
                     },
                     "id": 173,
                     "options": {
@@ -5100,7 +5053,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 146
+                        "y": 154
                     },
                     "id": 30,
                     "options": {
@@ -5200,7 +5153,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 146
+                        "y": 154
                     },
                     "id": 119,
                     "options": {
@@ -5299,7 +5252,7 @@
                         "h": 5,
                         "w": 12,
                         "x": 0,
-                        "y": 152
+                        "y": 160
                     },
                     "id": 187,
                     "options": {
@@ -5400,7 +5353,7 @@
                         "h": 5,
                         "w": 12,
                         "x": 12,
-                        "y": 152
+                        "y": 160
                     },
                     "id": 32,
                     "options": {
@@ -5504,7 +5457,7 @@
                         "h": 5,
                         "w": 12,
                         "x": 0,
-                        "y": 157
+                        "y": 165
                     },
                     "id": 79,
                     "options": {
@@ -5605,7 +5558,7 @@
                         "h": 5,
                         "w": 12,
                         "x": 12,
-                        "y": 157
+                        "y": 165
                     },
                     "id": 204,
                     "options": {
@@ -5771,7 +5724,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 163
+                        "y": 171
                     },
                     "id": 254,
                     "options": {
@@ -5903,7 +5856,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 163
+                        "y": 171
                     },
                     "id": 188,
                     "options": {
@@ -6006,7 +5959,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 169
+                        "y": 177
                     },
                     "id": 243,
                     "options": {
@@ -6244,7 +6197,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 169
+                        "y": 177
                     },
                     "id": 252,
                     "options": {
@@ -6415,7 +6368,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 175
+                        "y": 183
                     },
                     "id": 31,
                     "options": {
@@ -6526,7 +6479,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 175
+                        "y": 183
                     },
                     "id": 205,
                     "options": {
@@ -6637,7 +6590,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 181
+                        "y": 189
                     },
                     "id": 244,
                     "options": {
@@ -6736,7 +6689,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 181
+                        "y": 189
                     },
                     "id": 91,
                     "options": {
@@ -6836,7 +6789,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 187
+                        "y": 195
                     },
                     "id": 206,
                     "options": {
@@ -6930,7 +6883,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 187
+                        "y": 195
                     },
                     "id": 88,
                     "options": {
@@ -7047,7 +7000,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 21
+                        "y": 29
                     },
                     "id": 46,
                     "options": {
@@ -7177,7 +7130,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 21
+                        "y": 29
                     },
                     "id": 45,
                     "options": {
@@ -7305,7 +7258,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 27
+                        "y": 35
                     },
                     "id": 201,
                     "options": {
@@ -7431,7 +7384,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 27
+                        "y": 35
                     },
                     "id": 47,
                     "options": {
@@ -7558,7 +7511,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 33
+                        "y": 41
                     },
                     "id": 29,
                     "options": {
@@ -7684,7 +7637,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 33
+                        "y": 41
                     },
                     "id": 202,
                     "options": {
@@ -7784,7 +7737,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 39
+                        "y": 47
                     },
                     "id": 38,
                     "options": {
@@ -7884,7 +7837,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 39
+                        "y": 47
                     },
                     "id": 84,
                     "options": {
@@ -7993,7 +7946,7 @@
                         "h": 14,
                         "w": 6,
                         "x": 0,
-                        "y": 22
+                        "y": 30
                     },
                     "id": 189,
                     "options": {
@@ -8100,7 +8053,7 @@
                         "h": 14,
                         "w": 6,
                         "x": 6,
-                        "y": 22
+                        "y": 30
                     },
                     "id": 200,
                     "options": {
@@ -8190,7 +8143,7 @@
                         "h": 14,
                         "w": 6,
                         "x": 12,
-                        "y": 22
+                        "y": 30
                     },
                     "id": 174,
                     "options": {
@@ -8263,7 +8216,7 @@
                         "h": 14,
                         "w": 6,
                         "x": 18,
-                        "y": 22
+                        "y": 30
                     },
                     "id": 198,
                     "options": {
@@ -8363,7 +8316,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 36
+                        "y": 44
                     },
                     "id": 182,
                     "options": {
@@ -8482,7 +8435,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 36
+                        "y": 44
                     },
                     "id": 199,
                     "options": {
@@ -8619,7 +8572,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 42
+                        "y": 50
                     },
                     "id": 51,
                     "options": {
@@ -8718,7 +8671,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 42
+                        "y": 50
                     },
                     "id": 58,
                     "options": {
@@ -8835,7 +8788,7 @@
                         "h": 9,
                         "w": 12,
                         "x": 0,
-                        "y": 23
+                        "y": 31
                     },
                     "id": 183,
                     "options": {
@@ -8944,7 +8897,7 @@
                         "h": 9,
                         "w": 12,
                         "x": 12,
-                        "y": 23
+                        "y": 31
                     },
                     "id": 185,
                     "options": {
@@ -9053,7 +9006,7 @@
                         "h": 9,
                         "w": 12,
                         "x": 0,
-                        "y": 32
+                        "y": 40
                     },
                     "id": 53,
                     "options": {
@@ -9162,7 +9115,7 @@
                         "h": 9,
                         "w": 12,
                         "x": 12,
-                        "y": 32
+                        "y": 40
                     },
                     "id": 178,
                     "options": {
@@ -9304,7 +9257,7 @@
                         "h": 8,
                         "w": 12,
                         "x": 0,
-                        "y": 36
+                        "y": 44
                     },
                     "id": 49,
                     "options": {
@@ -9414,7 +9367,7 @@
                         "h": 8,
                         "w": 12,
                         "x": 12,
-                        "y": 36
+                        "y": 44
                     },
                     "id": 93,
                     "options": {
@@ -9526,7 +9479,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 0,
-                        "y": 44
+                        "y": 52
                     },
                     "id": 54,
                     "options": {
@@ -9624,7 +9577,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 12,
-                        "y": 44
+                        "y": 52
                     },
                     "id": 92,
                     "options": {
@@ -9721,7 +9674,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 0,
-                        "y": 51
+                        "y": 59
                     },
                     "id": 246,
                     "options": {
@@ -9824,7 +9777,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 12,
-                        "y": 51
+                        "y": 59
                     },
                     "id": 52,
                     "options": {
@@ -9922,7 +9875,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 0,
-                        "y": 58
+                        "y": 66
                     },
                     "id": 56,
                     "options": {
@@ -10020,7 +9973,7 @@
                         "h": 7,
                         "w": 12,
                         "x": 12,
-                        "y": 58
+                        "y": 66
                     },
                     "id": 247,
                     "options": {
@@ -10118,7 +10071,7 @@
                         "h": 5,
                         "w": 24,
                         "x": 0,
-                        "y": 65
+                        "y": 73
                     },
                     "id": 55,
                     "options": {
@@ -10245,8 +10198,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "#3e668f",
-                                        "value": null
+                                        "color": "#3e668f"
                                     },
                                     {
                                         "color": "#346f36cc",
@@ -10309,7 +10261,7 @@
                         "h": 6,
                         "w": 8,
                         "x": 0,
-                        "y": 28
+                        "y": 36
                     },
                     "id": 271,
                     "options": {
@@ -10382,8 +10334,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "#7f7f7f",
-                                        "value": null
+                                        "color": "#7f7f7f"
                                     },
                                     {
                                         "color": "#f5a673",
@@ -10531,8 +10482,7 @@
                                             "mode": "absolute",
                                             "steps": [
                                                 {
-                                                    "color": "#3e668f",
-                                                    "value": null
+                                                    "color": "#3e668f"
                                                 },
                                                 {
                                                     "color": "#346f36cc",
@@ -10622,7 +10572,7 @@
                         "h": 6,
                         "w": 16,
                         "x": 8,
-                        "y": 28
+                        "y": 36
                     },
                     "id": 270,
                     "options": {
@@ -10868,8 +10818,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "blue",
-                                        "value": null
+                                        "color": "blue"
                                     },
                                     {
                                         "color": "green",
@@ -10918,7 +10867,7 @@
                         "h": 8,
                         "w": 24,
                         "x": 0,
-                        "y": 34
+                        "y": 42
                     },
                     "id": 272,
                     "options": {
@@ -11061,7 +11010,7 @@
                         },
                         "textMode": "name"
                     },
-                    "pluginVersion": "10.0.3",
+                    "pluginVersion": "10.1.5",
                     "repeat": "instance",
                     "repeatDirection": "h",
                     "targets": [
@@ -11378,7 +11327,7 @@
                         "showHeader": true,
                         "sortBy": []
                     },
-                    "pluginVersion": "10.0.3",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -11713,6 +11662,7 @@
                                     "tooltip": false,
                                     "viz": false
                                 },
+                                "insertNulls": false,
                                 "lineInterpolation": "stepBefore",
                                 "lineWidth": 0,
                                 "pointSize": 5,
@@ -11824,6 +11774,105 @@
                             "color": {
                                 "mode": "thresholds"
                             },
+                            "links": [
+                                {
+                                    "title": "Node Instance : Time Sync Detail for ${__field.labels.ins}",
+                                    "url": "/d/node-instance?var-ins=${__field.labels.ins}&var-id=${__field.labels.ins}&viewPanel=83&${__url_time_range}"
+                                }
+                            ],
+                            "mappings": [
+                                {
+                                    "options": {
+                                        "0": {
+                                            "color": "#cc4637d9",
+                                            "index": 1,
+                                            "text": "Failed"
+                                        },
+                                        "1": {
+                                            "color": "#346f36cc",
+                                            "index": 0,
+                                            "text": "Synced"
+                                        }
+                                    },
+                                    "type": "value"
+                                }
+                            ],
+                            "min": 0,
+                            "noValue": "\u2205",
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "#cc4637d9"
+                                    },
+                                    {
+                                        "color": "#346f36cc",
+                                        "value": 1
+                                    }
+                                ]
+                            },
+                            "unit": "s"
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 8,
+                        "w": 4,
+                        "x": 0,
+                        "y": 30
+                    },
+                    "id": 212,
+                    "options": {
+                        "colorMode": "background",
+                        "graphMode": "area",
+                        "justifyMode": "auto",
+                        "orientation": "horizontal",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "",
+                            "values": false
+                        },
+                        "text": {},
+                        "textMode": "value_and_name"
+                    },
+                    "pluginVersion": "10.1.5",
+                    "targets": [
+                        {
+                            "datasource": {
+                                "type": "prometheus",
+                                "uid": "ds-prometheus"
+                            },
+                            "editorMode": "code",
+                            "exemplar": false,
+                            "expr": "max by (ins) (node_timex_sync_status{cls=\"$cls\"})",
+                            "interval": "",
+                            "legendFormat": "{{ ins }}",
+                            "range": true,
+                            "refId": "A"
+                        }
+                    ],
+                    "type": "stat"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "ds-prometheus"
+                    },
+                    "description": "",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "thresholds"
+                            },
+                            "custom": {
+                                "align": "center",
+                                "cellOptions": {
+                                    "type": "auto"
+                                },
+                                "inspect": false
+                            },
                             "links": [],
                             "mappings": [],
                             "min": 0,
@@ -11860,234 +11909,215 @@
                                     }
                                 ]
                             },
-                            "unit": "s"
+                            "unit": "none"
                         },
-                        "overrides": []
-                    },
-                    "gridPos": {
-                        "h": 8,
-                        "w": 3,
-                        "x": 0,
-                        "y": 10
-                    },
-                    "id": 212,
-                    "options": {
-                        "colorMode": "background",
-                        "graphMode": "area",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                            "calcs": [
-                                "lastNotNull"
-                            ],
-                            "fields": "",
-                            "values": false
-                        },
-                        "text": {
-                            "titleSize": 12,
-                            "valueSize": 18
-                        },
-                        "textMode": "value_and_name"
-                    },
-                    "pluginVersion": "10.0.3",
-                    "targets": [
-                        {
-                            "datasource": {
-                                "type": "prometheus",
-                                "uid": "ds-prometheus"
-                            },
-                            "exemplar": false,
-                            "expr": "node:cls:time_drift_range{cls=\"$cls\"}",
-                            "interval": "",
-                            "legendFormat": "Drift Range",
-                            "refId": "A"
-                        },
-                        {
-                            "datasource": {
-                                "type": "prometheus",
-                                "uid": "ds-prometheus"
-                            },
-                            "exemplar": false,
-                            "expr": "node:cls:time_drift_max{cls=\"$cls\"}",
-                            "hide": false,
-                            "interval": "",
-                            "legendFormat": "Drift Max",
-                            "refId": "B"
-                        }
-                    ],
-                    "type": "stat"
-                },
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "ds-prometheus"
-                    },
-                    "description": "",
-                    "fieldConfig": {
-                        "defaults": {
-                            "color": {
-                                "mode": "thresholds"
-                            },
-                            "links": [
-                                {
-                                    "title": "Node Instance: ${__field.labels.ins}",
-                                    "url": "/d/node-instance?var-ins=${__field.labels.ins}&viewPanel=70&${__url_time_range}"
-                                }
-                            ],
-                            "mappings": [],
-                            "min": 0,
-                            "noValue": "\u2205",
-                            "thresholds": {
-                                "mode": "absolute",
-                                "steps": [
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Status Code"
+                                },
+                                "properties": [
                                     {
-                                        "color": "#3e668f"
+                                        "id": "mappings",
+                                        "value": [
+                                            {
+                                                "options": {
+                                                    "0": {
+                                                        "color": "#346f36cc",
+                                                        "index": 0,
+                                                        "text": "OK"
+                                                    }
+                                                },
+                                                "type": "value"
+                                            }
+                                        ]
                                     },
                                     {
-                                        "color": "#346f36cc",
-                                        "value": 0.05
+                                        "id": "thresholds",
+                                        "value": {
+                                            "mode": "absolute",
+                                            "steps": [
+                                                {
+                                                    "color": "red"
+                                                }
+                                            ]
+                                        }
                                     },
                                     {
-                                        "color": "#fcdb72",
-                                        "value": 0.1
+                                        "id": "custom.cellOptions",
+                                        "value": {
+                                            "type": "color-text"
+                                        }
                                     },
                                     {
-                                        "color": "#f5a673",
-                                        "value": 0.5
-                                    },
-                                    {
-                                        "color": "#b783af",
-                                        "value": 1
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 5
-                                    },
-                                    {
-                                        "color": "text",
-                                        "value": 10
+                                        "id": "custom.width",
+                                        "value": 120
                                     }
                                 ]
                             },
-                            "unit": "s"
-                        },
-                        "overrides": []
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Synced"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "mappings",
+                                        "value": [
+                                            {
+                                                "options": {
+                                                    "0": {
+                                                        "color": "#cc4637d9",
+                                                        "index": 1,
+                                                        "text": "Failed"
+                                                    },
+                                                    "1": {
+                                                        "color": "#346f36cc",
+                                                        "index": 0,
+                                                        "text": "Synced"
+                                                    }
+                                                },
+                                                "type": "value"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "custom.cellOptions",
+                                        "value": {
+                                            "type": "color-text"
+                                        }
+                                    },
+                                    {
+                                        "id": "custom.width",
+                                        "value": 80
+                                    },
+                                    {
+                                        "id": "thresholds",
+                                        "value": {
+                                            "mode": "absolute",
+                                            "steps": [
+                                                {
+                                                    "color": "#cc4637d9"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Drift"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "thresholds",
+                                        "value": {
+                                            "mode": "absolute",
+                                            "steps": [
+                                                {
+                                                    "color": "#3e668f"
+                                                },
+                                                {
+                                                    "color": "#f5a673",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "id": "custom.cellOptions",
+                                        "value": {
+                                            "type": "color-text"
+                                        }
+                                    },
+                                    {
+                                        "id": "unit",
+                                        "value": "s"
+                                    },
+                                    {
+                                        "id": "custom.width",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Adjust%"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "thresholds",
+                                        "value": {
+                                            "mode": "absolute",
+                                            "steps": [
+                                                {
+                                                    "color": "#3e668f"
+                                                },
+                                                {
+                                                    "color": "#f5a673",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "id": "custom.cellOptions",
+                                        "value": {
+                                            "type": "color-text"
+                                        }
+                                    },
+                                    {
+                                        "id": "custom.width",
+                                        "value": 120
+                                    },
+                                    {
+                                        "id": "unit",
+                                        "value": "percentunit"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Instance"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "links",
+                                        "value": [
+                                            {
+                                                "title": "Node Instance : Time Metrics for ${__data.fields.Instance}",
+                                                "url": "/d/node-instance?var-id=${__data.fields.Instance}&${__url_time_range}&viewPanel=277"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     "gridPos": {
                         "h": 8,
-                        "w": 6,
-                        "x": 3,
-                        "y": 10
+                        "w": 8,
+                        "x": 4,
+                        "y": 30
                     },
                     "id": 248,
                     "options": {
-                        "colorMode": "background",
-                        "graphMode": "area",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                            "calcs": [
-                                "lastNotNull"
-                            ],
+                        "cellHeight": "sm",
+                        "footer": {
+                            "countRows": false,
                             "fields": "",
-                            "values": false
-                        },
-                        "text": {
-                            "titleSize": 12,
-                            "valueSize": 18
-                        },
-                        "textMode": "value_and_name"
-                    },
-                    "pluginVersion": "10.0.3",
-                    "targets": [
-                        {
-                            "datasource": {
-                                "type": "prometheus",
-                                "uid": "ds-prometheus"
-                            },
-                            "exemplar": false,
-                            "expr": "node:ins:time_drift{cls=\"$cls\"}",
-                            "interval": "",
-                            "legendFormat": "{{ ins }}",
-                            "refId": "A"
-                        }
-                    ],
-                    "type": "stat"
-                },
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "ds-prometheus"
-                    },
-                    "description": "",
-                    "fieldConfig": {
-                        "defaults": {
-                            "color": {
-                                "mode": "thresholds"
-                            },
-                            "links": [
-                                {
-                                    "title": "Node Instance: ${__field.labels.ins}",
-                                    "url": "/d/node-cluster?var-ins=${ins}&var-id=${ins}&viewPanel=212&${__url_time_range}"
-                                }
+                            "reducer": [
+                                "sum"
                             ],
-                            "mappings": [
-                                {
-                                    "options": {
-                                        "0": {
-                                            "color": "red",
-                                            "index": 0,
-                                            "text": "insane"
-                                        },
-                                        "1": {
-                                            "color": "#346f36cc",
-                                            "index": 1,
-                                            "text": "sane"
-                                        }
-                                    },
-                                    "type": "value"
-                                }
-                            ],
-                            "min": 0,
-                            "noValue": "\u2205",
-                            "thresholds": {
-                                "mode": "absolute",
-                                "steps": [
-                                    {
-                                        "color": "red"
-                                    }
-                                ]
-                            },
-                            "unit": "s"
+                            "show": false
                         },
-                        "overrides": []
+                        "showHeader": true
                     },
-                    "gridPos": {
-                        "h": 8,
-                        "w": 3,
-                        "x": 9,
-                        "y": 10
-                    },
-                    "id": 245,
-                    "options": {
-                        "colorMode": "background",
-                        "graphMode": "area",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                            "calcs": [
-                                "lastNotNull"
-                            ],
-                            "fields": "",
-                            "values": false
-                        },
-                        "text": {
-                            "titleSize": 12,
-                            "valueSize": 18
-                        },
-                        "textMode": "value_and_name"
-                    },
-                    "pluginVersion": "10.0.3",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -12096,21 +12126,108 @@
                             },
                             "editorMode": "code",
                             "exemplar": false,
-                            "expr": "node_ntp_sanity{cls=\"$cls\"}",
+                            "expr": "max by (ins) (node_timex_sync_status{cls=\"$cls\"})",
+                            "format": "table",
+                            "interval": "",
+                            "legendFormat": "{{ ins }}",
+                            "range": true,
+                            "refId": "A"
+                        },
+                        {
+                            "datasource": {
+                                "type": "prometheus",
+                                "uid": "ds-prometheus"
+                            },
+                            "editorMode": "code",
+                            "exemplar": false,
+                            "expr": "max by (ins) (node_timex_status{cls=\"$cls\"})",
+                            "format": "table",
+                            "hide": false,
+                            "interval": "",
+                            "legendFormat": "__auto",
+                            "range": true,
+                            "refId": "B"
+                        },
+                        {
+                            "datasource": {
+                                "type": "prometheus",
+                                "uid": "ds-prometheus"
+                            },
+                            "editorMode": "code",
+                            "exemplar": false,
+                            "expr": "max by (ins) (node_timex_offset_seconds{cls=\"$cls\"})",
+                            "format": "table",
                             "hide": false,
                             "interval": "",
                             "legendFormat": "{{ ins }}",
                             "range": true,
-                            "refId": "B"
+                            "refId": "C"
+                        },
+                        {
+                            "datasource": {
+                                "type": "prometheus",
+                                "uid": "ds-prometheus"
+                            },
+                            "editorMode": "code",
+                            "exemplar": false,
+                            "expr": "max by (ins) (node_timex_frequency_adjustment_ratio{cls=\"$cls\"}) - 1",
+                            "format": "table",
+                            "hide": false,
+                            "interval": "",
+                            "legendFormat": "__auto",
+                            "range": true,
+                            "refId": "D"
                         }
                     ],
-                    "type": "stat"
+                    "title": "Node Time Metrics",
+                    "transformations": [
+                        {
+                            "id": "joinByField",
+                            "options": {
+                                "byField": "ins",
+                                "mode": "outer"
+                            }
+                        },
+                        {
+                            "id": "organize",
+                            "options": {
+                                "excludeByName": {
+                                    "Time 1": true,
+                                    "Time 2": true,
+                                    "Time 3": true,
+                                    "Time 4": true,
+                                    "Time 5": true
+                                },
+                                "indexByName": {
+                                    "Time 1": 5,
+                                    "Time 2": 6,
+                                    "Time 3": 7,
+                                    "Time 4": 8,
+                                    "Value #A": 1,
+                                    "Value #B": 2,
+                                    "Value #C": 3,
+                                    "Value #D": 4,
+                                    "ins": 0
+                                },
+                                "renameByName": {
+                                    "Value #A": "Synced",
+                                    "Value #B": "Status Code",
+                                    "Value #C": "Drift",
+                                    "Value #D": "Adjust%",
+                                    "Value #E": "Errors",
+                                    "ins": "Instance"
+                                }
+                            }
+                        }
+                    ],
+                    "type": "table"
                 },
                 {
                     "datasource": {
                         "type": "prometheus",
                         "uid": "ds-prometheus"
                     },
+                    "description": "node_timex_frequency_adjustment_ratio: It indicates the ratio of the current frequency adjustment to the nominal frequency, used to keep the system clock synchronized.\n",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -12131,6 +12248,7 @@
                                     "tooltip": false,
                                     "viz": false
                                 },
+                                "insertNulls": false,
                                 "lineInterpolation": "linear",
                                 "lineWidth": 1,
                                 "pointSize": 5,
@@ -12150,7 +12268,7 @@
                             "links": [
                                 {
                                     "title": "Node Instance: ${__field.labels.ins}",
-                                    "url": "/d/node-instance?var-ins=${__field.labels.ins}&viewPanel=70&${__url_time_range}"
+                                    "url": "/d/node-instance?var-ins=${__field.labels.ins}&viewPanel=83&${__url_time_range}"
                                 }
                             ],
                             "mappings": [],
@@ -12162,7 +12280,7 @@
                                     }
                                 ]
                             },
-                            "unit": "s"
+                            "unit": "percentunit"
                         },
                         "overrides": [
                             {
@@ -12186,7 +12304,7 @@
                         "h": 8,
                         "w": 12,
                         "x": 12,
-                        "y": 10
+                        "y": 30
                     },
                     "id": 70,
                     "options": {
@@ -12199,7 +12317,7 @@
                             "showLegend": true
                         },
                         "tooltip": {
-                            "mode": "single",
+                            "mode": "multi",
                             "sort": "none"
                         }
                     },
@@ -12212,7 +12330,7 @@
                             },
                             "editorMode": "code",
                             "exemplar": false,
-                            "expr": "node_ntp_offset_seconds{cls=\"$cls\"}",
+                            "expr": "node_timex_frequency_adjustment_ratio{cls=\"$cls\"}-1",
                             "hide": false,
                             "interval": "",
                             "legendFormat": "{{ ins }}",
@@ -12226,13 +12344,13 @@
                             },
                             "exemplar": false,
                             "expr": "0",
-                            "hide": false,
+                            "hide": true,
                             "interval": "",
                             "legendFormat": "Time",
                             "refId": "B"
                         }
                     ],
-                    "title": "Time Drift",
+                    "title": "Time Frequencey Adjustment Ratio",
                     "type": "timeseries"
                 },
                 {
@@ -12260,6 +12378,7 @@
                                     "tooltip": false,
                                     "viz": false
                                 },
+                                "insertNulls": false,
                                 "lineInterpolation": "smooth",
                                 "lineWidth": 1,
                                 "pointSize": 5,
@@ -12297,7 +12416,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 0,
-                        "y": 18
+                        "y": 38
                     },
                     "id": 87,
                     "options": {
@@ -12358,6 +12477,7 @@
                                     "tooltip": false,
                                     "viz": false
                                 },
+                                "insertNulls": false,
                                 "lineInterpolation": "stepBefore",
                                 "lineWidth": 1,
                                 "pointSize": 5,
@@ -12401,7 +12521,7 @@
                         "h": 6,
                         "w": 12,
                         "x": 12,
-                        "y": 18
+                        "y": 38
                     },
                     "id": 73,
                     "options": {
@@ -12441,7 +12561,7 @@
             "type": "row"
         }
     ],
-    "refresh": false,
+    "refresh": "10s",
     "revision": 1,
     "schemaVersion": 38,
     "style": "light",

@@ -2,6 +2,7 @@
 
 | Version         |    Time    | Description                                              | Release                                                                                   |
 |:----------------|:----------:|----------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| [v2.5.0](#v250) | 2023-10-24 | Ubuntu/Debian Support:  bullseye, bookworm, jammy, focal | [v2.5.0](https://github.com/Vonng/pigsty/releases/tag/v2.5.0)                             |
 | [v2.4.1](#v241) | 2023-09-24 | Supabase/PostgresML support, graphql, jwt, pg_net, vault | [v2.4.1](https://github.com/Vonng/pigsty/releases/tag/v2.4.1)                             |
 | [v2.4.0](#v240) | 2023-09-14 | PG16, RDS Monitor, New Extensions                        | [v2.4.0](https://github.com/Vonng/pigsty/releases/tag/v2.4.0)                             |
 | [v2.3.1](#v231) | 2023-09-01 | PGVector with HNSW, PG16 RC1, Chinese Docs, Bug Fix      | [v2.3.1](https://github.com/Vonng/pigsty/releases/tag/v2.3.1)                             |
@@ -33,6 +34,94 @@
 | v0.0.3          | 2020-06-22 | Interface enhancement                                    | [v0.0.3](https://github.com/Vonng/pigsty/commit/4c5c68ccd57bc32a9e9c98aa3f264aa19f45c7ee) |
 | v0.0.2          | 2020-04-30 | First Commit                                             | [v0.0.2](https://github.com/Vonng/pigsty/commit/dd646775624ddb33aef7884f4f030682bdc371f8) |
 | v0.0.1          | 2019-05-15 | POC                                                      | [v0.0.1](https://github.com/Vonng/pg/commit/fa2ade31f8e81093eeba9d966c20120054f0646b)     |
+
+
+
+----------------
+
+## v2.5.0
+
+```bash
+curl https://get.pigsty.cc/latest | bash
+```
+
+**Highlights**
+
+- [Ubuntu](https://github.com/Vonng/pigsty/blob/master/files/pigsty/ubuntu.yml) / [Debian](https://github.com/Vonng/pigsty/blob/master/files/pigsty/debian.yml) Support:  bullseye, bookworm, jammy, focal
+- Dedicate yum/apt repo on `repo.pigsty.cc` and mirror on packagecloud.io
+- Anolis OS Support (EL 8.8 Compatible)
+- PG Major Candidate: Use PostgreSQL 16 instead of PostgreSQL 14.
+- New Dashboard PGSQL Exporter, PGSQL Patroni, rework on PGSQL Query
+- Extensions Update:
+  - Bump PostGIS version to v3.4 on el8, el9, ubuntu22, keep postgis 33 on EL7
+  - Remove extension `pg_embedding` because it is no longer maintained, use `pgvector` instead.
+  - New extension on EL: `pointcloud` with LIDAR data type support.
+  - New extension on EL: `imgsmlr`， `pg_similarity`，`pg_bigm` 扩展。
+  - Include columnar extension `hydra` and remove `citus` from default installed extension list.
+  - Recompile `pg_filedump` as PG major version independent package.
+
+- Software Version Upgrade：
+  - Grafana to v10.1.5
+  - Prometheus to v2.47
+  - Promtail/Loki to v2.9.1
+  - Node Exporter to v1.6.1
+  - Bytebase to v2.10.0
+  - patroni to v3.1.2
+  - pgbouncer to v1.21.0
+  - pg_exporter to v0.6.0
+  - pgbackrest to v2.48.0
+  - pgbadger to v12.2
+  - pg_graphql to v1.4.0
+  - pg_net to v0.7.3
+  - ferretdb to v0.12.1
+  - sealos to 4.3.5
+  - Supabase support to `20231013070755`
+
+**Ubuntu Support**
+
+Pigsty has two ubuntu LTS support: 22.04 (jammy) and 20.04 (focal), and ship corresponding offline packages for them.
+
+Some parameters need to be specified explicitly when deploying on Ubuntu, please refer to [`ubuntu.yml`](https://github.com/Vonng/pigsty/blob/master/files/pigsty/ubuntu.yml)
+
+- `repo_upstream`: Adjust according to ubuntu / debian repo.
+- `repo_packages`: Adjust according to ubuntu / debian naming convention
+- `node_repo_local_urls`: use the default value: `['deb [trusted=yes] http://${admin_ip}/pigsty ./']`
+- `node_default_packages` ：
+  - `zlib` -> `zlib1g`, `readline` -> `libreadline-dev`
+  - `vim-minimal` -> `vim-tiny`, `bind-utils` -> `dnsutils`, `perf` -> `linux-tools-generic`,
+  - new packages `acl` to ensure ansible tmp file privileges are set correctly
+- `infra_packages`: replace all `_` with `-` in names, and replace `postgresql16` with `postgresql-client-16`
+- `pg_packages`: replace all `_` with `-` in names, `patroni-etcd` not needed on ubuntu
+- `pg_extensions`: different naming convention, no `passwordcheck_cracklib` on ubuntu.
+- `pg_dbsu_uid`: You have to manually specify `pg_dbsu_uid` on ubuntu, because PGDG deb package does not specify pg dbsu uid.
+
+
+**API Changes**
+
+default values of following parameters have changed:
+
+- `repo_modules`: `infra,node,pgsql,redis,minio`
+- `repo_upstream`: Now add Pigsty Infra/MinIO/Redis/PGSQL modular upstream repo.
+- `repo_packages`: remove unused `karma,mtail,dellhw_exporter` and pg 14 extra extensions, adding pg 16 extra extensions.
+- `node_default_packages` now add `python3-pip` as default packages.
+- `pg_libs`: `timescaledb` is remove from shared_preload_libraries by default.
+- `pg_extensions`: citus is nolonger installed by default, and `passwordcheck_cracklib` is installed by default
+  
+  ```yaml
+  - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
+  - postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+  ```
+
+
+```
+87e0be2edc35b18709d7722976e305b0  pigsty-pkg-v2.5.0.el7.x86_64.tgz
+e71304d6f53ea6c0f8e2231f238e8204  pigsty-pkg-v2.5.0.el8.x86_64.tgz
+39728496c134e4352436d69b02226ee8  pigsty-pkg-v2.5.0.el9.x86_64.tgz
+e3f548a6c7961af6107ffeee3eabc9a7  pigsty-pkg-v2.5.0.debian11.x86_64.tgz
+1e469cc86a19702e48d7c1a37e2f14f9  pigsty-pkg-v2.5.0.debian12.x86_64.tgz
+cc3af3b7c12f98969d3c6962f7c4bd8f  pigsty-pkg-v2.5.0.ubuntu20.x86_64.tgz
+c5b2b1a4867eee624e57aed58ac65a80  pigsty-pkg-v2.5.0.ubuntu22.x86_64.tgz
+```
 
 
 ----------------

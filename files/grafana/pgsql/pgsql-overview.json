@@ -161,7 +161,7 @@
                 "text": {},
                 "textMode": "name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -348,7 +348,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -499,6 +499,7 @@
                 "type": "prometheus",
                 "uid": "ds-prometheus"
             },
+            "description": "ETCD Health server ratio\n\nNumber of Postgres cluster in Failsafe mode",
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -692,9 +693,12 @@
                     "fields": "",
                     "values": false
                 },
+                "text": {
+                    "titleSize": 10
+                },
                 "textMode": "auto"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -719,7 +723,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "sum(patroni_failsafe_mode_is_active{})",
+                    "expr": "sum(max by (cls) (patroni_failsafe_mode_is_active{}))",
                     "format": "time_series",
                     "hide": false,
                     "instant": true,
@@ -824,7 +828,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -909,7 +913,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -994,7 +998,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1083,7 +1087,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1190,7 +1194,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1298,7 +1302,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1403,7 +1407,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1496,7 +1500,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1589,7 +1593,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1696,7 +1700,7 @@
                 },
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -1991,7 +1995,7 @@
                 "text": {},
                 "textMode": "value_and_name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -2044,7 +2048,7 @@
                 "type": "prometheus",
                 "uid": "ds-prometheus"
             },
-            "description": "Blue  = PostgreSQL\n\nPurple = Pgbouncer\n\nAzure : Patroni & PG Exporter",
+            "description": "Blue  = PostgreSQL\n\nGreen = Pgbouncer\n\nAzure = Patroni\n\nPurple = Postgres Exporter\n\nDeep Purple = Pgboucner Exporter\n\nOrange = PG VIP\n",
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -2172,8 +2176,8 @@
                                 "id": "links",
                                 "value": [
                                     {
-                                        "title": "PGSQL Agents: ${__field.labels.ins}",
-                                        "url": "/d/pgsql-instance?var-ins=${__field.labels.ins}&${__url_time_range}"
+                                        "title": "PGSQL Patroni : ${__field.labels.cls}",
+                                        "url": "/d/pgsql-patroni?var-cls=${__field.labels.cls}&${__url_time_range}"
                                     }
                                 ]
                             }
@@ -2182,7 +2186,7 @@
                     {
                         "matcher": {
                             "id": "byFrameRefID",
-                            "options": "D"
+                            "options": "V"
                         },
                         "properties": [
                             {
@@ -2195,7 +2199,7 @@
                                             "value": null
                                         },
                                         {
-                                            "color": "#b783af",
+                                            "color": "#f5a673",
                                             "value": 1
                                         }
                                     ]
@@ -2244,6 +2248,72 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byFrameRefID",
+                            "options": "D"
+                        },
+                        "properties": [
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "#24292e",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "#b783af",
+                                            "value": 1
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "title": "PGSQL Exporter : ${__field.labels.ins}",
+                                        "url": "/d/pgsql-exporter?var-ins=${__field.labels.ins}&${__url_time_range}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byFrameRefID",
+                            "options": "E"
+                        },
+                        "properties": [
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "#24292e",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "#7771a4",
+                                            "value": 1
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "title": "PGSQL Exporter : ${__field.labels.ins}",
+                                        "url": "/d/pgsql-exporter?var-ins=${__field.labels.ins}&${__url_time_range}"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
@@ -2269,7 +2339,7 @@
                 "text": {},
                 "textMode": "name"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -2320,7 +2390,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": " min by (ins) (up{job=\"pgsql\"})",
+                    "expr": " patroni_up{job=\"pgsql\"}",
                     "hide": false,
                     "instant": true,
                     "interval": "",
@@ -2334,12 +2404,40 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
+                    "expr": "pg_exporter_up{job=\"pgsql\"}",
+                    "hide": false,
+                    "instant": true,
+                    "interval": "",
+                    "legendFormat": "{{ ins }}",
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "ds-prometheus"
+                    },
+                    "editorMode": "code",
+                    "exemplar": false,
+                    "expr": "pgbouncer_exporter_up{job=\"pgsql\"}",
+                    "hide": false,
+                    "instant": true,
+                    "interval": "",
+                    "legendFormat": "{{ ins }}",
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "ds-prometheus"
+                    },
+                    "editorMode": "code",
+                    "exemplar": false,
                     "expr": "min by (job,cls,vip) (probe_success{job=\"pgsql-vip\"})",
                     "hide": false,
                     "instant": true,
                     "interval": "",
                     "legendFormat": "{{ cls }} @ {{ vip }}",
-                    "refId": "D"
+                    "refId": "V"
                 }
             ],
             "title": "Instances",
@@ -2449,7 +2547,7 @@
                 "text": {},
                 "textMode": "auto"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -2553,7 +2651,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "10.1.1",
+            "pluginVersion": "10.1.5",
             "targets": [
                 {
                     "datasource": {
@@ -3550,7 +3648,7 @@
                         "h": 13,
                         "w": 17,
                         "x": 0,
-                        "y": 50
+                        "y": 34
                     },
                     "id": 70,
                     "options": {
@@ -3566,7 +3664,7 @@
                         "showHeader": true,
                         "sortBy": []
                     },
-                    "pluginVersion": "10.1.0",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -3924,7 +4022,7 @@
                         "h": 21,
                         "w": 7,
                         "x": 17,
-                        "y": 50
+                        "y": 34
                     },
                     "id": 130,
                     "options": {
@@ -3942,7 +4040,7 @@
                         "text": {},
                         "textMode": "value_and_name"
                     },
-                    "pluginVersion": "10.1.0",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -4044,8 +4142,8 @@
                                         "id": "links",
                                         "value": [
                                             {
-                                                "title": "PGSQL Cluster: ${__data.fields.Cluster}",
-                                                "url": "/d/pgsql-cluster?var-cls=${__data.fields.Cluster}&${__url_time_range}"
+                                                "title": "PGSQL Patroni Cluster: ${__data.fields.Cluster}",
+                                                "url": "/d/pgsql-patroni?var-cls=${__data.fields.Cluster}&${__url_time_range}"
                                             }
                                         ]
                                     },
@@ -4219,7 +4317,7 @@
                             {
                                 "matcher": {
                                     "id": "byName",
-                                    "options": "Unlocked"
+                                    "options": "Lock"
                                 },
                                 "properties": [
                                     {
@@ -4241,10 +4339,10 @@
                                                     "0": {
                                                         "color": "#346f36cc",
                                                         "index": 0,
-                                                        "text": "Unlock"
+                                                        "text": "Unlocked"
                                                     },
                                                     "1": {
-                                                        "color": "#f5a673",
+                                                        "color": "#b783af",
                                                         "index": 1,
                                                         "text": "Locked"
                                                     }
@@ -4626,7 +4724,7 @@
                         "h": 8,
                         "w": 17,
                         "x": 0,
-                        "y": 63
+                        "y": 47
                     },
                     "id": 133,
                     "options": {
@@ -4642,7 +4740,7 @@
                         "showHeader": true,
                         "sortBy": []
                     },
-                    "pluginVersion": "10.1.0",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -4849,7 +4947,7 @@
                                     "Time 7": true,
                                     "Time 8": true,
                                     "Time 9": true,
-                                    "Value #E": true,
+                                    "Value #E": false,
                                     "__name__ 1": false,
                                     "cls": false,
                                     "cls 2": true,
@@ -4891,7 +4989,7 @@
                                     "Value #B": "Version",
                                     "Value #C": "PG Ver",
                                     "Value #D": "Paused",
-                                    "Value #E": "Unlocked",
+                                    "Value #E": "Lock",
                                     "Value #F": "Restart",
                                     "Value #G": "Failsafe",
                                     "Value #H": "WAL",
@@ -5093,16 +5191,20 @@
                                                 "type": "value"
                                             }
                                         ]
+                                    },
+                                    {
+                                        "id": "unit",
+                                        "value": "Cluster"
                                     }
                                 ]
                             }
                         ]
                     },
                     "gridPos": {
-                        "h": 7,
+                        "h": 14,
                         "w": 4,
                         "x": 0,
-                        "y": 51
+                        "y": 35
                     },
                     "id": 126,
                     "links": [],
@@ -5121,7 +5223,7 @@
                         },
                         "textMode": "auto"
                     },
-                    "pluginVersion": "10.1.0",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -5164,6 +5266,7 @@
                         "type": "prometheus",
                         "uid": "ds-prometheus"
                     },
+                    "description": "etcd is the DCS used by patroni",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -5200,39 +5303,19 @@
                             {
                                 "matcher": {
                                     "id": "byName",
-                                    "options": "ETCD Has Leader?"
+                                    "options": "ETCD Cluster Healthy"
                                 },
                                 "properties": [
-                                    {
-                                        "id": "mappings",
-                                        "value": [
-                                            {
-                                                "options": {
-                                                    "0": {
-                                                        "color": "#b783af",
-                                                        "index": 1,
-                                                        "text": "\ud83d\udd25NOLEADER"
-                                                    },
-                                                    "1": {
-                                                        "color": "#fcdb72",
-                                                        "index": 0,
-                                                        "text": "OK"
-                                                    }
-                                                },
-                                                "type": "value"
-                                            }
-                                        ]
-                                    },
                                     {
                                         "id": "thresholds",
                                         "value": {
                                             "mode": "absolute",
                                             "steps": [
                                                 {
-                                                    "color": "#3e668f"
+                                                    "color": "#cc4637d9"
                                                 },
                                                 {
-                                                    "color": "#fcdb72",
+                                                    "color": "#3e668f",
                                                     "value": 1
                                                 }
                                             ]
@@ -5246,9 +5329,15 @@
                         "h": 7,
                         "w": 13,
                         "x": 4,
-                        "y": 51
+                        "y": 35
                     },
                     "id": 125,
+                    "links": [
+                        {
+                            "title": "ETCD Overview",
+                            "url": "/d/etcd-overview?${__url_time_range}"
+                        }
+                    ],
                     "options": {
                         "alignValue": "left",
                         "legend": {
@@ -5271,10 +5360,11 @@
                                 "uid": "ds-prometheus"
                             },
                             "editorMode": "code",
-                            "expr": "up{job=\"etcd\", cls=\"etcd\"}",
-                            "legendFormat": "{{ ins }} @ {{ ip }}",
+                            "expr": "min(etcd_server_has_leader{job=\"etcd\", cls=\"etcd\"}) or on() vector(0)",
+                            "hide": false,
+                            "legendFormat": "ETCD Cluster Healthy",
                             "range": true,
-                            "refId": "A"
+                            "refId": "D"
                         },
                         {
                             "datasource": {
@@ -5282,11 +5372,10 @@
                                 "uid": "ds-prometheus"
                             },
                             "editorMode": "code",
-                            "expr": "min(etcd_server_has_leader{job=\"etcd\", cls=\"etcd\"}) or on() vector(0)",
-                            "hide": false,
-                            "legendFormat": "ETCD Has Leader?",
+                            "expr": "up{job=\"etcd\", cls=\"etcd\"}",
+                            "legendFormat": "{{ ins }} @ {{ ip }}",
                             "range": true,
-                            "refId": "D"
+                            "refId": "A"
                         }
                     ],
                     "title": "ETCD Aliveness",
@@ -5297,13 +5386,19 @@
                         "type": "prometheus",
                         "uid": "ds-prometheus"
                     },
-                    "description": "How long since patroni the HA agent successfully connect to DCS:etcd.\n\nvalue larger than 20s needs extra attention",
+                    "description": "How long since patroni the HA agent successfully connect to DCS:etcd.\nMax amoung cluster\n\nvalue larger than 20s needs extra attention",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
                                 "mode": "thresholds"
                             },
                             "decimals": 1,
+                            "links": [
+                                {
+                                    "title": "PGSQL Patroni : ${__field.labels.cls}",
+                                    "url": "/d/pgsql-patroni?var-cls=${__field.labels.cls}&${__url_time_range}"
+                                }
+                            ],
                             "mappings": [],
                             "thresholds": {
                                 "mode": "absolute",
@@ -5361,10 +5456,10 @@
                         ]
                     },
                     "gridPos": {
-                        "h": 7,
+                        "h": 14,
                         "w": 7,
                         "x": 17,
-                        "y": 51
+                        "y": 35
                     },
                     "id": 122,
                     "options": {
@@ -5381,7 +5476,7 @@
                         },
                         "textMode": "auto"
                     },
-                    "pluginVersion": "10.1.0",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -5390,7 +5485,7 @@
                             },
                             "editorMode": "code",
                             "exemplar": false,
-                            "expr": "max by (ins) (time() - patroni_dcs_last_seen{job=\"$job\"})",
+                            "expr": "max by (cls) (time() - patroni_dcs_last_seen{job=\"$job\"})",
                             "format": "time_series",
                             "hide": false,
                             "instant": true,
@@ -5402,6 +5497,115 @@
                     "title": "DCS Last Seen",
                     "transformations": [],
                     "type": "stat"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "ds-prometheus"
+                    },
+                    "description": "Time since patroni last successful connect to DCS:etcd service",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 1,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "stepBefore",
+                                "lineWidth": 1,
+                                "pointSize": 4,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "auto",
+                                "spanNulls": false,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "none"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "dashed+area"
+                                }
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green"
+                                    },
+                                    {
+                                        "color": "orange",
+                                        "value": 20
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 30
+                                    },
+                                    {
+                                        "color": "purple",
+                                        "value": 60
+                                    },
+                                    {
+                                        "color": "text",
+                                        "value": 300
+                                    }
+                                ]
+                            },
+                            "unit": "s"
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 7,
+                        "w": 13,
+                        "x": 4,
+                        "y": 42
+                    },
+                    "id": 146,
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "max"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "mode": "single",
+                            "sort": "none"
+                        }
+                    },
+                    "targets": [
+                        {
+                            "datasource": {
+                                "type": "prometheus",
+                                "uid": "ds-prometheus"
+                            },
+                            "editorMode": "code",
+                            "expr": "max by (cls) (time() - patroni_dcs_last_seen{job=\"$job\"})",
+                            "instant": false,
+                            "legendFormat": "{{ ins }}",
+                            "range": true,
+                            "refId": "A"
+                        }
+                    ],
+                    "title": "Patroni DCS Last Seen",
+                    "type": "timeseries"
                 }
             ],
             "title": "DCS: etcd",
@@ -5445,6 +5649,7 @@
                                     "tooltip": false,
                                     "viz": false
                                 },
+                                "insertNulls": false,
                                 "lineInterpolation": "stepBefore",
                                 "lineWidth": 1,
                                 "pointSize": 5,
@@ -5498,7 +5703,7 @@
                         "h": 6,
                         "w": 24,
                         "x": 0,
-                        "y": 60
+                        "y": 50
                     },
                     "id": 136,
                     "options": {
@@ -5547,6 +5752,12 @@
                             },
                             "custom": {
                                 "fillOpacity": 60,
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
                                 "lineWidth": 0,
                                 "spanNulls": false
                             },
@@ -5587,7 +5798,7 @@
                         "h": 17,
                         "w": 24,
                         "x": 0,
-                        "y": 66
+                        "y": 56
                     },
                     "id": 135,
                     "options": {
@@ -5685,7 +5896,7 @@
                         "h": 8,
                         "w": 24,
                         "x": 0,
-                        "y": 83
+                        "y": 73
                     },
                     "id": 141,
                     "options": {
@@ -5702,7 +5913,7 @@
                         },
                         "textMode": "value_and_name"
                     },
-                    "pluginVersion": "10.0.3",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {
@@ -6276,7 +6487,7 @@
                             }
                         ]
                     },
-                    "pluginVersion": "10.1.0",
+                    "pluginVersion": "10.1.5",
                     "targets": [
                         {
                             "datasource": {

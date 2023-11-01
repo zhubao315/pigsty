@@ -1,7 +1,7 @@
 ---
 #==============================================================#
-# File      :   auto.yml
-# Desc      :   Pigsty auto generated config for el9,8,7 singleton
+# File      :   el.yml
+# Desc      :   Pigsty auto generated config for el8, el9
 # Ctime     :   2020-05-22
 # Mtime     :   2023-03-31
 # Docs      :   https://doc.pigsty.cc/#/CONFIG
@@ -30,14 +30,15 @@ all:
       hosts: { 10.10.10.10: { pg_seq: 1, pg_role: primary } }
       vars:
         pg_cluster: pg-meta
-        pg_databases: [ { name: meta ,baseline: cmdb.sql ,comment: pigsty meta database ,schemas: [ pigsty ] ,extensions: [ { name: postgis, schema: public }, { name: timescaledb } ] } ]
+        pg_databases: [ { name: meta ,baseline: cmdb.sql ,comment: pigsty meta database ,schemas: [ pigsty ] ,extensions: [{name: postgis, schema: public}] }]
         pg_users:
           - { name: dbuser_meta ,password: DBUser.Meta   ,pgbouncer: true ,roles: [ dbrole_admin ]    ,comment: pigsty admin user }
           - { name: dbuser_view ,password: DBUser.Viewer ,pgbouncer: true ,roles: [ dbrole_readonly ] ,comment: read-only viewer for meta database }
+        pg_libs: 'pg_stat_statements, auto_explain' # add extra extensions to shared_preload_libraries
         node_crontab: [ '00 01 * * * postgres /pg/bin/pg-backup full' ] # make a full backup every 1am
 
   vars:                               # global parameters
-    version: v2.4.1                   # pigsty version string
+    version: v2.5.0                   # pigsty version string
     admin_ip: 10.10.10.10             # admin node ip address
     region: default                   # upstream mirror region: default,china,europe
     infra_portal:                     # domain names and upstream servers

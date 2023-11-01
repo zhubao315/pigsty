@@ -10,17 +10,32 @@
     - name: get node fact
       become: no
       shell: |
-        DISTRO=$(rpm -q --whatprovides redhat-release);
-        echo $(rpm -q --qf "%{VENDOR}" "${DISTRO}");
-        echo $(rpm -q --qf "%{VERSION}" "${DISTRO}" | grep -o '^[^.]\+');
+        . /etc/os-release > /dev/null
+        OS_MAJOR_VERSION="${VERSION_ID}"
+        echo $ID
+        if [[ $VERSION_ID == *.* ]]; then
+            OS_MAJOR_VERSION=$(echo "${VERSION_ID}" | cut -d. -f1) 
+        fi
+        echo ${OS_MAJOR_VERSION}
+        if command -v dpkg >/dev/null 2>&1; then
+            echo ${VERSION_CODENAME}
+        else
+            echo el${OS_MAJOR_VERSION}
+        fi
         echo $(uname -m);
+        if command -v dpkg >/dev/null 2>&1; then
+            echo "deb"
+        else
+            echo "rpm"
+        fi
         echo $(whoami)
-        echo ${HOSTNAME};
+        echo $(hostname);
         echo $(grep -c '^processor' /proc/cpuinfo);
         echo $(getconf _PHYS_PAGES);
         echo $(getconf PAGE_SIZE);
         /bin/true;
       register: node_result
+      args: { executable: /bin/bash }
 
     # calculate node identity
     - name: set node fact
@@ -28,12 +43,14 @@
       set_fact:
         os_vendor:      "{{ node_result.stdout_lines[0] }}"
         os_version:     "{{ node_result.stdout_lines[1]|int }}"
-        os_arch:        "{{ node_result.stdout_lines[2] }}"
-        node_user:      "{{ node_result.stdout_lines[3] }}"
-        node_hostname:  "{{ node_result.stdout_lines[4] }}"
-        node_cpu:       "{{ node_result.stdout_lines[5]|int }}"
-        node_pages:     "{{ node_result.stdout_lines[6]|int }}"
-        node_page_size: "{{ node_result.stdout_lines[7]|int }}"
+        os_codename:    "{{ node_result.stdout_lines[2] }}"
+        os_arch:        "{{ node_result.stdout_lines[3] }}"
+        os_package:     "{{ node_result.stdout_lines[4] }}"
+        node_user:      "{{ node_result.stdout_lines[5] }}"
+        node_hostname:  "{{ node_result.stdout_lines[6] }}"
+        node_cpu:       "{{ node_result.stdout_lines[7]|int }}"
+        node_pages:     "{{ node_result.stdout_lines[8]|int }}"
+        node_page_size: "{{ node_result.stdout_lines[9]|int }}"
 
     # if nodename is empty, or can not be built from pgsql instance's identity
     - name: fill empty nodename with hostname
@@ -57,7 +74,7 @@
         msg: >-
            nodename: {{ nodename }},
            node_cluster: {{ node_cluster }},
-           spec: c{{ node_cpu }}m{{ node_mem_gb }}, os: el{{ os_version }}.{{ os_arch }} {{ os_vendor }}
+           spec: c{{ node_cpu }}m{{ node_mem_gb }}, os: {{ os_vendor }}.{{ os_version }}.{{ os_arch }} {{ os_codename }}:{{ os_package }},
            {% if inventory_hostname == admin_ip %}[ADMIN]{% endif %}
            {% if inventory_hostname in groups["infra"] %}[INFRA]{% endif %}
            {% if pg_cluster is defined %}[PGSQL: {{ pg_cluster }}]{% endif %}

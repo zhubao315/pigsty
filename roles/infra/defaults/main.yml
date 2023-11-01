@@ -15,9 +15,9 @@ infra_portal:                     # infra services exposed via portal
 # INFRA_PACKAGE
 #-----------------------------------------------------------------
 infra_packages:                   # packages to be installed on infra nodes
-  - grafana,loki,logcli,promtail,prometheus2,alertmanager,karma,pushgateway
+  - grafana,loki,logcli,promtail,prometheus2,alertmanager,pushgateway
   - node_exporter,blackbox_exporter,nginx_exporter,redis_exporter,pg_exporter
-  - nginx,dnsmasq,ansible,postgresql15,redis,mcli,python3-requests
+  - nginx,dnsmasq,ansible,postgresql15,redis,mcli,etcd,python3-requests
 infra_packages_pip: ''            # pip installed packages for infra nodes
 
 #-----------------------------------------------------------------
@@ -77,11 +77,16 @@ grafana_plugin_list:              # grafana plugins to be downloaded with grafan
   - volkovlabs-echarts-panel
   - volkovlabs-image-panel
   - volkovlabs-form-panel
+  - volkovlabs-variable-panel
   - volkovlabs-grapi-datasource
+  - marcusolsson-static-datasource
+  - marcusolsson-json-datasource
+  - marcusolsson-csv-datasource
   - marcusolsson-dynamictext-panel
   - marcusolsson-treemap-panel
   - marcusolsson-calendar-panel
-  - marcusolsson-static-datasource
+  - marcusolsson-hourly-heatmap-panel
+  - knightss27-weathermap-panel
 loki_enabled: true                # enable loki on this infra node?
 loki_clean: false                 # whether remove existing loki data?
 loki_data: /data/loki             # loki data dir, `/data/loki` by default
@@ -103,7 +108,7 @@ nginx_cert_exists: false
 #-----------------------------------------------------------------
 # META (Reference)
 #-----------------------------------------------------------------
-version: v2.4.1                   # pigsty version string
+version: v2.5.0                   # pigsty version string
 admin_ip: 10.10.10.10             # admin node ip address, overwritten by configure
 #-----------------------------------------------------------------
 # CA (Reference)
