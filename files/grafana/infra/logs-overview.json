@@ -73,6 +73,7 @@
                         "mode": "fixed"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -293,8 +294,7 @@
     ],
     "refresh": "",
     "revision": 1,
-    "schemaVersion": 38,
-    "style": "light",
+    "schemaVersion": 39,
     "tags": [
         "Pigsty",
         "INFRA",

@@ -69,12 +69,12 @@
 
 > Materialize the cluster with idempotent [playbooks](PGSQL-PLAYBOOK)
 
-- [`pgsql.yml`](PGSQL-PLAYBOOk#pgsqlyml) : Init HA PostgreSQL clusters or add new replicas.
-- [`pgsql-rm.yml`](PGSQL-PLAYBOOk#pgsql-rmyml) : Remove PostgreSQL cluster, or remove replicas
-- [`pgsql-user.yml`](PGSQL-PLAYBOOk#pgsql-useryml) : Add new business user to existing PostgreSQL cluster
-- [`pgsql-db.yml`](PGSQL-PLAYBOOk#pgsql-dbyml) : Add new business database to existing PostgreSQL cluster
-- [`pgsql-monitor.yml`](PGSQL-PLAYBOOk#pgsql-monitoryml) : Monitor remote PostgreSQL instance with local exporters
-- [`pgsql-migration.yml`](PGSQL-PLAYBOOk#pgsql-migrationyml) : Generate Migration manual & scripts for existing PostgreSQL
+- [`pgsql.yml`](PGSQL-PLAYBOOK#pgsqlyml) : Init HA PostgreSQL clusters or add new replicas.
+- [`pgsql-rm.yml`](PGSQL-PLAYBOOK#pgsql-rmyml) : Remove PostgreSQL cluster, or remove replicas
+- [`pgsql-user.yml`](PGSQL-PLAYBOOK#pgsql-useryml) : Add new business user to existing PostgreSQL cluster
+- [`pgsql-db.yml`](PGSQL-PLAYBOOK#pgsql-dbyml) : Add new business database to existing PostgreSQL cluster
+- [`pgsql-monitor.yml`](PGSQL-PLAYBOOK#pgsql-monitoryml) : Monitor remote PostgreSQL instance with local exporters
+- [`pgsql-migration.yml`](PGSQL-PLAYBOOK#pgsql-migrationyml) : Generate Migration manual & scripts for existing PostgreSQL
 
 <details><summary>Example: Install PGSQL module</summary>
 
@@ -97,17 +97,17 @@
 
 There are 26 default grafana dashboards about PostgreSQL and categorized into 4 levels. Check [Dashboards](PGSQL-DASHBOARD) for details.
 
-|                         Overview                          |                                Cluster                                |                          Instance                           |                         Database                          |
-|:---------------------------------------------------------:|:---------------------------------------------------------------------:|:-----------------------------------------------------------:|:---------------------------------------------------------:|
-| [PGSQL Overview](https://demo.pigsty.cc/d/pgsql-overview) |        [PGSQL Cluster](https://demo.pigsty.cc/d/pgsql-cluster)        |  [PGSQL Instance](https://demo.pigsty.cc/d/pgsql-instance)  | [PGSQL Database](https://demo.pigsty.cc/d/pgsql-database) |
-|    [PGSQL Alert](https://demo.pigsty.cc/d/pgsql-alert)    |        [PGRDS Cluster](https://demo.pigsty.cc/d/pgrds-cluster)        |  [PGRDS Instance](https://demo.pigsty.cc/d/pgrds-instance)  | [PGCAT Database](https://demo.pigsty.cc/d/pgcat-database)  |
-|    [PGSQL Shard](https://demo.pigsty.cc/d/pgsql-shard)    |       [PGSQL Activity](https://demo.pigsty.cc/d/pgsql-activity)       |  [PGCAT Instance](https://demo.pigsty.cc/d/pgcat-instance)  |   [PGSQL Tables](https://demo.pigsty.cc/d/pgsql-tables)   |
-|                                                           |    [PGSQL Replication](https://demo.pigsty.cc/d/pgsql-replication)    |   [PGSQL Persist](https://demo.pigsty.cc/d/pgsql-persist)   |    [PGSQL Table](https://demo.pigsty.cc/d/pgsql-table)    |
-|                                                           |        [PGSQL Service](https://demo.pigsty.cc/d/pgsql-service)        |     [PGSQL Proxy](https://demo.pigsty.cc/d/pgsql-proxy)     |    [PGCAT Table](https://demo.pigsty.cc/d/pgcat-table)    |
-|                                                           |      [PGSQL Databases](https://demo.pigsty.cc/d/pgsql-databases)      | [PGSQL Pgbouncer](https://demo.pigsty.cc/d/pgsql-pgbouncer) |    [PGSQL Query](https://demo.pigsty.cc/d/pgsql-query)    |
-|                                                           |                                                                       |   [PGSQL Session](https://demo.pigsty.cc/d/pgsql-session)   |    [PGCAT Query](https://demo.pigsty.cc/d/pgcat-query)    |
-|                                                           |                                                                       |     [PGSQL Xacts](https://demo.pigsty.cc/d/pgsql-xacts)     |    [PGCAT Locks](https://demo.pigsty.cc/d/pgcat-locks)    |
-|                                                           |                                                                       |   [Logs Instance](https://demo.pigsty.cc/d/logs-instance)   |   [PGCAT Schema](https://demo.pigsty.cc/d/pgcat-schema)   |
+|                         Overview                          |                             Cluster                             |                          Instance                           |                         Database                          |
+|:---------------------------------------------------------:|:---------------------------------------------------------------:|:-----------------------------------------------------------:|:---------------------------------------------------------:|
+| [PGSQL Overview](https://demo.pigsty.cc/d/pgsql-overview) |     [PGSQL Cluster](https://demo.pigsty.cc/d/pgsql-cluster)     |  [PGSQL Instance](https://demo.pigsty.cc/d/pgsql-instance)  | [PGSQL Database](https://demo.pigsty.cc/d/pgsql-database) |
+|    [PGSQL Alert](https://demo.pigsty.cc/d/pgsql-alert)    |     [PGRDS Cluster](https://demo.pigsty.cc/d/pgrds-cluster)     |  [PGRDS Instance](https://demo.pigsty.cc/d/pgrds-instance)  | [PGCAT Database](https://demo.pigsty.cc/d/pgcat-database) |
+|    [PGSQL Shard](https://demo.pigsty.cc/d/pgsql-shard)    |    [PGSQL Activity](https://demo.pigsty.cc/d/pgsql-activity)    |  [PGCAT Instance](https://demo.pigsty.cc/d/pgcat-instance)  |   [PGSQL Tables](https://demo.pigsty.cc/d/pgsql-tables)   |
+|                                                           | [PGSQL Replication](https://demo.pigsty.cc/d/pgsql-replication) |   [PGSQL Persist](https://demo.pigsty.cc/d/pgsql-persist)   |    [PGSQL Table](https://demo.pigsty.cc/d/pgsql-table)    |
+|                                                           |     [PGSQL Service](https://demo.pigsty.cc/d/pgsql-service)     |     [PGSQL Proxy](https://demo.pigsty.cc/d/pgsql-proxy)     |    [PGCAT Table](https://demo.pigsty.cc/d/pgcat-table)    |
+|                                                           |   [PGSQL Databases](https://demo.pigsty.cc/d/pgsql-databases)   | [PGSQL Pgbouncer](https://demo.pigsty.cc/d/pgsql-pgbouncer) |    [PGSQL Query](https://demo.pigsty.cc/d/pgsql-query)    |
+|                                                           |     [PGSQL Patroni](https://demo.pigsty.cc/d/pgsql-patroni)     |   [PGSQL Session](https://demo.pigsty.cc/d/pgsql-session)   |    [PGCAT Query](https://demo.pigsty.cc/d/pgcat-query)    |
+|                                                           |                                                                 |     [PGSQL Xacts](https://demo.pigsty.cc/d/pgsql-xacts)     |    [PGCAT Locks](https://demo.pigsty.cc/d/pgcat-locks)    |
+|                                                           |                                                                 |  [PGSQL Exporter](https://demo.pigsty.cc/d/pgsql-exporter)  |   [PGCAT Schema](https://demo.pigsty.cc/d/pgcat-schema)   |
 
 
 
@@ -159,7 +159,7 @@ There are 26 default grafana dashboards about PostgreSQL and categorized into 4 
 | [`pg_dbsu_sudo`](PARAM#pg_dbsu_sudo)                                 | [`PG_INSTALL`](PARAM#pg_install)     |    enum     |   C   | dbsu sudo privilege, none,limit,all,nopass. limit by default                  |
 | [`pg_dbsu_home`](PARAM#pg_dbsu_home)                                 | [`PG_INSTALL`](PARAM#pg_install)     |    path     |   C   | postgresql home directory, `/var/lib/pgsql` by default                        |
 | [`pg_dbsu_ssh_exchange`](PARAM#pg_dbsu_ssh_exchange)                 | [`PG_INSTALL`](PARAM#pg_install)     |    bool     |   C   | exchange postgres dbsu ssh key among same pgsql cluster                       |
-| [`pg_version`](PARAM#pg_version)                                     | [`PG_INSTALL`](PARAM#pg_install)     |    enum     |   C   | postgres major version to be installed, 15 by default                         |
+| [`pg_version`](PARAM#pg_version)                                     | [`PG_INSTALL`](PARAM#pg_install)     |    enum     |   C   | postgres major version to be installed, 16 by default                         |
 | [`pg_bin_dir`](PARAM#pg_bin_dir)                                     | [`PG_INSTALL`](PARAM#pg_install)     |    path     |   C   | postgres binary dir, `/usr/pgsql/bin` by default                              |
 | [`pg_log_dir`](PARAM#pg_log_dir)                                     | [`PG_INSTALL`](PARAM#pg_install)     |    path     |   C   | postgres log dir, `/pg/log/postgres` by default                               |
 | [`pg_packages`](PARAM#pg_packages)                                   | [`PG_INSTALL`](PARAM#pg_install)     |  string[]   |   C   | pg packages to be installed, `${pg_version}` will be replaced                 |

@@ -39,14 +39,14 @@ pg_dbsu_uid: 26                   # os dbsu uid and gid, 26 for default postgres
 pg_dbsu_sudo: limit               # dbsu sudo privilege, none,limit,all,nopass. limit by default
 pg_dbsu_home: /var/lib/pgsql      # postgresql home directory, `/var/lib/pgsql` by default
 pg_dbsu_ssh_exchange: true        # exchange postgres dbsu ssh key among same pgsql cluster
-pg_version: 15                    # postgres major version to be installed, 15 by default
+pg_version: 16                    # postgres major version to be installed, 16 by default
 pg_bin_dir: /usr/pgsql/bin        # postgres binary dir, `/usr/pgsql/bin` by default
 pg_log_dir: /pg/log/postgres      # postgres log dir, `/pg/log/postgres` by default
 pg_packages:                      # pg packages to be installed, `${pg_version}` will be replaced
   - postgresql${pg_version}*
-  - patroni pgbouncer pgbackrest pg_exporter pgbadger patroni-etcd vip-manager
+  - patroni pgbouncer pgbackrest pg_exporter pgbadger vip-manager patroni-etcd             # pgdg common tools
+  - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}* # important extensions
 pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-  - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
   - postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
 
 #-----------------------------------------------------------------
@@ -187,7 +187,7 @@ pgbackrest_repo:                  # pgbackrest repo: https://pgbackrest.org/conf
     s3_uri_style: path            # use path style uri for minio rather than host style
     path: /pgbackrest             # minio backup path, default is `/pgbackrest`
     storage_port: 9000            # minio port, 9000 by default
-    storage_ca_file: /etc/pki/ca.crt  # minio ca file path, `/etc/pki/ca.crt` by default
+    storage_ca_file: /pg/cert/ca.crt  # minio ca file path, `/pg/cert/ca.crt` by default
     bundle: y                     # bundle small files into a single file
     cipher_type: aes-256-cbc      # enable AES encryption for remote backup repo
     cipher_pass: pgBackRest       # AES encryption password, default is 'pgBackRest'
@@ -251,12 +251,20 @@ etcd_port: 2379                   # etcd client port, 2379 by default
 #-----------------------------------------------------------------
 # PROMETHEUS (Reference)
 #-----------------------------------------------------------------
+prometheus_sd_dir: /etc/prometheus/targets # prometheus file service discovery directory
+#-----------------------------------------------------------------
+# EXPORTER (Reference)
+#-----------------------------------------------------------------
 exporter_metrics_path: /metrics   # exporter metric path, `/metrics` by default
 #-----------------------------------------------------------------
 # GRAFANA (Reference)
 #-----------------------------------------------------------------
 grafana_admin_username: admin     # default grafana admin username
 grafana_admin_password: pigsty    # default grafana admin password
+#-----------------------------------------------------------------
+# DNS
+#-----------------------------------------------------------------
+dns_enabled: true                 # setup dnsmasq on this infra node?
 #-----------------------------------------------------------------
 # INFRA (Reference)
 #-----------------------------------------------------------------

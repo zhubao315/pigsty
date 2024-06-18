@@ -160,12 +160,14 @@
                     "fields": "/.*/",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -334,9 +336,11 @@
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -647,7 +651,7 @@
                 "showHeader": true,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -885,7 +889,6 @@
                 "y": 7
             },
             "id": 129,
-            "links": [],
             "maxDataPoints": 100,
             "options": {
                 "colorMode": "background",
@@ -899,12 +902,14 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "valueSize": 16
                 },
-                "textMode": "name"
+                "textMode": "name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "repeat": "instance",
             "repeatDirection": "h",
             "targets": [
@@ -926,7 +931,6 @@
                 }
             ],
             "title": "Keepalived Role",
-            "transformations": [],
             "type": "stat"
         },
         {
@@ -1221,7 +1225,7 @@
                 "showHeader": true,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1542,6 +1546,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisGridShow": false,
@@ -1603,7 +1608,6 @@
                 "y": 13
             },
             "id": 234,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -1636,7 +1640,6 @@
                 }
             ],
             "title": "MASTER",
-            "transformations": [],
             "type": "timeseries"
         },
         {
@@ -1651,6 +1654,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": true,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -1809,7 +1813,6 @@
                 "y": 13
             },
             "id": 118,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [
@@ -2627,7 +2630,7 @@
                 "showHeader": true,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2969,6 +2972,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3027,7 +3031,6 @@
                 "y": 26
             },
             "id": 227,
-            "links": [],
             "maxDataPoints": 100,
             "options": {
                 "legend": {
@@ -3079,7 +3082,6 @@
                 }
             ],
             "title": "Keepalived Service Status",
-            "transformations": [],
             "type": "timeseries"
         },
         {
@@ -3094,6 +3096,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3182,7 +3185,6 @@
                 "y": 26
             },
             "id": 116,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -3228,6 +3230,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3316,7 +3319,6 @@
                 "y": 26
             },
             "id": 123,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -3362,6 +3364,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3450,7 +3453,6 @@
                 "y": 31
             },
             "id": 121,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -3496,6 +3498,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3584,7 +3587,6 @@
                 "y": 31
             },
             "id": 120,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -3630,6 +3632,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3718,7 +3721,6 @@
                 "y": 31
             },
             "id": 119,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -3764,6 +3766,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3852,7 +3855,6 @@
                 "y": 36
             },
             "id": 115,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -3884,7 +3886,6 @@
                 }
             ],
             "title": "Keepalived Address list errors",
-            "transformations": [],
             "type": "timeseries"
         },
         {
@@ -3899,6 +3900,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3987,7 +3989,6 @@
                 "y": 36
             },
             "id": 124,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -4033,6 +4034,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4121,7 +4123,6 @@
                 "y": 36
             },
             "id": 122,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -4167,6 +4168,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4204,8 +4206,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -4213,7 +4214,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": [
                     {
@@ -4255,7 +4257,6 @@
                 "y": 41
             },
             "id": 125,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -4301,6 +4302,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4338,8 +4340,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -4347,7 +4348,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": [
                     {
@@ -4419,7 +4421,6 @@
                 "y": 41
             },
             "id": 126,
-            "links": [],
             "options": {
                 "legend": {
                     "calcs": [],
@@ -4455,8 +4456,7 @@
         }
     ],
     "refresh": "",
-    "schemaVersion": 38,
-    "style": "dark",
+    "schemaVersion": 39,
     "tags": [
         "Pigsty",
         "NODE",

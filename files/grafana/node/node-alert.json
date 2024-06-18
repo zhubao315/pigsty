@@ -165,10 +165,12 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {},
-                "textMode": "auto"
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -267,12 +269,14 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12
                 },
-                "textMode": "auto"
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -302,6 +306,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -456,12 +461,9 @@
             },
             "id": 80,
             "options": {
-                "alertInstanceLabelFilter": "",
                 "alertName": "",
                 "dashboardAlerts": false,
                 "dashboardTitle": "",
-                "groupBy": [],
-                "groupMode": "default",
                 "maxItems": 10,
                 "showOptions": "current",
                 "sortOrder": 1,
@@ -477,10 +479,9 @@
                     "paused": false,
                     "pending": false
                 },
-                "tags": [],
-                "viewMode": "list"
+                "tags": []
             },
-            "pluginVersion": "8.4.5",
+            "pluginVersion": "10.4.2",
             "title": "Alerts",
             "type": "alertlist"
         },
@@ -889,7 +890,7 @@
                     }
                 ]
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -963,6 +964,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -2581,8 +2583,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "red",
-                                        "value": null
+                                        "color": "red"
                                     },
                                     {
                                         "color": "green",
@@ -2689,8 +2690,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "#3e668f",
-                                        "value": null
+                                        "color": "#3e668f"
                                     },
                                     {
                                         "color": "green",
@@ -2776,8 +2776,7 @@
     ],
     "refresh": "",
     "revision": 1,
-    "schemaVersion": 38,
-    "style": "dark",
+    "schemaVersion": 39,
     "tags": [
         "Pigsty",
         "NODE",

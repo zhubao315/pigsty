@@ -1,16 +1,53 @@
 # Features
 
-Pigsty is a **Me-Better, Battery-Included, Open-Source RDS PG Alternative**:
+> "**P**ostgreSQL **I**n **G**reat **STY**le": **P**ostgres, **I**nfras, **G**raphics, **S**ervice, **T**oolbox, it's all **Y**ours.
+>
+> —— Battery-Included, Local-First **PostgreSQL** Distribution as an Open-Source **RDS** Alternative
+
+
+----------------
+
+## Values
+
+- [**Extensibility**](https://repo.pigsty.cc/img/pigsty-extension.jpg): Powerful [**Extensions**](PGSQL-EXTENSION) Ready for use: **PostGIS**, **TimescaleDB**, **Citus**, **PGVector**, Search, HTAP, AIML, and [**255**](PGSQL-EXTENSION#extension-list) more.
+- [**Reliability**](https://repo.pigsty.cc/img/pigsty-arch.jpg): Create self-healing [**High Available**](PGSQL-ARCH#high-availability) [**PostgreSQL**](PGSQL) clusters with pre-configured [**PITR**](PGSQL-ARCH#point-in-time-recovery), built-in [**ACL**](PGSQL-ACL), [**CA**](PARAM#ca) & **SSL** in minutes.
+- [**Observability**](https://repo.pigsty.cc/img/pigsty-dashboard.jpg): Monitoring best practices build upon the modern **Prometheus** & **Grafana** stack: Check our live [**Demo**](https://demo.pigsty.cc) & [**Gallery**](https://github.com/Vonng/pigsty/wiki/Gallery).
+- [**Availability**](https://repo.pigsty.cc/img/pgsql-ha.jpg): Deliver auto-routed, high-performance, and flexible database [**Services**](PGSQL-SVC#default-service) [**Access**](PGSQL-SVC#access-service) with **haproxy**, **pgbouncer**, and VIP.
+- [**Maintainability**](https://repo.pigsty.cc/img/pigsty-iac.jpg): Easy to [**use**](INSTALL), Infra as Code [**API**](PGSQL-CONF), Admin [**SOP**](PGSQL-ADMIN), **auto-tuned**, local yum/apt repo, [**Vagrant**](PROVISION#vagrant) sandbox, [**Terraform**](PROVISION#terraform) spec.
+- [**Composability**](https://repo.pigsty.cc/img/pigsty-sandbox.jpg): [**Modular**](ARCH#modules) design, Flexible [**Arch**](ARCH#singleton-meta), bonus features: [**Redis**](REDIS), [**MinIO**](MINIO), [**ETCD**](ETCD), [**FerretDB**](MONGO), [**DuckDB**](https://github.com/Vonng/pigsty/tree/master/app/duckdb), [**Supabase**](https://github.com/Vonng/pigsty/tree/master/app/supabase), [**Docker**](APP) Apps.
+
+[![pigsty-desc](https://repo.pigsty.cc/img/pigsty-intro.jpg)](https://repo.pigsty.cc/img/pigsty-intro.png)
+
+
+----------------
+
+## Overview
 
 - [Battery-Included RDS](#battery-included-rds): Delivers production-ready PostgreSQL services from version 12-16 on Linux x86, spanning kernel to RDS distribution.
-- [Plentiful Extensions](#plentiful-extensions): Integrates 150+ extensions, providing turnkey capabilities for time-series, geospatial, full-text-search, vector and more!
-- [Flexible Architecture](#flexible-architecture): Compose Redis/Etcd/MinIO/Mongo modules on nodes, monitoring existing cluster and remote RDS, self hosting Supabase/PostgresML.
+- [Plentiful Extensions](#plentiful-extensions): Integrates 255+ extensions, providing turnkey capabilities for time-series, geospatial, full-text-search, vector and more!
+- [Flexible Architecture](#flexible-architecture): Compose Redis/Etcd/MinIO/Mongo modules on nodes, monitoring existing cluster and remote RDS, self-hosting Supabase.
 - [Stunning Observability](#stunning-observability): Leveraging the Prometheus/Grafana modern observability stack, and provides unmatched database insights.
-- [Proven Reliability](#proven-reliability): Self-healing HA architecture with automatic failover and uninterrupted client access, and auto-configured PITR.
+- [Proven Reliability](#proven-reliability): Self-healing HA architecture with automatic failover and uninterrupted client access, and pre-configured PITR.
 - [Great Maintainability](#great-maintainability): Declarative API, GitOps ready, foolproof design, Database/Infra-as-Code, and management SOP seals complexity!
 - [Sound Security](#sound-security): Nothing needs to be worried about database security, as long as your hardware & credentials are safe.
 - [Versatile Application](#versatile-application): Lots of applications work well with PostgreSQL. Run them in one command with docker.
 - [Open Source & Free](#open-source-amp-free): Pigsty is a free & open source software under AGPLv3. It was built for PostgreSQL with love.
+
+- Battery-Included PostgreSQL distribution with **255** optional [Extensions](PGSQL-EXTENSION).
+- Run on bare OS without container: [EL](https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux_derivatives) 7/8/9, [Ubuntu](https://ubuntu.com/) 20.04/22.04 and [Debian](https://www.debian.org/) 11/12.
+- Incredible observability powered by [Prometheus](https://prometheus.io/) & [Grafana](https://grafana.com/) stack. [Demo](https://demo.pigsty.cc) & [Gallery](https://github.com/Vonng/pigsty/wiki/Gallery).
+- Self-healing [HA](PGSQL-ARCH) PGSQL cluster, powered by [patroni](https://patroni.readthedocs.io/en/latest/), [haproxy](http://www.haproxy.org/), [etcd](https://etcd.io/). auto-tuned.
+- Auto-Configured [PITR](PGSQL-PITR), powered by [pgBackRest](https://pgbackrest.org/) and optional [MinIO](https://min.io/) repo (or S3/FS).
+- Declarative [API](CONFIG), Database-as-Code implemented with [Ansible](https://www.ansible.com/) playbooks: [SOP](PGSQL-ADMIN).
+- Handy IaC Templates, provisioning Infra with [Terraform](https://github.com/Vonng/pigsty/tree/master/terraform/README.md) and try [sandbox](PROVISION) with [Vagrant](https://github.com/Vonng/pigsty/tree/master/vagrant/README.md).
+- Pre-pack stable versions, create [local repos](INSTALL#offline-packages) and install without Internet access.
+
+Pigsty can be used in different scenarios:
+- Run HA [PostgreSQL](PGSQL) RDS for production usage, with PostGIS, TimescaleDB, Citus, Hydra, etc...
+- Run AI infra stack with `pgvector` and [PostgresML](https://github.com/Vonng/pigsty/tree/master/app/pgml/README.md).
+- Develop low-code apps with self-hosted [Supabase](https://github.com/Vonng/pigsty/tree/master/app/supabase/README.md), [FerretDB](MONGO), and [NocoDB](https://github.com/Vonng/pigsty/tree/master/app/nocodb/README.md).
+- Run various business software & [apps](https://github.com/Vonng/pigsty/blob/master/app/README.md) with docker-compose templates.
+- Run demos & data apps, analyze data, and [visualize](https://demo.pigsty.cc/d/isd-overview/) them with ECharts panels.
 
 [![pigsty-home.jpg](https://repo.pigsty.cc/img/pigsty-home.jpg)](https://demo.pigsty.cc)
 
@@ -31,7 +68,7 @@ You can transit from a fresh node to a production-ready state effortlessly, depl
 Pigsty will tune parameters to your hardware, handling everything from kernel, extensions, pooling, load balancing, high-availability, monitoring & logging, backups & PITR, security and more!
 All you need to do is run the command and connect with the given URL.
 
-[![pigsty-arch.jpg](https://repo.pigsty.cc/img/pigsty-arch.jpg)](ARCH.md#singleton-meta)
+[![pigsty-arch.jpg](https://repo.pigsty.cc/img/pigsty-arch.jpg)](ARCH#singleton-meta)
 
 
 
@@ -44,11 +81,11 @@ All you need to do is run the command and connect with the given URL.
 
 PostgreSQL's has an unique [extension](PGSQL-EXTENSION#extension-list) ecosystem. Pigsty seamlessly integrates these powerful extensions, delivering turnkey distributed solutions for time-series, geospatial, and vector capabilities.
 
-Pigsty boasts over **150** PostgreSQL extensions, and maintaining some not found in official PGDG repositories. Rigorous testing ensures flawless integration for **core** extensions: Leverage [PostGIS](https://postgis.net/) for geospatial data, [TimescaleDB](https://www.timescale.com/) for time-series analysis, [Citus](https://www.citusdata.com/) for horizontal scale out, [PGVector](https://github.com/pgvector/pgvector) for AI embeddings, [Apache AGE](https://age.apache.org/) for graph data, and [zhparser](https://github.com/amutu/zhparser) for Full-Text Search.
+Pigsty boasts over **255+** PostgreSQL extensions, and maintaining some not found in official PGDG repositories. Rigorous testing ensures flawless integration for **core** extensions: Leverage [PostGIS](https://postgis.net/) for geospatial data, [TimescaleDB](https://www.timescale.com/) for time-series analysis, [Citus](https://www.citusdata.com/) for horizontal scale out, [PGVector](https://github.com/pgvector/pgvector) for AI embeddings, [Apache AGE](https://age.apache.org/) for graph data, and [zhparser](https://github.com/amutu/zhparser) for Full-Text Search.
 
-You can also run self-hosted [Supabase](https://github.com/Vonng/pigsty/tree/master/app/supabase/README.md) & [PostgresML](https://github.com/Vonng/pigsty/tree/master/app/pgml) with Pigsty managed HA PostgreSQL. If you want to add your own extension, feel free to [suggest](https://github.com/Vonng/pigsty/discussions/333) or [compile](PGSQL-EXTENSION.md#compile-extension) it by yourself.
+You can also run self-hosted [Supabase](https://github.com/Vonng/pigsty/tree/master/app/supabase/README.md) & [PostgresML](https://github.com/Vonng/pigsty/tree/master/app/pgml) with Pigsty managed HA PostgreSQL. If you want to add your own extension, feel free to [suggest](https://github.com/Vonng/pigsty/discussions/333) or compile it by yourself.
 
-[![pigsty-distro.jpg](https://repo.pigsty.cc/img/pigsty-distro.jpg)](PGSQL-EXTENSION.md)
+[![pigsty-extension.jpg](https://repo.pigsty.cc/img/pigsty-extension.jpg)](PGSQL-EXTENSION)
 
 
 
@@ -59,18 +96,18 @@ You can also run self-hosted [Supabase](https://github.com/Vonng/pigsty/tree/mas
 
 **modular design, composable, Redis/MinIO/Etcd/Mongo support, and monitoring existing PG & RDS**
 
-All functionality is abstracted as [Modules](ARCH.md#modules) that can be freely composed for different scenarios.
-[`INFRA`](INFRA.md) gives you a modern observability stack, while [`NODE`](NODE.md) can be used for host monitoring.
-Installing the [`PGSQL`](PGSQL.md) module on multiple nodes will automatically form a HA cluster.
+All functionality is abstracted as [Modules](ARCH#modules) that can be freely composed for different scenarios.
+[`INFRA`](INFRA) gives you a modern observability stack, while [`NODE`](NODE) can be used for host monitoring.
+Installing the [`PGSQL`](PGSQL) module on multiple nodes will automatically form a HA cluster.
 
-And you can also have dedicated [`ETCD`](ETCD.md) clusters for distributed consensus & [`MinIO`](MINIO.md) clusters for backup storage.
-[`REDIS`](REDIS.md) are also supported since they work well with PostgreSQL.
+And you can also have dedicated [`ETCD`](ETCD) clusters for distributed consensus & [`MinIO`](MINIO) clusters for backup storage.
+[`REDIS`](REDIS) are also supported since they work well with PostgreSQL.
 You can reuse Pigsty infra and extend it with your Modules (e.g. `GPSQL`, `KAFKA`, `MONGO`, `MYSQL`...).
 
 Moreover, Pigsty's `INFRA` module can be used alone — ideal for monitoring hosts, databases, or cloud [RDS](PGSQL-MONITOR#monitor-rds).
 
 
-[![pigsty-sandbox.jpg](https://repo.pigsty.cc/img/sandbox.jpg)](ARCH.md#模块)
+[![pigsty-sandbox.jpg](https://repo.pigsty.cc/img/pigsty-sandbox.jpg)](ARCH#modules)
 
 
 
@@ -103,7 +140,7 @@ Software Failures, human errors, and Data Center Failures are covered with Cold 
 
 Large organizations have used Pigsty for several years. One of the largest deployments has 25K CPU cores and 200+ massive PostgreSQL instances. In the past three years, there have been dozens of hardware failures & incidents, but the overall availability remains several nines (99.999% +).
 
-[![pgsql-ha.jpg](https://repo.pigsty.cc/img/pgsql-ha.jpg)](PGSQL-ARCH.md#high-availability)
+[![pgsql-ha.jpg](https://repo.pigsty.cc/img/pgsql-ha.jpg)](PGSQL-ARCH#high-availability)
 
 
 
@@ -119,7 +156,7 @@ To create cluster/database/user/extension, expose services, or add replicas. All
 
 Pigsty has a full-featured sandbox powered by **Vagrant**, a pre-configured one or 4-node environment for testing & demonstration purposes. You can also provision required IaaS resources from cloud vendors with **Terraform** templates.
 
-[![pigsty-iac.jpg](https://repo.pigsty.cc/img/pigsty-iac.jpg)](CONFIG.md)
+[![pigsty-iac.jpg](https://repo.pigsty.cc/img/pigsty-iac.jpg)](CONFIG)
 
 
 
@@ -135,7 +172,7 @@ Pigsty has an easy-to-use, fine-grained, and fully customizable [access control]
 
 Your entire network communication can be secured with SSL. Pigsty will automatically create a self-signed CA and issue certs for that. Database credentials are encrypted with the scram-sha-256 algorithm, and cold backups are encrypted with the AES-256 algorithm when using MinIO/S3. Admin Pages and dangerous APIs are protected with HTTPS, and access is restricted from specific admin/infra nodes.
 
-[![pigsty-acl.jpg](https://repo.pigsty.cc/img/pigsty-acl.jpg)](SECURITY.md)
+[![pigsty-acl.jpg](https://repo.pigsty.cc/img/pigsty-acl.jpg)](SECURITY)
 
 
 
@@ -149,7 +186,7 @@ The database is usually the most tricky part of most software. Since Pigsty alre
 
 Pigsty also provides a toolset to help you manage your database and build data applications in a low-code fashion: PGAdmin4, PGWeb, ByteBase, PostgREST, Kong, and higher "Database" that use Postgres as underlying storage, such as EdgeDB, FerretDB, and Supabase. And since you already have Grafana & Postgres, You can quickly make an interactive data application demo with them. In addition, advanced visualization can be achieved with the built-in ECharts panel.
 
-[![pigsty-app.jpg](https://repo.pigsty.cc/img/pigsty-app.jpg)](APP.md)
+[![pigsty-app.jpg](https://repo.pigsty.cc/img/pigsty-app.jpg)](APP)
 
 
 

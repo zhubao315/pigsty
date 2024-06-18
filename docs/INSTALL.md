@@ -9,20 +9,19 @@
 Prepare a fresh Linux x86_64 node that meets the [requirement](#requirement), then run as a **sudo-able** user:
 
 ```bash
-curl https://get.pigsty.cc/latest | bash
+bash -c "$(curl -fsSL https://get.pigsty.cc/install)"
 ```
 
-It will [download](#download) Pigsty source to your home, then perform [Bootstrap](#bootstrap), [Configure](#configure), and [Install](#install). 
+It will [download](#download) Pigsty source to your home. then perform [Bootstrap](#bootstrap), [Configure](#configure), and [Install](#install).
 
 ```bash
-bash -c "$(curl -fsSL https://get.pigsty.cc/latest)"  
 cd ~/pigsty   # get pigsty source and entering dir
 ./bootstrap   # download bootstrap pkgs & ansible [optional]
-./configure   # pre-check and config templating   [optional] 
+./configure   # pre-check and config templating   [optional]
 ./install.yml # install pigsty according to pigsty.yml
 ```
 
-A pigsty singleton node will be ready with Web Services on port `80` and Postgres on port `5432`.
+A pigsty singleton node will be ready with Web Services on port `80/443` and Postgres on port `5432`.
 
 [![asciicast](https://asciinema.org/a/566220.svg)](https://asciinema.org/a/566220)
 
@@ -30,32 +29,30 @@ A pigsty singleton node will be ready with Web Services on port `80` and Postgre
 <details><summary>Download with Script</summary>
 
 ```bash
-$ curl https://get.pigsty.cc/latest | bash
-...
-[Checking] ===========================================
-[ OK ] SOURCE from CDN due to GFW
-FROM CDN    : bash -c "$(curl -fsSL https://get.pigsty.cc/latest)"
-FROM GITHUB : bash -c "$(curl -fsSL https://raw.githubusercontent.com/Vonng/pigsty/master/bin/latest)"
-[Downloading] ===========================================
-[ OK ] download pigsty source code from CDN
-[ OK ] $ curl -SL https://get.pigsty.cc/v2.5.0/pigsty-v2.5.0.tgz
-...
-MD5: 0xxxxxxxxxxxxxxxxxxxxxxxxxxxxx9  /tmp/pigsty-v2.5.0.tgz
-[Extracting] ===========================================
-[ OK ] extract '/tmp/pigsty-v2.5.0.tgz' to '/home/vagrant/pigsty'
-[ OK ] $ tar -xf /tmp/pigsty-v2.5.0.tgz -C ~;
-[Reference] ===========================================
-Official Site:   https://pigsty.cc
-Get Started:     https://doc.pigsty.cc/#/INSTALL
-Documentation:   https://doc.pigsty.cc
-Github Repo:     https://github.com/Vonng/pigsty
-Public Demo:     https://demo.pigsty.cc
-[Proceeding] ===========================================
-cd ~/pigsty      # entering pigsty home directory before proceeding
-./bootstrap      # install ansible & download the optional offline packages
-./configure      # preflight-check and generate config according to your env
-./install.yml    # install pigsty on this node and init it as the admin node
-[ OK ] ~/pigsty is ready to go now!
+$ bash -c "$(curl -fsSL https://get.pigsty.cc/install)"
+[v2.7.0] ===========================================
+$ curl -fsSL https://pigsty.cc/install | bash
+[Site] https://pigsty.io
+[Demo] https://demo.pigsty.cc
+[Repo] https://github.com/Vonng/pigsty
+[Docs] https://pigsty.io/docs/setup/install
+[Download] ===========================================
+[ OK ] version = v2.7.0 (from default)
+curl -fSL https://get.pigsty.cc/v2.7.0/pigsty-v2.7.0.tgz -o /tmp/pigsty-v2.7.0.tgz
+########################################################################### 100.0%
+[ OK ] md5sums = some_random_md5_hash_value_here_  /tmp/pigsty-v2.7.0.tgz
+[Install] ===========================================
+[ OK ] install = /home/vagrant/pigsty, from /tmp/pigsty-v2.7.0.tgz
+[Resource] ===========================================
+[HINT] rocky 8  have [OPTIONAL] offline package available: https://pigsty.io/docs/setup/offline
+curl -fSL https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.el8.x86_64.tgz -o /tmp/pkg.tgz
+curl -fSL https://get.pigsty.cc/v2.7.0/pigsty-pkg-v2.7.0.el8.x86_64.tgz -o /tmp/pkg.tgz # or use alternative CDN
+[TodoList] ===========================================
+cd /home/vagrant/pigsty
+./bootstrap      # [OPTIONAL] install ansible & use offline package
+./configure      # [OPTIONAL] preflight-check and config generation
+./install.yml    # install pigsty modules according to your config.
+[Complete] ===========================================
 ```
 
 </details>
@@ -63,11 +60,11 @@ cd ~/pigsty      # entering pigsty home directory before proceeding
 
 <details><summary>Download with Git</summary>
 
-You can also download pigsty source with `git`, don't forget to check out a specific version.
+You can also download pigsty source with `git`, don't forget to check out a specific version tag, the `master` branch is for development.
 
 ```bash
 git clone https://github.com/Vonng/pigsty;  # master branch is for develop purpose
-cd pigsty; git checkout v2.5.0              # always checkout a specific version
+cd pigsty; git checkout v2.7.0              # always checkout a specific version
 ```
 
 </details>
@@ -75,11 +72,11 @@ cd pigsty; git checkout v2.5.0              # always checkout a specific version
 
 <details><summary>Download Directly</summary>
 
-You can also download pigsty source (and optional [offline pkgs](#offline-packages)) directly from GitHub or CDN:
+You can also download pigsty source & [offline packages](https://pigsty.io/docs/setup/offline/) directly from GitHub release page.
 
-```
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-v2.5.0.tgz   # Github Release
-https://get.pigsty.cc/v2.5.0/pigsty-v2.5.0.tgz                               # Pigsty CDN
+```bash
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-v2.7.0.tgz   # Github Release
+https://get.pigsty.cc/v2.7.0/pigsty-v2.7.0.tgz                               # Pigsty CDN
 ```
 
 </details>
@@ -97,37 +94,29 @@ The minimum spec is `1C1G`. It is recommended to use bare metals or VMs with at 
 
 Public key `ssh` access to localhost and NOPASSWD `sudo` privilege is required to perform the installation, and do not use the `root` user.
 
-Pigsty run on bare OS, and support EL, Debian, and Ubuntu. There may be slight differences in different OS Distros:
-
-| Code | OS Distribution                  | Limitations                                          |
-|:----:|----------------------------------|------------------------------------------------------|
-| EL7  | RHEL7 / CentOS7                  | PG16, supabase, pgml, pg_graphql, pg_net unavailable |
-| EL8  | RHEL8 / Rocky8 / Alma8 / Anolis8 | **EL default feature set**                           |
-| EL9  | RHEL9 / Rocky9 / Alma9           | pgxnclient missing, perf dependency conflict         |
-| D11  | Debian 11 (bullseye)             | supabase, pgml, RDKit unavailable                    |
-| D12  | Debian 12 (bookworm)             | supabase, pgml unavailable                           |
-| U20  | Ubuntu 20.04 (focal)             | supabase, PostGIS3, RDKit, pgml unavailable          |
-| U22  | Ubuntu 22.04 (jammy)             | **Deb default feature set** (supabase unavailable)   |
+Pigsty run on bare OS, and support EL, Debian, and Ubuntu. There may be slight differences in different OS Distros, for example, most pigsty supported extensions are only available on EL(8/9) distros.
 
 Major OS version supported: RedHat 7/8/9, Debian 11/12, and Ubuntu 20/22, and any compatible OS distros such as RHEL, Rocky, Alma, Oracle, Anolis, etc...
-We recommend using `RockyLinux 8.8` (Green Obsidian) or `Ubuntu 22.04` (jammy), as they offer the most comprehensive support among all RHEL/DEB OS distros.
+We recommend using `RockyLinux 8.9` (Green Obsidian), `Debian 12.04` (bookworm), and `Ubuntu 22.04` (jammy), as they offer the most comprehensive support among all RHEL/DEB OS distros.
 
-For the latest minor version of each supported major version (`9.2`, `8.8`, `7.9`, `jammy` / `focal` / `bookworm` / `bullseye` ), 
+For the latest minor version of each supported major version (`Rocky 8.9`，`Debian bookworm`，`Ubuntu jammy`),
 We have pre-built [offline packages](#offline-packages) for deployment without the Internet access.
 If you use a different minor OS version with those offline packages, you may encounter RPM/DEB package conflicts. Check [FAQ](FAQ#installation) or install without offline packages.
 
 <details><summary>Aliyun VM Image Versions</summary>
 
-If you are using cloud virtual machines or [Terraform](PROVISION.md#terraform), the following image can be taken into considerations (aliyun):
+If you are using cloud virtual machines or [Terraform](PROVISION#terraform), the following image can be taken into considerations (aliyun):
 
 ```bash
-# CentOS 7.9   :  centos_7_9_x64_20G_alibase_20230815.vhd
-# Rocky 8.8    :  rockylinux_8_8_x64_20G_alibase_20230613.vhd
-# Rocky 9.2    :  rockylinux_9_2_x64_20G_alibase_20230613.vhd
-# Ubuntu 20.04 :  ubuntu_20_04_x64_20G_alibase_20230815.vhd
-# Ubuntu 22.04 :  ubuntu_22_04_x64_20G_alibase_20230815.vhd
-# Debian 11.7  :  debian_11_7_x64_20G_alibase_20230718.vhd
-# Debian 12    :  N/A
+# Rocky 8.9    :  rockylinux_8_9_x64_20G_alibase_20231221.vhd
+# Debian 12    :  debian_12_4_x64_20G_alibase_20231220.vhd
+# Ubuntu 22.04 :  ubuntu_22_04_x64_20G_alibase_20231221.vhd
+
+# other supported os distro
+# CentOS 7.9   :  centos_7_9_x64_20G_alibase_20231220.vhd
+# Rocky 9.3    :  rockylinux_9_3_x64_20G_alibase_20231221.vhd
+# Debian 11.7  :  debian_11_7_x64_20G_alibase_20230907.vhd
+# Ubuntu 20.04 :  ubuntu_20_04_x64_20G_alibase_20231221.vhd
 # Anolis 8.8   :  anolisos_8_8_x64_20G_rhck_alibase_20230804.vhd
 ```
 
@@ -142,10 +131,15 @@ If you are using cloud virtual machines or [Terraform](PROVISION.md#terraform), 
 You can get & extract pigsty source via the following command:
 
 ```bash
-curl -fsSL https://get.pigsty.cc/latest | bash
+bash -c "$(curl -fsSL https://get.pigsty.cc/install)"
 ```
 
-> HINT: Get the latest beta release with `beta` instead of `latest`.
+> HINT: To install a specific version, passing the version string as the first parameter:
+>
+> ```bash
+> bash -c "$(curl -fsSL https://get.pigsty.cc/i)" -- v2.6.0
+> curl -fsSL https://get.pigsty.cc/i | bash -s v2.6.0
+> ```
 
 
 <details><summary>Download Pigsty Source with Specific Version</summary>
@@ -153,65 +147,65 @@ curl -fsSL https://get.pigsty.cc/latest | bash
 If you want to download a specific version, use the following URLs:
 
 ```bash
-VERSION=v2.5.0   # version string, check https://doc.pigsty.cc/#/RELEASENOTE
+VERSION=v2.7.0   # version string, check https://pigsty.io/docs/releasenote
 https://github.com/Vonng/pigsty/releases/download/${VERSION}/pigsty-${VERSION}.tgz
 ```
 
-For example, Pigsty v2.5.0 source can be acquired with:
+For example, Pigsty v2.7.0 source can be acquired with:
 
-```bash 
-curl -L https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-v2.5.0.tgz -o ~/pigsty.tgz
-curl -L https://get.pigsty.cc/v2.5.0/pigsty-v2.5.0.tgz -o ~/pigsty.tgz   # China CDN Mirror
+```bash
+curl -L https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-v2.7.0.tgz -o ~/pigsty.tgz
+curl -L https://get.pigsty.cc/v2.7.0/pigsty-v2.7.0.tgz -o ~/pigsty.tgz   # China CDN Mirror
 ```
 
 </details>
+
 
 
 ### Offline Packages
 
-Pigsty downloads rpm/deb packages from the upstream repo during installation.
-Which can be accelerated dramatically by using a local mirror: offline packages.
-It's also extremely useful when you have no Internet available.
+Pigsty will download rpm/deb packages from the upstream yum/apt repo during the initial installation.
+It will take a snapshot of the software it uses and create a fast & reliable local software repo to accelerate the installation process and make sure the software version is consistent across all nodes.
 
-The [`bootstrap`](#bootstrap) script will ask for download the corresponding offline package (`--yes|--no`) and setup everything up for you.
-You can also download it manually and put it under `/tmp/pkg.tgz` for later use.
+The "Offline Packages" is actually a snapshot of the local software repo (`/www/pigsty`) after the installation of Pigsty on the target node.
+We offer pre-packed offline packages for the latest minor version of major OS versions, and test them thoroughly before release.
+
+During the [Bootstrap](#bootstrap) procedure, you can choose whether to download the corresponding offline package (`--yes|--no`) if applicable.
+Or just ignore it and let Pigsty pull the latest packages from upstream (which requires Internet access).
+
+To make an offline package, you can run the [`cache`](https://github.com/Vonng/pigsty/blob/master/bin/cache) script, it will create the pkg on `/tmp/pkg.tgz`.
+To deploy Pigsty on a node without Internet access and non-standard OS, you can install Pigsty on a node that has the same OS and Internet access.
+Then create an offline package and upload it to the production environment for offline installation.
+
 
 <details><summary>Download offline packages manually</summary>
 
 ```bash
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-v2.5.0.tgz                     # Pigsty Source Code
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el7.x86_64.tgz      # Package: EL 7(.9)            
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el8.x86_64.tgz      # Package: EL 8(.8)            
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el9.x86_64.tgz      # Package: EL 9(.2)            
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.debian11.x86_64.tgz # Package: Debian 11    (bullseye)                 
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.debian12.x86_64.tgz # Package: Debian 12    (bookworm)                 
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.ubuntu20.x86_64.tgz # Package: Ubuntu 20.04 (focal)                 
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.ubuntu22.x86_64.tgz # Package: Ubuntu 22.04 (jammy)                 
+VERSION=v2.7.0
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-${VERSION}.el8.x86_64.tgz      # Package: EL 8(.9)
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-${VERSION}.debian12.x86_64.tgz # Package: Debian 12    (bookworm)
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz # Package: Ubuntu 22.04 (jammy)
 ```
 
-You can also get offline packages from CDN, and specify a specific version: 
+You can also get offline packages from CDN, and specify a specific version:
 
 ```bash
-VERSION=v2.5.0
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el7.x86_64.tgz        # 离线软件包：EL 7(.9)
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz        # 离线软件包：EL 8(.8)
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz        # 离线软件包：EL 9(.2)
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.debian11.x86_64.tgz   # 离线软件包：Debian 11    (bullseye)
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.debian12.x86_64.tgz   # 离线软件包：Debian 12    (bookworm)
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.ubuntu20.x86_64.tgz   # 离线软件包：Ubuntu 20.04 (focal)
-https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz   # 离线软件包：Ubuntu 22.04 (jammy)
+VERSION=v2.7.0
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz        # Offline Package：EL 8(.9)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.debian12.x86_64.tgz   # Offline Package：Debian 12    (bookworm)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz   # Offline Package：Ubuntu 22.04 (jammy)
 ```
 
-For example, download v2.5.0 offline packages for EL7.x86_64:
+For example, download v2.7.0 offline packages for EL8.x86_64:
 
 ```bash
-curl -L https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el7.x86_64.tgz  -o /tmp/pkg.tgz
-curl -L https://get.pigsty.cc/v2.5.0/pigsty-pkg-v2.5.0.el7.x86_64.tgz -o /tmp/pkg.tgz  # China CDN Mirror
+curl -L https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.el8.x86_64.tgz  -o /tmp/pkg.tgz
+curl -L https://get.pigsty.cc/v2.7.0/pigsty-pkg-v2.7.0.el8.x86_64.tgz -o /tmp/pkg.tgz  # China CDN Mirror
 ```
 
 </details>
 
-Not all combinations of OS and architecture are supported yet. Please check the [RELEASENOTE](RELEASENOTE.md) page.
+Not all combinations of OS and architecture are supported yet. Please check the [RELEASENOTE](RELEASENOTE) page.
 You can always choose to install without it, and pull the latest packages from upstream.
 
 
@@ -220,7 +214,7 @@ You can always choose to install without it, and pull the latest packages from u
 
 ## Bootstrap
 
-`bootstrap` script will make sure one thing: `ansible` is ready for using. 
+`bootstrap` script will make sure one thing: [**Ansible**](PLAYBOOK#ansible) is ready for using.
 
 It will also download / extract / setup the offline [packages](#offline-packagess) if you choose to do so.
 
@@ -237,7 +231,7 @@ It will also download / extract / setup the offline [packages](#offline-packages
 
 2. Check local repo exists ?
    * Y -> Extract to `/www/pigsty` and create repo file to enable it
-   * N -> Download offline package from the Internet? 
+   * N -> Download offline package from the Internet?
      * Y -> Download from GitHub / CDN and extract & enable it
      * N -> Add basic os upstream repo file manually ?
           * Y -> add according to region / version
@@ -248,7 +242,7 @@ It will also download / extract / setup the offline [packages](#offline-packages
 3. install boot utils from the available repo
    * el7,8,9: `ansible createrepo_c unzip wget yum-utils sshpass`
    * el8 extra: `ansible python3.11-jmespath createrepo_c unzip wget dnf-utils sshpass modulemd-tools`
-   * el9 extra: `ansible python3.11-jmespath createrepo_c unzip wget dnf-utils sshpass modulemd-tools`
+   * el9 extra: `ansible python3-jmespath python3.11-jmespath createrepo_c unzip wget dnf-utils sshpass modulemd-tools`
    * ubuntu/debian: `ansible python3-jmespath dpkg-dev unzip wget sshpass acl`
 4. Check `ansible` availability.
 
@@ -260,7 +254,7 @@ It will also download / extract / setup the offline [packages](#offline-packages
 If `/tmp/pkg.tgz` already exists, bootstrap will use it directly:
 
 ```bash
-bootstrap pigsty v2.5.0 begin
+bootstrap pigsty v2.7.0 begin
 [ OK ] region = china
 [ OK ] kernel = Linux
 [ OK ] machine = x86_64
@@ -284,7 +278,7 @@ proceed with ./configure
 Download `pkg.tgz` from GitHub and extract it:
 
 ```bash
-bootstrap pigsty v2.5.0 begin
+bootstrap pigsty v2.7.0 begin
 [ OK ] region = china
 [ OK ] kernel = Linux
 [ OK ] machine = x86_64
@@ -292,7 +286,7 @@ bootstrap pigsty v2.5.0 begin
 [ OK ] sudo = vagrant ok
 [ IN ] Cache /tmp/pkg.tgz not exists, download? (y/n):
 => y
-[ OK ] download from Github https://get.pigsty.cc/v2.5.0/pigsty-pkg-v2.5.0.el7.x86_64.tgz to /tmp/pkg.tgz
+[ OK ] download from Github https://get.pigsty.cc/v2.7.0/pigsty-pkg-v2.7.0.el7.x86_64.tgz to /tmp/pkg.tgz
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  913M  100  913M    0     0   661k      0  0:23:33  0:23:33 --:--:--  834k
@@ -300,7 +294,7 @@ bootstrap pigsty v2.5.0 begin
 [ OK ] repo file = use /etc/yum.repos.d/pigsty-local.repo
 [ OK ] repo cache = created
 [ OK ] install el7 utils
-...... (yum install createrepo_c sshpass unzip output) 
+...... (yum install createrepo_c sshpass unzip output)
 ==================================================================================================================
  Package                        Arch                Version                       Repository                 Size
 ==================================================================================================================
@@ -360,27 +354,28 @@ proceed with ./configure
 
 ## Configure
 
-[`configure`](Config) will create a [`pigsty.yml`](https://github.com/Vonng/pigsty/blob/master/pigsty.yml) config file according to your environment.
+[`configure`](CONFIG) will create a [`pigsty.yml`](https://github.com/Vonng/pigsty/blob/master/pigsty.yml) config file according to your environment.
 
 ```bash
-./configure [-n|--non-interactive] [-i|--ip <ipaddr>] [-m|--mode <name>] [-r|--region <default|china|europe>]
+./configure [-n|--non-interactive] [-i|--ip <ipaddr>] [-m|--mode <name>] [-r|--region <default|china|europe>] [-x|--proxy]
 ```
 
-* `-m|--mode`: Generate config from [templates](https://github.com/Vonng/pigsty/tree/master/files/pigsty) according to `mode`: (`auto|demo|sec|citus|el8|el9|prod...`)
+* `-m|--mode`: Generate config from [templates](https://github.com/Vonng/pigsty/tree/master/files/pigsty) according to `mode`: (`auto|demo|sec|citus|el|el7|ubuntu|prod...`)
 * `-i|--ip`: Replace IP address placeholder `10.10.10.10` with your primary ipv4 address of current node.
 * `-r|--region`: Set upstream repo mirror according to `region` (`default|china|europe`)
 * `-n|--non-interactive`: skip interactive wizard and using default/arg values
+* `-x|--proxy`: setup `proxy_env` from current environment variables (`http_proxy`/`HTTP_PROXY`， `HTTPS_PROXY`， `ALL_PROXY`， `NO_PROXY`).
 
 When `-n|--non-interactive` is specified, you have to specify a primary IP address with `-i|--ip <ipaddr>` in case of multiple IP address, since there's no default value for primary IP address in this case.
 
-?> HINT: `configure` is **OPTIONAL** if you know how to [configure](CONFIG.md) pigsty manually.
+?> HINT: `configure` is **OPTIONAL** if you know how to [configure](CONFIG) pigsty manually.
 
 
 <details><summary>configure example output</summary>
 
 ```bash
 [vagrant@meta pigsty]$ ./configure
-configure pigsty v2.5.0 begin
+configure pigsty v2.7.0 begin
 [ OK ] region = china
 [ OK ] kernel = Linux
 [ OK ] machine = x86_64
@@ -414,7 +409,7 @@ You can run [`install.yml`](https://github.com/Vonng/pigsty/blob/master/pigsty.y
 ./install.yml    # install everything in one-pass
 ```
 
-It's a standard ansible [playbook](PLAYBOOK.md), you can have fine-grained control with ansible options:
+It's a standard ansible [playbook](PLAYBOOK), you can have fine-grained control with ansible options:
 
 * `-l`: limit execution targets
 * `-t`: limit execution tasks
@@ -422,6 +417,8 @@ It's a standard ansible [playbook](PLAYBOOK.md), you can have fine-grained contr
 * ...
 
 > **WARNING: It's very DANGEROUS to run [`install.yml`](https://github.com/Vonng/pigsty/blob/master/install.yml) on existing deployment!**
+>
+> You can use `chmod a-x install.yml` to avoid accidental execution.
 
 
 <details><summary>Installation Output Example</summary>
@@ -455,18 +452,18 @@ localhost                  : ok=3    changed=0    unreachable=0    failed=0    s
 
 ## Interface
 
-Once installed, you'll have 4 module [INFRA](INFRA.md), [NODE](NODE.md), [**ETCD**](ETCD.md) , [**PGSQL**](PGSQL.md) installed on the current node. 
+Once installed, you'll have 4 module [INFRA](INFRA), [NODE](NODE), [**ETCD**](ETCD) , [**PGSQL**](PGSQL) installed on the current node.
 
-* [**INFRA**](INFRA.md): Monitoring infrastructure can be accessed via `http://<ip>:80`
-* [**PGSQL**](PGSQL.md): PostgreSQL cluster can be [accessed](PGSQL-SVC.md#personal-user) via default PGURL:
+* [**INFRA**](INFRA): Monitoring infrastructure can be accessed via `http://<ip>:80`
+* [**PGSQL**](PGSQL): PostgreSQL cluster can be [accessed](PGSQL-SVC#personal-user) via default PGURL:
 
 ```bash
-psql postgres://dbuser_dba:DBUser.DBA@10.10.10.10/meta     # database superuser 
+psql postgres://dbuser_dba:DBUser.DBA@10.10.10.10/meta     # database superuser
 psql postgres://dbuser_meta:DBUser.Meta@10.10.10.10/meta   # business administrator
 psql postgres://dbuser_view:DBUser.View@pg-meta/meta       # default read-only user via domain name
 ```
 
-There are several services are exposed by Nginx (configured by [`infra_portal`](PARAM.md#infra_portal)):
+There are several services are exposed by Nginx (configured by [`infra_portal`](PARAM#infra_portal)):
 
 |  Component   | Port |   Domain   | Comment                  | Public Demo                                |
 |:------------:|:----:|:----------:|--------------------------|--------------------------------------------|
@@ -476,9 +473,9 @@ There are several services are exposed by Nginx (configured by [`infra_portal`](
 |  Prometheus  | 9090 | `p.pigsty` | Prometheus Web UI        | [`p.pigsty.cc`](http://p.pigsty.cc)        |
 
 You can configure public domain names for these infra services or just use local static DNS records & resolver.
-e.g., write records to `/etc/hosts` and access via DNS.
+e.g: write records to `/etc/hosts` and access via DNS.
 
-If [`nginx_sslmode`](PARAM.md#nginx_sslmode) is set to `enabled` or `enforced`, you can trust self-signed ca: `files/pki/ca/ca.crt` to use `https` in your browser.
+If [`nginx_sslmode`](PARAM#nginx_sslmode) is set to `enabled` or `enforced`, you can trust self-signed ca: `files/pki/ca/ca.crt` to use `https` in your browser.
 
 ```
 http://g.pigsty ️-> http://10.10.10.10:80 (nginx) -> http://10.10.10.10:3000 (grafana)
@@ -513,4 +510,4 @@ bin/pgsql-add  pg-test      # init HA PGSQL Cluster pg-test
 bin/redis-add  redis-ms     # init redis cluster redis-ms
 ```
 
-Check [PGSQL](PGSQL.md), [NODE](NODE.md), and [REDIS](REDIS.md) for detail.
+Remember that most modules require the [`NODE`] module installed first. Check [PGSQL](PGSQL), [REDIS](REDIS) for detail.

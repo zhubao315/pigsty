@@ -1,6 +1,6 @@
 # Support and Subscription
 
-Pigsty is a ready-to-use PostgreSQL database distribution, a local-first alternative to RDS/cloud database services, allowing users to run a fully-featured local RDS service at a hardware cost of just a few core months. The software itself is completely open-source and free. If it has helped you, please consider [sponsoring us](#sponsorship).
+Pigsty is a battery-included use PostgreSQL database distribution, a local-first alternative to RDS/cloud database services, allowing users to run a fully-featured local RDS service at a hardware cost of just a few core months. The software itself is completely open-source and free. If it has helped you, please consider [sponsoring us](#sponsorship).
 
 Although Pigsty is designed to replace manual database operations with database autopilot software, even the best software can only solve some problems. There will always be some infrequent issues and various problems not limited to technology that require expert intervention. Therefore, we also offer professional [service subscriptions](#service-subscription).
 
@@ -13,7 +13,7 @@ Pigsty is a free & open-source software nurtured by the passion of PostgreSQL co
 
 If our work has helped you, please consider sponsoring or supporting our project. Every penny counts, and advertisements are also a form of support:
 
-- Donate to us:  [Aifadian](https://afdian.net/a/pigsty).
+- Make Donation & Sponsor us.
 - Share your experiences and use cases of Pigsty through articles, lectures, and videos.
 - Allow us to mention your organization in "These users who use Pigsty"
 - Nominate/Recommend our project and services to your friends, colleagues, and clients in need.
@@ -21,18 +21,44 @@ If our work has helped you, please consider sponsoring or supporting our project
 
 The Pigsty community already offers free WeChat/Discord/Telegram Q&A Office Hours, and we are also happy to provide more free value-added services to our supporters.
 
+We have a GPTs for Pigsty documentation QA: https://chat.openai.com/g/g-y0USNfoXJ-pigsty-consul
+
 WeChat: Search `pigsty-cc` and join the User Group.
 
 Telegram: https://t.me/joinchat/gV9zfZraNPM3YjFh
 
-Discord: https://discord.gg/Mu2b6Wxr
+Discord: https://discord.gg/j5pG8qfKxU
 
 
 ------------------
 
 ## Service Subscription
 
-If you have the following needs, please consider our **professional services subscription**.
+|    Plan    |                  Open Source                  |                                      Basic                                       |                                                 Pro                                                  |                                                                     Enterprise                                                                     |
+|:----------:|:---------------------------------------------:|:--------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------:|
+|    Who     |     Self-sufficient OSS Guru, Developers      |                   Elite tech team who seeks additional support                   |                                   suitable choice for common users                                   |                                                    critical scenarios that require strict SLAs                                                     |
+|   Price    |           **Free** under **AGPLv3**           |                                **7,000** $ / Year                                |                                         **20,000** $ / Year                                          |                                                                **50,000** $ / Year                                                                 |
+| Node Size  |                 **Unlimited**                 |                                     **<= 5**                                     |                                              **<= 15**                                               |                                                                     **<= 40**                                                                      |
+|  Consult   | Community Support<br />Groups, Issues, Discuz |           **Bug Fix & Security Patch**<br />**Failure Analysis**<br />           | **Bug Fix & Security Patch**<br />**Failure Analysis**<br />**Upgrade Path**<br />**DBA Consulting** | **Bug Fix & Security Patch**<br />**Failure Analysis**<br />**Upgrade Path**<br />**DBA Consulting**<br />**Arch Review**<br />**Failure on-call** |
+|  Service   |                       -                       |                           One-time setup (< 1 workday)                           |                                       Two free workdays / Year                                       |                                                             Four free workdays / Year                                                              |
+|  Product   |                  Pigsty OSS                   |                                  Pigsty **PRO**                                  |                                            Pigsty **PRO**                                            |                                                                   Pigsty **PRO**                                                                   |
+| PG Support |           Last 1 version<br />PG 16           |                      Last **2** version<br />PG **15**, 16                       |                                Lifecycle version<br />PG **12** - 16                                 |                                                     15 Version Since 9.0<br />PG **9.0** - 16                                                      |
+| OS Support |        EL 8.9 / 9.3<br />Ubuntu 22.04         | EL 7.9 / **8.x** / **9.x**<br />Ubuntu 22.04 / **20.04**<br />**Debian 11 / 12** |           EL 7.9 / **8.x** / **9.x**<br />Ubuntu 22.04 / **20.04**<br />**Debian 11 / 12**           |                   EL **7.x** / **8.x** / **9.x**<br />**Ubuntu / Debian LTS**<br /> **UOS v20 / Anolis 8.8** <br />**Be spoke**                    |
+|    Arch    |                    x86_64                     |                                      x86_64                                      |                                                x86_64                                                |                                                              x86_64<br />**ARM64** ❋                                                               |
+|    SLA     |                       -                       |                                      < 48h                                       |                                              **5 x 8**                                               |                                                                     **7 x 24**                                                                     |
+| Cost Like  |      Compare to <br />**RDS** & **DBA**       |                     **12** vCPU RDS<br />Part-Time Operators                     |                               **40** vCPU RDS<br />**??%** Junior DBA                                |                                                         **100** vCPU RDS<br />**??%** DBA                                                          |
+
+
+Pigsty Pro offers an expanded range of features, supporting a wider variety of operating system distributions, PostgreSQL major versions, and a richer set of extension plugins. It also includes offline software packages tailored for each OS minor version to ensure optimal compatibility.
+
+Pigsty subscriptions operate on an annual payment model, providing users with an annual license for the Pigsty commercial version. 
+This includes access to the latest software versions and upgrade paths released within the year, along with comprehensive consulting, Q&A, and service support. 
+A larger scale implies more complex scenarios, more issues, and a higher chance of failure events: thus, each subscription comes with a node scale limit. 
+For example, if you are using the Pro subscription and manage 15 nodes, you will need to pay an additional subscription fee for each node beyond the limit (10,000 RMB per node).
+
+Pigsty's pricing strategy ensures value for money — you can immediately obtain top-notch DBA database architecture solutions and management best practices, all backed by consulting, Q&A, and service support, at a cost that is highly competitive compared to find-out & hiring rare database Guru or using cloud RDS.
+
+If you have the following needs, please consider our **subscription**:
 
 - Running databases in critical scenarios and needing strict SLA guarantees.
 - Seeking backup for Pigsty and PostgreSQL-related issues.
@@ -44,35 +70,11 @@ If you have the following needs, please consider our **professional services sub
 - Seeking support for domestic trusted operating systems/domestic trusted ARM chip architectures and providing Chinese/localized interface support.
 - Moving off the cloud and seeking an open-source alternative to RDS for PostgreSQL - a cloud-neutral, vendor-lock-in-free solution.
 - Seeking professional technical support for Redis/ETCD/MinIO/Greenplum/Citus/TimescaleDB.
-- Wanting to avoid the restrictions of the AGPL v3 license of Pigsty itself, doing derivative works being forced to use the same open-source license for secondary development and branding.
+- Wanting to avoid the restrictions of the AGPLv3 license of Pigsty itself, doing derivative works being forced to use the same open-source license for secondary development and branding.
 - Consider selling Pigsty as SaaS/PaaS/DBaaS or providing technical services/consulting services based on this distribution.
 
 Service subscriptions are divided into two different levels, **Standard Service Agreement,** and **Enterprise Service Agreement**, as shown in the table below:
 
-|       Agreement/Plan       |                  AGPLv3 Open Source License                  |                  Standard Service Agreement                  |                 Enterprise Service Agreement                 |
-| :------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|        Description         | Designed for users and developers who comply with the AGPLv3 open-source license and are fully self-sufficient | Designed for users who are mostly self-sufficient but want direct support from Pigsty and backup for complex issues | Designed for scenarios that require strict SLAs and maximum support for critical tasks |
-|       Version Range        |                       Current version                        |   Versions released within the last year and LTS versions    |         Versions released within the last five years         |
-|       Support Method       |                   WeChat group public Q&A                    |         Remote desktop / WeChat <br /> Phone / Email         | Remote desktop / WeChat / Phone /<br /> Email / On-site / On-site* |
-|   Language and Interface   |                           English                            |                        + Localization                        |                        + Localization                        |
-|           Price            |                             Free                             |     10 \$ / core·month or <br/> 100 \$ / instance·month      |     20 \$ / core·month or <br/> 200 \$ / instance·month      |
-|       Starting Price       |                                                              |                        5,000 $ / year                        |                       10,000 $ / year                        |
-|        Expert Days         |                                                              |      One expert day for every 2,000 $ subscription fee       |      One expert day for every 2,000 $ subscription fee       |
-|            SLA             |                                                              |                  Respond within < 48 hours                   |                   Respond within < 2 hours                   |
-|         Time Range         |                                                              |                 8 x 5 (local business hour)                  |                            7 x 24                            |
-|   Performance Diagnosis    |                                                              |                      ✅ Unlimited times                       |                      ✅ Unlimited times                       |
-|        Panic Button        |                                                              |                        ✅ Once a year                         |                      ✅ Unlimited times                       |
-|      Upgrade Guidance      |                                                              |                        ✅ Once a year                         |                      ✅ Unlimited times                       |
-| Annual Architecture Review |                                                              |                                                              |                        ✅ Once a year                         |
-| Annual Performance Review  |                                                              |                                                              |                        ✅ Once a year                         |
-
-- Billing is based on CPU core or instance count, using $/(core·month) as the unit. Instances exceeding ten cores are counted as ten cores.
-- Subscriptions include limited expert days, which can be used for training, consulting, planning, upgrade guidance, fault analysis, troubleshooting, production check-ups, and teaching training.
-- Normal service support is provided via remote desktop/phone/Slack/Discord/email/Zoom. On-site support requires additional travel expenses, and the standard is based on the contract.
-- The final price will be adjusted based on the self-sufficiency of your A team, and scale, scope, work time, and content will also be considered. Please refer to the contract.
-- We will do our best to provide feasible suggestions and solutions. If the consultation problem is not resolved, the fee will be reduced at our discretion. The specific SLA is based on the contract.
-
-> Check [Vantage](https://instances.vantage.sh/) for realtime cloud RDS price.
 
 Commercial support contact: Email: [rh@vonng.com](mailto:rh@vonng.com), WeChat: pigsty-cc / RuohangFeng
 
@@ -81,26 +83,25 @@ Commercial support contact: Email: [rh@vonng.com](mailto:rh@vonng.com), WeChat: 
 
 ## Miscellaneous
 
-We offer retail expert days that can be used for failure analysis, post-mortem, troubleshooting, performance analysis, problem-solving, teaching, and training, which can be purchased as needed.
+We offer retail expert days that can be used for database architecting, failure analysis, postmortem, troubleshooting, performance analysis, problem-solving, teaching, and training, which can be purchased as needed.
 
-- Top Expert: 20,000 ¥ / day (Top database experts with over ten years of experience, PCM/ACE, P9+)
-- Senior Expert: 15,000 ¥ / day (Database experts with 5-10 years of experience, P8+/ICT4+)
-- Technical Expert: 10,000 ¥ / day (P7+)
+- Top Expert: 3,000 $ / day
+- Senior Expert: 2,000 ¥ / day
+
+The above prices are exclusive of taxes. The minimum unit is half a day, less than that will be charged as half a day.
+Price is doubled outside regular working hours (5x8), and it's tripled on public holidays.
+Pricing & Discount may vary depending on the industry and the technical level of the client's team.
+
+Expert days need to be arranged at least one day before. 
+Emergency failure responding is not applicable here and only available to subscribed customers.
 
 We offer teaching and training services on PostgreSQL, priced as follows:
 
-- PostgreSQL Application Development: 20,000 ¥ / 1 day, up to 20 people.
-- PostgreSQL Operations Management: 20,000 ¥ / 1 day, up to 20 people.
-- PostgreSQL Kernel Architecture: 35,000 ¥ / 1 day, up to 10 people.
+- PostgreSQL Application Development: 1 x expert day, up to 20 people.
+- PostgreSQL Management & Operation: 1 x expert day, up to 20 people.
+- PostgreSQL Kernel Architecture: 2 x expert day, up to 10 people.
 
-We offer deployment consulting and troubleshooting services, priced as follows:
+We offer deployment consulting and architecting services, priced as follows:
 
-- Deployment Consulting: 1000¥ / case, planning a deployment solution based on your existing resources and needs.
-- Small Cases: 5000¥ / case, solving a non-urgent fault case, not exceeding half a working day, remote only.
-- Large Cases include production fault recovery, data deletion recovery, and price negotiable.
-
-Other services we offer include:
-
-- On-site DBA: Only available for large-scale subscription customers.
-- Custom Features: Database kernel modification / OS chip architecture adaptation / RDS service OEM branding.
-- Projects: Database system/data warehouse, observability, data analysis/data visualization related projects.
+- Planning a deployment solution based on your existing resources and needs.
+- 150 $/h, at least one hour per case, remote only. Delivery includes the `pigsty.yml` file. 

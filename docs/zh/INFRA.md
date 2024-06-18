@@ -85,7 +85,7 @@ Pigsty的离线软件包即是将已经建立好的软件源目录（yum/apt）�
 Repo定义文件位于 `/www/pigsty.repo`，默认可以通过 `http://${admin_ip}/pigsty.repo` 获取
 
 ```bash
-curl http://h.pigsty/pigsty.repo -o /etc/yum.repos.d/pigsty.repo
+curl -L http://h.pigsty/pigsty.repo -o /etc/yum.repos.d/pigsty.repo
 ```
 
 您也可以在没有Nginx的情况下直接使用文件本地源：
@@ -151,7 +151,7 @@ DNSMASQ 提供环境内的DNS**解析**服务，其他模块的域名将会注�
 
 DNS记录默认放置于所有INFRA节点的 `/etc/hosts.d/` 目录中。
 
-DNSMASQ相关配置参数位于：[配置：INFRA - DNS](param#dns)
+DNSMASQ相关配置参数位于：[配置：INFRA - DNS](PARAM#dns)
 
 
 
@@ -162,7 +162,7 @@ DNSMASQ相关配置参数位于：[配置：INFRA - DNS](param#dns)
 
 NTP服务用于同步环境内所有节点的时间（可选）
 
-NTP相关配置参数位于：[配置：NODES - NTP](param#node_time)
+NTP相关配置参数位于：[配置：NODES - NTP](PARAM#node_time)
 
 
 
@@ -441,7 +441,7 @@ INFRA模块剧本 [`install.yml`](https://github.com/vonng/pigsty/blob/master/in
 
 ## 参数
 
-[`INFRA`](PARAM#INFRA) 模块有下列10个参数组。
+[`INFRA`](PARAM#infra) 模块有下列10个参数组。
 
 - [`META`](PARAM#meta)：Pigsty元数据
 - [`CA`](PARAM#ca)：自签名公私钥基础设施/CA
@@ -491,6 +491,7 @@ INFRA模块剧本 [`install.yml`](https://github.com/vonng/pigsty/blob/master/in
 | [`prometheus_enabled`](PARAM#prometheus_enabled)                 | [`PROMETHEUS`](PARAM#prometheus)       |    bool    | G/I | 在此基础设施节点上启用 prometheus？                 |
 | [`prometheus_clean`](PARAM#prometheus_clean)                     | [`PROMETHEUS`](PARAM#prometheus)       |    bool    | G/A | 初始化Prometheus的时候清除现有数据？                 |
 | [`prometheus_data`](PARAM#prometheus_data)                       | [`PROMETHEUS`](PARAM#prometheus)       |    path    |  G  | Prometheus 数据目录，默认为 `/data/prometheus`` |
+| [`prometheus_sd_dir`](PARAM#prometheus_sd_dir)                   | [`PROMETHEUS`](PARAM#prometheus)       |    path    |  G  | Prometheus 服务发现目标文件目录                   |
 | [`prometheus_sd_interval`](PARAM#prometheus_sd_interval)         | [`PROMETHEUS`](PARAM#prometheus)       |  interval  |  G  | Prometheus 目标刷新间隔，默认为 5s                |
 | [`prometheus_scrape_interval`](PARAM#prometheus_scrape_interval) | [`PROMETHEUS`](PARAM#prometheus)       |  interval  |  G  | Prometheus 抓取 & 评估间隔，默认为 10s            |
 | [`prometheus_scrape_timeout`](PARAM#prometheus_scrape_timeout)   | [`PROMETHEUS`](PARAM#prometheus)       |  interval  |  G  | Prometheus 全局抓取超时，默认为 8s                |

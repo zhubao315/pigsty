@@ -263,13 +263,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 20,
                     "valueSize": 16
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -317,7 +319,6 @@
                     "refId": "A"
                 }
             ],
-            "transformations": [],
             "type": "stat"
         },
         {
@@ -839,7 +840,6 @@
                 "y": 1
             },
             "id": 394,
-            "links": [],
             "options": {
                 "cellHeight": "sm",
                 "footer": {
@@ -858,7 +858,7 @@
                     }
                 ]
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1240,7 +1240,7 @@
                     }
                 ]
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1982,7 +1982,7 @@
                     }
                 ]
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2413,6 +2413,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -2516,6 +2517,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -2634,6 +2636,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -2729,6 +2732,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -2824,6 +2828,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -2920,6 +2925,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3014,6 +3020,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3056,12 +3063,12 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "#346f36cc",
-                                "value": null
+                                "color": "#346f36cc"
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3108,6 +3115,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3150,12 +3158,12 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "#346f36cc",
-                                "value": null
+                                "color": "#346f36cc"
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3218,6 +3226,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3264,7 +3273,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3309,6 +3319,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3355,7 +3366,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3400,6 +3412,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3446,7 +3459,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3491,6 +3505,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3537,7 +3552,8 @@
                             }
                         ]
                     },
-                    "unit": "percentunit"
+                    "unit": "percentunit",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3582,6 +3598,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3628,7 +3645,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3673,6 +3691,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3719,7 +3738,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3780,6 +3800,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3826,7 +3847,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3873,6 +3895,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3919,7 +3942,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -3966,6 +3990,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4006,7 +4031,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4054,6 +4080,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4098,7 +4125,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4161,6 +4189,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4207,7 +4236,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4253,6 +4283,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4299,7 +4330,8 @@
                             }
                         ]
                     },
-                    "unit": "percentunit"
+                    "unit": "percentunit",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4345,6 +4377,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4391,7 +4424,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4437,6 +4471,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4483,7 +4518,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4529,6 +4565,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4573,7 +4610,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4619,6 +4657,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4663,7 +4702,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4725,6 +4765,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4769,7 +4810,8 @@
                             }
                         ]
                     },
-                    "unit": "short"
+                    "unit": "short",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4815,6 +4857,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4859,7 +4902,8 @@
                             }
                         ]
                     },
-                    "unit": "ms"
+                    "unit": "ms",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4904,6 +4948,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4948,7 +4993,8 @@
                             }
                         ]
                     },
-                    "unit": "ms"
+                    "unit": "ms",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -4993,6 +5039,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -5037,7 +5084,8 @@
                             }
                         ]
                     },
-                    "unit": "ms"
+                    "unit": "ms",
+                    "unitScale": true
                 },
                 "overrides": []
             },
@@ -5275,8 +5323,7 @@
     ],
     "refresh": "",
     "revision": 1,
-    "schemaVersion": 38,
-    "style": "dark",
+    "schemaVersion": 39,
     "tags": [
         "Pigsty",
         "PGSQL",

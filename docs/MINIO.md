@@ -59,7 +59,7 @@ To use multiple disks on a single node, you have to specify the [`minio_data`](P
 minio:
   hosts: { 10.10.10.10: { minio_seq: 1 } }
   vars:
-    minio_cluster: minio         # minio cluster name, minio by default
+    minio_cluster: minio         # minio cluster identifier, REQUIRED
     minio_data: '/data{1...4}'   # minio data dir(s), use {x...y} to specify multi drivers
 ```
 
@@ -287,7 +287,7 @@ There are two dashboards for [`MINIO`](MINIO) module.
 
 ## Parameter
 
-There are 15 parameters in [`MINIO`](PARAM#MINIO) module.
+There are 15 parameters in [`MINIO`](PARAM#minio) module.
 
 
 | Parameter                                    |   Type   | Level | Comment                                                 |
@@ -310,8 +310,8 @@ There are 15 parameters in [`MINIO`](PARAM#MINIO) module.
 
 
 ```yaml
-#minio_seq: 1                     # minio instance identifier, REQUIRED
-minio_cluster: minio              # minio cluster name, minio by default
+#minio_seq: 1                     # minio cluster identifier, REQUIRED
+#minio_cluster: minio             # minio cluster name, minio by default
 minio_clean: false                # cleanup minio during init?, false by default
 minio_user: minio                 # minio os user, `minio` by default
 minio_node: '${minio_cluster}-${minio_seq}.pigsty' # minio node name pattern

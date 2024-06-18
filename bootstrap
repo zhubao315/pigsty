@@ -3,12 +3,12 @@
 # File      :   bootstrap
 # Desc      :   setup local repo & install boot utils
 # Ctime     :   2022-10-16
-# Mtime     :   2023-10-15
+# Mtime     :   2024-02-29
 # Path      :   bootstrap
 # Author    :   Ruohang Feng (rh@vonng.com)
 # License   :   AGPLv3
 #==============================================================#
-PIGSTY_VERSION=v2.5.0
+PIGSTY_VERSION=v2.7.0
 
 
 #--------------------------------------------------------------#
@@ -32,7 +32,7 @@ PIGSTY_VERSION=v2.5.0
 #  -n  --no              : do not download pkg.tgz from internet
 #--------------------------------------------------------------#
 REGION=""               # which mirror to use? (default|china)
-DOWNLOAD_PKG=ask        # download pkg.tgz ? (ask|yes|no, ask by default)
+DOWNLOAD_PKG="ask"      # download pkg.tgz ? (ask|yes|no, ask by default)
 PKG_PATH=/tmp/pkg.tgz   # which pkg to be used ? (/tmp/pkg.tgz by default)
 
 
@@ -250,13 +250,13 @@ function download_file(){
     else
       log_warn "data url file size ${curl_size} != local ${size}, downloading ${data_url}"
       log_info "$ curl ${data_url} -o ${data_file}"
-      curl ${data_url} -o ${data_file}
+      curl -L ${data_url} -o ${data_file}
       return $?
     fi
   else
     # log_info "download ${data_url} to ${data_file}"
     log_info "$ curl ${data_url} -o ${data_file}"
-    curl ${data_url} -o ${data_file}
+    curl -L ${data_url} -o ${data_file}
     return $?
   fi
 }
@@ -266,17 +266,16 @@ function check_pkg(){
     local pkg_path=${2-${PKG_PATH}}          # default download path : /tmp/pkg.tgz
     local download_pkg=${3-${DOWNLOAD_PKG}}  # flag: if set, skip interactive asking
 
+    # build pigsty pkg download url
     if [[ ${pkg_url} == "" ]]; then
         baseurl="https://github.com/Vonng/pigsty/releases/download/${PIGSTY_VERSION}"
         if [ "${REGION}" = "china" ]; then
             baseurl="https://get.pigsty.cc/${PIGSTY_VERSION}"
         fi
-
-        # TODO: debian/ubuntu naming
         if [[ ${OS_PACKAGE} == "rpm" ]]; then
             pkg_url="${baseurl}/pigsty-pkg-${PIGSTY_VERSION}.el${OS_VERSION}.x86_64.tgz"
         elif [[ ${OS_PACKAGE} == "deb" ]]; then
-            pkg_url="${baseurl}/pigsty-pkg-${PIGSTY_VERSION}.ubuntu${OS_VERSION}.x86_64.tgz"
+            pkg_url="${baseurl}/pigsty-pkg-${PIGSTY_VERSION}.${OS_VENDOR}${OS_VERSION}.x86_64.tgz"
         fi
     fi
 
@@ -291,9 +290,24 @@ function check_pkg(){
         fi
     fi
 
+    # EL 8, Debian 12, Ubuntu 22 has official offline packages!
+    if [[ ${OS_PACKAGE} == "rpm" && ${OS_VERSION} == "8" ]]; then
+        log_info "EL 8.9 has pre-packed offline package available:"
+        log_hint "       ${pkg_url}\n"
+    elif [[ ${OS_PACKAGE} == "deb" && ${OS_CODENAME} == "jammy" ]]; then
+        log_info "Ubuntu 22.04 jammy has pre-packed offline package available:"
+        log_hint "       ${pkg_url}\n"
+    elif [[ ${OS_PACKAGE} == "deb" && ${OS_CODENAME} == "bookworm" ]]; then
+        log_info "Debian 12 bookworm has pre-packed offline package available:"
+        log_hint "       ${pkg_url}\n"
+    else
+        log_warn "${OS_VENDOR} ${OS_VERSION} ${OS_CODENAME} does not have corresponding offline package, use online install"
+        download_pkg="no"
+    fi
+
     # ask for confirmation if in interactive mode (and download is not specified)
     if [[ ${download_pkg} == "ask" ]]; then
-        log_input "Cache /tmp/pkg.tgz not exists, download? (y/n):"
+        log_input "offline package not exist on /tmp/pkg.tgz, download? (y/n):"
         read -r
         local reply=$(echo "$REPLY" | tr '[:upper:]' '[:lower:]')
         case "${reply}" in
@@ -334,7 +348,11 @@ function check_repo(){
         sudo rm -rf ${repo_dir}
     fi
     log_info "repo = extract from ${pkg_path}"
-    sudo tar -xf ${pkg_path} -C ${nginx_home}  # extract to /www/pigsty
+    if ! [ -x "$(command -v tar)" ]; then
+      log_error 'tar is not installed'
+      return 1
+    fi
+    sudo tar -xf ${pkg_path} -C ${nginx_home}  # extract
 }
 
 
@@ -526,9 +544,11 @@ function check_repo_file(){
     fi
 
     if [[ ${OS_PACKAGE} == "rpm" ]]; then
+        log_warn "rpm cache = updating, make take a while"
         sudo yum clean all -q
         sudo yum makecache -q
     elif [[ ${OS_PACKAGE} == "deb" ]]; then
+        log_warn "apt cache = updating, make take a while"
         sudo apt update
     fi
 
@@ -554,11 +574,11 @@ function check_utils(){
         elif [[ $OS_VERSION == "8" ]]; then
             log_info "install el8 utils"
             sudo dnf install -y createrepo_c unzip wget dnf-utils sshpass modulemd-tools
-            sudo dnf install -y ansible python3.11-jmespath
+            sudo dnf install -y ansible python3.11-jmespath python3-cryptography
         elif [[ $OS_VERSION == "9" ]]; then
             log_info "install el9 utils"
             sudo dnf install -y createrepo_c unzip wget dnf-utils sshpass modulemd-tools
-            sudo dnf install -y ansible python3.11-jmespath
+            sudo dnf install -y ansible python3.11-jmespath python3-jmespath
         fi
         # restore backup repo
         sudo cp -f /etc/yum.repos.d/backup/*.repo /etc/yum.repos.d/ 2> /dev/null || true
@@ -610,7 +630,7 @@ function main(){
     check_kernel          # kernel        = Linux
     check_machine         # machine       = x86_64
     check_package_manager # package = rpm|deb, manager = dnf|yum|zypper|apt|apt-get
-    check_vendor_version  # release       = centos, version = 7,8,9...
+    check_vendor_version  # release       = rocky, version = 7,8,9...
     check_sudo            # current_user  = NOPASSWD sudo
     check_pkg             # check offline installation package exists (INTERACTIVE: ask for download confirmation)
     check_repo            # create repo from pkg.tgz if exists

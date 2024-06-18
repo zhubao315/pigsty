@@ -162,12 +162,14 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "valueSize": 26
                 },
-                "textMode": "name"
+                "textMode": "name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1126,7 +1128,7 @@
                     }
                 ]
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1488,10 +1490,12 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {},
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1561,10 +1565,12 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {},
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2173,7 +2179,7 @@
                     }
                 ]
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2452,13 +2458,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2549,13 +2557,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2638,13 +2648,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2727,13 +2739,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2833,13 +2847,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -2926,13 +2942,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3035,13 +3053,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3128,13 +3148,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3233,13 +3255,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3333,13 +3357,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3441,13 +3467,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3538,13 +3566,15 @@
                     "fields": "",
                     "values": false
                 },
+                "showPercentChange": false,
                 "text": {
                     "titleSize": 12,
                     "valueSize": 18
                 },
-                "textMode": "value_and_name"
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -3589,6 +3619,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3707,6 +3738,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -3887,6 +3919,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4024,6 +4057,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4133,6 +4167,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4352,6 +4387,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4479,6 +4515,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4584,6 +4621,7 @@
                         "mode": "palette-classic"
                     },
                     "custom": {
+                        "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
                         "axisLabel": "",
@@ -4796,8 +4834,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "#346f36cc",
-                                "value": null
+                                "color": "#346f36cc"
                             }
                         ]
                     }
@@ -4856,8 +4893,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "#346f36cc",
-                                "value": null
+                                "color": "#346f36cc"
                             }
                         ]
                     }
@@ -7035,7 +7071,7 @@
                     "legendFormat": "",
                     "metricColumn": "none",
                     "rawQuery": true,
-                    "rawSql": "SELECT queryid::TEXT AS query, sum(total_exec_time) AS time_spent, sum(calls) AS calls, \n       sum(total_exec_time) / sum(calls) AS rt \nFROM\n(SELECT queryid, total_exec_time, calls FROM monitor.pg_stat_statements s ORDER BY rows DESC LIMIT 200) raw\nWHERE calls > 0\nGROUP BY 1 ORDER BY 2 DESC;",
+                    "rawSql": "SELECT queryid::TEXT AS query, sum(total_exec_time) AS time_spent, sum(calls) AS calls, \n       sum(total_exec_time) / sum(calls) AS rt \nFROM\n(SELECT queryid, total_exec_time, calls FROM pg_stat_statements s ORDER BY rows DESC LIMIT 200) raw\nWHERE calls > 0\nGROUP BY 1 ORDER BY 2 DESC;",
                     "refId": "A",
                     "select": [
                         [
@@ -7072,7 +7108,7 @@
                     "legendFormat": "",
                     "metricColumn": "none",
                     "rawQuery": true,
-                    "rawSql": "SELECT queryid::TEXT AS query, sum(total_exec_time) AS time_spent, sum(calls) AS calls, \n       sum(total_exec_time) / sum(calls) AS rt \nFROM\n(SELECT queryid, total_exec_time, calls FROM monitor.pg_stat_statements s ORDER BY rows DESC LIMIT 200) raw\nWHERE calls > 0\nGROUP BY 1 ORDER BY 2 DESC;",
+                    "rawSql": "SELECT queryid::TEXT AS query, sum(total_exec_time) AS time_spent, sum(calls) AS calls, \n       sum(total_exec_time) / sum(calls) AS rt \nFROM\n(SELECT queryid, total_exec_time, calls FROM pg_stat_statements s ORDER BY rows DESC LIMIT 200) raw\nWHERE calls > 0\nGROUP BY 1 ORDER BY 2 DESC;",
                     "refId": "B",
                     "select": [
                         [
@@ -7354,8 +7390,7 @@
     ],
     "refresh": "",
     "revision": 1,
-    "schemaVersion": 38,
-    "style": "light",
+    "schemaVersion": 39,
     "tags": [
         "Pigsty",
         "PGSQL",

@@ -55,7 +55,7 @@
 - [创建用户](PGSQL-ADMIN#创建用户)
 - [创建数据库](PGSQL-ADMIN#创建数据库)
 - [重载服务](PGSQL-ADMIN#重载服务)
-- [重载HBA](PGSQL-ADMIN#重载HBA)
+- [重载HBA](PGSQL-ADMIN#重载hba)
 - [配置集群](PGSQL-ADMIN#配置集群)
 - [添加实例](PGSQL-ADMIN#添加实例)
 - [移除实例](PGSQL-ADMIN#移除实例)
@@ -63,7 +63,7 @@
 - [主动切换](PGSQL-ADMIN#主动切换)
 - [备份集群](PGSQL-ADMIN#备份集群)
 - [恢复集群](PGSQL-ADMIN#恢复集群)
-- [疑难杂症](FAQ#PGSQL)
+- [疑难杂症](FAQ#pgsql)
 
 
 ----------------
@@ -110,10 +110,9 @@
 |                                                           | [PGSQL Replication](https://demo.pigsty.cc/d/pgsql-replication) |   [PGSQL Persist](https://demo.pigsty.cc/d/pgsql-persist)   |    [PGSQL Table](https://demo.pigsty.cc/d/pgsql-table)    |
 |                                                           |     [PGSQL Service](https://demo.pigsty.cc/d/pgsql-service)     |     [PGSQL Proxy](https://demo.pigsty.cc/d/pgsql-proxy)     |    [PGCAT Table](https://demo.pigsty.cc/d/pgcat-table)    |
 |                                                           |   [PGSQL Databases](https://demo.pigsty.cc/d/pgsql-databases)   | [PGSQL Pgbouncer](https://demo.pigsty.cc/d/pgsql-pgbouncer) |    [PGSQL Query](https://demo.pigsty.cc/d/pgsql-query)    |
-|                                                           |                                                                 |   [PGSQL Session](https://demo.pigsty.cc/d/pgsql-session)   |    [PGCAT Query](https://demo.pigsty.cc/d/pgcat-query)    |
+|                                                           |     [PGSQL Patroni](https://demo.pigsty.cc/d/pgsql-patroni)     |   [PGSQL Session](https://demo.pigsty.cc/d/pgsql-session)   |    [PGCAT Query](https://demo.pigsty.cc/d/pgcat-query)    |
 |                                                           |                                                                 |     [PGSQL Xacts](https://demo.pigsty.cc/d/pgsql-xacts)     |    [PGCAT Locks](https://demo.pigsty.cc/d/pgcat-locks)    |
-|                                                           |                                                                 |   [Logs Instance](https://demo.pigsty.cc/d/logs-instance)   |   [PGCAT Schema](https://demo.pigsty.cc/d/pgcat-schema)   |
-
+|                                                           |                                                                 |  [PGSQL Exporter](https://demo.pigsty.cc/d/pgsql-exporter)  |   [PGCAT Schema](https://demo.pigsty.cc/d/pgcat-schema)   |
 
 
 ----------------

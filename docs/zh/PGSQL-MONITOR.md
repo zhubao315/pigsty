@@ -121,7 +121,7 @@ Pigsty 提供三种监控模式，以适应不同的监控需求。
 
 ## 监控RDS
 
-如果您**只能通过PGURL**（数据库连接串）的方式访问目标数据库，那么可以参照这里的说明进行配置。在这种模式下，Pigsty 在 [INFRA节点](NODE#INFRA节点) 上部署对应的 PG Exporter，抓取远端数据库指标信息。如下图所示：
+如果您**只能通过PGURL**（数据库连接串）的方式访问目标数据库，那么可以参照这里的说明进行配置。在这种模式下，Pigsty 在 [INFRA节点](NODE#infra节点) 上部署对应的 PG Exporter，抓取远端数据库指标信息。如下图所示：
 
 ```
 ------ infra ------
@@ -276,7 +276,7 @@ ALTER USER dbuser_monitor SET log_min_duration_statement = 1000;  -- 建议设�
 ALTER USER dbuser_monitor SET search_path = monitor,public;       -- 建议设置此参数，避免 pg_stat_statements 扩展无法生效
 ```
 
-请注意，这里创建的监控用户与密码需要与 [`pg_monitor_username`](param#pg_monitor_username) 与 [`pg_monitor_password`](param#pg_monitor_password) 保持一致。
+请注意，这里创建的监控用户与密码需要与 [`pg_monitor_username`](PARAM#pg_monitor_username) 与 [`pg_monitor_password`](PARAM#pg_monitor_password) 保持一致。
 
 
 ---------------------

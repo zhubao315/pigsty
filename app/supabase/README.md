@@ -4,6 +4,8 @@
 
 Pigsty allow you to self-host **supabase** with existing managed HA postgres cluster, and launch the stateless part of supabase with docker-compose.
 
+> Notice: Supabase is [GA](https://supabase.com/ga) since 2024.04.15
+
 
 -----------------------
 
@@ -71,29 +73,49 @@ pg-meta:
       - { user: all ,db: supa ,addr: intra       ,auth: pwd ,title: 'allow supa database access from intranet'}
       - { user: all ,db: supa ,addr: 172.0.0.0/8 ,auth: pwd ,title: 'allow supa database access from docker network'}
     pg_extensions:                                        # required extensions
-      - pg_repack_15* wal2json_15* pgvector_15* pg_cron_15* pgsodium_15*
-      - vault_15* pg_graphql_15* pgjwt_15* pg_net_15* pgsql-http_15*
+      - pg_repack_${pg_version}* wal2json_${pg_version}* pgvector_${pg_version}* pg_cron_${pg_version}* pgsodium_${pg_version}*
+      - vault_${pg_version}* pg_graphql_${pg_version}* pgjwt_${pg_version}* pg_net_${pg_version}* pgsql-http_${pg_version}*
     pg_libs: 'pg_net, pg_stat_statements, auto_explain'    # add pg_net to shared_preload_libraries
 ```
 
 Beware that `baseline: supa.sql` parameter will use the [`files/supa.sql`](https://github.com/Vonng/pigsty/blob/master/files/supa.sql) as database baseline schema, which is gathered from [here](https://github.com/supabase/postgres/tree/develop/migrations/db/init-scripts).
-You also have to run the migration script: [`migration.sql`](migration.sql) after the cluster provisioning, which is gathered from [supabase/postgres/migrations/db/migrations](https://github.com/supabase/postgres/tree/develop/migrations/db/migrations) in chronological order and slightly modified to fit Pigsty.
+You also have to run the migration script: [`migration.sql`](migration.sqlc) after the cluster provisioning, which is gathered from [supabase/postgres/migrations/db/migrations](https://github.com/supabase/postgres/tree/develop/migrations/db/migrations) in chronological order and slightly modified to fit Pigsty.
 
-You can check the latest migration files and add them to [`migration.sql`](migration.sql), the current script is synced with [20231013070755](https://github.com/supabase/postgres/blob/develop/migrations/db/migrations/20231013070755_grant_authenticator_to_supabase_storage_admin.sql).
+You can check the latest migration files and add them to [`migration.sql`](migration.sqlc), the current script is synced with [20231013070755](https://github.com/supabase/postgres/blob/develop/migrations/db/migrations/20231013070755_grant_authenticator_to_supabase_storage_admin.sql).
 You can run migration on provisioned postgres cluster `pg-meta` with simple `psql` command: 
 
+
+> Known issue: "ERROR:  unrecognized configuration parameter "pgsodium.enable_event_trigger": https://github.com/Vonng/pigsty/issues/350 , fix with:
+
 ```bash
-psql postgres://supabase_admin:DBUser.Supa@10.10.10.10:5432/supa -v ON_ERROR_STOP=1 --no-psqlrc -f ~/pigsty/app/supabase/migration.sql
+pg edit-config pg-meta --force -p pgsodium.enable_event_trigger='off' # setup pgsodium event trigger
+psql ${PGURL} -c 'SHOW pgsodium.enable_event_trigger;'                # should be off or false
+pg restart pg-meta                                                    # restart pg-meta to enable the new configuration
 ```
 
-Check connection to that database with the default credentials:
 
 ```bash
-psql postgres://supabase_admin:DBUser.Supa@10.10.10.10:5432/supa -c '\dx'   # check connectivity & extensions
+# connection string
+PGURL=postgres://supabase_admin:DBUser.Supa@10.10.10.10:5432/supa
+
+# check connectivity & extensions
+psql ${PGURL} -c '\dx'
+
+# perform migration
+psql ${PGURL} -v ON_ERROR_STOP=1 --no-psqlrc -f ~/pigsty/app/supabase/migration.sql
 ```
 
 The database is now ready for supabase!
 
+
+**Optional**: setup `pg_cron` extension
+
+```bash
+# install pg_cron
+pg edit-config pg-meta --force -p cron.database_name='supa'           # setup pg_cron database_name parameter
+psql ${PGURL} -c 'SHOW cron.database_name;'                           # should be the underlying database name for supabase
+psql ${PGURL} -c 'CREATE EXTENSION pg_cron;';                         # create pg_cron extension on the database 'supa'
+```
 
 
 -----------------------
@@ -150,3 +172,24 @@ cd ~/pigsty/app/supabase; make up    #  = docker compose up
 ```
 
 
+
+
+-----------------------
+
+## Expose Service
+
+The supabase studio dashboard is exposed on port `8000` by default, you can add this service to the `infra_portal` to expose it to the public through Nginx and SSL. 
+
+```yaml
+    infra_portal:                     # domain names and upstream servers
+      # ...
+      supa         : { domain: supa.pigsty ,endpoint: "10.10.10.10:8000", websocket: true }
+```
+
+To expose the service, you can run the `infra.yml` playbook with the `nginx` tag:
+
+```bash
+./infra.yml -t nginx
+```
+
+Make suare `supa.pigsty` or your own domain is resolvable to the `infra_portal` server, and you can access the supabase studio dashboard via `https://supa.pigsty`.

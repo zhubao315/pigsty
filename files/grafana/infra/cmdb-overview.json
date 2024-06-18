@@ -120,9 +120,11 @@
                     "fields": "/^value$/",
                     "values": true
                 },
-                "textMode": "value_and_name"
+                "showPercentChange": false,
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -287,7 +289,7 @@
                 "showHeader": true,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -454,7 +456,7 @@
                 },
                 "showHeader": false
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -611,7 +613,7 @@
                 "showHeader": false,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -798,7 +800,7 @@
                 "showHeader": false,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -962,9 +964,11 @@
                     "fields": "/^value$/",
                     "values": true
                 },
-                "textMode": "value_and_name"
+                "showPercentChange": false,
+                "textMode": "value_and_name",
+                "wideLayout": true
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1112,7 +1116,7 @@
                 "showHeader": true,
                 "sortBy": []
             },
-            "pluginVersion": "10.1.5",
+            "pluginVersion": "10.4.2",
             "targets": [
                 {
                     "datasource": {
@@ -1254,7 +1258,7 @@
                             "group": [],
                             "metricColumn": "none",
                             "rawQuery": true,
-                            "rawSql": "SELECT  key, to_json(value) #>> '{}' AS value FROM pigsty.global_config WHERE key\n    in ('node_repo_method', 'node_repo_remove');",
+                            "rawSql": "SELECT  key, to_json(value) #>> '{}' AS value FROM pigsty.global_config WHERE key\n    in ('node_repo_modules', 'node_repo_remove');",
                             "refId": "A",
                             "select": [
                                 [
@@ -5810,8 +5814,7 @@
     ],
     "refresh": "",
     "revision": 1,
-    "schemaVersion": 38,
-    "style": "light",
+    "schemaVersion": 39,
     "tags": [
         "Pigsty",
         "INFRA",

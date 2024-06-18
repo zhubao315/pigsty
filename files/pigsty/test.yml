@@ -4,7 +4,7 @@
 # Desc      :   Pigsty 3 nodes testing config for el 7,8,9
 # Ctime     :   2020-05-22
 # Mtime     :   2023-09-14
-# Docs      :   https://doc.pigsty.cc/#/CONFIG
+# Docs      :   https://pigsty.io/docs/setup/config/
 # Author    :   Ruohang Feng (rh@vonng.com)
 # License   :   AGPLv3
 #==============================================================#
@@ -60,7 +60,7 @@ all:
 
 
   vars:                               # global parameters
-    version: v2.5.0                   # pigsty version string
+    version: v2.7.0                   # pigsty version string
     admin_ip: 10.10.10.10             # admin node ip address
     region: default                   # upstream mirror region: default|china|europe
     infra_portal:                     # domain names and upstream servers
@@ -75,6 +75,7 @@ all:
       pgadmin      : { domain: adm.pigsty  ,endpoint: "127.0.0.1:8885"   }
       pgweb        : { domain: cli.pigsty  ,endpoint: "127.0.0.1:8886"   }
       bytebase     : { domain: ddl.pigsty  ,endpoint: "127.0.0.1:8887"   }
+      jupyter      : { domain: lab.pigsty  ,endpoint: "127.0.0.1:8888", websocket: true }
       gitea        : { domain: git.pigsty  ,endpoint: "127.0.0.1:8889"   }
       wiki         : { domain: wiki.pigsty ,endpoint: "127.0.0.1:9002"   }
     nginx_navbar:                    # application nav links on home page

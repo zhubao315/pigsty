@@ -3,16 +3,13 @@
 # File      :   prod.yml
 # Desc      :   Pigsty config for a prod simulation env on a BM
 # Ctime     :   2023-07-20
-# Mtime     :   2023-09-14
-# Docs      :   https://doc.pigsty.cc/#/CONFIG
+# Mtime     :   2024-02-19
+# Docs      :   https://pigsty.io/docs/setup/config/
 # Author    :   Ruohang Feng (rh@vonng.com)
 # License   :   AGPLv3
 #==============================================================#
 
-#==============================================================#
-# 10.10.10.1  <------- pg-dell-1  the bare metal 72C 256G 4T SSD
-# Vagrantfile: vagrant/spec/dell.rb
-#==============================================================#
+
 all:
 
   children:
@@ -54,49 +51,49 @@ all:
     # ./node.yml
     nodes:
       hosts:
-        10.10.10.10 : { nodename: meta-1        ,cpu: 8 ,mem: 32768  ,image: generic/rocky9 }
-        10.10.10.11 : { nodename: meta-2        ,cpu: 8 ,mem: 32768  ,image: generic/rocky9 }
-        10.10.10.12 : { nodename: pg-v12-1      ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.13 : { nodename: pg-v13-1      ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.14 : { nodename: pg-v14-1      ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.15 : { nodename: pg-v15-1      ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.16 : { nodename: pg-v16-1      ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.21 : { nodename: etcd-1        ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.22 : { nodename: etcd-2        ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.23 : { nodename: etcd-3        ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.24 : { nodename: etcd-4        ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.25 : { nodename: etcd-5        ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.26 : { nodename: minio-1       ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.27 : { nodename: minio-2       ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.28 : { nodename: minio-3       ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.29 : { nodename: proxy-1       ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.30 : { nodename: proxy-2       ,cpu: 2 ,mem: 4096   ,image: generic/rocky9 }
-        10.10.10.41 : { nodename: pg-test-1     ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.42 : { nodename: pg-test-2     ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.43 : { nodename: pg-test-3     ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.44 : { nodename: pg-test-4     ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.45 : { nodename: pg-src-1      ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.46 : { nodename: pg-src-2      ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.47 : { nodename: pg-src-3      ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.48 : { nodename: pg-dst-1      ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.49 : { nodename: pg-dst-2      ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.50 : { nodename: pg-citus0-1   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.51 : { nodename: pg-citus0-2   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.52 : { nodename: pg-citus1-1   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.53 : { nodename: pg-citus1-2   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.54 : { nodename: pg-citus2-1   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.55 : { nodename: pg-citus2-2   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.56 : { nodename: pg-citus3-1   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.57 : { nodename: pg-citus3-2   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.58 : { nodename: pg-citus4-1   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.59 : { nodename: pg-citus4-2   ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.81 : { nodename: redis-test-1  ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.82 : { nodename: redis-test-2  ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.83 : { nodename: redis-test-3  ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.84 : { nodename: redis-test-4  ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.85 : { nodename: redis-ms-1    ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.86 : { nodename: redis-ms-2    ,cpu: 1 ,mem: 2048   ,image: generic/rocky9 }
-        10.10.10.88 : { nodename: test          ,cpu: 4 ,mem: 8192   ,image: generic/rocky9 }
+        10.10.10.10 : { nodename: meta-1        ,cpu: 8 ,mem: 32768 }
+        10.10.10.11 : { nodename: meta-2        ,cpu: 8 ,mem: 32768 }
+        10.10.10.12 : { nodename: pg-v12-1      ,cpu: 2 ,mem: 4096  }
+        10.10.10.13 : { nodename: pg-v13-1      ,cpu: 2 ,mem: 4096  }
+        10.10.10.14 : { nodename: pg-v14-1      ,cpu: 2 ,mem: 4096  }
+        10.10.10.15 : { nodename: pg-v15-1      ,cpu: 2 ,mem: 4096  }
+        10.10.10.16 : { nodename: pg-v16-1      ,cpu: 2 ,mem: 4096  }
+        10.10.10.21 : { nodename: etcd-1        ,cpu: 2 ,mem: 4096  }
+        10.10.10.22 : { nodename: etcd-2        ,cpu: 2 ,mem: 4096  }
+        10.10.10.23 : { nodename: etcd-3        ,cpu: 2 ,mem: 4096  }
+        10.10.10.24 : { nodename: etcd-4        ,cpu: 2 ,mem: 4096  }
+        10.10.10.25 : { nodename: etcd-5        ,cpu: 2 ,mem: 4096  }
+        10.10.10.26 : { nodename: minio-1       ,cpu: 2 ,mem: 4096  }
+        10.10.10.27 : { nodename: minio-2       ,cpu: 2 ,mem: 4096  }
+        10.10.10.28 : { nodename: minio-3       ,cpu: 2 ,mem: 4096  }
+        10.10.10.29 : { nodename: proxy-1       ,cpu: 2 ,mem: 4096  }
+        10.10.10.30 : { nodename: proxy-2       ,cpu: 2 ,mem: 4096  }
+        10.10.10.41 : { nodename: pg-test-1     ,cpu: 1 ,mem: 2048  }
+        10.10.10.42 : { nodename: pg-test-2     ,cpu: 1 ,mem: 2048  }
+        10.10.10.43 : { nodename: pg-test-3     ,cpu: 1 ,mem: 2048  }
+        10.10.10.44 : { nodename: pg-test-4     ,cpu: 1 ,mem: 2048  }
+        10.10.10.45 : { nodename: pg-src-1      ,cpu: 1 ,mem: 2048  }
+        10.10.10.46 : { nodename: pg-src-2      ,cpu: 1 ,mem: 2048  }
+        10.10.10.47 : { nodename: pg-src-3      ,cpu: 1 ,mem: 2048  }
+        10.10.10.48 : { nodename: pg-dst-1      ,cpu: 1 ,mem: 2048  }
+        10.10.10.49 : { nodename: pg-dst-2      ,cpu: 1 ,mem: 2048  }
+        10.10.10.50 : { nodename: pg-citus0-1   ,cpu: 1 ,mem: 2048  }
+        10.10.10.51 : { nodename: pg-citus0-2   ,cpu: 1 ,mem: 2048  }
+        10.10.10.52 : { nodename: pg-citus1-1   ,cpu: 1 ,mem: 2048  }
+        10.10.10.53 : { nodename: pg-citus1-2   ,cpu: 1 ,mem: 2048  }
+        10.10.10.54 : { nodename: pg-citus2-1   ,cpu: 1 ,mem: 2048  }
+        10.10.10.55 : { nodename: pg-citus2-2   ,cpu: 1 ,mem: 2048  }
+        10.10.10.56 : { nodename: pg-citus3-1   ,cpu: 1 ,mem: 2048  }
+        10.10.10.57 : { nodename: pg-citus3-2   ,cpu: 1 ,mem: 2048  }
+        10.10.10.58 : { nodename: pg-citus4-1   ,cpu: 1 ,mem: 2048  }
+        10.10.10.59 : { nodename: pg-citus4-2   ,cpu: 1 ,mem: 2048  }
+        10.10.10.81 : { nodename: redis-test-1  ,cpu: 1 ,mem: 2048  }
+        10.10.10.82 : { nodename: redis-test-2  ,cpu: 1 ,mem: 2048  }
+        10.10.10.83 : { nodename: redis-test-3  ,cpu: 1 ,mem: 2048  }
+        10.10.10.84 : { nodename: redis-test-4  ,cpu: 1 ,mem: 2048  }
+        10.10.10.85 : { nodename: redis-ms-1    ,cpu: 1 ,mem: 2048  }
+        10.10.10.86 : { nodename: redis-ms-2    ,cpu: 1 ,mem: 2048  }
+        10.10.10.88 : { nodename: test          ,cpu: 4 ,mem: 8192  }
 
     #==========================================================#
     # pg-meta: reuse infra node as meta cmdb
@@ -130,25 +127,34 @@ all:
           - { name: noco     ,owner: dbuser_noco     ,revokeconn: true ,comment: nocodb database }
         pg_hba_rules:
           - { user: dbuser_view , db: all ,addr: infra ,auth: pwd ,title: 'allow grafana dashboard access cmdb from infra nodes' }
-        pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-          - pg_repack_15* wal2json_15* passwordcheck_cracklib_15* pg_cron_15* # citus_15*
-          - postgis34_15* timescaledb-2-postgresql-15* pgvector_15* hydra_15* pgml_15* apache-age_15
-          - pointcloud_15* pg_tle_15* pgsql-http_15* zhparser_15* pg_roaringbitmap_15* pg_net_15* vault_15 pg_graphql_15*
+        pg_extensions: # Global Installed Extensions
+          - postgis34_$v* timescaledb-2-postgresql-$v* pgvector_$v* # citus_$v* pglogical_$v* pg_cron_$v*
+          #[ GIS & Timeseries  ]# - timescaledb-2-postgresql-$v* postgis34_$v* pgrouting_$v* pointcloud_$v* h3-pg_$v* ip4r_$v* # geoip_$v*
+          #[ Vector Search RAG ]# - pgvector_$v* pg_vectorize_$v pg_tiktoken_$v pgml_$v pg_search_$v pg_bigm_$v* zhparser_$v*
+          #[ OLAP & Sharding   ]# - hydra_$v* duckdb_fdw_$v* parquet_s3_fdw_$v* pg_lakehouse_$v pg_analytics_$v pg_tier_$v pg_fkpart_$v* pg_partman_$v* # citus_$v* plproxy_$v* # pg_strom_$v*
+          #[ Featured & AM     ]# - apache-age_$v* pg_graphql_$v pg_jsonschema_$v jsquery_$v* pg_hint_plan_$v* hypopg_$v* pg_ivm_$v* pgmq_$v pgq_$v* pgtt_$v* temporal_tables_$v* e-maj_$v* periods_$v* table_version_$v* pg_statement_rollback_$v* hll_$v* rum_$v
+          #[ Function & Test   ]# - pgjwt_$v* pg_idkit_$v pg_uuidv7_$v* pg_later_$v pg_background_$v* pgsql_gzip_$v* pgsql_http_$v* pg_net_$v* pgsql_tweaks_$v* count_distinct_$v* extra_window_functions_$v* tdigest_$v* pg_extra_time_$v* topn_$v*
+          #[ FDW & Compatible  ]# - wrappers_$v mongo_fdw_$v* mysql_fdw_$v* ogr_fdw_$v* sqlite_fdw_$v* tds_fdw_$v* hdfs_fdw_$v* pgbouncer_fdw_$v* orafce_$v* pgmemcache_$v* pg_dbms_lock_$v* pg_dbms_metadata_$v* # pg_dbms_job_$v* mysqlcompat_$v* # multicorn2_$v* oracle_fdw_$v* db2_fdw_$v*
+          #[ Type, PL, Test    ]# - prefix_$v* timestamp9_$v* semver_$v* pgmp_$v* pguint_$v* pg_roaringbitmap_$v* md5hash_$v* pg_tle_$v* plv8_$v* pllua_$v* luapgsql plprql_$v pldebugger_$v* plpgsql_check_$v* plprofiler_$v* plsh_$v* # plr_$v* # postgresql_faker_$v* # dbt2-pg$v-extensions* # postgresql-unit_$v* pgtap_$v*
+          #[ Administration    ]# - pg_cron_$v* pg_repack_$v* pg_squeeze_$v* pg_dirtyread_$v* pgdd_$v pgfincore_$v* pgl_ddl_deploy_$v* pg_prioritize_$v* pg_readonly_$v* pgagent_$v* pg_checksums_$v* safeupdate_$v* ddlx_$v* pg_permissions_$v* pg_auto_failover_$v* pg_catcheck_$v* pgxnclient pg_filedump # pgpool-II-pg$v-extensions
+          #[ Monitor & Stat    ]# - pg_profile_$v* pg_show_plans_$v* pg_stat_kcache_$v* pg_stat_monitor_$v* pg_qualstats_$v* pg_statviz_extension_$v pg_store_plans_$v* pg_top_$v* pg_track_settings_$v* pg_wait_sampling_$v* system_stats_$v* bgw_replstatus_$v* powa-archivist_$v* powa_$v* pgmeminfo_$v* # pgexporter_ext_$v*
+          #[ Security & Audit  ]# - passwordcheck_cracklib_$v* pgsodium_$v* vault_$v* postgresql_anonymizer_$v* pg_tde_$v* pgsmcrypto_$v pgaudit_$v* pgauditlogtofile_$v* pg_auth_mon_$v* credcheck_$v* pgcryptokey_$v* pg_jobmon_$v* logerrors_$v* login_hook_$v* set_user_$v*
+          #[ ETL, CDC, REPL    ]# - pglogical_$v* postgres-decoderbufs_$v* wal2json_$v* pg_failover_slots_$v* pg_fact_loader_$v* pg_bulkload_$v* pg_comparator_$v* pgimportdoc_$v* pgexportdoc_$v* pgcopydb pgloader # repmgr_$v*
+
         pg_libs: 'timescaledb, pg_stat_statements, auto_explain' # add timescaledb to shared_preload_libraries
         node_crontab:  # make a full backup on monday 1am, and an incremental backup during weekdays
           - '00 01 * * 1 postgres /pg/bin/pg-backup full'
           - '00 01 * * 2,3,4,5,6,7 postgres /pg/bin/pg-backup'
 
     #==========================================================#
-    # pg-v12 - v16
+    # pg-v12 - v16 (no longer supported in OSS ver since 2.6)
     #==========================================================#
     # ./pgsql.yml -l pg-v*
     pg-v12:
       hosts: { 10.10.10.12: { pg_seq: 1 ,pg_role: primary } }
       vars:
         pg_cluster: pg-v12
-        pg_version: 12
-        pg_packages: [ 'postgresql12* wal2json_12* pg_repack_12* passwordcheck_cracklib_12* pgbouncer pg_exporter pgbadger vip-manager patroni patroni-etcd pgbackrest' ]
+        #pg_version: 12
         pg_extensions: []
         pg_users: [ { name: test , password: test , pgbouncer: true , roles: [ dbrole_admin ] } ]
         pg_databases: [ { name: v12 } ]
@@ -159,8 +165,7 @@ all:
       hosts: { 10.10.10.13: { pg_seq: 1 ,pg_role: primary } }
       vars:
         pg_cluster: pg-v13
-        pg_version: 13
-        pg_packages: [ 'postgresql13* wal2json_13* pg_repack_13* passwordcheck_cracklib_13* pgbouncer pg_exporter pgbadger vip-manager patroni patroni-etcd pgbackrest' ]
+        #pg_version: 13
         pg_extensions: []
         pg_users: [ { name: test , password: test , pgbouncer: true , roles: [ dbrole_admin ] } ]
         pg_databases: [ { name: v13 } ]
@@ -171,7 +176,8 @@ all:
       hosts: { 10.10.10.14: { pg_seq: 1 ,pg_role: primary } }
       vars:
         pg_cluster: pg-v14
-        pg_version: 14
+        #pg_version: 14
+        pg_extensions: []
         pg_users: [ { name: test , password: test , pgbouncer: true , roles: [ dbrole_admin ] } ]
         pg_databases: [ { name: v14 } ]
         pg_service_provider: proxy       # use load balancer on group `proxy` with port 10014
@@ -181,19 +187,17 @@ all:
       hosts: { 10.10.10.15: { pg_seq: 1 ,pg_role: primary } }
       vars:
         pg_cluster: pg-v15
-        pg_version: 15
+        #pg_version: 15
         pg_users: [ { name: test , password: test , pgbouncer: true , roles: [ dbrole_admin ] } ]
         pg_databases: [ { name: v15 } ]
         pg_service_provider: proxy       # use load balancer on group `proxy` with port 10013
         pg_default_services:  [{ name: primary ,port: 10015 ,dest: postgres  ,check: /primary   ,selector: "[]" }]
 
-    pg-v16: # PostgreSQL 16 is not available on el7
+    pg-v16: # beware that PostgreSQL 16 is not available on el7
       hosts: { 10.10.10.16: { pg_seq: 1 ,pg_role: primary } }
       vars:
         pg_cluster: pg-v16
-        pg_version: 16
-        pg_packages: [ postgresql16* pgbouncer pg_exporter pgbadger vip-manager patroni patroni-etcd pgbackrest ]
-        pg_extensions: [ ]
+        #pg_version: 16
         pg_users: [ { name: test , password: test , pgbouncer: true , roles: [ dbrole_admin ] } ]
         pg_databases: [ { name: v16 } ]
         pg_service_provider: proxy       # use load balancer on group `proxy` with port 10013
@@ -286,7 +290,7 @@ all:
 
 
     #==========================================================#
-    # pg-src: dedicate 3 node testing cluster, version 14
+    # pg-src: dedicate 3 node testing cluster
     #==========================================================#
     # ./pgsql.yml -l pg-src
     pg-src:
@@ -296,7 +300,7 @@ all:
         10.10.10.47: { pg_seq: 3 ,pg_role: replica }
       vars:
         pg_cluster: pg-src
-        pg_version: 14
+        #pg_version: 14
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.4/24
         pg_vip_interface: eth1
@@ -339,9 +343,7 @@ all:
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.60/24
         pg_vip_interface: eth1
-        pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-          - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
-          - citus_${pg_version}* postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+        pg_extensions: [ 'citus_$v* postgis34_$v* timescaledb-2-postgresql-$v* pgvector_$v*' ]
         pg_libs: 'citus, timescaledb, pg_stat_statements, auto_explain' # citus will be added by patroni automatically
         pg_users: [{ name: test ,password: test ,pgbouncer: true ,roles: [ dbrole_admin ] }]
         pg_databases:  [{ name: test ,owner: citus ,extensions: [{name: citus}, {name: postgis}] }]
@@ -364,9 +366,7 @@ all:
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.61/24
         pg_vip_interface: eth1
-        pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-          - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
-          - citus_${pg_version}* postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+        pg_extensions: [ 'citus_$v* postgis34_$v* timescaledb-2-postgresql-$v* pgvector_$v*' ]
         pg_libs: 'citus, timescaledb, pg_stat_statements, auto_explain' # citus will be added by patroni automatically
         pg_users: [{ name: test ,password: test ,pgbouncer: true ,roles: [ dbrole_admin ] }]
         pg_databases:  [{ name: test ,owner: citus ,extensions: [{name: citus}, {name: postgis}] }]
@@ -389,9 +389,7 @@ all:
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.62/24
         pg_vip_interface: eth1
-        pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-          - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
-          - citus_${pg_version}* postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+        pg_extensions: [ 'citus_$v* postgis34_$v* timescaledb-2-postgresql-$v* pgvector_$v*' ]
         pg_libs: 'citus, timescaledb, pg_stat_statements, auto_explain' # citus will be added by patroni automatically
         pg_users: [{ name: test ,password: test ,pgbouncer: true ,roles: [ dbrole_admin ] }]
         pg_databases:  [{ name: test ,owner: citus ,extensions: [{name: citus}, {name: postgis}] }]
@@ -414,9 +412,7 @@ all:
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.63/24
         pg_vip_interface: eth1
-        pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-          - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
-          - citus_${pg_version}* postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+        pg_extensions: [ 'citus_$v* postgis34_$v* timescaledb-2-postgresql-$v* pgvector_$v*' ]
         pg_libs: 'citus, timescaledb, pg_stat_statements, auto_explain' # citus will be added by patroni automatically
         pg_users: [{ name: test ,password: test ,pgbouncer: true ,roles: [ dbrole_admin ] }]
         pg_databases:  [{ name: test ,owner: citus ,extensions: [{name: citus}, {name: postgis}] }]
@@ -439,9 +435,7 @@ all:
         pg_vip_enabled: true
         pg_vip_address: 10.10.10.64/24
         pg_vip_interface: eth1
-        pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-          - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
-          - citus_${pg_version}* postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+        pg_extensions: [ 'citus_$v* postgis34_$v* timescaledb-2-postgresql-$v* pgvector_$v*' ]
         pg_libs: 'citus, timescaledb, pg_stat_statements, auto_explain' # citus will be added by patroni automatically
         pg_users: [{ name: test ,password: test ,pgbouncer: true ,roles: [ dbrole_admin ] }]
         pg_databases:  [{ name: test ,owner: citus ,extensions: [{name: citus}, {name: postgis}] }]
@@ -541,7 +535,7 @@ all:
       hosts: { 10.10.10.88: { nodename: test } }
       vars:
         node_cluster: test
-        node_packages: [ 'etcd,logcli,mcli,redis,postgresql15' ]
+        node_packages: [ 'etcd,logcli,mcli,redis' ]
 
 
   #============================================================#
@@ -552,7 +546,7 @@ all:
     #==========================================================#
     # INFRA
     #==========================================================#
-    version: v2.5.0                   # pigsty version string
+    version: v2.7.0                   # pigsty version string
     admin_ip: 10.10.10.11             # admin node ip address
     region: china                     # upstream mirror region: default|china|europe
     infra_portal:                     # domain names and upstream servers
@@ -567,6 +561,7 @@ all:
       pgadmin      : { domain: adm.pigsty  ,endpoint: "127.0.0.1:8885" }
       pgweb        : { domain: cli.pigsty  ,endpoint: "127.0.0.1:8886" }
       bytebase     : { domain: ddl.pigsty  ,endpoint: "127.0.0.1:8887" }
+      jupyter      : { domain: lab.pigsty  ,endpoint: "127.0.0.1:8888", websocket: true }
       supa         : { domain: supa.pigsty ,endpoint: "10.10.10.10:8000", websocket: true }
     nginx_navbar: []
     dns_records:                      # dynamic dns records resolved by dnsmasq
@@ -575,8 +570,7 @@ all:
     #==========================================================#
     # NODE
     #==========================================================#
-    node_conf: tiny # use rocky9 local repo as node default
-    node_repo_local_urls: ['http://10.10.10.11/pigsty.repo']
+    node_conf: tiny
     node_timezone: Asia/Hong_Kong     # use Asia/Hong_Kong Timezone
     node_dns_servers:                 # DNS servers in /etc/resolv.conf
       - 10.10.10.10
@@ -591,9 +585,7 @@ all:
       - "https://hub-mirror.c.163.com"
       - "https://mirror.baidubce.com"
     node_admin_ssh_exchange: false    # exchange admin ssh key among node cluster
-    pg_extensions:                    # pg extensions to be installed, `${pg_version}` will be replaced
-      - pg_repack_${pg_version}* wal2json_${pg_version}* passwordcheck_cracklib_${pg_version}*
-    # - postgis34_${pg_version}* timescaledb-2-postgresql-${pg_version}* pgvector_${pg_version}*
+
 
     #==========================================================#
     # PGSQL

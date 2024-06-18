@@ -4,7 +4,7 @@
 # Desc      :   pigsty citus testing environment
 # Ctime     :   2020-05-22
 # Mtime     :   2023-03-31
-# Docs      :   https://doc.pigsty.cc/#/CONFIG
+# Docs      :   https://pigsty.io/docs/setup/config/
 # Author    :   Ruohang Feng (rh@vonng.com)
 # License   :   AGPLv3
 #==============================================================#
@@ -52,7 +52,7 @@ all:
       - { user: 'all' ,db: all  ,addr: intra        ,auth: ssl ,title: 'all user ssl access from intranet' }
     pg_libs: 'citus, timescaledb, pg_stat_statements, auto_explain' # citus will be added by patroni automatically
     pg_conf: tiny.yml                 # use tiny for demo citus nodes
-    version: v2.5.0                   # pigsty version string
+    version: v2.7.0                   # pigsty version string
     admin_ip: 10.10.10.10             # admin node ip address
     region: default                   # upstream mirror region: default|china|europe
 

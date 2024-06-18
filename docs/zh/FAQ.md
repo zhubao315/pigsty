@@ -1,6 +1,6 @@
 # 常见问题
 
-> 这里列出了Pigsty用户常遇到的问题，如果您遇到了难以解决的问题，可以提交 [Issue](https://github.com/Vonng/pigsty/issues/new) 或者 [联系我们](overview#about)。
+> 这里列出了Pigsty用户常遇到的问题，如果您遇到了难以解决的问题，可以提交 [Issue](https://github.com/Vonng/pigsty/issues/new) 或者[联系我们](README#关于)。
 
 
 ----------------
@@ -11,22 +11,21 @@
 <details><summary>操作系统建议</summary><br>
 
 Pigsty 支持 EL 7/8/9，Debian 11/12，Ubuntu 20/22 等主流操作系统，我们建议您使用全新精简安装的操作系统，避免无谓的软件冲突问题。
-Pigsty 离线软件包构建使用的操作系统版本为： CentOS 7.9, Rocky 8.7，Rocky 9.1，Ubuntu 22.04 / 20.04，Debian 12 / 11。
+Pigsty 离线软件包构建使用的操作系统版本为： CentOS 7.9, Rocky 8.9，Rocky 9.3，Ubuntu 22.04 / 20.04，Debian 12 / 11。
 
-对于EL系操作系统，我们建议用户选择 RockyLinux 8.8 作为首选操作系统，CentOS 7.9 与 Rocky 9.2 作为保守、激进的备选。
+对于EL系操作系统，我们建议用户选择 RockyLinux 8.9 作为首选操作系统，CentOS 7.9 与 Rocky 9.3 作为保守、激进的备选。
 其他EL系兼容操作系统也可使用，例如 AlmaLinux，Oracle Linux，CentOS Stream，但可能会出现少量 RPM 冲突问题，建议不使用离线软件包，直接从互联网上游安装。
 
-对于 Ubuntu / Debian 系列操作系统，Pigsty 在 v2.5.0 提供了初步支持，尚未在大规模生产环境中得到验证，请谨慎使用，欢迎随时反馈问题。
-如果您需要使用到一些特殊的软件包，例如 RDKit，或者 PostgresML + CUDA，以及 AI 相关的组件，那么 Ubuntu 是不二之选。
-我们建议使用 Ubuntu 22.04 jammy (LTS)，也提供对 Ubuntu 20.04 focal (LTS) 的支持。Debian 建议使用 12 (bookworm) 或 11 (bullseye)。
+对于 Ubuntu / Debian 系列操作系统，Pigsty 在 v2.5.0 提供了初步支持，请谨慎使用，欢迎随时反馈问题。
+我们强烈建议使用 Ubuntu 22.04 jammy (LTS)，也提供对 Ubuntu 20.04 focal (LTS) 的支持。Debian 建议使用 12 (bookworm) 或 11 (bullseye)。
+如果您需要使用到一些特殊的软件包，例如 RDKit，或者 PostgresML + CUDA，以及 AI 相关的组件，那么 Ubuntu 22.04 是不二之选。
 
-国产操作系统中，我们建议使用 OpenAnolis 8.8 （RHCK），完全兼容 EL8 的软件包，无需额外适配。
-在[企业级服务协议](SUPPORT.md)中，我们也提供对信创国产操作系统的额外付费支持（例如OpenEuler/UOS）。
+国产操作系统中，我们建议使用 OpenAnolis 8.8 （RHCK），完全兼容 EL8 的软件包，无需额外适配。在[订阅服务](SUPPORT)中，我们也提供对信创国产操作系统的额外付费支持（例如OpenEuler / UOS）。
 
 - 当您看重这些特性时，选择 EL 系操作系统：
   - 最充分的测试与稳定性验证，大规模使用案例
-  - 希望使用本地托管的 Supbase （目前依赖的重要扩展仅在 EL 发行版中提供）
-  - 建议使用 Rocky 8.8 或等效兼容发行版，也支持 EL 9；EL 7 支持但不建议使用，即将 EOL。
+  - 希望使用本地托管的 Supabase （目前依赖的重要扩展仅在 EL 发行版中提供）
+  - 建议使用 Rocky 8.9 或等效兼容发行版，也支持 EL 9；EL 7 支持但不建议使用，即将 EOL。
 
 - 当您看重这些特性时，选择 Ubuntu 系操作系统
   - 深度使用 PostgresML ，希望使用 CUDA
@@ -37,16 +36,15 @@ Pigsty 离线软件包构建使用的操作系统版本为： CentOS 7.9, Rocky 
   - 喜欢由开源社区主导的 Linux 发行版
   - 建议使用 Debian 12 bookworm ，也支持 Debian 11 bullseye
 
-| 代码  | 操作系统发行版 / PG 大版本                  | PG16 | PG15 | PG14 | PG13 | PG12 | 局限性                                          |
-|:---:|-----------------------------------|:----:|:----:|:----:|:----:|:----:|----------------------------------------------|
-| EL7 | RHEL7 / CentOS7                   |  ⚠️  |  ⭐️  |  ✅   |  ✅   |  ✅   | PG16, supabase, pg_graphql, pgml, pg_net 不可用 |
-| EL8 | RHEL 8 / Rocky8 / Alma8 / Anolis8 |  ✅   |  ⭐️  |  ✅   |  ✅   |  ✅   | **EL功能标准集**                                  |
-| EL9 | RHEL 9 / Rocky9 / Alma9           |  ✅   |  ⭐️  |  ✅   |  ✅   |  ✅   | pgxnclient 缺失                                |
-| D11 | Debian 11 (bullseye)              |  ✅   |  ⭐️  |  ✅   |  ✅   |  ✅   | RDKit 不可用                                    |
-| D12 | Ubuntu 12 (bookworm)              |  ✅   |  ⭐️  |  ✅   |  ✅   |  ✅   | **Debian功能标准集**                              |
-| U20 | Ubuntu 20.04 (focal)              |  ✅   |  ⭐️  |  ✅   |  ✅   |  ✅   | PostGIS, RDKit 不可用                           |
-| U22 | Ubuntu 22.04 (jammy)              |  ✅   |  ⭐️  |  ✅   |  ✅   |  ✅   | **Ubuntu功能标准集**                              |
-
+| 代码  | 操作系统发行版 / PG 大版本        | PG16  | PG15  | PG14  | PG13  | PG12  | 局限性                                        |
+| :---: | --------------------------------- | :---: | :---: | :---: | :---: | :---: | --------------------------------------------- |
+|  EL7  | RHEL7 / CentOS7                   |   ⚠️   |   ⭐️   |   ✅   |   ✅   |   ✅   | PG16, supabase, pgml, duckdb_fdw 等扩展不可用 |
+|  EL8  | RHEL 8 / Rocky8 / Alma8 / Anolis8 |   ⭐️   |   ✅   |   ✅   |   ✅   |   ✅   | **EL功能标准集**                              |
+|  EL9  | RHEL 9 / Rocky9 / Alma9           |   ⭐️   |   ✅   |   ✅   |   ✅   |   ✅   | pgxnclient 缺失                               |
+|  D11  | Debian 11 (bullseye)              |   ⭐️   |   ✅   |   ✅   |   ✅   |   ✅   | RDKit 不可用                                  |
+|  D12  | Ubuntu 12 (bookworm)              |   ⭐️   |   ✅   |   ✅   |   ✅   |   ✅   | **Debian功能标准集**                          |
+|  U20  | Ubuntu 20.04 (focal)              |   ⭐️   |   ✅   |   ✅   |   ✅   |   ✅   | PostGIS 需要在线安装                          |
+|  U22  | Ubuntu 22.04 (jammy)              |   ⭐️   |   ✅   |   ✅   |   ✅   |   ✅   | **Ubuntu功能标准集**                          |
 
 </details><br>
 
@@ -90,7 +88,7 @@ Pigsty 使用 master 主干分支进行开发，请始终使用特定版本的 [
 <br>
 <details><summary>如何获取Pigsty软件源码包？</summary><br>
 
-使用以下命令一键安装 Pigsty： `bash -c "$(curl -fsSL https://get.pigsty.cc/latest)"`
+使用以下命令一键安装 Pigsty： `bash -c "$(curl -fsSL https://get.pigsty.cc/install)"`
 
 上述命令会自动下载最新的稳定版本 `pigsty.tgz` 并解压到 `~/pigsty` 目录。您也可以从以下位置手动下载 Pigsty 源代码的特定版本。
 
@@ -102,11 +100,11 @@ Pigsty 使用 master 主干分支进行开发，请始终使用特定版本的 [
 
 <details><summary>如何加速从上游仓库下载 RPM ?</summary><br>
 
-考虑使用本地仓库镜像，仓库镜像在[`repo_upstream`](param#repo_upstream) 参数中配置，你可以选择 [`region`](param#region) 来使用不同镜像站。
+考虑使用本地仓库镜像，仓库镜像在[`repo_upstream`](PARAM#repo_upstream) 参数中配置，你可以选择 [`region`](PARAM#region) 来使用不同镜像站。
 
 例如，您可以设置 `region` = `china`，这样将使用 `baseurl` 中键为 `china` 的 URL 而不是 `default`。
 
-如果防火墙或GFW屏蔽了某些仓库，考虑使用[`proxy_env`](param#proxy_env) 来绕过。
+如果防火墙或GFW屏蔽了某些仓库，考虑使用[`proxy_env`](PARAM#proxy_env) 来绕过。
 
 </details><br>
 
@@ -114,24 +112,33 @@ Pigsty 使用 master 主干分支进行开发，请始终使用特定版本的 [
 
 <details><summary>哪里可以下载 Pigsty 的离线软件包？</summary><br>
 
-离线包可以在[准备/`bootstrap`](install#bootstrap) 过程中提示下载，或者您也可以直接通过以下链接从 GitHub 上下载：
+离线包可以在[准备/`bootstrap`](INSTALL#准备) 过程中提示下载，或者您也可以直接通过以下链接从 GitHub 上下载：
+
+您可以选择从 Github 上的发布页面上直接下载离线软件包。
 
 ```bash
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-v2.5.0.tgz                   # 源代码包
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el7.x86_64.tgz    # el7离线包
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el8.x86_64.tgz    # el8离线包
-https://github.com/Vonng/pigsty/releases/download/v2.5.0/pigsty-pkg-v2.5.0.el9.x86_64.tgz    # el9离线包
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-v2.7.0.tgz                     # Pigsty源码包         
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.el7.x86_64.tgz      # 离线软件包：EL 7(.9)            
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.el8.x86_64.tgz      # 离线软件包：EL 8(.9)            
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.el9.x86_64.tgz      # 离线软件包：EL 9(.3)            
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.debian11.x86_64.tgz # 离线软件包：Debian 11    (bullseye)                 
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.debian12.x86_64.tgz # 离线软件包：Debian 12    (bookworm)                 
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.ubuntu20.x86_64.tgz # 离线软件包：Ubuntu 20.04 (focal)                 
+https://github.com/Vonng/pigsty/releases/download/v2.7.0/pigsty-pkg-v2.7.0.ubuntu22.x86_64.tgz # 离线软件包：Ubuntu 22.04 (jammy)                 
 ```
 
-中国大陆用户可以考虑使用 CDN 下载：
+您也可以从（中国大陆） CDN 下载离线软件包，也可以在下载时指定特定的版本号：
 
 ```bash
-https://get.pigsty.cc/v2.5.0/pigsty-v2.5.0.tgz                   # 源代码
-https://get.pigsty.cc/v2.5.0/pigsty-pkg-v2.5.0.el7.x86_64.tgz    # el7离线包
-https://get.pigsty.cc/v2.5.0/pigsty-pkg-v2.5.0.el8.x86_64.tgz    # el8离线包
-https://get.pigsty.cc/v2.5.0/pigsty-pkg-v2.5.0.el9.x86_64.tgz    # el9离线包
+VERSION=v2.7.0
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el7.x86_64.tgz        # 离线软件包：EL 7(.9)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el8.x86_64.tgz        # 离线软件包：EL 8(.8)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.el9.x86_64.tgz        # 离线软件包：EL 9(.3)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.debian11.x86_64.tgz   # 离线软件包：Debian 11    (bullseye)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.debian12.x86_64.tgz   # 离线软件包：Debian 12    (bookworm)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.ubuntu20.x86_64.tgz   # 离线软件包：Ubuntu 20.04 (focal)
+https://get.pigsty.cc/${VERSION}/pigsty-pkg-${VERSION}.ubuntu22.x86_64.tgz   # 离线软件包：Ubuntu 22.04 (jammy)
 ```
-
 </details><br>
 
 
@@ -148,7 +155,7 @@ https://get.pigsty.cc/v2.5.0/pigsty-pkg-v2.5.0.el9.x86_64.tgz    # el9离线包
 
 当你下载 Pigsty 源码后，可以进入目录并执行 [`bootstrap`](INSTALL#准备) 脚本。它会检测你的节点环境，如果没有发现离线软件包，它会询问你要不要从互联网下载。
 
-你可以选择“是”，直接使用离线软件包安装又快又稳定。你也可以选“否”跳过，选择后面在安装过程中直接从互联网上游下载，这样会下载最新的软件版本，而且几乎不会遇到 RPM 冲突问题。
+你可以选择“是”，直接使用离线软件包安装又快又稳定。你也可以选“否”跳过，在安装时直接从互联网上游下载最新的软件包，这样会极大减少出现 RPM/DEB 包冲突的概率。
 
 如果使用了离线软件包，bootstrap 会直接从离线软件包中安装 ansible，否则会从上游下载 ansible 并安装，如果你没有互联网访问，又没有 DVD，或者内网软件源，那就只能用离线软件包来安装了。
 
@@ -214,9 +221,9 @@ Pigsty 提供了 280+ 配置参数，可以对整个环境与各个模块 infra/
 
 通常在单节点安装中，你不需要对默认生成的配置文件进行任何调整。但如果需要，可以关注以下这些参数：
 
-- 当访问 web 服务组件时，域名由 [`infra_portal`](param#infra_portal) 指定，有些服务只能通过 Nginx 代理使用域名访问。
-- Pigsty 假定存在一个 `/data` 目录用于存放所有数据；如果数据磁盘的挂载点与此不同，你可以使用 [`node_data`](param#node_data) 调整这些路径。
-- 进行生产部署时，不要忘记在配置文件中更改**密码**，更多细节请参考 [安全考量](security)。
+- 当访问 web 服务组件时，域名由 [`infra_portal`](PARAM#infra_portal) 指定，有些服务只能通过 Nginx 代理使用域名访问。
+- Pigsty 假定存在一个 `/data` 目录用于存放所有数据；如果数据磁盘的挂载点与此不同，你可以使用 [`node_data`](PARAM#node_data) 调整这些路径。
+- 进行生产部署时，不要忘记在配置文件中更改**密码**，更多细节请参考 [安全考量](SECURITY)。
 
 </details>
 
@@ -246,7 +253,7 @@ Pigsty 提供了 280+ 配置参数，可以对整个环境与各个模块 infra/
 <br>
 <details><summary>安装遇到RPM冲突怎么办？</summary><br>
 
-在安装 node/infra/pgsql 软件包期间，可能有微小的几率出现 rpm 冲突。特别是，如果您使用的 EL 7-9 小版本不同于 7.9, 8.7, 9.1 ，或者使用了一些冷门换皮魔改发行版的话，可能会出现这种情况。
+在安装 node/infra/pgsql 软件包期间，可能有微小的几率出现 rpm 冲突。特别是，如果您使用的 EL 7-9 小版本不同于 7.9, 8.9, 9.3 ，或者使用了一些冷门换皮魔改发行版的话，可能会出现这种情况。
 
 解决这个问题的最简单方法是：不使用离线包进行安装，这将直接从上游仓库中下载最合适您当前系统的软件包。如果只有少数几个 RPM 包有问题，你可以使用一个小技巧快速修复：
 
@@ -305,34 +312,6 @@ repotrack annobin gcc-plugin-annobin libuser
 
 
 
-
-<br>
-
-<details><summary>在 Ubuntu 20.04 上安装时，PostGIS 3 安装失败</summary>
-
-> 正如配置文件 [`ubuntu.yml`](https://github.com/Vonng/pigsty/blob/master/files/pigsty/ubuntu.yml) 中说明的：Ubuntu 20.04 中 PostGIS 3 离线安装会有一些问题。 
-
-在安装过程中如果见到以下错误，可以尝试添加 NODE / PGDG 上游源后直接从互联网安装 `postgresql-15-postgis-3` 包，通常可以解决此问题。
-
-如果您用不到 PostGIS，也可以
-
-```
-E: Unable to correct problems, you have held broken packages."], "stdout": "Reading package lists...
-Building dependency tree...
-Reading state information...
-Some packages could not be installed. This may mean that you have
-requested an impossible situation or if you are using the unstable
-distribution that some required packages have not yet been created
-or been moved out of Incoming.
-The following information may help to resolve the situation:
-
-The following packages have unmet dependencies:
- postgresql-15-postgis-3 : Depends: libgdal26 (>= 2.4.0) but it is not going to be installed
-```
-
-You can fix this by add upstream apt repo directly, In that case, this problem can be resolved by manually install postgis.
-
-</details>
 
 
 
@@ -444,7 +423,7 @@ bin/pgmon-rm <ins>     # 用于从 Prometheus 中移除单个实例 'ins' 的监
 <br>
 <details><summary>如何重新向 Grafana 注册 PostgreSQL 数据源？</summary><br>
 
-在 [`pg_databases`](param#pg_databases) 中定义的 PGSQL 数据库默认会被注册为 Grafana 数据源（以供 PGCAT 应用使用）。
+在 [`pg_databases`](PARAM#pg_databases) 中定义的 PGSQL 数据库默认会被注册为 Grafana 数据源（以供 PGCAT 应用使用）。
 
 如果你不小心删除了在 Grafana 中注册的 postgres 数据源，你可以使用以下命令再次注册它们：
 
@@ -488,7 +467,7 @@ PGSQL 集群/实例域名默认注册到 infra 节点的 `/etc/hosts.d/<name>`�
 <br>
 <details><summary>如何使用Nginx对外暴露新的上游服务？</summary><br>
 
-如果你希望通过 Nginx 门户公开新的 WebUI 服务，你可以将服务定义添加到 [`infra_portal`](param#infra_portal) 参数中。
+如果你希望通过 Nginx 门户公开新的 WebUI 服务，你可以将服务定义添加到 [`infra_portal`](PARAM#infra_portal) 参数中。
 
 然后重新运行 `./infra.yml -t nginx_config,nginx_launch` 来更新并应用 Nginx 配置。
 
@@ -585,7 +564,7 @@ pg-test:
 
 **执行部署和更改时**，使用的管理员用户**必须**对所有节点拥有`ssh`和`sudo`权限。无需密码免密登录。
 
-您可以在执行剧本时通过`-k|-K`参数传入ssh和sudo密码，甚至可以通过`-e`[`ansible_host`](param#connect)`=<another_user>`使用另一个用户来运行剧本。
+您可以在执行剧本时通过`-k|-K`参数传入ssh和sudo密码，甚至可以通过`-e`[`ansible_host`](PARAM#connect)`=<another_user>`使用另一个用户来运行剧本。
 
 但是，Pigsty强烈建议为管理员用户配置SSH**无密码登录**以及无密码的`sudo`。
 
@@ -596,7 +575,7 @@ pg-test:
 <br>
 <details><summary>如何使用已有的管理员用户创建专用管理员用户？</summary><br>
 
-使用以下命令，使用该节点上现有的管理员用户，创建由[`node_admin_username`](param#node_admin_username)定义的新的标准的管理员用户。
+使用以下命令，使用该节点上现有的管理员用户，创建由[`node_admin_username`](PARAM#node_admin_username)定义的新的标准的管理员用户。
 
 ```bash
 ./node.yml -k -K -e ansible_user=<another_admin> -t node_admin
@@ -609,9 +588,9 @@ pg-test:
 <br>
 <details><summary>如何使用节点上的HAProxy对外暴露服务？</summary><br>
 
-您可以在配置中中使用[`haproxy_services`](param#haproxy_services)来暴露服务，并使用 `node.yml -t haproxy_config,haproxy_reload` 来更新配置。
+您可以在配置中中使用[`haproxy_services`](PARAM#haproxy_services)来暴露服务，并使用 `node.yml -t haproxy_config,haproxy_reload` 来更新配置。
 
-以下是使用它暴露MinIO服务的示例：[暴露MinIO服务](minio#暴露服务)
+以下是使用它暴露MinIO服务的示例：[暴露MinIO服务](MINIO#暴露服务)
 
 </details>
 
@@ -620,13 +599,13 @@ pg-test:
 <br>
 <details><summary>为什么我的 /etc/yum.repos.d/* 全没了？</summary><br>
 
-Pigsty会在infra节点上构建的本地软件仓库源中包含所有依赖项。而所有普通节点会根据[`node_repo_local_urls`](param#node_repo_local_urls)的默认配置来使用这个 Infra 节点上的本地软件源。
+Pigsty会在infra节点上构建的本地软件仓库源中包含所有依赖项。而所有普通节点会根据[`node_repo_modules`](PARAM#node_repo_modules) 的默认配置 `local` 来引用并使用 Infra 节点上的本地软件源。
 
 这一设计从而避免了互联网访问，增强了安装过程的稳定性与可靠性。所有原有的源定义文件会被移动到 `/etc/yum.repos.d/backup` 目录中，您只要按需复制回来即可。
 
-如果您想在普通节点安装过程中保留原有的源定义文件，将 [`node_repo_remove`](param#node_repo_remove)设置为`false`即可。
+如果您想在普通节点安装过程中保留原有的源定义文件，将 [`node_repo_remove`](PARAM#node_repo_remove)设置为`false`即可。
 
-如果您想在 Infra 节点构建本地源的过程中保留原有的源定义文件，将 [`repo_remove`](param#repo_remove)设置为`false`即可。
+如果您想在 Infra 节点构建本地源的过程中保留原有的源定义文件，将 [`repo_remove`](PARAM#repo_remove)设置为`false`即可。
 
 </details>
 
@@ -651,8 +630,8 @@ Pigsty 使用的 Shell 命令行提示符是由环境变量 `PS1` 指定，定�
 <br>
 <details><summary>ETCD集群如果不可用了会有什么影响？</summary><br>
 
-[ETCD](etcd) 对于 PGSQL 集群的高可用至关重要，而 etcd 本身的可用性是通过使用多个节点来保证的。使用3节点的 etcd 集群允许最多一个节点宕机，而其他两个节点仍然可以正常工作；
-使用五节点的 ETCD 集群则可以容忍两个节点失效。如果超过一半的 ETCD 节点宕机，ETCD 集群及其服务将不可用。在 Patroni 3.0 之前，这可能导致 [PGSQL](pgsql) 全局故障；所有的主节点将被降级并拒绝写请求。
+[ETCD](ETCD) 对于 PGSQL 集群的高可用至关重要，而 etcd 本身的可用性是通过使用多个节点来保证的。使用3节点的 etcd 集群允许最多一个节点宕机，而其他两个节点仍然可以正常工作；
+使用五节点的 ETCD 集群则可以容忍两个节点失效。如果超过一半的 ETCD 节点宕机，ETCD 集群及其服务将不可用。在 Patroni 3.0 之前，这可能导致 [PGSQL](PGSQL) 全局故障；所有的主节点将被降级并拒绝写请求。
 
 自从 pigsty 2.0 起，默认启用了 patroni 3.0 的 [DCS 容错模式](https://patroni.readthedocs.io/en/master/dcs_failsafe_mode.html)，
 当 etcd 集群不可用时，如果 PostgreSQL 集群主库可以感知到所有成员，就会 **锁定** PGSQL 集群状态。
@@ -715,9 +694,9 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 <br>
 <details><summary>启动多节点/多盘MinIO集群失败怎么办？</summary><br>
 
-在[单机多盘](MINIO#单机多盘)或[多机多盘](minio#多机多盘)模式下，如果数据目录不是有效的磁盘挂载点，MinIO会拒绝启动。
+在[单机多盘](MINIO#单机多盘)或[多机多盘](MINIO#多机多盘)模式下，如果数据目录不是有效的磁盘挂载点，MinIO会拒绝启动。
 
-请使用已挂载的磁盘作为MinIO的数据目录，而不是普通目录。您只能在[单机单盘](minio#单机单盘)模式下使用普通目录作为 MinIO 的数据目录，作为开发测试之用。
+请使用已挂载的磁盘作为MinIO的数据目录，而不是普通目录。您只能在[单机单盘](MINIO#单机单盘)模式下使用普通目录作为 MinIO 的数据目录，作为开发测试之用。
 
 </details>
 
@@ -727,7 +706,7 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 <br>
 <details><summary>如何部署一个多节点/多盘MinIO集群？</summary><br>
 
-> 请参阅[创建多节点多盘的MinIO集群](minio#多机多盘)
+> 请参阅[创建多节点多盘的MinIO集群](MINIO#多机多盘)
 
 </details>
 
@@ -749,7 +728,7 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 
 > 使用可选的负载均衡器和不同的端口访问HA MinIO集群。
 
-这里有一个示例：[访问MinIO服务](minio#访问服务)
+这里有一个示例：[访问MinIO服务](MINIO#访问服务)
 
 </details>
 
@@ -767,9 +746,9 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 
 这意味着正在初始化的 Redis 实例已经存在了，使用 `redis_clean = true` 和 `redis_safeguard = false` 来强制清除redis数据
 
-当您运行`redis.yml`来初始化一个已经在运行的redis实例，并且[`redis_clean`](param#redis_clean)设置为`false`时，就会出现这种情况。
+当您运行`redis.yml`来初始化一个已经在运行的redis实例，并且[`redis_clean`](PARAM#redis_clean)设置为`false`时，就会出现这种情况。
 
-如果`redis_clean`设置为`true`（并且 [`redis_safeguard`](param#redis_safeguard) 也设置为`false`），`redis.yml`剧本将删除现有的redis实例并将其重新初始化为一个新的实例，这使得`redis.yml`剧本完全具有幂等性。
+如果`redis_clean`设置为`true`（并且 [`redis_safeguard`](PARAM#redis_safeguard) 也设置为`false`），`redis.yml`剧本将删除现有的redis实例并将其重新初始化为一个新的实例，这使得`redis.yml`剧本完全具有幂等性。
 
 </details>
 
@@ -779,9 +758,9 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 
 <details><summary>Redis初始化失败：ABORT due to redis_safeguard enabled</summary><br>
 
-这意味着正准备清理的 Redis 实例打开了防误删保险：当 [`redis_safeguard`](param#redis_safeguard) 设置为 `true` 时，尝试移除一个redis实例时就会出现这种情况。
+这意味着正准备清理的 Redis 实例打开了防误删保险：当 [`redis_safeguard`](PARAM#redis_safeguard) 设置为 `true` 时，尝试移除一个redis实例时就会出现这种情况。
 
-您可以关闭 [`redis_safeguard`](param#redis_safeguard) 来移除Redis实例。这就是 `redis_safeguard` 的作用。
+您可以关闭 [`redis_safeguard`](PARAM#redis_safeguard) 来移除Redis实例。这就是 `redis_safeguard` 的作用。
 
 </details>
 
@@ -835,7 +814,7 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 
 这意味着正准备清理的 PostgreSQL 实例打开了防误删保险， 禁用 `pg_safeguard` 以移除 Postgres 实例。
 
-如果防误删保险 [`pg_safeguard`](param#pg_safeguard) 打开，那么你就不能使用 `bin/pgsql-rm` 和 `pgsql-rm.yml` 剧本移除正在运行的 PGSQL 实例了。
+如果防误删保险 [`pg_safeguard`](PARAM#pg_safeguard) 打开，那么你就不能使用 `bin/pgsql-rm` 和 `pgsql-rm.yml` 剧本移除正在运行的 PGSQL 实例了。
 
 要禁用 `pg_safeguard`，你可以在配置清单中将 `pg_safeguard` 设置为 `false`，或者在执行剧本时使用命令参数 `-e pg_safeguard=false`。
 
@@ -886,8 +865,6 @@ etcdctl member remove <etcd_server_id>   # 在管理节点上从集群中踢出�
 
 要安装 PostgreSQL 12 - 15，你必须在配置清单中设置 `pg_version` 为 `12`、`13`、`14` 或 `15`，通常在集群级别配置这个参数。
 
-请注意，如果您想要安装 PostgreSQL 12, 13, 16beta，你还需要更改 `pg_libs` 和 `pg_extensions`，这些版本并没有提供完整的核心扩展插件：即只有数据库内核可用。
-
 ```yaml
 pg_version: 16                    # 在此模板中安装 pg 16
 pg_libs: 'pg_stat_statements, auto_explain' # 从 pg 16 beta 中移除 timescaledb，因为它不可用
@@ -910,7 +887,7 @@ pg_extensions: []                 # 目前缺少 pg16 扩展
 
 如果你计划启用大页（HugePage），请考虑使用 [`node_hugepage_count`](PARAM#node_hugepage_count) 和 [`node_hugepage_ratio`](PARAM#node_hugepage_ratio)，并配合 `./node.yml -t node_tune` 进行应用。
 
-大页对于数据库来说有利有弊，利是内存是专门管理的，不用担心被挪用，降低数据库 OOM 风险。缺点是某些场景下可能对性能由负面影响。 
+大页对于数据库来说有利有弊，利是内存是专门管理的，不用担心被挪用，降低数据库 OOM 风险。缺点是某些场景下可能对性能有负面影响。 
 
 在 PostgreSQL 启动前，您需要分配 **足够多的** 大页，浪费的部分可以使用 `pg-tune-hugepage` 脚本对其进行回收，不过此脚本仅 PostgreSQL 15+ 可用。
 
@@ -930,11 +907,11 @@ pg restart <cls>                          # 重启 postgres 以使用 hugepage
 <br>
 <details><summary>如何确保故障转移中数据不丢失？</summary><br>
 
-> 使用 `crit.yml` 参数模板，设置 `pg_rpo` 为 `0`，或[配置集群](pgsql-admin#配置集群)为同步提交模式。
+> 使用 `crit.yml` 参数模板，设置 `pg_rpo` 为 `0`，或[配置集群](PGSQL-ADMIN#配置集群)为同步提交模式。
 
-考虑使用 [同步备库](PGSQL-CONF#同步备库) 和 [法定多数提交](pgsql-conf#法定人数提交) 来确保故障转移过程中的零数据丢失。
+考虑使用 [同步备库](PGSQL-CONF#同步备库) 和 [法定多数提交](PGSQL-CONF#法定人数提交) 来确保故障转移过程中的零数据丢失。
 
-更多细节，可以参考 [安全考量 - 可用性](SECURITY.md#可用性) 的相关介绍。
+更多细节，可以参考 [安全考量 - 可用性](SECURITY#可用性) 的相关介绍。
 
 </details>
 
@@ -946,7 +923,7 @@ pg restart <cls>                          # 重启 postgres 以使用 hugepage
 
 如果磁盘写满了，连 Shell 命令都无法执行，`rm -rf /pg/dummy` 可以释放一些救命空间。
 
-默认情况下，[`pg_dummy_filesize`](param#pg_dummy_filesize) 设置为 `64MB`。在生产环境中，建议将其增加到 `8GB` 或更大。
+默认情况下，[`pg_dummy_filesize`](PARAM#pg_dummy_filesize) 设置为 `64MB`。在生产环境中，建议将其增加到 `8GB` 或更大。
 
 它将被放置在 PGSQL 主数据磁盘上的 `/pg/dummy` 路径下。你可以删除该文件以释放一些紧急空间：至少可以让你在该节点上运行一些 shell 脚本来进一步回收其他空间。
 

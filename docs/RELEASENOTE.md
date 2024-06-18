@@ -2,6 +2,9 @@
 
 | Version         |    Time    | Description                                              | Release                                                                                   |
 |:----------------|:----------:|----------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| [v2.7.0](#v270) | 2024-05-20 | Extension Overwhelming, new docker apps                  | [v2.7.0](https://github.com/Vonng/pigsty/releases/tag/v2.7.0)                             |
+| [v2.6.0](#v260) | 2024-02-28 | PG 16 as default version,  ParadeDB & DuckDB             | [v2.6.0](https://github.com/Vonng/pigsty/releases/tag/v2.6.0)                             |
+| [v2.5.1](#v251) | 2023-12-01 | Routine update, pg16 major extensions                    | [v2.5.1](https://github.com/Vonng/pigsty/releases/tag/v2.5.1)                             |
 | [v2.5.0](#v250) | 2023-10-24 | Ubuntu/Debian Support:  bullseye, bookworm, jammy, focal | [v2.5.0](https://github.com/Vonng/pigsty/releases/tag/v2.5.0)                             |
 | [v2.4.1](#v241) | 2023-09-24 | Supabase/PostgresML support, graphql, jwt, pg_net, vault | [v2.4.1](https://github.com/Vonng/pigsty/releases/tag/v2.4.1)                             |
 | [v2.4.0](#v240) | 2023-09-14 | PG16, RDS Monitor, New Extensions                        | [v2.4.0](https://github.com/Vonng/pigsty/releases/tag/v2.4.0)                             |
@@ -36,13 +39,226 @@
 | v0.0.1          | 2019-05-15 | POC                                                      | [v0.0.1](https://github.com/Vonng/pg/commit/fa2ade31f8e81093eeba9d966c20120054f0646b)     |
 
 
+----------------
+
+## v2.7.0
+
+**Highlight**
+
+Extension Overwhelming, adding numerous new extensions written in `rust` & `pgrx`:
+
+- [pg_search](https://github.com/paradedb/paradedb/tree/dev/pg_search) v0.7.0 : Full text search over SQL tables using the BM25 algorithm
+- [pg_lakehouse](https://github.com/paradedb/paradedb/tree/dev/pg_lakehouse) v0.7.0 : Query engine over object stores like S3 and table formats like Delta Lake
+- [pg_analytics](https://github.com/paradedb/pg_analytics) v0.6.1 : Accelerates analytical query processing inside Postgres
+- [pg_graphql](https://github.com/supabase/pg_graphql) v1.5.4 : GraphQL support to your PostgreSQL database.
+- [pg_jsonschema](https://github.com/supabase/pg_jsonschema) v0.3.1 : PostgreSQL extension providing JSON Schema validation
+- [wrappers](https://github.com/supabase/wrappers) v0.3.1 : Postgres Foreign Data Wrappers Collections by Supabase
+- [pgmq](https://github.com/tembo-io/pgmq) v1.5.2 : A lightweight message queue. Like AWS SQS and RSMQ but on Postgres.
+- [pg_tier](https://github.com/tembo-io/pg_tier) v0.0.3 : Postgres Extension written in Rust, to enable data tiering to AWS S3
+- [pg_vectorize](https://github.com/tembo-io/pg_vectorize) v0.15.0 : The simplest way to orchestrate vector search on Postgres
+- [pg_later](https://github.com/tembo-io/pg_later) v0.1.0 : Execute SQL now and get the results later.
+- [pg_idkit](https://github.com/VADOSWARE/pg_idkit) v0.2.3 : Generating many popular types of identifiers
+- [plprql](https://github.com/kaspermarstal/plprql) v0.1.0 : Use PRQL in PostgreSQL
+- [pgsmcrypto](https://github.com/zhuobie/pgsmcrypto) v0.1.0 : PostgreSQL SM Algorithm Extension
+- [pg_tiktoken](https://github.com/kelvich/pg_tiktoken) v0.0.1 : OpenAI tiktoken tokenizer for postgres
+- [pgdd](https://github.com/rustprooflabs/pgdd) v0.5.2 : Access Data Dictionary metadata with pure SQL
+
+And some new extensions in plain C & C++
+
+- [parquet_s3_fdw](https://github.com/pgspider/parquet_s3_fdw) 1.1.0 : ParquetS3 Foreign Data Wrapper for PostgresSQL
+- [plv8](https://github.com/plv8/plv8) 3.2.2 : V8 Engine Javascript Procedural Language add-on for PostgreSQL
+- [md5hash](https://github.com/tvondra/md5hash) 1.0.1 : Custom data type for storing MD5 hashes rather than text
+- [pg_tde](https://github.com/Percona-Lab/pg_tde) 1.0 alpha: Experimental encrypted access method for PostgreSQL
+- [pg_dirtyread](https://github.com/df7cb/pg_dirtyread) 2.6 : Read dead but unvacuumed tuples from a PostgreSQL relation
+- New deb PGDG extensions: `pg_roaringbitmap`, `pgfaceting`, `mobilitydb`, `pgsql-http`, `pg_hint_plan`, `pg_statviz`, `pg_rrule`
+- New rpm PGDG extensions: `pg_profile`, `pg_show_plans`, use PGDG's `pgsql_http`, `pgsql_gzip`, `pg_net`, `pg_bigm` instead of Pigsty RPM. 
+
+**New Features**
+
+- running on certain `docker` containers.
+- prepare arm64 packages for infra & pgsql packages for el & deb distros.
+- new installation script to download from cloudflare, and more hint.
+- new monitoring dashboard for PGSQL PITR to assist the PITR procedure. 
+- make preparation for running pigsty inside docker VM containers
+- add a [fool-proof design](https://github.com/Vonng/pigsty/issues/402) for running pgsql.yml on node that is not managed by pigsty
+- add config template for each major version: el7, el8, el9, debian11, debian12, ubuntu20, ubuntu22
+
+**Software Upgrade**
+
+- **PostgreSQL 16.3**
+- Patroni 3.3.0
+- pgBackRest 2.51
+- vip-manager v2.5.0
+- Haproxy 2.9.7
+- Grafana 10.4.2
+- Prometheus 2.51
+- Loki & Promtail: 3.0.0 (breaking changes!)
+- Alertmanager 0.27.0
+- BlackBox Exporter 0.25.0
+- Node Exporter 1.8.0
+- pgBackrest Exporter 0.17.0
+- duckdb 0.10.2
+- etcd 3.5.13
+- minio-20240510014138 / mcli-20240509170424
+- pev2 v1.8.0 -> v1.11.0
+- **pgvector** 0.6.1 -> 0.7.0
+- pg_tle: v1.3.4 -> v1.4.0
+- hydra: v1.1.1 -> v1.1.2
+- duckdb_fdw: v1.1.0 recompile with libduckdb 0.10.2
+- pg_bm25 0.5.6 -> pg_search 0.7.0
+- pg_analytics: 0.5.6 -> 0.6.1
+- pg_graphql: 1.5.0 -> 1.5.4
+- pg_net 0.8.0 -> 0.9.1
+- pg_sparse (deprecated)
+
+**Docker Application**
+
+- [Odoo](https://github.com/Vonng/pigsty/tree/master/app/odoo): launch open source ERP and plugins
+- [Jupyter](https://github.com/Vonng/pigsty/tree/master/app/jupyter): run jupyter notebook container
+- [PolarDB](https://github.com/Vonng/pigsty/tree/master/app/polardb): run the demo PG RAC playground.
+- [supabase](https://github.com/Vonng/pigsty/tree/master/app/supabase): bump to the latest GA version.
+- [bytebase](https://github.com/Vonng/pigsty/tree/master/app/bytebase): use the `latest` tag instead of ad hoc version.
+- [pg_exporter](https://github.com/Vonng/pigsty/tree/master/app/pg_exporter): update docker image example
+
+**Bug Fix**
+
+- Fix role pg_exporters white space in variable templates
+- Fix `minio_cluster` not commented in global variables
+- Fix the non-exist `postgis34` in el7 config template
+- Fix EL8 `python3.11-cryptography` deps to `python3-cryptography` according to upstream
+- Fix `/pg/bin/pg-role` can not get OS user name from environ in non-interact mode
+- Fix `/pg/bin/pg-pitr` can not hint -X -P flag properly
+
+**API Change**
+
+- New parameter `node_write_etc_hosts` to control whether to write `/etc/hosts` file on target nodes.
+- Relocatable prometheus target directory with new parameter `prometheus_sd_dir`.
+- Add `-x|--proxy` flag to enable and use value of global proxy env by @waitingsong in https://github.com/Vonng/pigsty/pull/405
+- No longer parse infra nginx log details since it brings too much labels to the log.
+- Use alertmanager API Version v2 instead of v1 in prometheus config.
+- Use `/pg/cert/ca.crt` instead of `/etc/pki/ca.crt` in pgsql roles.
+
+**New Contributors**
+
+- @NeroSong made their first contribution in https://github.com/Vonng/pigsty/pull/373
+- @waitingsong made their first contribution in https://github.com/Vonng/pigsty/pull/405
+
+**Package Checksums**
+
+```bash
+ec271a1d34b2b1360f78bfa635986c3a  pigsty-pkg-v2.7.0.el8.x86_64.tgz
+f3304bfd896b7e3234d81d8ff4b83577  pigsty-pkg-v2.7.0.debian12.x86_64.tgz
+5b071c2a651e8d1e68fc02e7e922f2b3  pigsty-pkg-v2.7.0.ubuntu22.x86_64.tgz
+```
+
+
+
+
+
+----------------
+
+## v2.6.0
+
+**Highlight**
+
+* Use PostgreSQL 16 as the default major version (16.2)
+* Introduce [ParadeDB](https://www.paradedb.com/) extensions: `pg_analytics`, `pg_bm25`, and `pg_sparse`
+* Introduce [DuckDB](https://duckdb.org/) and corresponding foreign data wrapper: `duckdb_fdw`
+* Cloudflare CDN https://repo.pigsty.io and QCloud CDN https://repo.pigsty.cc 
+
+**Configuration**
+
+- Disable Grafana Unified Alert to work around the "Database Locked" error。
+- add `node_repo_modules` to add upstream repos (including local one) to node
+- remove `node_local_repo_urls`, replaced by `node_repo_modules` & `repo_upstream`.
+- remove `node_repo_method`, replaced by `node_repo_modules`.
+- add the new `local` repo into `repo_upstream` instead of `node_local_repo_urls`
+- add `chrony` into `node_default_packages`
+- remove redis,minio,postgresql client from infra packages
+- replace `repo_upstream.baseurl` $releasever for pgdg el8/el9 with `major.minor` instead of `major` version
+
+**Software Upgrade**
+
+- Grafana 10.3.3
+- Prometheus 2.47
+- node_exporter 1.7.0
+- HAProxy 2.9.5
+- Loki / Promtail 2.9.4
+- minio-20240216110548 / mcli-20240217011557
+- etcd 3.5.11
+- Redis 7.2.4
+- Bytebase 2.13.2
+- HAProxy 2.9.5
+- DuckDB 0.10.0
+- FerretDB 1.19
+- Metabase: new docker compose app template added
+
+
+**PostgreSQL x Pigsty Extensions**
+
+- PostgreSQL Minor Version Upgrade 16.2, 15.6, 14.11, 13.14, 12.18
+- PostgreSQL 16 is now used as the default major version
+- pg_exporter 0.6.1, security fix
+- Patroni 3.2.2
+- pgBadger 12.4
+- pgBouncer 1.22
+- pgBackRest 2.50
+- vip-manager 2.3.0
+- PostGIS 3.4.1
+- PGVector 0.6.0
+- TimescaleDB 2.14.1
+- New Extension [duckdb_fdw](https://github.com/alitrack/duckdb_fdw) v1.1
+- New Extension [pgsql-gzip](https://github.com/pramsey/pgsql-gzip) v1.0.0
+- New Extension [pg_sparse](https://github.com/paradedb/paradedb/tree/dev/pg_sparse) from ParadeDB: v0.5.6
+- New Extension [pg_bm25](https://github.com/paradedb/paradedb/tree/dev/pg_bm25) from ParadeDB: v0.5.6
+- New Extension [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) from ParadeDB: v0.5.6
+- Bump AI/ML Extension [pgml](https://github.com/postgresml/postgresml) to v2.8.1 with pg16 support
+- Bump Columnar Extension [hydra](https://github.com/hydradatabase/) to v1.1.1 with pg16 support
+- Bump Graph Extension [age](https://github.com/apache/age) to v1.5.0 with pg16 support
+- Bump Packaging Extension [pg_tle](https://github.com/aws/pg_tle) to v1.3.4 with pg16 support
+- Bump GraphQL Extension [pg_graphql](https://github.com/supabase/pg_graphql) to v1.5.0 to support supabase
+
+
+----------------
+
+## v2.5.1
+
+Routine update with v16.1, v15.5, 14.10, 13.13, 12.17, 11.22
+
+Now PostgreSQL 16 has all the core extensions available (`pg_repack` & `timescaledb` added)
+
+- Software Version Upgrade：
+  - PostgreSQL to v16.1, v15.5, 14.10, 13.13, 12.17, 11.22 
+  - Patroni v3.2.0
+  - PgBackrest v2.49
+  - Citus 12.1
+  - TimescaleDB 2.13.0 (with PG 16 support)
+  - Grafana v10.2.2
+  - FerretDB 1.15
+  - SealOS 4.3.7
+  - Bytebase 2.11.1
+
+* Remove `monitor` schema prefix from PGCAT dashboard queries
+* New template `wool.yml` for Aliyun free ECS singleton
+* Add `python3-jmespath` in addition to `python3.11-jmespath` for el9
+
+```
+31ee48df1007151009c060e0edbd74de  pigsty-pkg-v2.5.1.el7.x86_64.tgz
+a40f1b864ae8a19d9431bcd8e74fa116  pigsty-pkg-v2.5.1.el8.x86_64.tgz
+c976cd4431fc70367124fda4e2eac0a7  pigsty-pkg-v2.5.1.el9.x86_64.tgz
+7fc1b5bdd3afa267a5fc1d7cb1f3c9a7  pigsty-pkg-v2.5.1.debian11.x86_64.tgz
+add0731dc7ed37f134d3cb5b6646624e  pigsty-pkg-v2.5.1.debian12.x86_64.tgz
+99048d09fa75ccb8db8e22e2a3b41f28  pigsty-pkg-v2.5.1.ubuntu20.x86_64.tgz
+431668425f8ce19388d38e5bfa3a948c  pigsty-pkg-v2.5.1.ubuntu22.x86_64.tgz
+```
+
 
 ----------------
 
 ## v2.5.0
 
 ```bash
-curl https://get.pigsty.cc/latest | bash
+curl -L https://get.pigsty.cc/latest | bash
 ```
 
 **Highlights**
@@ -270,8 +486,6 @@ MD5 (pigsty-pkg-v2.3.1.el9.x86_64.tgz) = 4bc9ae920e7de6dd8988ca7ee681459d
 
 
 Get started with `bash -c "$(curl -fsSL http://get.pigsty.cc/latest)"`
-
-Release Note: https://doc.pigsty.cc/#/RELEASENOTE
 
 **Highlight**
 

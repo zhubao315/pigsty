@@ -2,6 +2,9 @@
 
 | 版本              |    发布时间    | 摘要                                                         | 地址                                                                                        |
 |:----------------|:----------:|------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| [v2.7.0](#v270) | 2024-05-20 | 扩展大爆炸，新增20强力扩展插件，与多款Docker应用                               | [v2.7.0](https://github.com/Vonng/pigsty/releases/tag/v2.7.0)                             |
+| [v2.6.0](#v260) | 2024-02-28 | PG 16 作为默认大版本，引入 ParadeDB 与 DuckDB 等扩展                     | [v2.6.0](https://github.com/Vonng/pigsty/releases/tag/v2.6.0)                             |
+| [v2.5.1](#v251) | 2023-12-01 | 例行小版本更新，PG16重要扩展支持                                         | [v2.5.1](https://github.com/Vonng/pigsty/releases/tag/v2.5.1)                             |
 | [v2.5.0](#v250) | 2023-09-24 | Ubuntu/Debian支持：bullseye, bookworm, jammy, focal           | [v2.5.0](https://github.com/Vonng/pigsty/releases/tag/v2.5.0)                             |
 | [v2.4.1](#v241) | 2023-09-24 | Supabase/PostgresML支持与各种新扩展：graphql, jwt, pg_net, vault    | [v2.4.1](https://github.com/Vonng/pigsty/releases/tag/v2.4.1)                             |
 | [v2.4.0](#v240) | 2023-09-14 | PG16，监控RDS，服务咨询支持，新扩展：中文分词全文检索/图/HTTP/嵌入等                  | [v2.4.0](https://github.com/Vonng/pigsty/releases/tag/v2.4.0)                             |
@@ -34,6 +37,219 @@
 | v0.0.3          | 2020-06-22 | 接口设计改进                                                     | [v0.0.3](https://github.com/Vonng/pigsty/commit/4c5c68ccd57bc32a9e9c98aa3f264aa19f45c7ee) |
 | v0.0.2          | 2020-04-30 | 首次提交                                                       | [v0.0.2](https://github.com/Vonng/pigsty/commit/dd646775624ddb33aef7884f4f030682bdc371f8) |
 | v0.0.1          | 2019-05-15 | 概念原型                                                       | [v0.0.1](https://github.com/Vonng/pg/commit/fa2ade31f8e81093eeba9d966c20120054f0646b)     |
+
+
+
+----------------
+
+## v2.7.0
+
+**亮点特性**
+
+新增了大量强力扩展插件，特别是一些使用 `rust` 与 `pgrx` 进行开发的强力扩展：
+
+- [pg_search](https://github.com/paradedb/paradedb/tree/dev/pg_search) v0.7.0：使用 BM25 算法对 SQL 表进行全文搜索
+- [pg_lakehouse](https://github.com/paradedb/paradedb/tree/dev/pg_lakehouse) v0.7.0：在对象存储（如 S3）和表格式（如 DeltaLake）上进行查询的引擎
+- [pg_analytics](https://github.com/paradedb/pg_analytics) v0.6.1：加速 PostgreSQL 内部的分析查询处理
+- [pg_graphql](https://github.com/supabase/pg_graphql) v1.5.4：为 PostgreSQL 数据库提供 GraphQL 支持
+- [pg_jsonschema](https://github.com/supabase/pg_jsonschema) v0.3.1：提供 JSON Schema 校验的 PostgreSQL 扩展
+- [wrappers](https://github.com/supabase/wrappers) v0.3.1：由 Supabase 提供的 PostgreSQL 外部数据封装器集合
+- [pgmq](https://github.com/tembo-io/pgmq) v1.5.2：轻量级消息队列，类似于 AWS SQS 和 RSMQ
+- [pg_tier](https://github.com/tembo-io/pg_tier) v0.0.3：支将将冷数据分级存储到 AWS S3
+- [pg_vectorize](https://github.com/tembo-io/pg_vectorize) v0.15.0: 在 PG 中实现 RAG 向量检索的封装
+- [pg_later](https://github.com/tembo-io/pg_later) v0.1.0：现在执行 SQL，并在稍后获取结果
+- [pg_idkit](https://github.com/VADOSWARE/pg_idkit) v0.2.3：生成多种流行类型的标识符（UUID）
+- [plprql](https://github.com/kaspermarstal/plprql) v0.1.0：在 PostgreSQL 中使用 PRQL 查询语言
+- [pgsmcrypto](https://github.com/zhuobie/pgsmcrypto) v0.1.0：PostgreSQL 的国密 SM 算法扩展
+- [pg_tiktoken](https://github.com/kelvich/pg_tiktoken) v0.0.1：计算 OpenAI 使用的 Token 数量
+- [pgdd](https://github.com/rustprooflabs/pgdd) v0.5.2：通过纯 SQL 接口，访问数据目录的元数据
+
+当然，也有一些使用原生 C 和 C++ 开发的强力扩展：
+
+- [parquet_s3_fdw](https://github.com/pgspider/parquet_s3_fdw) 1.1.0：从 S3 存取 Parquet 格式文件，作为湖仓之用
+- [plv8](https://github.com/plv8/plv8) 3.2.2：使用 V8 引擎，允许在 PostgreSQL 中使用 Javascript 语言编写存储过程
+- [md5hash](https://github.com/tvondra/md5hash) 1.0.1：用于存储原生MD5哈希数据类型，而非文本。
+- [pg_tde](https://github.com/Percona-Lab/pg_tde) 1.0 alpha：PostgreSQL 的实验性加密存储引擎。
+- [pg_dirtyread](https://github.com/df7cb/pg_dirtyread) 2.6：从 PostgreSQL 表中读取未清理的死元组，用于脏读
+- 新的 deb PGDG 扩展：`pg_roaringbitmap`, `pgfaceting`, `mobilitydb`, `pgsql-http`, `pg_hint_plan`, `pg_statviz`, `pg_rrule`
+- 新的 rpm PGDG 扩展：`pg_profile`, `pg_show_plans`, 使用 PGDG 的 `pgsql_http`, `pgsql_gzip`, `pg_net`, `pg_bigm` 替代 Pigsty 维护的 RPM。
+
+**新特性**
+
+- 允许 Pigsty 在特定 Docker 虚拟机镜像中运行。
+- 针对 Ubuntu 与 EL 系操作系统发行版准备了 INFRA & PGSQL 模块的 arm64 软件包
+- 新安装脚本，可从 cloudflare 下载软件，可以指定版本，提供更完善的提示信息。
+- 新增的 PGSQL PITR 监控面板，用于在 PITR 过程中提供更好的可观测性
+- 针对在 Docker 虚拟机镜像中运行 Pigsty 进行了一系列铺垫与准备。
+- 新增了 [防呆设计](https://github.com/Vonng/pigsty/issues/402)，避免在非 Pigsty 纳管的节点上运行 pgsql.yml 剧本 （[AdamYLK](https://github.com/AdamYLK)）
+- 针对每个支持的发行版大版本配置了独立的配置文件：el7, el8, el9, debian11, debian12, ubuntu20, ubuntu22
+
+
+**软件版本升级**
+
+- **PostgreSQL 16.3**
+- Patroni 3.3.0
+- pgBackRest 2.51
+- VIP-Manager v2.5.0
+- Haproxy 2.9.7
+- Grafana 10.4.2
+- Prometheus 2.51
+- Loki & Promtail: 3.0.0 (警告：大版本非兼容性变更！)
+- Alertmanager 0.27.0
+- BlackBox Exporter 0.25.0
+- Node Exporter 1.8.0
+- pgBackrest Exporter 0.17.0
+- duckdb 0.10.2
+- etcd 3.5.13
+- minio-20240510014138 / mcli-20240509170424
+- pev2 v1.8.0 -> v1.11.0
+- **pgvector** 0.6.1 -> 0.7.0
+- pg_tle: v1.3.4 -> v1.4.0
+- hydra: v1.1.1 -> v1.1.2
+- duckdb_fdw: v1.1.0 重新针对 libduckdb 0.10.2 进行编译
+- pg_bm25 0.5.6 -> pg_search 0.7.0
+- pg_analytics: 0.5.6 -> 0.6.1
+- pg_graphql: 1.5.0 -> 1.5.4
+- pg_net 0.8.0 -> 0.9.1
+- pg_sparse (deprecated)
+
+**Docker应用模板**
+
+- [Odoo](https://github.com/Vonng/pigsty/tree/master/app/odoo)：开源 ERP 软件与插件
+- [Jupyter](https://github.com/Vonng/pigsty/tree/master/app/jupyter)：使用容器运行 Jupyter Notebook
+- [PolarDB](https://github.com/Vonng/pigsty/tree/master/app/polardb)：运行“国产数据库” PolarDB，应付信创检查！
+- [supabase](https://github.com/Vonng/pigsty/tree/master/app/supabase)：更新至最近的 GA 版本
+- [bytebase](https://github.com/Vonng/pigsty/tree/master/app/bytebase)：使用 `latest` 标签替代特定版本号。
+- [pg_exporter](https://github.com/Vonng/pigsty/tree/master/app/pg_exporter)：更新了 Docker 镜像的例子。
+
+**缺陷修复**
+
+- 修复了 pg_exporters 角色中的变量空白问题。
+- 修复了 `minio_cluster` 变量没有在全局配置中注释掉的问题
+- 修复了 EL7 模板中的 `postgis34` 插件名称问题，应该使用 `postgis33`
+- 修复了 EL8 `python3.11-cryptography` 依赖名的问题，上游现在变更为 `python3-cryptography`。
+- 修复了 `/pg/bin/pg-role` 无法在非交互式 Shell 模式下获取操作系统用户名的问题
+- 修复了 `/pg/bin/pg-pitr` 无法正确提示 `-X` `-P` 选项的问题
+
+**API变更**
+
+- 新参数 `node_write_etc_hosts`，用于控制是否向目标节点的 `/etc/hosts` 文件写入静态 DNS 解析记录
+- 新增了 `prometheus_sd_dir` 参数，用于指定 Prometheus 静态服务发现的目标文件目录
+- configure 脚本新增了 `-x|--proxy` 参数，用于将当前环境的代理信息写入配置文件 by @waitingsong in https://github.com/Vonng/pigsty/pull/405
+- 不再使用 Promtail & Loki 解析 Infra 节点上的 Nginx 日志细节标签，因为这样会导致标签基数爆炸。
+- 在 Prometheus 配置中使用 alertmanager API v2 替代 v1
+- 在 PGSQL 模块中，使用 `/pg/cert/ca.crt` 代替 `/etc/pki/ca.crt`，降低对节点根证书的依赖。 
+
+**新的贡献者**
+
+- @NeroSong made their first contribution in https://github.com/Vonng/pigsty/pull/373
+- @waitingsong made their first contribution in https://github.com/Vonng/pigsty/pull/405
+
+**完整的变更日志**: https://github.com/Vonng/pigsty/compar
+
+**离线软件包校验和**
+
+```bash
+ec271a1d34b2b1360f78bfa635986c3a  pigsty-pkg-v2.7.0.el8.x86_64.tgz
+f3304bfd896b7e3234d81d8ff4b83577  pigsty-pkg-v2.7.0.debian12.x86_64.tgz
+5b071c2a651e8d1e68fc02e7e922f2b3  pigsty-pkg-v2.7.0.ubuntu22.x86_64.tgz
+```
+
+
+----------------
+
+## v2.6.0
+
+**亮点特性**
+
+* 现已将 PostgreSQL 16 作为默认主要版本（16.2）
+* 新增 [ParadeDB](https://www.paradedb.com/) 扩展插件：`pg_analytics`, `pg_bm25`, and `pg_sparse`
+* 新增 [DuckDB](https://duckdb.org/) 与 `duckdb_fdw` 插件支持
+* 全球 Cloudflare CDN https://repo.pigsty.io 与中国大陆CDN https://repo.pigsty.cc
+
+**软件配置变更**
+
+- 使用 `node_repo_modules` 替换 `node_repo_method` 参数，并移除 `node_repo_local_urls` 参数。
+- 暂时关闭 Grafana 统一告警功能，避免 "Database Locked" 错误。
+- 新增 `node_repo_modules` 参数，用于指定在节点上添加的上游仓库源。
+- 移除 `node_local_repo_urls`，其功能由 `node_repo_modules` & `repo_upstream` 替代。
+- 移除 `node_repo_method` 参数，其功能由 `node_repo_modules` 替代。
+- 在 `repo_upstream` 添加新的 `local` 源，并通过 `node_repo_modules` 使用，替代 `node_local_repo_urls` 的功能
+- 重排 `node_default_packages`，`infra_packages`，`pg_packages`，`pg_extensions` 参数默认值。
+- 在 `repo_upstream` 中替换 `repo_upstream.baseurl` 时，如果 EL8/9 PGDG小版本特定的仓库可用，使用 `major.minor` 而不是 `major` 替换 $releasever，提高小版本兼容性。
+
+**软件版本升级**
+
+- Grafana 10.3
+- Prometheus 2.47
+- node_exporter 1.7.0
+- HAProxy 2.9.5
+- Loki / Promtail 2.9.4
+- minio-20240216110548 / mcli-20240217011557
+- etcd 3.5.11
+- Redis 7.2.4
+- Bytebase 2.13.2
+- DuckDB 0.10.0
+- FerretDB 1.19
+- Metabase：新Docker应用模板
+
+**PostgreSQL扩展插件**
+
+- PostgreSQL 小版本升级： 16.2, 15.6, 14.11, 13.14, 12.18 
+- PostgreSQL 16： 现在被提升为默认主版本
+- pg_exporter 0.6.1：安全修复
+- Patroni 3.2.2
+- pgBadger 12.4
+- pgBackRest 2.50
+- vip-manager 2.3.0
+- PostGIS 3.4.2
+- TimescaleDB 2.14.1
+- 向量扩展 PGVector 0.6.0：新增并行创建 HNSW 索引功能
+- 新增扩展插件 [duckdb_fdw](https://github.com/alitrack/duckdb_fdw) v1.1 ，支持读写 DuckDB 数据 v1.1
+- 新增扩展插件 [pgsql-gzip](https://github.com/pramsey/pgsql-gzip) ，用于支持 Gzip 压缩解压缩 v1.0.0
+- 新增扩展插件 [pg_sparse](https://github.com/paradedb/paradedb/tree/dev/pg_sparse)，高效处理稀疏向量（ParadeDB） v0.5.6
+- 新增扩展插件 [pg_bm25](https://github.com/paradedb/paradedb/tree/dev/pg_bm25)，用于支持高质量全文检索 BM25 算法的插件（ParadeDB） v0.5.6
+- 新增扩展插件 [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics)，支持 SIMD 与列式存储的PG分析插件（ParadeDB） v0.5.6
+- 升级AIML插件 [pgml](https://github.com/postgresml/postgresml) 至 v2.8.1，新增 PG 16 支持。
+- 升级列式存储插件 [hydra](https://github.com/hydradatabase/) 版本至 v1.1.1，新增 PG 16 支持。
+- 升级图扩展插件 [age](https://github.com/apache/age) 至 v1.5.0，新增 PG 16 支持。
+- 升级GraphQL插件 [pg_graphql](https://github.com/supabase/pg_graphql) 版本至 v1.5.0 ，支持 Supabase。
+
+
+
+
+----------------
+
+## v2.5.1
+
+跟进 PostgreSQL v16.1, v15.5, 14.10, 13.13, 12.17, 11.22 小版本例行更新。
+
+现在 PostgreSQL 16 的所有重要扩展已经就位（新增 `pg_repack` 与 `timescaledb` 支持）
+
+- 软件更新：
+  - PostgreSQL to v16.1, v15.5, 14.10, 13.13, 12.17, 11.22
+  - Patroni v3.2.0
+  - PgBackrest v2.49
+  - Citus 12.1
+  - TimescaleDB 2.13
+  - Grafana v10.2.0
+  - FerretDB 1.15
+  - SealOS 4.3.7
+  - Bytebase 2.11.1
+
+* 移除  PGCAT 监控面板中查询对 `monitor` 模式前缀（允许用户将 `pg_stat_statements` 扩展装到别的地方）
+* 新的配置模板 `wool.yml`，为阿里云免费99 ECS 单机针对设计。
+* 为 EL9 新增 `python3-jmespath` 软件包，解决 Ansible 依赖更新后 bootstrap 缺少 jmespath 的问题
+
+```
+31ee48df1007151009c060e0edbd74de  pigsty-pkg-v2.5.1.el7.x86_64.tgz
+a40f1b864ae8a19d9431bcd8e74fa116  pigsty-pkg-v2.5.1.el8.x86_64.tgz
+c976cd4431fc70367124fda4e2eac0a7  pigsty-pkg-v2.5.1.el9.x86_64.tgz
+7fc1b5bdd3afa267a5fc1d7cb1f3c9a7  pigsty-pkg-v2.5.1.debian11.x86_64.tgz
+add0731dc7ed37f134d3cb5b6646624e  pigsty-pkg-v2.5.1.debian12.x86_64.tgz
+99048d09fa75ccb8db8e22e2a3b41f28  pigsty-pkg-v2.5.1.ubuntu20.x86_64.tgz
+431668425f8ce19388d38e5bfa3a948c  pigsty-pkg-v2.5.1.ubuntu22.x86_64.tgz
+```
 
 
 ----------------
@@ -343,7 +559,7 @@ MD5 (pigsty-pkg-v2.3.0.el9.x86_64.tgz) = 4bc9ae920e7de6dd8988ca7ee681459d
   - 移除 `citus`: 现在 PGDG 中有完整的 EL7 - EL9 citus 12 支持
   - 移除 `remi`: redis 现在由 pigsty-el 仓库提供，不再需要 `redis` 模块。
 - `repo_packages`:
-  - ansible python3 python3-pip python3-requests python3.11-jmespath dnf-utils modulemd-tools # el7: python36-requests python36-idna yum-utils
+  - ansible python3 python3-pip python3-requests python3-jmespath python3.11-jmespath dnf-utils modulemd-tools # el7: python36-requests python36-idna yum-utils
   - grafana loki logcli promtail prometheus2 alertmanager karma pushgateway node_exporter blackbox_exporter nginx_exporter redis_exporter
   - redis etcd minio mcli haproxy vip-manager pg_exporter nginx createrepo_c sshpass chrony dnsmasq docker-ce docker-compose-plugin flamegraph
   - lz4 unzip bzip2 zlib yum pv jq git ncdu make patch bash lsof wget uuid tuned perf nvme-cli numactl grubby sysstat iotop htop rsync tcpdump

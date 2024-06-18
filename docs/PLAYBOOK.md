@@ -32,7 +32,7 @@ Here are default playbooks included in Pigsty.
 | [`minio.yml`](https://github.com/vonng/pigsty/blob/master/minio.yml)                     | Init minio cluster (optional for pgbackrest repo)           |
 | [`cert.yml`](https://github.com/vonng/pigsty/blob/master/cert.yml)                       | Issue cert with pigsty self-signed CA (e.g. for pg clients) |
 | [`docker.yml`](https://github.com/vonng/pigsty/blob/master/docker.yml)                   | Install docker on nodes                                     |
-| [`mongo.yml`](https://github.com/vonng/pigsty/blob/master/mongo.yml)                     | 在节点上安装 Mongo/FerretDB                                       |
+| [`mongo.yml`](https://github.com/vonng/pigsty/blob/master/mongo.yml)                     | Install Mongo/FerretDB                                      |
 
 
 **One-Pass Install**
@@ -61,9 +61,9 @@ Make sure that infra nodes are init first. If you really want to init all nodes 
 
 ## Ansible
 
-Playbooks require `ansible-playbook` executable to run, playbooks which is included in `ansible` package.
+Playbooks require `ansible-playbook` executable to run, playbooks which is included in `ansible` rpm / deb package.
 
-Pigsty will install ansible on admin node during [bootstrap](INSTALL#bootstrap).
+Pigsty will try it's best to install ansible on admin node during [bootstrap](INSTALL#bootstrap).
 
 You can install it by yourself with `yum|apt|brew` `install ansible`, it is included in default OS repo.
 

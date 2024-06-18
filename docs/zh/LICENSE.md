@@ -12,7 +12,7 @@
 AGPLv3 授权用户免费商用的权利，对于普通用户自用需求而言，您无需担心许可证问题，我们亦不会对除了云厂商之外的用户进行违规追索。
 
 如果您通过网络分发、托管或创建Pigsty 软件的衍生作品，GNU AGPL v3许可证要求您也按照相同的 GNU AGPL v3 许可证分发组合作品的完整、相应的源代码。
-无论您是否修改了 Pigsty 此要求都适用。如果您确实有需要换皮、魔改、二开，套壳 Pigsty 的需求，我们提供 OEM 合作方案，详情请参考 [商业支持](SUPPORT.md)。
+无论您是否修改了 Pigsty 此要求都适用。如果您确实有需要换皮、魔改、二开，套壳 Pigsty 的需求，我们提供 OEM 合作方案，详情请参考 [商业支持](SUPPORT)。
 
 
 
@@ -713,7 +713,7 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    Copyright (C) 2018-2023  Ruohang Feng, Author of Pigsty
+    Copyright (C) 2018-2024  Ruohang Feng, Author of Pigsty
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by

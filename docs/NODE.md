@@ -92,9 +92,9 @@ Pigsty uses **IP** as a unique identifier for **database nodes**. **This IP must
 
 You can use `ansible_*` parameters to overwrite `ssh` behavior, e.g. connect via domain name / alias, but the primary IPv4 is still the core identity of the node.
 
-[`nodename`](param#nodename) and [`node_cluster`](param#node_cluster) are not **mandatory**; [`nodename`](param#nodename) will use the node's current hostname by default, while [`node_cluster`](param#node_cluster) will use the fixed default value: `nodes`.
+[`nodename`](PARAM#nodename) and [`node_cluster`](PARAM#node_cluster) are not **mandatory**; [`nodename`](PARAM#nodename) will use the node's current hostname by default, while [`node_cluster`](PARAM#node_cluster) will use the fixed default value: `nodes`.
 
-If [`node_id_from_pg`](param#node_id_from_pg) is enabled, the node will borrow [`PGSQL`](PGSQL) [identity](param#pg_id) and use it as Node's identity, i.e. [`node_cluster`](param#node_cluster) is set to [`pg_cluster`](param#pg_cluster) if applicable, and [`nodename`](param#nodename) is set to `${pg_cluster}-${pg_seq}`. If [`nodename_overwrite`](param#nodename_overwrite) is enabled, node's hostname will be overwritten by [`nodename`](param#nodename)
+If [`node_id_from_pg`](PARAM#node_id_from_pg) is enabled, the node will borrow [`PGSQL`](PGSQL) [identity](PARAM#pg_id) and use it as Node's identity, i.e. [`node_cluster`](PARAM#node_cluster) is set to [`pg_cluster`](PARAM#pg_cluster) if applicable, and [`nodename`](PARAM#nodename) is set to `${pg_cluster}-${pg_seq}`. If [`nodename_overwrite`](PARAM#nodename_overwrite) is enabled, node's hostname will be overwritten by [`nodename`](PARAM#nodename)
 
 Pigsty labels a node with identity parameters in the monitoring system. Which maps `nodename` to `ins`, and `node_cluster` into `cls`.
 
@@ -102,8 +102,8 @@ Pigsty labels a node with identity parameters in the monitoring system. Which ma
 |              Name                    |   Type   | Level | Necessity    | Comment               |
 |:------------------------------------:|:--------:|:-----:|--------------|-----------------------|
 |      `inventory_hostname`            |   `ip`   | **-** | **Required** | **Node IP**           |
-|     [`nodename`](param#nodename)     | `string` | **I** | Optional     | **Node Name**         |
-| [`node_cluster`](param#node_cluster) | `string` | **C** | Optional     | **Node cluster name** |
+|     [`nodename`](PARAM#nodename)     | `string` | **I** | Optional     | **Node Name**         |
+| [`node_cluster`](PARAM#node_cluster) | `string` | **C** | Optional     | **Node cluster name** |
 
 The following cluster config declares a three-node node cluster:
 
@@ -420,14 +420,14 @@ There are 11 sections, 66 parameters about [`NODE`](PARAM#node) module.
 | [`nodename_overwrite`](PARAM#nodename_overwrite)           | [`NODE_ID`](PARAM#node_id)             |   bool    |   C   | overwrite node's hostname with nodename?                        |
 | [`nodename_exchange`](PARAM#nodename_exchange)             | [`NODE_ID`](PARAM#node_id)             |   bool    |   C   | exchange nodename among play hosts?                             |
 | [`node_id_from_pg`](PARAM#node_id_from_pg)                 | [`NODE_ID`](PARAM#node_id)             |   bool    |   C   | use postgres identity as node identity if applicable?           |
+| [`node_write_etc_hosts`](PARAM#node_write_etc_hosts)       | [`NODE_DNS`](PARAM#node_dns)           |   bool    | G/C/I | modify `/etc/hosts` on target node?                             |
 | [`node_default_etc_hosts`](PARAM#node_default_etc_hosts)   | [`NODE_DNS`](PARAM#node_dns)           | string[]  |   G   | static dns records in `/etc/hosts`                              |
 | [`node_etc_hosts`](PARAM#node_etc_hosts)                   | [`NODE_DNS`](PARAM#node_dns)           | string[]  |   C   | extra static dns records in `/etc/hosts`                        |
 | [`node_dns_method`](PARAM#node_dns_method)                 | [`NODE_DNS`](PARAM#node_dns)           |   enum    |   C   | how to handle dns servers: add,none,overwrite                   |
 | [`node_dns_servers`](PARAM#node_dns_servers)               | [`NODE_DNS`](PARAM#node_dns)           | string[]  |   C   | dynamic nameserver in `/etc/resolv.conf`                        |
 | [`node_dns_options`](PARAM#node_dns_options)               | [`NODE_DNS`](PARAM#node_dns)           | string[]  |   C   | dns resolv options in `/etc/resolv.conf`                        |
-| [`node_repo_method`](PARAM#node_repo_method)               | [`NODE_PACKAGE`](PARAM#node_package)   |   enum    |  C/A  | how to setup node repo: none,local,public,both                  |
+| [`node_repo_modules`](PARAM#node_repo_modules)             | [`NODE_PACKAGE`](PARAM#node_package)   |   enum    |  C/A  | how to setup node repo: none,local,public,both                  |
 | [`node_repo_remove`](PARAM#node_repo_remove)               | [`NODE_PACKAGE`](PARAM#node_package)   |   bool    |  C/A  | remove existing repo on node?                                   |
-| [`node_repo_local_urls`](PARAM#node_repo_local_urls)       | [`NODE_PACKAGE`](PARAM#node_package)   | string[]  |   C   | local repo url, if node_repo_method = local,both                |
 | [`node_packages`](PARAM#node_packages)                     | [`NODE_PACKAGE`](PARAM#node_package)   | string[]  |   C   | packages to be installed current nodes                          |
 | [`node_default_packages`](PARAM#node_default_packages)     | [`NODE_PACKAGE`](PARAM#node_package)   | string[]  |   G   | default packages to be installed on all nodes                   |
 | [`node_disable_firewall`](PARAM#node_disable_firewall)     | [`NODE_TUNE`](PARAM#node_tune)         |   bool    |   C   | disable node firewall? true by default                          |
